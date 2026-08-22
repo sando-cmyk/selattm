@@ -1,5 +1,5 @@
 // SELA TTM - Core Application Logic
-// Complete Module Implementation with Real-time Firestore Sync, CSV Export, and Digital Certificate Generator
+// Complete Module Implementation with Direct Firestore Snapshot Listener, White-Backed Signatures, Certificate & CSV Exporter
 
 import { 
   auth, 
@@ -53,6 +53,14 @@ const modalCourseTitle = document.getElementById("modalCourseTitle");
 const modalContentArea = document.getElementById("modalContentArea");
 const modalProgressBar = document.getElementById("modalProgressBar");
 const btnCloseModal = document.getElementById("btnCloseModal");
+
+// Signature Viewer Modal Elements
+const signatureModal = document.getElementById("signatureModal");
+const sigModalTitle = document.getElementById("sigModalTitle");
+const sigModalImage = document.getElementById("sigModalImage");
+const btnCloseSigModal = document.getElementById("btnCloseSigModal");
+const btnDismissSigModal = document.getElementById("btnDismissSigModal");
+const btnDownloadSigImg = document.getElementById("btnDownloadSigImg");
 const toast = document.getElementById("toast");
 
 // Application Bootstrap
@@ -60,6 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupNavigation();
   setupAuth();
   setupExport();
+  setupSignatureModal();
   listenToEnterpriseRecords();
   await loadCoursesData();
   renderLearnerHub();
@@ -101,6 +110,35 @@ function setupNavigation() {
       listenToEnterpriseRecords();
     });
   }
+}
+
+// Signature Modal Controls
+function setupSignatureModal() {
+  const closeSig = () => {
+    if (signatureModal) signatureModal.classList.remove("active");
+  };
+
+  if (btnCloseSigModal) btnCloseSigModal.addEventListener("click", closeSig);
+  if (btnDismissSigModal) btnDismissSigModal.addEventListener("click", closeSig);
+
+  if (btnDownloadSigImg) {
+    btnDownloadSigImg.addEventListener("click", () => {
+      if (!sigModalImage.src) return;
+      const link = document.createElement("a");
+      link.download = `Signature_Audit_${Date.now()}.png`;
+      link.href = sigModalImage.src;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  }
+}
+
+function openSignatureViewer(sigDataUrl, workerName) {
+  if (!signatureModal || !sigModalImage) return;
+  sigModalTitle.textContent = `${workerName} — Verified Signature`;
+  sigModalImage.src = sigDataUrl;
+  signatureModal.classList.add("active");
 }
 
 // CSV Export Handler
@@ -388,13 +426,13 @@ function renderSignOff() {
   initSignatureCanvas();
 
   document.getElementById("btnClearSig").addEventListener("click", () => {
-    sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+    resetCanvasWithWhiteBackground();
   });
 
   document.getElementById("btnFinalSubmit").addEventListener("click", submitAssessment);
 }
 
-// Canvas Touch & Mouse Capture Engine
+// Canvas Touch & Mouse Capture Engine with crisp white background
 function initSignatureCanvas() {
   sigCanvas = document.getElementById("sigCanvas");
   if (!sigCanvas) return;
@@ -403,9 +441,7 @@ function initSignatureCanvas() {
   sigCanvas.width = sigCanvas.parentElement.clientWidth || 400;
   sigCanvas.height = 160;
   
-  sigCtx.strokeStyle = "#0284c7";
-  sigCtx.lineWidth = 2.5;
-  sigCtx.lineCap = "round";
+  resetCanvasWithWhiteBackground();
 
   const getPos = (e) => {
     const rect = sigCanvas.getBoundingClientRect();
@@ -438,6 +474,15 @@ function initSignatureCanvas() {
   sigCanvas.addEventListener("touchstart", startDraw, { passive: false });
   sigCanvas.addEventListener("touchmove", draw, { passive: false });
   window.addEventListener("touchend", stopDraw);
+}
+
+function resetCanvasWithWhiteBackground() {
+  if (!sigCtx || !sigCanvas) return;
+  sigCtx.fillStyle = "#ffffff";
+  sigCtx.fillRect(0, 0, sigCanvas.width, sigCanvas.height);
+  sigCtx.strokeStyle = "#0284c7";
+  sigCtx.lineWidth = 3.0;
+  sigCtx.lineCap = "round";
 }
 
 // Generate Downloadable Certificate Image
@@ -558,7 +603,7 @@ async function submitAssessment() {
   try {
     const docRef = await addDoc(collection(db, "submissions"), submissionPayload);
     submissionPayload.id = docRef.id;
-    showToast(`Record Logged to Firestore: ${submissionPayload.status} (${submissionPayload.scoreDisplay})`);
+    showToast(`Record Logged: ${submissionPayload.status} (${submissionPayload.scoreDisplay})`);
   } catch (err) {
     console.error("Firestore submission error:", err);
     showToast(`Error writing to Firestore: ${err.message}`);
@@ -592,7 +637,7 @@ async function submitAssessment() {
   });
 }
 
-// Table Row Render Function
+// Table Row Render Function with In-Page Signature Modal Triggers
 function renderComplianceRows(records) {
   if (!enterpriseTableBody) return;
   enterpriseTableBody.innerHTML = "";
@@ -611,6 +656,7 @@ function renderComplianceRows(records) {
   records.forEach(data => {
     const row = document.createElement("tr");
     const badgeClass = data.status === "PASSED" ? "badge-emerald" : "badge-rose";
+    const hasSignature = data.signaturePng && data.signaturePng.length > 50;
     
     row.innerHTML = `
       <td>${data.timestamp || "N/A"}</td>
@@ -619,22 +665,30 @@ function renderComplianceRows(records) {
       <td><strong>${data.scoreDisplay || "0.00%"}</strong> <span style="color: var(--text-muted); font-size: 0.75rem;">(${data.scoreInternal !== undefined ? data.scoreInternal : "0.0000"})</span></td>
       <td><span class="badge ${badgeClass}">${data.status || "PENDING"}</span></td>
       <td>
-        <div style="display: flex; gap: 0.5rem; align-items: center;">
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
           ${data.status === "PASSED" ? `<button class="btn btn-secondary btn-cert" data-id="${data.id}" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;">Certificate</button>` : ''}
-          ${data.signaturePng && data.signaturePng.length > 50 
-            ? `<a href="${data.signaturePng}" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.75rem; font-weight: 600;">Sig</a>` 
-            : `<span style="color: var(--text-muted); font-size: 0.75rem;">Digital</span>`}
+          ${hasSignature ? `<button class="btn btn-primary btn-view-sig" data-id="${data.id}" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;">View Signature</button>` : `<span style="color: var(--text-muted); font-size: 0.75rem;">Digital Pass</span>`}
         </div>
       </td>
     `;
     enterpriseTableBody.appendChild(row);
   });
 
-  // Attach Certificate download listeners to table rows
+  // Attach Certificate download listeners
   document.querySelectorAll(".btn-cert").forEach(btn => {
     btn.addEventListener("click", () => {
       const rec = records.find(r => r.id === btn.dataset.id);
       if (rec) generateCertificate(rec);
+    });
+  });
+
+  // Attach In-Page Signature Modal Viewer listeners
+  document.querySelectorAll(".btn-view-sig").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const rec = records.find(r => r.id === btn.dataset.id);
+      if (rec && rec.signaturePng) {
+        openSignatureViewer(rec.signaturePng, rec.workerName || "Worker");
+      }
     });
   });
 }
@@ -656,7 +710,6 @@ function listenToEnterpriseRecords() {
       records.push({ id: docSnap.id, ...docSnap.data() });
     });
 
-    // Sort descending by timestamp / creation
     records.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
     cachedSubmissions = records;
 

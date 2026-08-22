@@ -95,7 +95,7 @@
               <th>Module</th>
               <th>Internal Score</th>
               <th>Status</th>
-              <th>Signature Audit</th>
+              <th>Signature & Audit</th>
             </tr>
           </thead>
           <tbody id="enterpriseTableBody">
@@ -124,10 +124,27 @@
     </div>
   </div>
 
+  <!-- Signature Viewer Modal -->
+  <div id="signatureModal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 500px; text-align: center;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 id="sigModalTitle">Verified Audit Signature</h3>
+        <button id="btnCloseSigModal" class="btn btn-secondary" style="padding: 0.25rem 0.6rem;">&times;</button>
+      </div>
+      <div id="sigPreviewContainer" style="background: #ffffff; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1.25rem;">
+        <img id="sigModalImage" src="" alt="Worker Signature" style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+        <button id="btnDownloadSigImg" class="btn btn-secondary">Download Signature PNG</button>
+        <button id="btnDismissSigModal" class="btn btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Real-time Toast Feedback -->
   <div id="toast">Notification message</div>
 
-  <!-- Application Logic (ES Module) -->
-  <script type="module" src="app.js"></script>
+  <!-- Application Logic (ES Module with cache-busting parameter) -->
+  <script type="module" src="app.js?v=20260823"></script>
 </body>
 </html>
