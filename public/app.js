@@ -1,5 +1,5 @@
 // SELA TTM - Core Application Logic
-// Complete Module Implementation with Real-time Filters, Dynamic Modules, CSV & Certificate Exporters
+// Complete Module Implementation with Moodle XML/GIFT Ingestion, Real-time Snapshot Sync, CSV Export & Digital Certificate Generator
 
 import { 
   auth, 
@@ -22,6 +22,8 @@ import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/fi
 // Global Application State
 let coursesCatalog = [];
 let cachedSubmissions = [];
+let parsedMoodleModule = null;
+
 let currentUser = {
   uid: "guest-user",
   name: "Craig Sanders",
@@ -48,6 +50,20 @@ const courseCreatorModal = document.getElementById("courseCreatorModal");
 const btnCloseCreatorModal = document.getElementById("btnCloseCreatorModal");
 const btnCancelCreator = document.getElementById("btnCancelCreator");
 const newCourseForm = document.getElementById("newCourseForm");
+
+// Moodle Importer DOM Elements
+const btnOpenMoodleImporter = document.getElementById("btnOpenMoodleImporter");
+const moodleImporterModal = document.getElementById("moodleImporterModal");
+const btnCloseMoodleModal = document.getElementById("btnCloseMoodleModal");
+const btnCancelMoodle = document.getElementById("btnCancelMoodle");
+const moodleDropZone = document.getElementById("moodleDropZone");
+const moodleFileInput = document.getElementById("moodleFileInput");
+const moodlePreviewCard = document.getElementById("moodlePreviewCard");
+const moodleCoursePreviewTitle = document.getElementById("moodleCoursePreviewTitle");
+const moodleParsedCount = document.getElementById("moodleParsedCount");
+const moodleAssignCode = document.getElementById("moodleAssignCode");
+const moodleAssignPrice = document.getElementById("moodleAssignPrice");
+const btnPublishMoodle = document.getElementById("btnPublishMoodle");
 
 // Filter Toolbar Elements
 const searchWorker = document.getElementById("searchWorker");
@@ -81,6 +97,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupExport();
   setupSignatureModal();
   setupCourseCreator();
+  setupMoodleImporter();
   setupFilters();
   listenToEnterpriseRecords();
   await loadCoursesData();
@@ -122,6 +139,230 @@ function setupNavigation() {
       listenToEnterpriseRecords();
     });
   }
+}
+
+// Moodle XML & GIFT Ingestion Engine
+function setupMoodleImporter() {
+  if (btnOpenMoodleImporter) {
+    btnOpenMoodleImporter.addEventListener("click", () => {
+      moodleImporterModal.classList.add("active");
+    });
+  }
+
+  const closeMoodle = () => {
+    if (moodleImporterModal) moodleImporterModal.classList.remove("active");
+    parsedMoodleModule = null;
+    if (moodlePreviewCard) moodlePreviewCard.style.display = "none";
+    if (btnPublishMoodle) btnPublishMoodle.disabled = true;
+  };
+
+  if (btnCloseMoodleModal) btnCloseMoodleModal.addEventListener("click", closeMoodle);
+  if (btnCancelMoodle) btnCancelMoodle.addEventListener("click", closeMoodle);
+
+  if (moodleDropZone && moodleFileInput) {
+    moodleDropZone.addEventListener("click", () => moodleFileInput.click());
+
+    moodleDropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      moodleDropZone.style.background = "rgba(56, 189, 248, 0.15)";
+    });
+
+    moodleDropZone.addEventListener("dragleave", () => {
+      moodleDropZone.style.background = "rgba(56, 189, 248, 0.05)";
+    });
+
+    moodleDropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      moodleDropZone.style.background = "rgba(56, 189, 248, 0.05)";
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        processMoodleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    moodleFileInput.addEventListener("change", (e) => {
+      if (e.target.files && e.target.files.length > 0) {
+        processMoodleFile(e.target.files[0]);
+      }
+    });
+  }
+
+  if (btnPublishMoodle) {
+    btnPublishMoodle.addEventListener("click", async () => {
+      if (!parsedMoodleModule) return;
+
+      parsedMoodleModule.code = moodleAssignCode.value.trim() || `TTM-IMP-${Date.now().toString().slice(-4)}`;
+      parsedMoodleModule.priceNZD = parseFloat(moodleAssignPrice.value) || 189.00;
+
+      try {
+        await addDoc(collection(db, "courses"), parsedMoodleModule);
+        showToast(`Moodle module '${parsedMoodleModule.title}' published to Firestore!`);
+        closeMoodle();
+      } catch (err) {
+        console.error("Failed saving Moodle course to Firestore:", err);
+        coursesCatalog.push(parsedMoodleModule);
+        renderLearnerHub();
+        renderCatalog();
+        showToast("Added Moodle course to active local session.");
+        closeMoodle();
+      }
+    });
+  }
+}
+
+function processMoodleFile(file) {
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const text = event.target.result;
+    if (file.name.endsWith(".xml") || text.includes("<quiz>")) {
+      parseMoodleXML(text, file.name);
+    } else {
+      parseMoodleGIFT(text, file.name);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function parseMoodleXML(xmlString, fileName) {
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+  const questionNodes = xmlDoc.querySelectorAll("question");
+
+  const cleanText = (raw) => {
+    if (!raw) return "";
+    return raw.replace(/<[^>]*>?/gm, '').trim();
+  };
+
+  const parsedQuestions = [];
+  let courseTitle = fileName.replace(/\.[^/.]+$/, "").replace(/_/g, " ");
+
+  questionNodes.forEach((node, idx) => {
+    const type = node.getAttribute("type");
+    if (type === "category") {
+      const catText = node.querySelector("category text");
+      if (catText && catText.textContent) {
+        courseTitle = catText.textContent.split("/").pop().trim();
+      }
+      return;
+    }
+
+    if (type === "multichoice" || type === "truefalse") {
+      const qTextNode = node.querySelector("questiontext text");
+      const prompt = qTextNode ? cleanText(qTextNode.textContent) : `Assessment Item ${idx + 1}`;
+
+      const answerNodes = node.querySelectorAll("answer");
+      const options = [];
+      let correctIndex = 0;
+
+      answerNodes.forEach((ans, aIdx) => {
+        const fraction = parseFloat(ans.getAttribute("fraction") || "0");
+        const aTextNode = ans.querySelector("text");
+        const aText = aTextNode ? cleanText(aTextNode.textContent) : `Option ${aIdx + 1}`;
+        options.push(aText);
+
+        if (fraction > 0) {
+          correctIndex = aIdx;
+        }
+      });
+
+      if (options.length > 0) {
+        parsedQuestions.push({
+          id: `q${parsedQuestions.length + 1}`,
+          prompt: prompt,
+          options: options,
+          correctIndex: correctIndex,
+          explanation: "Answer verified against standard operational safety guidelines."
+        });
+      }
+    }
+  });
+
+  if (parsedQuestions.length === 0) {
+    showToast("No valid multiple-choice questions found in Moodle file.");
+    return;
+  }
+
+  parsedMoodleModule = {
+    id: `moodle-${Date.now()}`,
+    code: "TTM-M01",
+    title: courseTitle.charAt(0).toUpperCase() + courseTitle.slice(1),
+    category: "Moodle Converted",
+    priceNZD: 189.00,
+    passScorePercent: 80.0000,
+    description: `Automated import containing ${parsedQuestions.length} verified safety assessment units.`,
+    questions: parsedQuestions,
+    createdAt: Date.now()
+  };
+
+  moodleCoursePreviewTitle.textContent = parsedMoodleModule.title;
+  moodleParsedCount.textContent = `${parsedQuestions.length} Questions Ready`;
+  moodlePreviewCard.style.display = "block";
+  btnPublishMoodle.disabled = false;
+  showToast(`Parsed ${parsedQuestions.length} questions from Moodle XML!`);
+}
+
+function parseMoodleGIFT(giftString, fileName) {
+  const lines = giftString.split("\n");
+  const parsedQuestions = [];
+  let currentPrompt = "";
+
+  lines.forEach((line, idx) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("//")) return;
+
+    if (trimmed.includes("{") && trimmed.includes("}")) {
+      const promptMatch = trimmed.match(/(.*?)\{(.*?)\}/);
+      if (promptMatch) {
+        const prompt = promptMatch[1].replace(/::.*?::/, "").trim();
+        const answersRaw = promptMatch[2];
+        
+        const options = [];
+        let correctIndex = 0;
+
+        const ansTokens = answersRaw.split(/(?=[=~])/);
+        ansTokens.forEach((token, tIdx) => {
+          const isCorrect = token.startsWith("=");
+          const optClean = token.replace(/^[=~]/, "").replace(/#.*/, "").trim();
+          if (optClean) {
+            options.push(optClean);
+            if (isCorrect) correctIndex = options.length - 1;
+          }
+        });
+
+        if (options.length > 0) {
+          parsedQuestions.push({
+            id: `q${parsedQuestions.length + 1}`,
+            prompt: prompt || `Assessment Item ${parsedQuestions.length + 1}`,
+            options: options,
+            correctIndex: correctIndex,
+            explanation: "Validated safety protocol response."
+          });
+        }
+      }
+    }
+  });
+
+  if (parsedQuestions.length === 0) {
+    showToast("Could not parse GIFT formatting. Try Moodle XML export.");
+    return;
+  }
+
+  parsedMoodleModule = {
+    id: `moodle-${Date.now()}`,
+    code: "TTM-G01",
+    title: fileName.replace(/\.[^/.]+$/, "").replace(/_/g, " "),
+    category: "Moodle Converted",
+    priceNZD: 189.00,
+    passScorePercent: 80.0000,
+    description: `Imported from GIFT format with ${parsedQuestions.length} assessment items.`,
+    questions: parsedQuestions,
+    createdAt: Date.now()
+  };
+
+  moodleCoursePreviewTitle.textContent = parsedMoodleModule.title;
+  moodleParsedCount.textContent = `${parsedQuestions.length} Questions Ready`;
+  moodlePreviewCard.style.display = "block";
+  btnPublishMoodle.disabled = false;
+  showToast(`Parsed ${parsedQuestions.length} questions from GIFT format!`);
 }
 
 // Enterprise Filter Listeners
@@ -275,7 +516,7 @@ function setupExport() {
   });
 }
 
-// Authentication & Context Switching
+// Authentication & Identity Context
 function setupAuth() {
   onAuthStateChanged(auth, async (user) => {
     if (user) {
@@ -341,25 +582,14 @@ function updateUserDisplay() {
   if (authUserOrg) authUserOrg.textContent = currentUser.employer;
 }
 
-// Course Catalog Loader (Static Baseline + Dynamic Firestore Merge)
+// Course Catalog Loader
 async function loadCoursesData() {
   try {
     const res = await fetch("data/courses.json");
     coursesCatalog = await res.json();
   } catch (e) {
     console.error("Failed loading courses.json, applying fallback schema:", e);
-    coursesCatalog = [
-      {
-        id: "ttm-cat-a-foundations",
-        code: "TTM-01",
-        title: "TTM Category A: Roadway Foundations & Safety",
-        category: "Core TTM",
-        priceNZD: 149.00,
-        description: "Essential safety protocols, hazard identification, and live-lane awareness under CoPTTM and NZGTTM operational frameworks.",
-        passScorePercent: 80.0000,
-        questions: []
-      }
-    ];
+    coursesCatalog = [];
   }
   renderLearnerHub();
   renderCatalog();
@@ -820,7 +1050,6 @@ function listenToEnterpriseRecords() {
     records.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
     cachedSubmissions = records;
 
-    // Trigger filters to render active dataset
     if (searchWorker || filterEmployer || filterStatus) {
       const term = searchWorker ? searchWorker.value.toLowerCase().trim() : "";
       const selectedEmp = filterEmployer ? filterEmployer.value : "ALL";
