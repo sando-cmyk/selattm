@@ -1,49 +1,9 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // Helper functions
-    function isAuthenticated() {
-      return request.auth != null;
-    }
-    
-    function isOwner(userId) {
-      return isAuthenticated() && request.auth.uid == userId;
-    }
-
-    // Public Course Catalog (Anyone can read, Admin write)
-    match /courses/{courseId} {
-      allow read: if true;
-      allow write: if false; // Managed via admin console or backend script
-    }
-
-    // User Profiles & Portability Wallet
-    match /users/{userId} {
-      allow read: if isAuthenticated();
-      allow create, update: if isOwner(userId);
-      allow delete: if false;
-    }
-
-    // Submissions, Certifications & Training Records
-    match /submissions/{submissionId} {
-      allow read: if isAuthenticated() && (
-        resource.data.userId == request.auth.uid ||
-        resource.data.employerId == request.auth.token.companyId ||
-        request.auth.token.role == 'admin'
-      );
-      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
-      allow update, delete: if false; // Immutable audit log
-    }
-
-    // Company & Enterprise Organization Data
-    match /companies/{companyId} {
-      allow read: if isAuthenticated();
-      allow write: if request.auth.token.role == 'enterprise_admin';
-    }
-
-    // Temporary default rule for remaining collections during initial staging
+    // Open access for initial setup & data verification
     match /{document=**} {
-      allow read, write: if isAuthenticated();
+      allow read, write: if true;
     }
   }
 }
