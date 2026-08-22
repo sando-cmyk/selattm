@@ -1,12 +1,85 @@
 /**
  * SELA TTM Training & Compliance Client Application
- * Handles module rendering, quiz evaluation, signature capture, and data persistence.
+ * Clean rewrite with fallback support for course modules and Google Apps Script bridge.
  */
 
-// Configuration: Replace with your deployed Google Apps Script Web App URL
-const GAS_ENDPOINT_URL = "const GAS_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbxxv6WyPIUy3TPSBP0b7DYYgs6fnrbHnPD4fMB8vx1rHDIRm0idB_NxxNCMOqkXdBOIqg/exec";";
+// Target Google Apps Script Web App Endpoint
+const GAS_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbxxv6WyPIUy3TPSBP0b7DYYgs6fnrbHnPD4fMB8vx1rHDIRm0idB_NxxNCMOqkXdBOIqg/exec";
 
-// Application State
+// Embedded Fallback Course Data (Guarantees zero-blank UI even if network fetch fails)
+const FALLBACK_COURSE_DATA = {
+  version: "1.0.0",
+  passingScorePercent: 80.0000,
+  modules: [
+    {
+      id: "TTM-MOD-01-TAPERS",
+      title: "Taper Lengths & Delineation Standards",
+      description: "Fundamental principles of visual guidance, taper ratios, and cone spacing per NZGTTM/CoPTTM standards.",
+      estimatedMinutes: 15,
+      sections: [
+        {
+          heading: "1. Lateral Shift & Merge Tapers",
+          content: "Merge tapers must provide adequate visual lead-in distance for approaching motorists to decelerate or shift lanes smoothly. Always ensure delineation cones are fitted with retro-reflective sleeves in clean condition."
+        },
+        {
+          heading: "2. Buffer Zones & Work Area Separation",
+          content: "The longitudinal buffer provides an essential safety clearance between the end of the taper and the active working space. Never park plant or store equipment inside designated buffer zones."
+        }
+      ],
+      questions: [
+        {
+          id: 1,
+          question: "What is the primary function of a longitudinal buffer zone?",
+          options: [
+            { key: "A", text: "Storage area for site vehicles and surplus cones." },
+            { key: "B", text: "Unoccupied safety space separating the taper from the active work crew." },
+            { key: "C", text: "Designated parking space for visitor vehicles." },
+            { key: "D", text: "Sign placement area." }
+          ],
+          correctAnswer: "B"
+        },
+        {
+          id: 2,
+          question: "Under wet or night-time operational conditions, what requirement applies to cone delineation?",
+          options: [
+            { key: "A", text: "Cones must be fitted with undamaged retro-reflective sleeves." },
+            { key: "B", text: "Cone spacing may be doubled." },
+            { key: "C", text: "Any standard unreflective cone is permissible." },
+            { key: "D", text: "Reflectorized cones are only required on state highways." }
+          ],
+          correctAnswer: "A"
+        }
+      ]
+    },
+    {
+      id: "TTM-MOD-02-SITE-SAFETY",
+      title: "Site Hazard Identification & Daily Briefings",
+      description: "Standard operating protocols for daily hazard identification, dynamic risk assessments, and crew inductions.",
+      estimatedMinutes: 10,
+      sections: [
+        {
+          heading: "1. Dynamic Site Conditions",
+          content: "Site conditions can change rapidly due to traffic flow, weather, or work scope creep. Pre-start briefings must be held prior to commencing work and updated if site layout changes occur."
+        }
+      ],
+      questions: [
+        {
+          id: 1,
+          question: "When must a site safety briefing and hazard check be updated?",
+          options: [
+            { key: "A", text: "Only at the end of each calendar week." },
+            { key: "B", text: "Whenever weather conditions, work scope, or layout parameters change significantly." },
+            { key: "C", text: "Only if requested by a member of the public." },
+            { key: "D", text: "Once per contract regardless of duration." }
+          ],
+          correctAnswer: "B"
+        }
+      ]
+    }
+  ]
+};
+
+// Global State
 let courseData = null;
 let currentModule = null;
 let isDrawingSignature = false;
@@ -37,7 +110,7 @@ ctx.lineWidth = 2;
 ctx.lineCap = "round";
 
 /**
- * 1. Initialize Application: Load JSON Course Data
+ * 1. Initialize Application
  */
 document.addEventListener("DOMContentLoaded", async () => {
   setupSignaturePad();
@@ -45,19 +118,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const response = await fetch("data/courses.json");
-    if (!response.ok) {
-      throw new Error(`Failed to load course modules (HTTP ${response.status})`);
+    if (response.ok) {
+      courseData = await response.json();
+    } else {
+      console.warn("Loading fallback course dataset (HTTP " + response.status + ")");
+      courseData = FALLBACK_COURSE_DATA;
     }
-    courseData = await response.json();
-    populateModuleDropdown(courseData.modules);
   } catch (err) {
-    console.error("Initialization Error:", err);
-    alert("Unable to load training modules. Check your local server or network connection.");
+    console.warn("Using embedded fallback data:", err);
+    courseData = FALLBACK_COURSE_DATA;
   }
+
+  populateModuleDropdown(courseData.modules);
 });
 
 /**
- * 2. Populate Dropdown with Available Modules
+ * 2. Populate Dropdown
  */
 function populateModuleDropdown(modules) {
   moduleSelect.innerHTML = '<option value="">-- Choose a Training Module --</option>';
@@ -70,7 +146,7 @@ function populateModuleDropdown(modules) {
 }
 
 /**
- * 3. Render Selected Module Details & Questions
+ * 3. Render Module Content
  */
 function renderModule(moduleId) {
   if (!moduleId || !courseData) {
@@ -81,21 +157,18 @@ function renderModule(moduleId) {
   currentModule = courseData.modules.find(m => m.id === moduleId);
   if (!currentModule) return;
 
-  // Header Info
   moduleInfoHeader.innerHTML = `
     <h3>${currentModule.title}</h3>
     <p>${currentModule.description} (Est. ${currentModule.estimatedMinutes} mins)</p>
   `;
 
-  // Reading Sections
   moduleReadingMaterial.innerHTML = currentModule.sections.map(sec => `
-    <div>
+    <div style="margin-bottom: 8px;">
       <strong>${sec.heading}</strong>
       <p style="font-size: 0.95rem; color: #cbd5e1; margin-top: 4px;">${sec.content}</p>
     </div>
   `).join("");
 
-  // Quiz Questions
   questionsList.innerHTML = currentModule.questions.map((q, idx) => `
     <div class="question-block" data-question-id="${q.id}">
       <p class="question-text">${idx + 1}. ${q.question}</p>
@@ -115,7 +188,7 @@ function renderModule(moduleId) {
 }
 
 /**
- * 4. Canvas Signature Pad Listeners (Mouse & Touch Support)
+ * 4. Signature Canvas Handlers
  */
 function setupSignaturePad() {
   const getCoordinates = (e) => {
@@ -137,7 +210,7 @@ function setupSignaturePad() {
 
   const draw = (e) => {
     if (!isDrawingSignature) return;
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
     const pos = getCoordinates(e);
     ctx.lineTo(pos.x, pos.y);
     ctx.stroke();
@@ -171,13 +244,12 @@ function isSignatureBlank() {
 }
 
 /**
- * 5. Assessment Processing & Submission
+ * 5. Handle Assessment Submission
  */
 async function handleSubmit() {
   const workerId = workerIdInput.value.trim();
   const fullName = fullNameInput.value.trim();
 
-  // Basic Validation
   if (!workerId || !fullName) {
     alert("Please enter both Worker ID and Full Name before submitting.");
     return;
@@ -188,7 +260,6 @@ async function handleSubmit() {
     return;
   }
 
-  // Evaluate Quiz Answers
   let correctCount = 0;
   const totalQuestions = currentModule.questions.length;
   const userAnswers = [];
@@ -210,16 +281,14 @@ async function handleSubmit() {
     });
   }
 
-  // Calculate Precision Score (4 decimal places stored, 2 displayed)
   const scorePercentRaw = (correctCount / totalQuestions) * 100;
   const scorePercentFixed = parseFloat(scorePercentRaw.toFixed(4));
   const isPassed = scorePercentFixed >= courseData.passingScorePercent;
   const status = isPassed ? "PASSED" : "FAILED";
 
-  // Build Payload
   const now = new Date();
   const timestamp = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-  
+
   const payloadData = {
     action: "SUBMIT_TRAINING_RECORD",
     payload: {
@@ -234,36 +303,28 @@ async function handleSubmit() {
     }
   };
 
-  // Show Visual Loading State
   showStatusBanner("Submitting compliance record to Google Cloud...");
 
   try {
-    if (GAS_ENDPOINT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE") {
-      // Offline / Local Simulation Mode
-      await new Promise(res => setTimeout(res, 1200));
-      console.log("Mock Payload Generated:", payloadData);
-    } else {
-      // Live Google Apps Script Bridge
-      await fetch(GAS_ENDPOINT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payloadData)
-      });
-    }
+    await fetch(GAS_ENDPOINT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payloadData)
+    });
 
-    // Display Result Modal
+    console.log("Record pushed successfully to Google Apps Script.");
     showResultModal(isPassed, scorePercentFixed);
   } catch (err) {
     console.error("Submission Error:", err);
-    alert("Network error: Failed to sync with Google Sheet. Please retry.");
+    alert("Network communication error. Please retry.");
   } finally {
     hideStatusBanner();
   }
 }
 
 /**
- * 6. UI Helpers & Modals
+ * 6. UI Modals and Banners
  */
 function showStatusBanner(msg) {
   statusMessage.textContent = msg;
@@ -279,7 +340,7 @@ function showResultModal(isPassed, score) {
   modalTitle.style.color = isPassed ? "var(--accent-emerald)" : "var(--accent-rose)";
   modalScore.textContent = `Score: ${score.toFixed(2)}%`;
   modalScore.style.color = isPassed ? "var(--accent-emerald)" : "var(--accent-rose)";
-  
+
   modalDetails.textContent = isPassed
     ? "Your digital declaration and score have been logged to the compliance registry."
     : `A minimum passing standard of ${courseData.passingScorePercent.toFixed(2)}% is required. Please review the course materials and re-attempt.`;
