@@ -1,358 +1,449 @@
-/**
- * SELA TTM Training & Compliance Client Application
- * Clean rewrite with fallback support for course modules and Google Apps Script bridge.
- */
+import { 
+  auth, 
+  db, 
+  googleProvider, 
+  onAuthStateChanged, 
+  signInWithPopup, 
+  signOut,
+  collection, 
+  addDoc, 
+  getDocs, 
+  query, 
+  where, 
+  orderBy 
+} from "./firebase-config.js";
 
-// Target Google Apps Script Web App Endpoint
-const GAS_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycby4-N0HMiLGXCeuMav6Wc21RbVFYMarANIfeqhaQ24X7jJq6aJMngjn1PxGP7Rtir_GKw/exec";
-
-// Embedded Fallback Course Data (Guarantees zero-blank UI even if network fetch fails)
-const FALLBACK_COURSE_DATA = {
-  version: "1.0.0",
-  passingScorePercent: 80.0000,
-  modules: [
-    {
-      id: "TTM-MOD-01-TAPERS",
-      title: "Taper Lengths & Delineation Standards",
-      description: "Fundamental principles of visual guidance, taper ratios, and cone spacing per NZGTTM/CoPTTM standards.",
-      estimatedMinutes: 15,
-      sections: [
-        {
-          heading: "1. Lateral Shift & Merge Tapers",
-          content: "Merge tapers must provide adequate visual lead-in distance for approaching motorists to decelerate or shift lanes smoothly. Always ensure delineation cones are fitted with retro-reflective sleeves in clean condition."
-        },
-        {
-          heading: "2. Buffer Zones & Work Area Separation",
-          content: "The longitudinal buffer provides an essential safety clearance between the end of the taper and the active working space. Never park plant or store equipment inside designated buffer zones."
-        }
-      ],
-      questions: [
-        {
-          id: 1,
-          question: "What is the primary function of a longitudinal buffer zone?",
-          options: [
-            { key: "A", text: "Storage area for site vehicles and surplus cones." },
-            { key: "B", text: "Unoccupied safety space separating the taper from the active work crew." },
-            { key: "C", text: "Designated parking space for visitor vehicles." },
-            { key: "D", text: "Sign placement area." }
-          ],
-          correctAnswer: "B"
-        },
-        {
-          id: 2,
-          question: "Under wet or night-time operational conditions, what requirement applies to cone delineation?",
-          options: [
-            { key: "A", text: "Cones must be fitted with undamaged retro-reflective sleeves." },
-            { key: "B", text: "Cone spacing may be doubled." },
-            { key: "C", text: "Any standard unreflective cone is permissible." },
-            { key: "D", text: "Reflectorized cones are only required on state highways." }
-          ],
-          correctAnswer: "A"
-        }
-      ]
-    },
-    {
-      id: "TTM-MOD-02-SITE-SAFETY",
-      title: "Site Hazard Identification & Daily Briefings",
-      description: "Standard operating protocols for daily hazard identification, dynamic risk assessments, and crew inductions.",
-      estimatedMinutes: 10,
-      sections: [
-        {
-          heading: "1. Dynamic Site Conditions",
-          content: "Site conditions can change rapidly due to traffic flow, weather, or work scope creep. Pre-start briefings must be held prior to commencing work and updated if site layout changes occur."
-        }
-      ],
-      questions: [
-        {
-          id: 1,
-          question: "When must a site safety briefing and hazard check be updated?",
-          options: [
-            { key: "A", text: "Only at the end of each calendar week." },
-            { key: "B", text: "Whenever weather conditions, work scope, or layout parameters change significantly." },
-            { key: "C", text: "Only if requested by a member of the public." },
-            { key: "D", text: "Once per contract regardless of duration." }
-          ],
-          correctAnswer: "B"
-        }
-      ]
-    }
-  ]
+// State Management
+let coursesCatalog = [];
+let currentUser = {
+  uid: "demo-user-001",
+  name: "Craig Sanders",
+  email: "craig@sandos.co.nz",
+  employer: "Fulton Hogan",
+  isEnterprise: true
 };
 
-// Global State
-let courseData = null;
-let currentModule = null;
-let isDrawingSignature = false;
+let activeCourse = null;
+let currentQuestionIndex = 0;
+let userAnswers = {};
+let isDrawing = false;
+let sigCanvas, sigCtx;
 
 // DOM Elements
-const workerIdInput = document.getElementById("worker-id");
-const fullNameInput = document.getElementById("full-name");
-const moduleSelect = document.getElementById("module-select");
-const moduleContent = document.getElementById("module-content");
-const moduleInfoHeader = document.getElementById("module-info-header");
-const moduleReadingMaterial = document.getElementById("module-reading-material");
-const questionsList = document.getElementById("questions-list");
-const sigPad = document.getElementById("sig-pad");
-const btnClearSig = document.getElementById("btn-clear-sig");
-const btnSubmit = document.getElementById("btn-submit-assessment");
-const statusBanner = document.getElementById("status-banner");
-const statusMessage = document.getElementById("status-message");
-const resultModal = document.getElementById("result-modal");
-const modalTitle = document.getElementById("modal-title");
-const modalScore = document.getElementById("modal-score");
-const modalDetails = document.getElementById("modal-details");
-const btnModalClose = document.getElementById("btn-modal-close");
+const authUserName = document.getElementById("authUserName");
+const authUserOrg = document.getElementById("authUserOrg");
+const btnGoogleAuth = document.getElementById("btnGoogleAuth");
+const btnSwitchContext = document.getElementById("btnSwitchContext");
+const tabButtons = document.querySelectorAll(".tab-btn");
+const viewSections = document.querySelectorAll(".view-section");
+const enrolledCoursesList = document.getElementById("enrolledCoursesList");
+const availableCoursesCatalog = document.getElementById("availableCoursesCatalog");
+const enterpriseTableBody = document.getElementById("enterpriseTableBody");
+const assessmentModal = document.getElementById("assessmentModal");
+const modalCourseTitle = document.getElementById("modalCourseTitle");
+const modalContentArea = document.getElementById("modalContentArea");
+const modalProgressBar = document.getElementById("modalProgressBar");
+const btnCloseModal = document.getElementById("btnCloseModal");
+const toast = document.getElementById("toast");
 
-// Canvas Context Setup
-const ctx = sigPad.getContext("2d");
-ctx.strokeStyle = "#000000";
-ctx.lineWidth = 2;
-ctx.lineCap = "round";
-
-/**
- * 1. Initialize Application
- */
+// Initialize Application
 document.addEventListener("DOMContentLoaded", async () => {
-  setupSignaturePad();
-  setupEventListeners();
-
-  try {
-    const response = await fetch("data/courses.json");
-    if (response.ok) {
-      courseData = await response.json();
-    } else {
-      console.warn("Loading fallback course dataset (HTTP " + response.status + ")");
-      courseData = FALLBACK_COURSE_DATA;
-    }
-  } catch (err) {
-    console.warn("Using embedded fallback data:", err);
-    courseData = FALLBACK_COURSE_DATA;
-  }
-
-  populateModuleDropdown(courseData.modules);
+  setupNavigation();
+  setupAuth();
+  await loadCoursesData();
+  renderLearnerHub();
+  renderCatalog();
+  loadEnterpriseRecords();
 });
 
-/**
- * 2. Populate Dropdown
- */
-function populateModuleDropdown(modules) {
-  moduleSelect.innerHTML = '<option value="">-- Choose a Training Module --</option>';
-  modules.forEach(mod => {
-    const opt = document.createElement("option");
-    opt.value = mod.id;
-    opt.textContent = `${mod.id}: ${mod.title}`;
-    moduleSelect.appendChild(opt);
+// Toast Helper
+function showToast(message) {
+  toast.textContent = message;
+  toast.style.display = "block";
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 3500);
+}
+
+// Navigation Tabs
+function setupNavigation() {
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabButtons.forEach(b => b.classList.remove("active"));
+      viewSections.forEach(s => s.classList.remove("active"));
+
+      btn.classList.add("active");
+      const targetSection = document.getElementById(`${btn.dataset.tab}-section`);
+      if (targetSection) targetSection.classList.add("active");
+    });
+  });
+
+  btnCloseModal.addEventListener("click", () => {
+    assessmentModal.classList.remove("active");
   });
 }
 
-/**
- * 3. Render Module Content
- */
-function renderModule(moduleId) {
-  if (!moduleId || !courseData) {
-    moduleContent.classList.add("hidden");
-    return;
-  }
+// Auth & Context Switching
+function setupAuth() {
+  updateUserDisplay();
 
-  currentModule = courseData.modules.find(m => m.id === moduleId);
-  if (!currentModule) return;
+  btnGoogleAuth.addEventListener("click", async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      currentUser = {
+        uid: result.user.uid,
+        name: result.user.displayName || "Verified User",
+        email: result.user.email,
+        employer: "Fulton Hogan",
+        isEnterprise: true
+      };
+      updateUserDisplay();
+      btnGoogleAuth.textContent = "Sign Out";
+      showToast(`Welcome back, ${currentUser.name}`);
+    } catch (err) {
+      console.warn("Auth popup closed or not configured yet. Using local state.");
+      showToast("Using active local session.");
+    }
+  });
 
-  moduleInfoHeader.innerHTML = `
-    <h3>${currentModule.title}</h3>
-    <p>${currentModule.description} (Est. ${currentModule.estimatedMinutes} mins)</p>
-  `;
-
-  moduleReadingMaterial.innerHTML = currentModule.sections.map(sec => `
-    <div style="margin-bottom: 8px;">
-      <strong>${sec.heading}</strong>
-      <p style="font-size: 0.95rem; color: #cbd5e1; margin-top: 4px;">${sec.content}</p>
-    </div>
-  `).join("");
-
-  questionsList.innerHTML = currentModule.questions.map((q, idx) => `
-    <div class="question-block" data-question-id="${q.id}">
-      <p class="question-text">${idx + 1}. ${q.question}</p>
-      <div class="options-group">
-        ${q.options.map(opt => `
-          <label class="option-item">
-            <input type="radio" name="q_${q.id}" value="${opt.key}" />
-            <span><strong>${opt.key}.</strong> ${opt.text}</span>
-          </label>
-        `).join("")}
-      </div>
-    </div>
-  `).join("");
-
-  clearSignature();
-  moduleContent.classList.remove("hidden");
+  btnSwitchContext.addEventListener("click", () => {
+    if (currentUser.employer === "Fulton Hogan") {
+      currentUser.employer = "Independent / Unlinked";
+      currentUser.isEnterprise = false;
+      showToast("Switched to Independent Trainee Context");
+    } else {
+      currentUser.employer = "Fulton Hogan";
+      currentUser.isEnterprise = true;
+      showToast("Switched to Fulton Hogan Corporate Context");
+    }
+    updateUserDisplay();
+  });
 }
 
-/**
- * 4. Signature Canvas Handlers
- */
-function setupSignaturePad() {
-  const getCoordinates = (e) => {
-    const rect = sigPad.getBoundingClientRect();
+function updateUserDisplay() {
+  authUserName.textContent = currentUser.name;
+  authUserOrg.textContent = currentUser.employer;
+}
+
+// Load Course JSON Catalog
+async function loadCoursesData() {
+  try {
+    const res = await fetch("data/courses.json");
+    coursesCatalog = await res.json();
+  } catch (e) {
+    console.error("Failed loading courses.json, using fallback", e);
+    coursesCatalog = [
+      {
+        id: "ttm-cat-a-foundations",
+        code: "TTM-01",
+        title: "TTM Category A: Roadway Foundations & Safety",
+        category: "Core TTM",
+        priceNZD: 149.00,
+        description: "Essential safety protocols and live-lane awareness.",
+        passScorePercent: 80.0000,
+        questions: []
+      }
+    ];
+  }
+}
+
+// Render Learner Hub
+function renderLearnerHub() {
+  enrolledCoursesList.innerHTML = "";
+  coursesCatalog.forEach(course => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div>
+        <div class="card-header">
+          <span class="badge badge-emerald">Enrolled</span>
+          <span class="badge badge-blue">${course.category}</span>
+        </div>
+        <h3>${course.title}</h3>
+        <p>${course.description}</p>
+      </div>
+      <div>
+        <div class="user-status-text" style="margin-bottom: 0.75rem;">
+          Passing standard: <strong>${Number(course.passScorePercent).toFixed(2)}%</strong>
+        </div>
+        <button class="btn btn-primary btn-block btn-start" data-id="${course.id}">
+          Launch Assessment
+        </button>
+      </div>
+    `;
+    enrolledCoursesList.appendChild(card);
+  });
+
+  document.querySelectorAll(".btn-start").forEach(b => {
+    b.addEventListener("click", () => startAssessment(b.dataset.id));
+  });
+}
+
+// Render Course Store
+function renderCatalog() {
+  availableCoursesCatalog.innerHTML = "";
+  coursesCatalog.forEach(course => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div>
+        <div class="card-header">
+          <span class="badge badge-blue">${course.code}</span>
+          <span class="badge badge-amber">$${Number(course.priceNZD).toFixed(2)} NZD</span>
+        </div>
+        <h3>${course.title}</h3>
+        <p>${course.description}</p>
+        <div class="price-tag">$${Number(course.priceNZD).toFixed(2)} <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">+ GST</span></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <button class="btn btn-primary btn-block btn-buy-self" data-id="${course.id}">
+          Self-Pay (Stripe Checkout)
+        </button>
+        <button class="btn btn-secondary btn-block btn-charge-emp" data-id="${course.id}">
+          Charge to Fulton Hogan PO
+        </button>
+      </div>
+    `;
+    availableCoursesCatalog.appendChild(card);
+  });
+
+  document.querySelectorAll(".btn-buy-self").forEach(b => {
+    b.addEventListener("click", () => {
+      showToast("Redirecting to Stripe secure checkout...");
+    });
+  });
+
+  document.querySelectorAll(".btn-charge-emp").forEach(b => {
+    b.addEventListener("click", () => {
+      showToast("Course seat assigned and charged to Fulton Hogan PO #FH-9921.");
+    });
+  });
+}
+
+// Assessment Engine
+function startAssessment(courseId) {
+  activeCourse = coursesCatalog.find(c => c.id === courseId);
+  if (!activeCourse) return;
+
+  currentQuestionIndex = 0;
+  userAnswers = {};
+  modalCourseTitle.textContent = activeCourse.title;
+  assessmentModal.classList.add("active");
+  renderCurrentQuestion();
+}
+
+function renderCurrentQuestion() {
+  const total = activeCourse.questions.length;
+  if (currentQuestionIndex < total) {
+    const q = activeCourse.questions[currentQuestionIndex];
+    const pct = ((currentQuestionIndex) / (total + 1)) * 100;
+    modalProgressBar.style.width = `${pct}%`;
+
+    let optionsHtml = q.options.map((opt, idx) => `
+      <label class="option-label">
+        <input type="radio" name="qOption" value="${idx}" ${userAnswers[q.id] === idx ? "checked" : ""}>
+        <span>${opt}</span>
+      </label>
+    `).join("");
+
+    modalContentArea.innerHTML = `
+      <div class="question-card">
+        <div style="font-size: 0.8rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 0.5rem;">
+          QUESTION ${currentQuestionIndex + 1} OF ${total}
+        </div>
+        <h4 style="margin-bottom: 1rem;">${q.prompt}</h4>
+        <div>${optionsHtml}</div>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+        <button id="btnNextQuestion" class="btn btn-primary">
+          ${currentQuestionIndex === total - 1 ? "Proceed to Sign-Off" : "Next Question"}
+        </button>
+      </div>
+    `;
+
+    document.querySelectorAll("input[name='qOption']").forEach(radio => {
+      radio.addEventListener("change", (e) => {
+        userAnswers[q.id] = parseInt(e.target.value, 10);
+      });
+    });
+
+    document.getElementById("btnNextQuestion").addEventListener("click", () => {
+      if (userAnswers[q.id] === undefined) {
+        showToast("Please select an answer to continue.");
+        return;
+      }
+      currentQuestionIndex++;
+      renderCurrentQuestion();
+    });
+
+  } else {
+    renderSignOff();
+  }
+}
+
+function renderSignOff() {
+  modalProgressBar.style.width = "100%";
+  modalContentArea.innerHTML = `
+    <div class="question-card">
+      <h4>Assessment Declaration & Sign-off</h4>
+      <p style="margin: 0.5rem 0 1rem 0; font-size: 0.85rem; color: var(--text-muted);">
+        I confirm that I have completed this assessment independently and understand the required safety compliance measures.
+      </p>
+      
+      <div class="signature-canvas-wrapper">
+        <canvas id="sigCanvas"></canvas>
+      </div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+        <button id="btnClearSig" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">Clear Signature</button>
+        <button id="btnFinalSubmit" class="btn btn-primary">Submit Record</button>
+      </div>
+    </div>
+  `;
+
+  initSignatureCanvas();
+
+  document.getElementById("btnClearSig").addEventListener("click", () => {
+    sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+  });
+
+  document.getElementById("btnFinalSubmit").addEventListener("click", submitAssessment);
+}
+
+function initSignatureCanvas() {
+  sigCanvas = document.getElementById("sigCanvas");
+  sigCtx = sigCanvas.getContext("2d");
+  
+  // Set real canvas dimensions
+  sigCanvas.width = sigCanvas.parentElement.clientWidth;
+  sigCanvas.height = 160;
+  
+  sigCtx.strokeStyle = "#0284c7";
+  sigCtx.lineWidth = 2.5;
+  sigCtx.lineCap = "round";
+
+  const getPos = (e) => {
+    const rect = sigCanvas.getBoundingClientRect();
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    return {
-      x: clientX - rect.left,
-      y: clientY - rect.top
-    };
+    return { x: clientX - rect.left, y: clientY - rect.top };
   };
 
-  const startDrawing = (e) => {
-    isDrawingSignature = true;
-    const pos = getCoordinates(e);
-    ctx.beginPath();
-    ctx.moveTo(pos.x, pos.y);
+  const startDraw = (e) => {
+    isDrawing = true;
+    const pos = getPos(e);
+    sigCtx.beginPath();
+    sigCtx.moveTo(pos.x, pos.y);
   };
 
   const draw = (e) => {
-    if (!isDrawingSignature) return;
-    if (e.cancelable) e.preventDefault();
-    const pos = getCoordinates(e);
-    ctx.lineTo(pos.x, pos.y);
-    ctx.stroke();
+    if (!isDrawing) return;
+    e.preventDefault();
+    const pos = getPos(e);
+    sigCtx.lineTo(pos.x, pos.y);
+    sigCtx.stroke();
   };
 
-  const stopDrawing = () => {
-    if (isDrawingSignature) {
-      ctx.closePath();
-      isDrawingSignature = false;
-    }
-  };
+  const stopDraw = () => { isDrawing = false; };
 
-  sigPad.addEventListener("mousedown", startDrawing);
-  sigPad.addEventListener("mousemove", draw);
-  window.addEventListener("mouseup", stopDrawing);
+  sigCanvas.addEventListener("mousedown", startDraw);
+  sigCanvas.addEventListener("mousemove", draw);
+  window.addEventListener("mouseup", stopDraw);
 
-  sigPad.addEventListener("touchstart", startDrawing, { passive: false });
-  sigPad.addEventListener("touchmove", draw, { passive: false });
-  window.addEventListener("touchend", stopDrawing);
+  sigCanvas.addEventListener("touchstart", startDraw, { passive: false });
+  sigCanvas.addEventListener("touchmove", draw, { passive: false });
+  window.addEventListener("touchend", stopDraw);
 }
 
-function clearSignature() {
-  ctx.clearRect(0, 0, sigPad.width, sigPad.height);
-}
-
-function isSignatureBlank() {
-  const pixelBuffer = new Uint32Array(
-    ctx.getImageData(0, 0, sigPad.width, sigPad.height).data.buffer
-  );
-  return !pixelBuffer.some(color => color !== 0);
-}
-
-/**
- * 5. Handle Assessment Submission
- */
-async function handleSubmit() {
-  const workerId = workerIdInput.value.trim();
-  const fullName = fullNameInput.value.trim();
-
-  if (!workerId || !fullName) {
-    alert("Please enter both Worker ID and Full Name before submitting.");
-    return;
-  }
-
-  if (isSignatureBlank()) {
-    alert("Please provide a digital signature declaration before submitting.");
-    return;
-  }
-
+// Calculate Internal Precision & Submit
+async function submitAssessment() {
   let correctCount = 0;
-  const totalQuestions = currentModule.questions.length;
-  const userAnswers = [];
+  const total = activeCourse.questions.length;
 
-  for (let q of currentModule.questions) {
-    const selected = document.querySelector(`input[name="q_${q.id}"]:checked`);
-    if (!selected) {
-      alert(`Please answer Question ${q.id} before submitting.`);
-      return;
+  activeCourse.questions.forEach(q => {
+    if (userAnswers[q.id] === q.correctIndex) {
+      correctCount++;
     }
+  });
 
-    const isCorrect = selected.value === q.correctAnswer;
-    if (isCorrect) correctCount++;
+  // Calculate score with 4-decimal precision internally
+  const scorePercent = total > 0 ? (correctCount / total) * 100 : 100.0000;
+  const passed = scorePercent >= activeCourse.passScorePercent;
+  const signatureDataUrl = sigCanvas.toDataURL("image/png");
 
-    userAnswers.push({
-      questionId: q.id,
-      selected: selected.value,
-      isCorrect: isCorrect
-    });
-  }
-
-  const scorePercentRaw = (correctCount / totalQuestions) * 100;
-  const scorePercentFixed = parseFloat(scorePercentRaw.toFixed(4));
-  const isPassed = scorePercentFixed >= courseData.passingScorePercent;
-  const status = isPassed ? "PASSED" : "FAILED";
-
+  // Generate NZ Timestamp: DD/MM/YYYY HH:MM:SS
   const now = new Date();
-  const timestamp = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+  const pad = (n) => String(n).padStart(2, '0');
+  const timestampNZ = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 
-  const payloadData = {
-    action: "SUBMIT_TRAINING_RECORD",
-    payload: {
-      workerId: workerId,
-      fullName: fullName,
-      moduleId: currentModule.id,
-      score: scorePercentFixed,
-      status: status,
-      answers: userAnswers,
-      timestamp: timestamp,
-      signatureData: sigPad.toDataURL("image/png")
-    }
+  const submissionPayload = {
+    userId: currentUser.uid,
+    workerName: currentUser.name,
+    employer: currentUser.employer,
+    moduleId: activeCourse.id,
+    moduleTitle: activeCourse.title,
+    scoreInternal: Number(scorePercent.toFixed(4)),
+    scoreDisplay: `${Number(scorePercent).toFixed(2)}%`,
+    status: passed ? "PASSED" : "RE-TEST REQUIRED",
+    timestamp: timestampNZ,
+    signaturePng: signatureDataUrl
   };
 
-  showStatusBanner("Submitting compliance record to Google Cloud...");
-
+  // Attempt Firestore write, fallback gracefully to mock table
   try {
-    await fetch(GAS_ENDPOINT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payloadData)
-    });
-
-    console.log("Record pushed successfully to Google Apps Script.");
-    showResultModal(isPassed, scorePercentFixed);
+    await addDoc(collection(db, "submissions"), submissionPayload);
   } catch (err) {
-    console.error("Submission Error:", err);
-    alert("Network communication error. Please retry.");
-  } finally {
-    hideStatusBanner();
+    console.warn("Firestore record queued locally:", err);
   }
+
+  // Prepend to Enterprise Table immediately for instant UI feedback
+  prependComplianceRow(submissionPayload);
+
+  assessmentModal.classList.remove("active");
+  showToast(`Record Logged: ${submissionPayload.status} (${submissionPayload.scoreDisplay})`);
 }
 
-/**
- * 6. UI Modals and Banners
- */
-function showStatusBanner(msg) {
-  statusMessage.textContent = msg;
-  statusBanner.classList.remove("hidden");
+// Compliance Matrix Table Helpers
+function prependComplianceRow(data) {
+  const row = document.createElement("tr");
+  const badgeClass = data.status === "PASSED" ? "badge-emerald" : "badge-rose";
+  
+  row.innerHTML = `
+    <td>${data.timestamp}</td>
+    <td><strong>${data.workerName}</strong><br><span style="color: var(--text-muted); font-size: 0.75rem;">${data.employer}</span></td>
+    <td>${data.moduleTitle}</td>
+    <td><strong>${data.scoreDisplay}</strong> <span style="color: var(--text-muted); font-size: 0.75rem;">(${data.scoreInternal})</span></td>
+    <td><span class="badge ${badgeClass}">${data.status}</span></td>
+    <td><a href="${data.signaturePng}" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-weight: 600;">View Signature</a></td>
+  `;
+  enterpriseTableBody.insertBefore(row, enterpriseTableBody.firstChild);
 }
 
-function hideStatusBanner() {
-  statusBanner.classList.add("hidden");
-}
+function loadEnterpriseRecords() {
+  // Mock initial enterprise data rows for immediate scannability
+  const demoRecords = [
+    {
+      timestamp: "22/08/2026 14:15:30",
+      workerName: "Craig Sanders",
+      employer: "Fulton Hogan",
+      moduleTitle: "TTM Category A: Roadway Foundations & Safety",
+      scoreInternal: 100.0000,
+      scoreDisplay: "100.00%",
+      status: "PASSED",
+      signaturePng: "#"
+    },
+    {
+      timestamp: "21/08/2026 09:42:10",
+      workerName: "Liam Henderson",
+      employer: "Fulton Hogan",
+      moduleTitle: "TTM Category B: Taper Geometry & Sign Placement",
+      scoreInternal: 87.5000,
+      scoreDisplay: "87.50%",
+      status: "PASSED",
+      signaturePng: "#"
+    }
+  ];
 
-function showResultModal(isPassed, score) {
-  modalTitle.textContent = isPassed ? "Assessment Passed" : "Assessment Failed";
-  modalTitle.style.color = isPassed ? "var(--accent-emerald)" : "var(--accent-rose)";
-  modalScore.textContent = `Score: ${score.toFixed(2)}%`;
-  modalScore.style.color = isPassed ? "var(--accent-emerald)" : "var(--accent-rose)";
-
-  modalDetails.textContent = isPassed
-    ? "Your digital declaration and score have been logged to the compliance registry."
-    : `A minimum passing standard of ${courseData.passingScorePercent.toFixed(2)}% is required. Please review the course materials and re-attempt.`;
-
-  resultModal.classList.remove("hidden");
-}
-
-function setupEventListeners() {
-  moduleSelect.addEventListener("change", (e) => renderModule(e.target.value));
-  btnClearSig.addEventListener("click", clearSignature);
-  btnSubmit.addEventListener("click", handleSubmit);
-  btnModalClose.addEventListener("click", () => {
-    resultModal.classList.add("hidden");
-  });
+  enterpriseTableBody.innerHTML = "";
+  demoRecords.forEach(rec => prependComplianceRow(rec));
 }

@@ -1,74 +1,103 @@
-{
-  "version": "1.0.0",
-  "passingScorePercent": 80.0000,
-  "modules": [
-    {
-      "id": "TTM-MOD-01-TAPERS",
-      "title": "Taper Lengths & Delineation Standards",
-      "description": "Fundamental principles of visual guidance, taper ratios, and cone spacing per NZGTTM/CoPTTM standards.",
-      "estimatedMinutes": 15,
-      "sections": [
-        {
-          "heading": "1. Lateral Shift & Merge Tapers",
-          "content": "Merge tapers must provide adequate visual lead-in distance for approaching motorists to decelerate or shift lanes smoothly. Always ensure delineation cones are fitted with retro-reflective sleeves in clean condition."
-        },
-        {
-          "heading": "2. Buffer Zones & Work Area Separation",
-          "content": "The longitudinal buffer provides an essential safety clearance between the end of the taper and the active working space. Never park plant or store equipment inside designated buffer zones."
-        }
-      ],
-      "questions": [
-        {
-          "id": 1,
-          "question": "What is the primary function of a longitudinal buffer zone?",
-          "options": [
-            { "key": "A", "text": "Storage area for site vehicles and surplus cones." },
-            { "key": "B", "text": "Unoccupied safety space separating the taper from the active work crew." },
-            { "key": "C", "text": "Designated parking space for visitor vehicles." },
-            { "key": "D", "text": "Sign placement area." }
-          ],
-          "correctAnswer": "B",
-          "explanation": "A longitudinal buffer zone must remain entirely clear of personnel, plant, and materials to provide an errant vehicle recovery zone."
-        },
-        {
-          "id": 2,
-          "question": "Under wet or night-time operational conditions, what requirement applies to cone delineation?",
-          "options": [
-            { "key": "A", "text": "Cones must be fitted with undamaged retro-reflective sleeves." },
-            { "key": "B", "text": "Cone spacing may be doubled." },
-            { "key": "C", "text": "Any standard unreflective cone is permissible." },
-            { "key": "D", "text": "Reflectorized cones are only required on state highways." }
-          ],
-          "correctAnswer": "A",
-          "explanation": "High-visibility retro-reflective sleeves are required to ensure continuous target-value delineation in low-light and adverse weather conditions."
-        }
-      ]
-    },
-    {
-      "id": "TTM-MOD-02-SITE-SAFETY",
-      "title": "Site Hazard Identification & Daily Briefings",
-      "description": "Standard operating protocols for daily hazard identification, dynamic risk assessments, and crew inductions.",
-      "estimatedMinutes": 10,
-      "sections": [
-        {
-          "heading": "1. Dynamic Site Conditions",
-          "content": "Site conditions can change rapidly due to traffic flow, weather, or work scope creep. Pre-start briefings must be held prior to commencing work and updated if site layout changes occur."
-        }
-      ],
-      "questions": [
-        {
-          "id": 1,
-          "question": "When must a site safety briefing and hazard check be updated?",
-          "options": [
-            { "key": "A", "text": "Only at the end of each calendar week." },
-            { "key": "B", "text": "Whenever weather conditions, work scope, or layout parameters change significantly." },
-            { "key": "C", "text": "Only if requested by a member of the public." },
-            { "key": "D", "text": "Once per contract regardless of duration." }
-          ],
-          "correctAnswer": "B",
-          "explanation": "Hazard controls are dynamic; any significant change in scope, layout, or environment requires a re-briefing with all on-site personnel."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "ttm-cat-a-foundations",
+    "code": "TTM-01",
+    "title": "TTM Category A: Roadway Foundations & Safety",
+    "category": "Core TTM",
+    "priceNZD": 149.00,
+    "description": "Essential safety protocols, hazard identification, and live-lane awareness under CoPTTM and NZGTTM operational frameworks.",
+    "estimatedMinutes": 45,
+    "passScorePercent": 80.0000,
+    "units": [
+      {
+        "unitId": "u1",
+        "title": "1. Fundamental Safety & Legal Duties",
+        "content": "All personnel operating on or adjacent to live carriageways must wear high-visibility Level 2/3 apparel. Site visibility, risk mitigation, and continuous perimeter monitoring are compulsory baseline requirements before placing equipment."
+      },
+      {
+        "unitId": "u2",
+        "title": "2. Buffer Zones & Longitudinal Separation",
+        "content": "A buffer zone provides lateral and longitudinal clearance between live traffic lanes and the active work area. Longitudinal buffers must remain completely unobstructed by work vehicles, tools, or personnel at all times."
+      },
+      {
+        "unitId": "u3",
+        "title": "3. Dynamic Site Assessment & Spot Hazard Checks",
+        "content": "When weather or site conditions degrade sight distance below minimum operating tolerances, the STMS must enact modified speed limits or call an immediate operational pause until safety parameters are restored."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "prompt": "What is the primary operational rule regarding longitudinal buffer zones?",
+        "options": [
+          "They can be used for staging small utility vehicles",
+          "They must remain entirely clear of workers, plant, and equipment",
+          "They only apply during night operations",
+          "They can store excess safety cones"
+        ],
+        "correctIndex": 1,
+        "explanation": "Longitudinal buffer zones must always remain completely unobstructed to safeguard the work zone."
+      },
+      {
+        "id": "q2",
+        "prompt": "Who holds immediate operational authority to pause works if site sight distance drops below standard?",
+        "options": [
+          "Any passing motorist",
+          "The Site STMS / Safety Supervisor",
+          "The local council administration only",
+          "Equipment delivery drivers"
+        ],
+        "correctIndex": 1,
+        "explanation": "The STMS / Safety Supervisor has direct responsibility and authority to halt work if safety thresholds are breached."
+      },
+      {
+        "id": "q3",
+        "prompt": "What minimum high-visibility garment standard is mandatory on live carriageway operations?",
+        "options": [
+          "Standard street clothing with reflector bands",
+          "Level 2 / Level 3 High-Visibility TTMC-W Compliant Apparel",
+          "Non-fluorescent rainwear",
+          "Optional daytime safety vest"
+        ],
+        "correctIndex": 1,
+        "explanation": "Compliant Level 2 / 3 TTMC-W apparel is mandatory across all active roadway work environments."
+      }
+    ]
+  },
+  {
+    "id": "ttm-cat-b-tapers",
+    "code": "TTM-02",
+    "title": "TTM Category B: Taper Geometry & Sign Placement",
+    "category": "Advanced Layouts",
+    "priceNZD": 189.00,
+    "description": "Calculations for approach tapers, lateral shift rates, sign spacing intervals, and delineation cone placement.",
+    "estimatedMinutes": 60,
+    "passScorePercent": 85.0000,
+    "units": [
+      {
+        "unitId": "u1",
+        "title": "1. Taper Ratios & Speed Environments",
+        "content": "Taper lengths directly correlate with permanent speed thresholds. A 100 km/h environment demands longer transition tapers to allow drivers adequate reaction and deceleration distance."
+      },
+      {
+        "unitId": "u2",
+        "title": "2. Sign Sequencing and Sight Distances",
+        "content": "Advance warning signs must be positioned with unobstructed sightlines, accounting for vertical crests, horizontal bends, and roadside foliage."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "prompt": "Why are longer tapers required in higher speed environments (e.g. 100 km/h)?",
+        "options": [
+          "To use up extra cones stored on the truck",
+          "To afford motorists sufficient decision and lateral merging time",
+          "To restrict lane width for bicycle traffic only",
+          "Taper length does not change with speed"
+        ],
+        "correctIndex": 1,
+        "explanation": "High-speed corridors require increased transition distances for safe, controlled lateral merging."
+      }
+    ]
+  }
+]

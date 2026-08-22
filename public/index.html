@@ -1,106 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SELA TTM Training & Compliance Portal</title>
-  <link rel="stylesheet" href="style.css?v=1.0.2">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SELA TTM — Training & Compliance Interface</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Top Navigation Header -->
-  <header class="top-nav">
-    <div class="nav-container">
-      <div class="brand">
-        <span class="brand-logo">🚧</span>
-        <div>
-          <h1 class="brand-title">SELA TTM</h1>
-          <p class="brand-subtitle">Training & Compliance Portal</p>
+  <!-- Top Navigation Bar -->
+  <header>
+    <div class="header-container">
+      <div class="brand-wrapper">
+        <div class="brand-badge">SELA</div>
+        <div class="brand-title">TTM <span>Compliance & Portal</span></div>
+      </div>
+      
+      <nav class="nav-controls">
+        <div class="view-tabs">
+          <button class="tab-btn active" data-tab="learner">Learner Hub</button>
+          <button class="tab-btn" data-tab="store">Course Store</button>
+          <button class="tab-btn" data-tab="enterprise">Enterprise View</button>
         </div>
-      </div>
-      <div class="nav-status">
-        <span id="connection-status" class="badge badge-online">● System Ready</span>
-      </div>
+      </nav>
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="main-container">
-
-    <!-- Worker Authentication / ID Card -->
-    <section class="card" id="worker-card">
-      <h2 class="card-title">Staff Identification</h2>
-      <div class="form-row">
-        <div class="form-group flex-1">
-          <label for="worker-id">Worker ID / License Number</label>
-          <input type="text" id="worker-id" placeholder="e.g. EMP-4019" autocomplete="off" />
-        </div>
-        <div class="form-group flex-2">
-          <label for="full-name">Full Name</label>
-          <input type="text" id="full-name" placeholder="e.g. John Doe" autocomplete="off" />
-        </div>
+  <main>
+    <!-- Authentication & Active Context Banner -->
+    <div class="auth-bar">
+      <div class="user-status-text">
+        Signed in as: <strong id="authUserName">Guest Trainee</strong> | 
+        Affiliation: <strong id="authUserOrg">Independent / Unlinked</strong>
       </div>
-    </section>
-
-    <!-- Module Selector & Course Content -->
-    <section class="card" id="course-section">
-      <div class="section-header">
-        <h2 class="card-title">Assigned Compliance Modules</h2>
-        <div class="form-group-inline">
-          <label for="module-select">Select Module:</label>
-          <select id="module-select">
-            <option value="">-- Loading Modules... --</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Training Content Display -->
-      <div id="module-content" class="module-content hidden">
-        <div id="module-info-header" class="module-info-header"></div>
-        <div id="module-reading-material" class="reading-material"></div>
-
-        <hr class="divider" />
-
-        <!-- Quiz Container -->
-        <div id="quiz-container">
-          <h3 class="quiz-title">Knowledge Assessment</h3>
-          <div id="questions-list"></div>
-
-          <!-- Digital Signature Area -->
-          <div class="signature-section">
-            <label>Digital Declaration Signature (Sign inside box):</label>
-            <div class="signature-wrapper">
-              <canvas id="sig-pad" width="450" height="120"></canvas>
-            </div>
-            <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-sig">Clear Signature</button>
-          </div>
-
-          <!-- Action Buttons & Progress -->
-          <div class="actions-wrapper">
-            <button type="button" class="btn btn-primary" id="btn-submit-assessment">Submit & Verify Compliance</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Progress / Loading Banner -->
-    <div id="status-banner" class="status-banner hidden">
-      <div class="spinner"></div>
-      <span id="status-message">Submitting records to Google Cloud...</span>
-    </div>
-
-    <!-- Results Modal / Feedback Panel -->
-    <div id="result-modal" class="modal hidden">
-      <div class="modal-content">
-        <h3 id="modal-title">Assessment Result</h3>
-        <p id="modal-score" class="score-display"></p>
-        <p id="modal-details"></p>
-        <button type="button" class="btn btn-primary" id="btn-modal-close">Close</button>
+      <div style="display: flex; gap: 0.5rem;">
+        <button id="btnSwitchContext" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Switch Demo Context</button>
+        <button id="btnGoogleAuth" class="btn btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Sign In with Google</button>
       </div>
     </div>
 
+    <!-- TAB 1: LEARNER HUB (Personal Dashboard & Wallet) -->
+    <section id="learner-section" class="view-section active">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2>My Training Wallet</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">
+            Portable industry credentials linked to your verified identity.
+          </p>
+        </div>
+        <div>
+          <button id="btnSyncRecords" class="btn btn-secondary">Sync With Register</button>
+        </div>
+      </div>
+
+      <div class="card-grid" id="enrolledCoursesList">
+        <!-- Dynamic learner modules populated via app.js -->
+      </div>
+    </section>
+
+    <!-- TAB 2: COURSE STORE & DUAL CHECKOUT -->
+    <section id="store-section" class="view-section">
+      <div>
+        <h2>Available TTM Courses & Qualifications</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">
+          Self-pay for personal career portability, or charge against an approved employer purchase order.
+        </p>
+      </div>
+
+      <div class="card-grid" id="availableCoursesCatalog">
+        <!-- Dynamic store catalog populated via app.js -->
+      </div>
+    </section>
+
+    <!-- TAB 3: ENTERPRISE AUDIT & COMPLIANCE MATRIX -->
+    <section id="enterprise-section" class="view-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2>Enterprise Crew Compliance: Fulton Hogan</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">
+            Live tracking of field crew certifications, seat licensing, and submission audit logs.
+          </p>
+        </div>
+        <div>
+          <button id="btnExportCsv" class="btn btn-primary">Export Compliance CSV</button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="compliance-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Worker Name</th>
+              <th>Module</th>
+              <th>Internal Score</th>
+              <th>Status</th>
+              <th>Signature Audit</th>
+            </tr>
+          </thead>
+          <tbody id="enterpriseTableBody">
+            <!-- Dynamic compliance logs populated via app.js / Firestore -->
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
 
-  <script src="app.js?v=1.0.2"></script>
+  <!-- Interactive Assessment & Sign-Off Modal -->
+  <div id="assessmentModal" class="modal-overlay">
+    <div class="modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 id="modalCourseTitle">Course Assessment</h3>
+        <button id="btnCloseModal" class="btn btn-secondary" style="padding: 0.25rem 0.6rem;">&times;</button>
+      </div>
+
+      <div class="progress-container">
+        <div id="modalProgressBar" class="progress-bar-fill"></div>
+      </div>
+
+      <div id="modalContentArea">
+        <!-- Dynamic unit material, questions, and signature canvas injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Real-time Toast Feedback -->
+  <div id="toast">Notification message</div>
+
+  <!-- Application Logic (ES Module) -->
+  <script type="module" src="app.js"></script>
 </body>
 </html>
