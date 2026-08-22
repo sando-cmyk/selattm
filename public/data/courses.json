@@ -3,100 +3,140 @@
     "id": "ttm-cat-a-foundations",
     "code": "TTM-01",
     "title": "TTM Category A: Roadway Foundations & Safety",
-    "category": "Core TTM",
+    "category": "Core Safety",
     "priceNZD": 149.00,
-    "description": "Essential safety protocols, hazard identification, and live-lane awareness under CoPTTM and NZGTTM operational frameworks.",
-    "estimatedMinutes": 45,
     "passScorePercent": 80.0000,
-    "units": [
-      {
-        "unitId": "u1",
-        "title": "1. Fundamental Safety & Legal Duties",
-        "content": "All personnel operating on or adjacent to live carriageways must wear high-visibility Level 2/3 apparel. Site visibility, risk mitigation, and continuous perimeter monitoring are compulsory baseline requirements before placing equipment."
-      },
-      {
-        "unitId": "u2",
-        "title": "2. Buffer Zones & Longitudinal Separation",
-        "content": "A buffer zone provides lateral and longitudinal clearance between live traffic lanes and the active work area. Longitudinal buffers must remain completely unobstructed by work vehicles, tools, or personnel at all times."
-      },
-      {
-        "unitId": "u3",
-        "title": "3. Dynamic Site Assessment & Spot Hazard Checks",
-        "content": "When weather or site conditions degrade sight distance below minimum operating tolerances, the STMS must enact modified speed limits or call an immediate operational pause until safety parameters are restored."
-      }
-    ],
+    "description": "Fundamental road reserve hazard mitigation, pedestrian containment, and personal protective equipment standards aligned with CoPTTM and NZGTTM operational guidelines.",
     "questions": [
       {
         "id": "q1",
-        "prompt": "What is the primary operational rule regarding longitudinal buffer zones?",
+        "prompt": "What is the primary objective of a Temporary Traffic Management (TTM) safety zone?",
         "options": [
-          "They can be used for staging small utility vehicles",
-          "They must remain entirely clear of workers, plant, and equipment",
-          "They only apply during night operations",
-          "They can store excess safety cones"
+          "To completely eliminate all traffic congestion on arterial routes",
+          "To separate live traffic from workers, plant, and road users safely",
+          "To maximize the speed of heavy transport through active work areas",
+          "To minimize the need for high-visibility PPE"
         ],
         "correctIndex": 1,
-        "explanation": "Longitudinal buffer zones must always remain completely unobstructed to safeguard the work zone."
+        "explanation": "Safety zones exist primarily to create positive physical and visual separation between live traffic corridors and on-foot workers or plant."
       },
       {
         "id": "q2",
-        "prompt": "Who holds immediate operational authority to pause works if site sight distance drops below standard?",
+        "prompt": "Under standard New Zealand guidelines, what is the mandatory high-visibility garment standard for daytime work on dynamic road reserves?",
         "options": [
-          "Any passing motorist",
-          "The Site STMS / Safety Supervisor",
-          "The local council administration only",
-          "Equipment delivery drivers"
+          "Standard Level 1 / TTMC-W17 compliant day/night garment",
+          "Any fluorescent t-shirt without retroreflective banding",
+          "Standard black wet-weather jacket",
+          "General high-vis vest without long tail protection"
         ],
-        "correctIndex": 1,
-        "explanation": "The STMS / Safety Supervisor has direct responsibility and authority to halt work if safety thresholds are breached."
+        "correctIndex": 0,
+        "explanation": "TTMC-W17 compliant garments ensure adequate visual surface area and retroreflective performance across all lighting conditions."
       },
       {
         "id": "q3",
-        "prompt": "What minimum high-visibility garment standard is mandatory on live carriageway operations?",
+        "prompt": "When establishing a pedestrian detour around an obstructed footway, what is the key safety requirement?",
         "options": [
-          "Standard street clothing with reflector bands",
-          "Level 2 / Level 3 High-Visibility TTMC-W Compliant Apparel",
-          "Non-fluorescent rainwear",
-          "Optional daytime safety vest"
+          "Direct pedestrians into live traffic lanes with cones only",
+          "Provide continuous physical protection, ramps for accessibility, and clear signage",
+          "Advise pedestrians to find an alternative route across unpaved terrain",
+          "Close the footpath without providing an alternate corridor"
         ],
         "correctIndex": 1,
-        "explanation": "Compliant Level 2 / 3 TTMC-W apparel is mandatory across all active roadway work environments."
+        "explanation": "Pedestrian detours must maintain universal accessibility, trip hazard protection, and continuous physical barriers separating them from vehicular traffic."
       }
     ]
   },
   {
-    "id": "ttm-cat-b-tapers",
+    "id": "ttm-cat-b-high-speed",
     "code": "TTM-02",
-    "title": "TTM Category B: Taper Geometry & Sign Placement",
-    "category": "Advanced Layouts",
-    "priceNZD": 189.00,
-    "description": "Calculations for approach tapers, lateral shift rates, sign spacing intervals, and delineation cone placement.",
-    "estimatedMinutes": 60,
-    "passScorePercent": 85.0000,
-    "units": [
-      {
-        "unitId": "u1",
-        "title": "1. Taper Ratios & Speed Environments",
-        "content": "Taper lengths directly correlate with permanent speed thresholds. A 100 km/h environment demands longer transition tapers to allow drivers adequate reaction and deceleration distance."
-      },
-      {
-        "unitId": "u2",
-        "title": "2. Sign Sequencing and Sight Distances",
-        "content": "Advance warning signs must be positioned with unobstructed sightlines, accounting for vertical crests, horizontal bends, and roadside foliage."
-      }
-    ],
+    "title": "TTM Category B: High-Speed Corridors & Expressways",
+    "category": "High-Speed Operations",
+    "priceNZD": 229.00,
+    "passScorePercent": 80.0000,
+    "description": "Advanced protocols for operating in environments exceeding 70 km/h, focusing on advance warning tapers, crash cushion attenuation, and lateral buffer management.",
     "questions": [
       {
         "id": "q1",
-        "prompt": "Why are longer tapers required in higher speed environments (e.g. 100 km/h)?",
+        "prompt": "What is the minimum recommended longitudinal buffer space in a permanent 100 km/h posted speed environment?",
         "options": [
-          "To use up extra cones stored on the truck",
-          "To afford motorists sufficient decision and lateral merging time",
-          "To restrict lane width for bicycle traffic only",
-          "Taper length does not change with speed"
+          "10 meters",
+          "25 meters",
+          "50 meters or greater as specified in the approved TMP",
+          "Zero meters if an attenuator truck is stationed upstream"
+        ],
+        "correctIndex": 2,
+        "explanation": "Longitudinal buffer zones provide critical stopping and recovery distance for errant vehicles before entering the active work space."
+      },
+      {
+        "id": "q2",
+        "prompt": "What operational function does a Truck Mounted Attenuator (TMA) serve when positioned upstream?",
+        "options": [
+          "Primary mobile canteen for site workers",
+          "Energy absorption vehicle designed to protect workers from high-speed rear impacts",
+          "Storage for extra traffic cones and sandbags",
+          "Speed enforcement camera platform"
         ],
         "correctIndex": 1,
-        "explanation": "High-speed corridors require increased transition distances for safe, controlled lateral merging."
+        "explanation": "TMAs are crash-tested safety devices designed to absorb kinetic energy and redirect errant vehicles away from workers on foot."
+      },
+      {
+        "id": "q3",
+        "prompt": "When is a Dynamic Advance Warning sign required on high-speed expressway tapers?",
+        "options": [
+          "Only during severe weather events",
+          "At all times when visibility is obstructed or high-speed lane shifts are implemented",
+          "Never, standard static signs are always sufficient",
+          "Only when operating between midnight and 4:00 AM"
+        ],
+        "correctIndex": 1,
+        "explanation": "Dynamic variable message signage gives high-speed drivers early warning to decelerate and merge before encountering lane restrictions."
+      }
+    ]
+  },
+  {
+    "id": "ttm-cat-c-mobile-ops",
+    "code": "TTM-03",
+    "title": "TTM Category C: Mobile Operations & TMP Auditing",
+    "category": "Mobile Operations",
+    "priceNZD": 289.00,
+    "passScorePercent": 85.0000,
+    "description": "Continuous mobile closures, tail-car spacing, shadow vehicle positioning, and compliance audit verification under operational risk management guidelines.",
+    "questions": [
+      {
+        "id": "q1",
+        "prompt": "In a continuous mobile operation (e.g. line marking or road sweeping), what is the function of the Shadow Vehicle?",
+        "options": [
+          "To transport extra fuel and tools",
+          "To track behind the lead work vehicle, warning approaching traffic and providing rear protection",
+          "To enforce parking restrictions along urban curbs",
+          "To test road surface temperature"
+        ],
+        "correctIndex": 1,
+        "explanation": "Shadow vehicles maintain a calculated trailing distance equipped with TMA and flashing arrow boards to shield the lead maintenance plant."
+      },
+      {
+        "id": "q2",
+        "prompt": "What is the consequence of failing a critical site safety audit by an authorized RCA Auditor?",
+        "options": [
+          "A small verbal reminder with no logging",
+          "Immediate issuance of a Notice to Correct or Site Stop Work directive",
+          "Automatic extension of the working window",
+          "Immediate refund of permit application fees"
+        ],
+        "correctIndex": 1,
+        "explanation": "Critical non-compliance (such as missing tapers or unapproved lane closures) can result in an immediate Stop Work Order by the Road Controlling Authority."
+      },
+      {
+        "id": "q3",
+        "prompt": "How frequently must on-site TTM audits and hazard checks be documented during an active shift?",
+        "options": [
+          "Once at the start of the week",
+          "At regular intervals throughout the shift and whenever site or weather conditions change",
+          "Only when an incident occurs",
+          "No documentation is needed once set up"
+        ],
+        "correctIndex": 1,
+        "explanation": "Active sites require ongoing monitoring and logbook documentation at regular intervals (e.g., every 2 hours) to record changing traffic and environmental factors."
       }
     ]
   }
