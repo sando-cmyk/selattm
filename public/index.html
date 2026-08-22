@@ -77,13 +77,36 @@
     <section id="enterprise-section" class="view-section">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
         <div>
-          <h2>Enterprise Crew Compliance: Fulton Hogan</h2>
+          <h2>Enterprise Crew Compliance Matrix</h2>
           <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">
             Live tracking of field crew certifications, seat licensing, and submission audit logs.
           </p>
         </div>
-        <div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
           <button id="btnExportCsv" class="btn btn-primary">Export Compliance CSV</button>
+        </div>
+      </div>
+
+      <!-- Enterprise Filter Toolbar -->
+      <div style="display: flex; gap: 0.75rem; margin-top: 1.25rem; flex-wrap: wrap; align-items: center; background: var(--bg-card); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <div style="flex: 1; min-width: 200px;">
+          <input type="text" id="searchWorker" placeholder="Search by worker name or module..." style="width: 100%; padding: 0.5rem 0.75rem; background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 6px; color: #fff; font-size: 0.85rem;" />
+        </div>
+        <div style="min-width: 160px;">
+          <select id="filterEmployer" style="width: 100%; padding: 0.5rem 0.75rem; background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 6px; color: #fff; font-size: 0.85rem;">
+            <option value="ALL">All Affiliations</option>
+            <option value="Fulton Hogan">Fulton Hogan</option>
+            <option value="Downer">Downer</option>
+            <option value="Higgins">Higgins</option>
+            <option value="Independent / Unlinked">Independent / Unlinked</option>
+          </select>
+        </div>
+        <div style="min-width: 130px;">
+          <select id="filterStatus" style="width: 100%; padding: 0.5rem 0.75rem; background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 6px; color: #fff; font-size: 0.85rem;">
+            <option value="ALL">All Statuses</option>
+            <option value="PASSED">Passed</option>
+            <option value="RE-TEST REQUIRED">Re-Test Required</option>
+          </select>
         </div>
       </div>
 
@@ -186,6 +209,6 @@
   <div id="toast">Notification message</div>
 
   <!-- Application Logic -->
-  <script type="module" src="app.js?v=20260823b"></script>
+  <script type="module" src="app.js?v=20260823c"></script>
 </body>
 </html>

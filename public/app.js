@@ -1,5 +1,5 @@
 // SELA TTM - Core Application Logic
-// Complete Module Implementation with Dynamic Firestore Modules, Real-time Snapshot Sync, CSV Export & Certificate Generator
+// Complete Module Implementation with Real-time Filters, Dynamic Modules, CSV & Certificate Exporters
 
 import { 
   auth, 
@@ -49,6 +49,11 @@ const btnCloseCreatorModal = document.getElementById("btnCloseCreatorModal");
 const btnCancelCreator = document.getElementById("btnCancelCreator");
 const newCourseForm = document.getElementById("newCourseForm");
 
+// Filter Toolbar Elements
+const searchWorker = document.getElementById("searchWorker");
+const filterEmployer = document.getElementById("filterEmployer");
+const filterStatus = document.getElementById("filterStatus");
+
 const tabButtons = document.querySelectorAll(".tab-btn");
 const viewSections = document.querySelectorAll(".view-section");
 const enrolledCoursesList = document.getElementById("enrolledCoursesList");
@@ -76,6 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupExport();
   setupSignatureModal();
   setupCourseCreator();
+  setupFilters();
   listenToEnterpriseRecords();
   await loadCoursesData();
   listenToDynamicCourses();
@@ -116,6 +122,32 @@ function setupNavigation() {
       listenToEnterpriseRecords();
     });
   }
+}
+
+// Enterprise Filter Listeners
+function setupFilters() {
+  const applyCurrentFilters = () => {
+    const term = searchWorker ? searchWorker.value.toLowerCase().trim() : "";
+    const selectedEmp = filterEmployer ? filterEmployer.value : "ALL";
+    const selectedStat = filterStatus ? filterStatus.value : "ALL";
+
+    const filtered = cachedSubmissions.filter(rec => {
+      const matchSearch = !term || 
+        (rec.workerName && rec.workerName.toLowerCase().includes(term)) ||
+        (rec.moduleTitle && rec.moduleTitle.toLowerCase().includes(term));
+
+      const matchEmp = selectedEmp === "ALL" || rec.employer === selectedEmp;
+      const matchStat = selectedStat === "ALL" || rec.status === selectedStat;
+
+      return matchSearch && matchEmp && matchStat;
+    });
+
+    renderComplianceRows(filtered);
+  };
+
+  if (searchWorker) searchWorker.addEventListener("input", applyCurrentFilters);
+  if (filterEmployer) filterEmployer.addEventListener("change", applyCurrentFilters);
+  if (filterStatus) filterStatus.addEventListener("change", applyCurrentFilters);
 }
 
 // Signature Modal Controls
@@ -243,7 +275,7 @@ function setupExport() {
   });
 }
 
-// Authentication & Identity Context
+// Authentication & Context Switching
 function setupAuth() {
   onAuthStateChanged(auth, async (user) => {
     if (user) {
@@ -291,15 +323,14 @@ function setupAuth() {
 
   if (btnSwitchContext) {
     btnSwitchContext.addEventListener("click", () => {
-      if (currentUser.employer === "Fulton Hogan") {
-        currentUser.employer = "Independent / Unlinked";
-        currentUser.isEnterprise = false;
-        showToast("Switched to Independent Trainee Context");
-      } else {
-        currentUser.employer = "Fulton Hogan";
-        currentUser.isEnterprise = true;
-        showToast("Switched to Fulton Hogan Corporate Context");
-      }
+      const employers = ["Fulton Hogan", "Downer", "Higgins", "Independent / Unlinked"];
+      const currentIdx = employers.indexOf(currentUser.employer);
+      const nextIdx = (currentIdx + 1) % employers.length;
+      
+      currentUser.employer = employers[nextIdx];
+      currentUser.isEnterprise = currentUser.employer !== "Independent / Unlinked";
+      
+      showToast(`Switched context to: ${currentUser.employer}`);
       updateUserDisplay();
     });
   }
@@ -407,7 +438,7 @@ function renderCatalog() {
           Self-Pay (Stripe Checkout)
         </button>
         <button class="btn btn-secondary btn-block btn-charge-emp" data-id="${course.id}">
-          Charge to Fulton Hogan PO
+          Charge to ${currentUser.employer !== "Independent / Unlinked" ? currentUser.employer : "Enterprise"} PO
         </button>
       </div>
     `;
@@ -422,7 +453,7 @@ function renderCatalog() {
 
   document.querySelectorAll(".btn-charge-emp").forEach(b => {
     b.addEventListener("click", () => {
-      showToast("Course seat assigned and charged to Fulton Hogan PO #FH-9921.");
+      showToast(`Course seat charged to ${currentUser.employer} PO account.`);
     });
   });
 }
@@ -578,14 +609,12 @@ function generateCertificate(data) {
   certCanvas.height = 800;
   const ctx = certCanvas.getContext("2d");
 
-  // Background gradient
   const bgGradient = ctx.createLinearGradient(0, 0, 1200, 800);
   bgGradient.addColorStop(0, "#0f172a");
   bgGradient.addColorStop(1, "#1e293b");
   ctx.fillStyle = bgGradient;
   ctx.fillRect(0, 0, 1200, 800);
 
-  // Border frame
   ctx.strokeStyle = "#38bdf8";
   ctx.lineWidth = 6;
   ctx.strokeRect(40, 40, 1120, 720);
@@ -594,7 +623,6 @@ function generateCertificate(data) {
   ctx.lineWidth = 2;
   ctx.strokeRect(55, 55, 1090, 690);
 
-  // Header
   ctx.fillStyle = "#38bdf8";
   ctx.font = "bold 28px sans-serif";
   ctx.textAlign = "center";
@@ -604,7 +632,6 @@ function generateCertificate(data) {
   ctx.font = "18px sans-serif";
   ctx.fillText("OFFICIAL RECORD OF QUALIFICATION & VERIFIED COMPETENCY", 600, 160);
 
-  // Trainee Details
   ctx.fillStyle = "#ffffff";
   ctx.font = "italic 22px sans-serif";
   ctx.fillText("This certifies that", 600, 240);
@@ -625,7 +652,6 @@ function generateCertificate(data) {
   ctx.font = "bold 32px sans-serif";
   ctx.fillText(data.moduleTitle || "TTM Safety Module", 600, 490);
 
-  // Score and Timestamp Metadata
   ctx.fillStyle = "#10b981";
   ctx.font = "bold 24px sans-serif";
   ctx.fillText(`Passing Grade: ${data.scoreDisplay || "100.00%"} (${data.status})`, 600, 550);
@@ -634,12 +660,10 @@ function generateCertificate(data) {
   ctx.font = "18px sans-serif";
   ctx.fillText(`Issued: ${data.timestamp} NZST`, 600, 600);
 
-  // Stamp / Verification Notice
   ctx.fillStyle = "#64748b";
   ctx.font = "14px monospace";
   ctx.fillText(`Verification Key: ${data.id || ("SELA-" + Date.now())} | New Zealand Transport Grid Standards`, 600, 710);
 
-  // Download Action
   const imageUri = certCanvas.toDataURL("image/png");
   const link = document.createElement("a");
   link.download = `SELA_Certificate_${(data.workerName || "Trainee").replace(/\s+/g, '_')}_${Date.now()}.png`;
@@ -695,7 +719,6 @@ async function submitAssessment() {
     showToast(`Error writing to Firestore: ${err.message}`);
   }
 
-  // Show Completion Summary in Modal
   modalContentArea.innerHTML = `
     <div class="question-card" style="text-align: center; padding: 2rem;">
       <span class="badge ${passed ? 'badge-emerald' : 'badge-rose'}" style="font-size: 1rem; padding: 0.5rem 1rem;">
@@ -732,7 +755,7 @@ function renderComplianceRows(records) {
     const emptyRow = document.createElement("tr");
     emptyRow.innerHTML = `
       <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">
-        No compliance submissions recorded yet.
+        No compliance submissions match your filter criteria.
       </td>
     `;
     enterpriseTableBody.appendChild(emptyRow);
@@ -797,7 +820,27 @@ function listenToEnterpriseRecords() {
     records.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
     cachedSubmissions = records;
 
-    renderComplianceRows(records);
+    // Trigger filters to render active dataset
+    if (searchWorker || filterEmployer || filterStatus) {
+      const term = searchWorker ? searchWorker.value.toLowerCase().trim() : "";
+      const selectedEmp = filterEmployer ? filterEmployer.value : "ALL";
+      const selectedStat = filterStatus ? filterStatus.value : "ALL";
+
+      const filtered = cachedSubmissions.filter(rec => {
+        const matchSearch = !term || 
+          (rec.workerName && rec.workerName.toLowerCase().includes(term)) ||
+          (rec.moduleTitle && rec.moduleTitle.toLowerCase().includes(term));
+
+        const matchEmp = selectedEmp === "ALL" || rec.employer === selectedEmp;
+        const matchStat = selectedStat === "ALL" || rec.status === selectedStat;
+
+        return matchSearch && matchEmp && matchStat;
+      });
+
+      renderComplianceRows(filtered);
+    } else {
+      renderComplianceRows(records);
+    }
   }, (error) => {
     console.error("Firestore listener error:", error);
   });
