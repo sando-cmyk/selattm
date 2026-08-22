@@ -1,5 +1,5 @@
 // SELA TTM - Core Application Logic
-// Complete Module Implementation with Anonymous Auto-Auth & Real-time Firestore Sync
+// Complete Module Implementation with CSV Export & Firestore Sync
 
 import { 
   auth, 
@@ -21,6 +21,7 @@ import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/fi
 
 // Global Application State
 let coursesCatalog = [];
+let cachedSubmissions = [];
 let currentUser = {
   uid: "guest-user",
   name: "Craig Sanders",
@@ -40,6 +41,8 @@ const authUserName = document.getElementById("authUserName");
 const authUserOrg = document.getElementById("authUserOrg");
 const btnGoogleAuth = document.getElementById("btnGoogleAuth");
 const btnSwitchContext = document.getElementById("btnSwitchContext");
+const btnExportCsv = document.getElementById("btnExportCsv");
+const btnSyncRecords = document.getElementById("btnSyncRecords");
 const tabButtons = document.querySelectorAll(".tab-btn");
 const viewSections = document.querySelectorAll(".view-section");
 const enrolledCoursesList = document.getElementById("enrolledCoursesList");
@@ -56,6 +59,7 @@ const toast = document.getElementById("toast");
 document.addEventListener("DOMContentLoaded", async () => {
   setupNavigation();
   setupAuth();
+  setupExport();
   await loadCoursesData();
   renderLearnerHub();
   renderCatalog();
@@ -89,11 +93,51 @@ function setupNavigation() {
       assessmentModal.classList.remove("active");
     });
   }
+
+  if (btnSyncRecords) {
+    btnSyncRecords.addEventListener("click", () => {
+      showToast("Syncing with master registry...");
+      listenToEnterpriseRecords();
+    });
+  }
+}
+
+// CSV Export Handler
+function setupExport() {
+  if (!btnExportCsv) return;
+
+  btnExportCsv.addEventListener("click", () => {
+    if (!cachedSubmissions || cachedSubmissions.length === 0) {
+      showToast("No records available to export.");
+      return;
+    }
+
+    const headers = ["Timestamp", "Worker Name", "Employer", "Module ID", "Module Title", "Internal Score", "Display Score", "Status"];
+    const rows = cachedSubmissions.map(r => [
+      `"${r.timestamp || ""}"`,
+      `"${r.workerName || ""}"`,
+      `"${r.employer || ""}"`,
+      `"${r.moduleId || ""}"`,
+      `"${(r.moduleTitle || "").replace(/"/g, '""')}"`,
+      `"${r.scoreInternal !== undefined ? r.scoreInternal : ""}"`,
+      `"${r.scoreDisplay || ""}"`,
+      `"${r.status || ""}"`
+    ]);
+
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `SELA_Compliance_Export_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast("Compliance CSV exported successfully.");
+  });
 }
 
 // Authentication & Identity Context
 function setupAuth() {
-  // Listen for real Firebase Auth state changes
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       currentUser.uid = user.uid;
@@ -103,7 +147,6 @@ function setupAuth() {
       updateUserDisplay();
       listenToEnterpriseRecords();
     } else {
-      // Auto-authenticate anonymously if no user is signed in
       try {
         const anonCred = await signInAnonymously(auth);
         currentUser.uid = anonCred.user.uid;
@@ -479,6 +522,7 @@ function listenToEnterpriseRecords() {
     enterpriseTableBody.innerHTML = "";
 
     if (snapshot.empty) {
+      cachedSubmissions = [];
       const emptyRow = document.createElement("tr");
       emptyRow.innerHTML = `
         <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">
@@ -496,6 +540,7 @@ function listenToEnterpriseRecords() {
 
     // Sort by creation time (newest first)
     records.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    cachedSubmissions = records;
 
     records.forEach(rec => {
       prependComplianceRow(rec);
