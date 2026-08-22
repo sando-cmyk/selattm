@@ -4,7 +4,7 @@
  */
 
 // Configuration: Replace with your deployed Google Apps Script Web App URL
-const GAS_ENDPOINT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+const GAS_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbxe3cHCp1t-g682X4MV0XNzmXJUy9VsY8N7URyK4UgZl8dweEi2IlqbZsyekUZwiegzbA/exec";
 
 // Application State
 let courseData = null;
