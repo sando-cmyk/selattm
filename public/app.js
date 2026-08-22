@@ -1,5 +1,5 @@
 // SELA TTM - Core Application Logic
-// Complete Module Implementation with Direct Firestore Snapshot Listener & CSV Export
+// Complete Module Implementation with Real-time Firestore Sync, CSV Export, and Digital Certificate Generator
 
 import { 
   auth, 
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupNavigation();
   setupAuth();
   setupExport();
-  listenToEnterpriseRecords(); // Start live sync immediately
+  listenToEnterpriseRecords();
   await loadCoursesData();
   renderLearnerHub();
   renderCatalog();
@@ -440,6 +440,85 @@ function initSignatureCanvas() {
   window.addEventListener("touchend", stopDraw);
 }
 
+// Generate Downloadable Certificate Image
+function generateCertificate(data) {
+  const certCanvas = document.createElement("canvas");
+  certCanvas.width = 1200;
+  certCanvas.height = 800;
+  const ctx = certCanvas.getContext("2d");
+
+  // Background gradient
+  const bgGradient = ctx.createLinearGradient(0, 0, 1200, 800);
+  bgGradient.addColorStop(0, "#0f172a");
+  bgGradient.addColorStop(1, "#1e293b");
+  ctx.fillStyle = bgGradient;
+  ctx.fillRect(0, 0, 1200, 800);
+
+  // Border frame
+  ctx.strokeStyle = "#38bdf8";
+  ctx.lineWidth = 6;
+  ctx.strokeRect(40, 40, 1120, 720);
+
+  ctx.strokeStyle = "#0284c7";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(55, 55, 1090, 690);
+
+  // Header
+  ctx.fillStyle = "#38bdf8";
+  ctx.font = "bold 28px sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("SELA TTM COMPLIANCE ACADEMY", 600, 120);
+
+  ctx.fillStyle = "#94a3b8";
+  ctx.font = "18px sans-serif";
+  ctx.fillText("OFFICIAL RECORD OF QUALIFICATION & VERIFIED COMPETENCY", 600, 160);
+
+  // Trainee Details
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "italic 22px sans-serif";
+  ctx.fillText("This certifies that", 600, 240);
+
+  ctx.fillStyle = "#38bdf8";
+  ctx.font = "bold 44px sans-serif";
+  ctx.fillText(data.workerName || "Craig Sanders", 600, 310);
+
+  ctx.fillStyle = "#94a3b8";
+  ctx.font = "20px sans-serif";
+  ctx.fillText(`Operating under: ${data.employer || "Independent"}`, 600, 360);
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "22px sans-serif";
+  ctx.fillText("has successfully met all assessment requirements for", 600, 430);
+
+  ctx.fillStyle = "#f59e0b";
+  ctx.font = "bold 32px sans-serif";
+  ctx.fillText(data.moduleTitle || "TTM Safety Module", 600, 490);
+
+  // Score and Timestamp Metadata
+  ctx.fillStyle = "#10b981";
+  ctx.font = "bold 24px sans-serif";
+  ctx.fillText(`Passing Grade: ${data.scoreDisplay || "100.00%"} (${data.status})`, 600, 550);
+
+  ctx.fillStyle = "#94a3b8";
+  ctx.font = "18px sans-serif";
+  ctx.fillText(`Issued: ${data.timestamp} NZST`, 600, 600);
+
+  // Stamp / Verification Notice
+  ctx.fillStyle = "#64748b";
+  ctx.font = "14px monospace";
+  ctx.fillText(`Verification Key: ${data.id || ("SELA-" + Date.now())} | New Zealand Transport Grid Standards`, 600, 710);
+
+  // Download Action
+  const imageUri = certCanvas.toDataURL("image/png");
+  const link = document.createElement("a");
+  link.download = `SELA_Certificate_${(data.workerName || "Trainee").replace(/\s+/g, '_')}_${Date.now()}.png`;
+  link.href = imageUri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  showToast("Certificate downloaded successfully.");
+}
+
 // Submit Record directly to Firestore
 async function submitAssessment() {
   let correctCount = 0;
@@ -452,12 +531,10 @@ async function submitAssessment() {
     }
   });
 
-  // Internal precision calculation
   const scorePercent = total > 0 ? (correctCount / total) * 100 : 100.0000;
   const passed = scorePercent >= activeCourse.passScorePercent;
   const signatureDataUrl = sigCanvas ? sigCanvas.toDataURL("image/png") : "";
 
-  // Standard New Zealand Timestamp (DD/MM/YYYY HH:MM:SS)
   const now = new Date();
   const pad = (n) => String(n).padStart(2, '0');
   const timestampNZ = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
@@ -480,14 +557,39 @@ async function submitAssessment() {
 
   try {
     const docRef = await addDoc(collection(db, "submissions"), submissionPayload);
-    console.log("Record added to Firestore with ID:", docRef.id);
+    submissionPayload.id = docRef.id;
     showToast(`Record Logged to Firestore: ${submissionPayload.status} (${submissionPayload.scoreDisplay})`);
   } catch (err) {
     console.error("Firestore submission error:", err);
     showToast(`Error writing to Firestore: ${err.message}`);
   }
 
-  assessmentModal.classList.remove("active");
+  // Show Completion Summary in Modal
+  modalContentArea.innerHTML = `
+    <div class="question-card" style="text-align: center; padding: 2rem;">
+      <span class="badge ${passed ? 'badge-emerald' : 'badge-rose'}" style="font-size: 1rem; padding: 0.5rem 1rem;">
+        ${submissionPayload.status}
+      </span>
+      <h3 style="margin: 1.5rem 0 0.5rem 0;">Assessment Completed</h3>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+        Final Score: <strong>${submissionPayload.scoreDisplay}</strong> (Required: ${Number(activeCourse.passScorePercent).toFixed(2)}%)
+      </p>
+      <div style="display: flex; justify-content: center; gap: 1rem;">
+        ${passed ? `<button id="btnDownloadCert" class="btn btn-primary">Download Official Certificate</button>` : ''}
+        <button id="btnFinishModal" class="btn btn-secondary">Return to Portal</button>
+      </div>
+    </div>
+  `;
+
+  if (passed) {
+    document.getElementById("btnDownloadCert").addEventListener("click", () => {
+      generateCertificate(submissionPayload);
+    });
+  }
+
+  document.getElementById("btnFinishModal").addEventListener("click", () => {
+    assessmentModal.classList.remove("active");
+  });
 }
 
 // Table Row Render Function
@@ -517,12 +619,23 @@ function renderComplianceRows(records) {
       <td><strong>${data.scoreDisplay || "0.00%"}</strong> <span style="color: var(--text-muted); font-size: 0.75rem;">(${data.scoreInternal !== undefined ? data.scoreInternal : "0.0000"})</span></td>
       <td><span class="badge ${badgeClass}">${data.status || "PENDING"}</span></td>
       <td>
-        ${data.signaturePng && data.signaturePng.length > 50 
-          ? `<a href="${data.signaturePng}" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-weight: 600;">View Signature</a>` 
-          : `<span style="color: var(--text-muted); font-size: 0.8rem;">Digital Pass</span>`}
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          ${data.status === "PASSED" ? `<button class="btn btn-secondary btn-cert" data-id="${data.id}" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;">Certificate</button>` : ''}
+          ${data.signaturePng && data.signaturePng.length > 50 
+            ? `<a href="${data.signaturePng}" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.75rem; font-weight: 600;">Sig</a>` 
+            : `<span style="color: var(--text-muted); font-size: 0.75rem;">Digital</span>`}
+        </div>
       </td>
     `;
     enterpriseTableBody.appendChild(row);
+  });
+
+  // Attach Certificate download listeners to table rows
+  document.querySelectorAll(".btn-cert").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const rec = records.find(r => r.id === btn.dataset.id);
+      if (rec) generateCertificate(rec);
+    });
   });
 }
 
