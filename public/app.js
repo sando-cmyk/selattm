@@ -1,5 +1,5 @@
 // SELA TTM - Core Application Logic
-// Complete Module Implementation with CSV Export & Firestore Sync
+// Complete Module Implementation with Direct Firestore Snapshot Listener & CSV Export
 
 import { 
   auth, 
@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupNavigation();
   setupAuth();
   setupExport();
+  listenToEnterpriseRecords(); // Start live sync immediately
   await loadCoursesData();
   renderLearnerHub();
   renderCatalog();
@@ -96,7 +97,7 @@ function setupNavigation() {
 
   if (btnSyncRecords) {
     btnSyncRecords.addEventListener("click", () => {
-      showToast("Syncing with master registry...");
+      showToast("Syncing records from Firestore...");
       listenToEnterpriseRecords();
     });
   }
@@ -145,13 +146,11 @@ function setupAuth() {
       if (user.email) currentUser.email = user.email;
       if (btnGoogleAuth) btnGoogleAuth.textContent = user.isAnonymous ? "Sign In with Google" : "Sign Out";
       updateUserDisplay();
-      listenToEnterpriseRecords();
     } else {
       try {
         const anonCred = await signInAnonymously(auth);
         currentUser.uid = anonCred.user.uid;
         updateUserDisplay();
-        listenToEnterpriseRecords();
       } catch (err) {
         console.error("Anonymous authentication error:", err);
       }
@@ -453,7 +452,7 @@ async function submitAssessment() {
     }
   });
 
-  // Calculate score with 4-decimal precision internally
+  // Internal precision calculation
   const scorePercent = total > 0 ? (correctCount / total) * 100 : 100.0000;
   const passed = scorePercent >= activeCourse.passScorePercent;
   const signatureDataUrl = sigCanvas ? sigCanvas.toDataURL("image/png") : "";
@@ -481,36 +480,50 @@ async function submitAssessment() {
 
   try {
     const docRef = await addDoc(collection(db, "submissions"), submissionPayload);
-    console.log("Document successfully written with ID:", docRef.id);
+    console.log("Record added to Firestore with ID:", docRef.id);
     showToast(`Record Logged to Firestore: ${submissionPayload.status} (${submissionPayload.scoreDisplay})`);
   } catch (err) {
     console.error("Firestore submission error:", err);
-    prependComplianceRow(submissionPayload);
     showToast(`Error writing to Firestore: ${err.message}`);
   }
 
   assessmentModal.classList.remove("active");
 }
 
-// Live Compliance Matrix & Table Visualizer
-function prependComplianceRow(data) {
+// Table Row Render Function
+function renderComplianceRows(records) {
   if (!enterpriseTableBody) return;
-  const row = document.createElement("tr");
-  const badgeClass = data.status === "PASSED" ? "badge-emerald" : "badge-rose";
-  
-  row.innerHTML = `
-    <td>${data.timestamp || "N/A"}</td>
-    <td><strong>${data.workerName || "Anonymous"}</strong><br><span style="color: var(--text-muted); font-size: 0.75rem;">${data.employer || "Unlinked"}</span></td>
-    <td>${data.moduleTitle || "TTM Module"}</td>
-    <td><strong>${data.scoreDisplay || "0.00%"}</strong> <span style="color: var(--text-muted); font-size: 0.75rem;">(${data.scoreInternal !== undefined ? data.scoreInternal : "0.0000"})</span></td>
-    <td><span class="badge ${badgeClass}">${data.status || "PENDING"}</span></td>
-    <td>
-      ${data.signaturePng && data.signaturePng.length > 50 
-        ? `<a href="${data.signaturePng}" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-weight: 600;">View Signature</a>` 
-        : `<span style="color: var(--text-muted); font-size: 0.8rem;">Digital Pass</span>`}
-    </td>
-  `;
-  enterpriseTableBody.insertBefore(row, enterpriseTableBody.firstChild);
+  enterpriseTableBody.innerHTML = "";
+
+  if (records.length === 0) {
+    const emptyRow = document.createElement("tr");
+    emptyRow.innerHTML = `
+      <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+        No compliance submissions recorded yet.
+      </td>
+    `;
+    enterpriseTableBody.appendChild(emptyRow);
+    return;
+  }
+
+  records.forEach(data => {
+    const row = document.createElement("tr");
+    const badgeClass = data.status === "PASSED" ? "badge-emerald" : "badge-rose";
+    
+    row.innerHTML = `
+      <td>${data.timestamp || "N/A"}</td>
+      <td><strong>${data.workerName || "Anonymous"}</strong><br><span style="color: var(--text-muted); font-size: 0.75rem;">${data.employer || "Unlinked"}</span></td>
+      <td>${data.moduleTitle || "TTM Module"}</td>
+      <td><strong>${data.scoreDisplay || "0.00%"}</strong> <span style="color: var(--text-muted); font-size: 0.75rem;">(${data.scoreInternal !== undefined ? data.scoreInternal : "0.0000"})</span></td>
+      <td><span class="badge ${badgeClass}">${data.status || "PENDING"}</span></td>
+      <td>
+        ${data.signaturePng && data.signaturePng.length > 50 
+          ? `<a href="${data.signaturePng}" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-weight: 600;">View Signature</a>` 
+          : `<span style="color: var(--text-muted); font-size: 0.8rem;">Digital Pass</span>`}
+      </td>
+    `;
+    enterpriseTableBody.appendChild(row);
+  });
 }
 
 // Real-Time Firestore Snapshot Listener
@@ -519,17 +532,9 @@ function listenToEnterpriseRecords() {
   const submissionsRef = collection(db, "submissions");
 
   onSnapshot(submissionsRef, (snapshot) => {
-    enterpriseTableBody.innerHTML = "";
-
     if (snapshot.empty) {
       cachedSubmissions = [];
-      const emptyRow = document.createElement("tr");
-      emptyRow.innerHTML = `
-        <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">
-          No compliance submissions recorded yet. Complete an assessment to see live records.
-        </td>
-      `;
-      enterpriseTableBody.appendChild(emptyRow);
+      renderComplianceRows([]);
       return;
     }
 
@@ -538,14 +543,12 @@ function listenToEnterpriseRecords() {
       records.push({ id: docSnap.id, ...docSnap.data() });
     });
 
-    // Sort by creation time (newest first)
+    // Sort descending by timestamp / creation
     records.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
     cachedSubmissions = records;
 
-    records.forEach(rec => {
-      prependComplianceRow(rec);
-    });
+    renderComplianceRows(records);
   }, (error) => {
-    console.warn("Firestore snapshot listener notice (displaying offline view):", error);
+    console.error("Firestore listener error:", error);
   });
 }
