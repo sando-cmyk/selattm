@@ -1,5 +1,5 @@
 // SELA TTM - Core Application Logic
-// Complete Module Implementation with Direct Firestore Snapshot Listener, White-Backed Signatures, Certificate & CSV Exporter
+// Complete Module Implementation with Dynamic Firestore Modules, Real-time Snapshot Sync, CSV Export & Certificate Generator
 
 import { 
   auth, 
@@ -43,6 +43,12 @@ const btnGoogleAuth = document.getElementById("btnGoogleAuth");
 const btnSwitchContext = document.getElementById("btnSwitchContext");
 const btnExportCsv = document.getElementById("btnExportCsv");
 const btnSyncRecords = document.getElementById("btnSyncRecords");
+const btnCreateCourse = document.getElementById("btnCreateCourse");
+const courseCreatorModal = document.getElementById("courseCreatorModal");
+const btnCloseCreatorModal = document.getElementById("btnCloseCreatorModal");
+const btnCancelCreator = document.getElementById("btnCancelCreator");
+const newCourseForm = document.getElementById("newCourseForm");
+
 const tabButtons = document.querySelectorAll(".tab-btn");
 const viewSections = document.querySelectorAll(".view-section");
 const enrolledCoursesList = document.getElementById("enrolledCoursesList");
@@ -69,10 +75,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupAuth();
   setupExport();
   setupSignatureModal();
+  setupCourseCreator();
   listenToEnterpriseRecords();
   await loadCoursesData();
-  renderLearnerHub();
-  renderCatalog();
+  listenToDynamicCourses();
 });
 
 // User Feedback Notification
@@ -139,6 +145,68 @@ function openSignatureViewer(sigDataUrl, workerName) {
   sigModalTitle.textContent = `${workerName} — Verified Signature`;
   sigModalImage.src = sigDataUrl;
   signatureModal.classList.add("active");
+}
+
+// Course Creator Controls
+function setupCourseCreator() {
+  if (btnCreateCourse) {
+    btnCreateCourse.addEventListener("click", () => {
+      courseCreatorModal.classList.add("active");
+    });
+  }
+
+  const closeCreator = () => {
+    if (courseCreatorModal) courseCreatorModal.classList.remove("active");
+  };
+
+  if (btnCloseCreatorModal) btnCloseCreatorModal.addEventListener("click", closeCreator);
+  if (btnCancelCreator) btnCancelCreator.addEventListener("click", closeCreator);
+
+  if (newCourseForm) {
+    newCourseForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const newModule = {
+        id: `ttm-custom-${Date.now()}`,
+        code: document.getElementById("inCourseCode").value.trim(),
+        title: document.getElementById("inCourseTitle").value.trim(),
+        category: document.getElementById("inCourseCategory").value.trim(),
+        priceNZD: parseFloat(document.getElementById("inCoursePrice").value) || 149.00,
+        description: document.getElementById("inCourseDesc").value.trim(),
+        passScorePercent: 80.0000,
+        questions: [
+          {
+            id: "q1",
+            prompt: `Confirm baseline risk assessment standard for ${document.getElementById("inCourseTitle").value.trim()}:`,
+            options: [
+              "Standard Level 2/3 TTMC Compliance with active sightline audits",
+              "Informal site checks without formal TMP documentation",
+              "Operate during non-peak daylight hours only",
+              "Exempt from buffer zone regulations"
+            ],
+            correctIndex: 0,
+            explanation: "All operations require verified Level 2/3 compliance and active corridor safety checks."
+          }
+        ],
+        createdAt: Date.now()
+      };
+
+      try {
+        await addDoc(collection(db, "courses"), newModule);
+        showToast("New training module published to Firestore!");
+        newCourseForm.reset();
+        closeCreator();
+      } catch (err) {
+        console.error("Failed adding course to Firestore:", err);
+        coursesCatalog.push(newModule);
+        renderLearnerHub();
+        renderCatalog();
+        showToast("Added module to active local session.");
+        newCourseForm.reset();
+        closeCreator();
+      }
+    });
+  }
 }
 
 // CSV Export Handler
@@ -242,7 +310,7 @@ function updateUserDisplay() {
   if (authUserOrg) authUserOrg.textContent = currentUser.employer;
 }
 
-// Course Catalog Loader
+// Course Catalog Loader (Static Baseline + Dynamic Firestore Merge)
 async function loadCoursesData() {
   try {
     const res = await fetch("data/courses.json");
@@ -262,6 +330,24 @@ async function loadCoursesData() {
       }
     ];
   }
+  renderLearnerHub();
+  renderCatalog();
+}
+
+function listenToDynamicCourses() {
+  const coursesRef = collection(db, "courses");
+  onSnapshot(coursesRef, (snapshot) => {
+    snapshot.forEach(docSnap => {
+      const data = { id: docSnap.id, ...docSnap.data() };
+      if (!coursesCatalog.some(c => c.id === data.id || c.code === data.code)) {
+        coursesCatalog.push(data);
+      }
+    });
+    renderLearnerHub();
+    renderCatalog();
+  }, (err) => {
+    console.warn("Dynamic courses listener note:", err);
+  });
 }
 
 // Render Learner Dashboard Cards
@@ -283,7 +369,7 @@ function renderLearnerHub() {
       </div>
       <div>
         <div class="user-status-text" style="margin-bottom: 0.75rem;">
-          Passing standard: <strong>${Number(course.passScorePercent).toFixed(2)}%</strong>
+          Passing standard: <strong>${Number(course.passScorePercent || 80).toFixed(2)}%</strong>
         </div>
         <button class="btn btn-primary btn-block btn-start" data-id="${course.id}">
           Launch Assessment
@@ -310,11 +396,11 @@ function renderCatalog() {
       <div>
         <div class="card-header">
           <span class="badge badge-blue">${course.code}</span>
-          <span class="badge badge-amber">$${Number(course.priceNZD).toFixed(2)} NZD</span>
+          <span class="badge badge-amber">$${Number(course.priceNZD || 149).toFixed(2)} NZD</span>
         </div>
         <h3>${course.title}</h3>
         <p>${course.description}</p>
-        <div class="price-tag">$${Number(course.priceNZD).toFixed(2)} <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">+ GST</span></div>
+        <div class="price-tag">$${Number(course.priceNZD || 149).toFixed(2)} <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">+ GST</span></div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 0.5rem;">
         <button class="btn btn-primary btn-block btn-buy-self" data-id="${course.id}">
@@ -577,7 +663,7 @@ async function submitAssessment() {
   });
 
   const scorePercent = total > 0 ? (correctCount / total) * 100 : 100.0000;
-  const passed = scorePercent >= activeCourse.passScorePercent;
+  const passed = scorePercent >= (activeCourse.passScorePercent || 80);
   const signatureDataUrl = sigCanvas ? sigCanvas.toDataURL("image/png") : "";
 
   const now = new Date();
@@ -617,7 +703,7 @@ async function submitAssessment() {
       </span>
       <h3 style="margin: 1.5rem 0 0.5rem 0;">Assessment Completed</h3>
       <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-        Final Score: <strong>${submissionPayload.scoreDisplay}</strong> (Required: ${Number(activeCourse.passScorePercent).toFixed(2)}%)
+        Final Score: <strong>${submissionPayload.scoreDisplay}</strong> (Required: ${Number(activeCourse.passScorePercent || 80).toFixed(2)}%)
       </p>
       <div style="display: flex; justify-content: center; gap: 1rem;">
         ${passed ? `<button id="btnDownloadCert" class="btn btn-primary">Download Official Certificate</button>` : ''}
@@ -674,7 +760,6 @@ function renderComplianceRows(records) {
     enterpriseTableBody.appendChild(row);
   });
 
-  // Attach Certificate download listeners
   document.querySelectorAll(".btn-cert").forEach(btn => {
     btn.addEventListener("click", () => {
       const rec = records.find(r => r.id === btn.dataset.id);
@@ -682,7 +767,6 @@ function renderComplianceRows(records) {
     });
   });
 
-  // Attach In-Page Signature Modal Viewer listeners
   document.querySelectorAll(".btn-view-sig").forEach(btn => {
     btn.addEventListener("click", () => {
       const rec = records.find(r => r.id === btn.dataset.id);
