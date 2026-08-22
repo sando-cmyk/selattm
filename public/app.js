@@ -4,7 +4,7 @@
  */
 
 // Target Google Apps Script Web App Endpoint
-const GAS_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbxxv6WyPIUy3TPSBP0b7DYYgs6fnrbHnPD4fMB8vx1rHDIRm0idB_NxxNCMOqkXdBOIqg/exec";
+const GAS_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbyTAkIiXaqTDB-YZCsprxV_VSs34TTctYwEKSNR0esGZVjEn8Q_l9D6pzzDNDjbZ2IoEA/exec";
 
 // Embedded Fallback Course Data (Guarantees zero-blank UI even if network fetch fails)
 const FALLBACK_COURSE_DATA = {
