@@ -1,0 +1,74 @@
+{
+  "version": "1.0.0",
+  "passingScorePercent": 80.0000,
+  "modules": [
+    {
+      "id": "TTM-MOD-01-TAPERS",
+      "title": "Taper Lengths & Delineation Standards",
+      "description": "Fundamental principles of visual guidance, taper ratios, and cone spacing per NZGTTM/CoPTTM standards.",
+      "estimatedMinutes": 15,
+      "sections": [
+        {
+          "heading": "1. Lateral Shift & Merge Tapers",
+          "content": "Merge tapers must provide adequate visual lead-in distance for approaching motorists to decelerate or shift lanes smoothly. Always ensure delineation cones are fitted with retro-reflective sleeves in clean condition."
+        },
+        {
+          "heading": "2. Buffer Zones & Work Area Separation",
+          "content": "The longitudinal buffer provides an essential safety clearance between the end of the taper and the active working space. Never park plant or store equipment inside designated buffer zones."
+        }
+      ],
+      "questions": [
+        {
+          "id": 1,
+          "question": "What is the primary function of a longitudinal buffer zone?",
+          "options": [
+            { "key": "A", "text": "Storage area for site vehicles and surplus cones." },
+            { "key": "B", "text": "Unoccupied safety space separating the taper from the active work crew." },
+            { "key": "C", "text": "Designated parking space for visitor vehicles." },
+            { "key": "D", "text": "Sign placement area." }
+          ],
+          "correctAnswer": "B",
+          "explanation": "A longitudinal buffer zone must remain entirely clear of personnel, plant, and materials to provide an errant vehicle recovery zone."
+        },
+        {
+          "id": 2,
+          "question": "Under wet or night-time operational conditions, what requirement applies to cone delineation?",
+          "options": [
+            { "key": "A", "text": "Cones must be fitted with undamaged retro-reflective sleeves." },
+            { "key": "B", "text": "Cone spacing may be doubled." },
+            { "key": "C", "text": "Any standard unreflective cone is permissible." },
+            { "key": "D", "text": "Reflectorized cones are only required on state highways." }
+          ],
+          "correctAnswer": "A",
+          "explanation": "High-visibility retro-reflective sleeves are required to ensure continuous target-value delineation in low-light and adverse weather conditions."
+        }
+      ]
+    },
+    {
+      "id": "TTM-MOD-02-SITE-SAFETY",
+      "title": "Site Hazard Identification & Daily Briefings",
+      "description": "Standard operating protocols for daily hazard identification, dynamic risk assessments, and crew inductions.",
+      "estimatedMinutes": 10,
+      "sections": [
+        {
+          "heading": "1. Dynamic Site Conditions",
+          "content": "Site conditions can change rapidly due to traffic flow, weather, or work scope creep. Pre-start briefings must be held prior to commencing work and updated if site layout changes occur."
+        }
+      ],
+      "questions": [
+        {
+          "id": 1,
+          "question": "When must a site safety briefing and hazard check be updated?",
+          "options": [
+            { "key": "A", "text": "Only at the end of each calendar week." },
+            { "key": "B", "text": "Whenever weather conditions, work scope, or layout parameters change significantly." },
+            { "key": "C", "text": "Only if requested by a member of the public." },
+            { "key": "D", "text": "Once per contract regardless of duration." }
+          ],
+          "correctAnswer": "B",
+          "explanation": "Hazard controls are dynamic; any significant change in scope, layout, or environment requires a re-briefing with all on-site personnel."
+        }
+      ]
+    }
+  ]
+}
