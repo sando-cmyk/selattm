@@ -1,5 +1,5 @@
 // SELA TTM - Core Application Logic
-// Complete Module Implementation with Real-time Firestore Sync
+// Complete Module Implementation with Anonymous Auto-Auth & Real-time Firestore Sync
 
 import { 
   auth, 
@@ -17,10 +17,12 @@ import {
   onSnapshot 
 } from "./firebase-config.js";
 
+import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
 // Global Application State
 let coursesCatalog = [];
 let currentUser = {
-  uid: "demo-user-001",
+  uid: "guest-user",
   name: "Craig Sanders",
   email: "craig@sandos.co.nz",
   employer: "Fulton Hogan",
@@ -57,7 +59,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadCoursesData();
   renderLearnerHub();
   renderCatalog();
-  listenToEnterpriseRecords();
 });
 
 // User Feedback Notification
@@ -92,10 +93,36 @@ function setupNavigation() {
 
 // Authentication & Identity Context
 function setupAuth() {
-  updateUserDisplay();
+  // Listen for real Firebase Auth state changes
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      currentUser.uid = user.uid;
+      if (user.displayName) currentUser.name = user.displayName;
+      if (user.email) currentUser.email = user.email;
+      if (btnGoogleAuth) btnGoogleAuth.textContent = user.isAnonymous ? "Sign In with Google" : "Sign Out";
+      updateUserDisplay();
+      listenToEnterpriseRecords();
+    } else {
+      // Auto-authenticate anonymously if no user is signed in
+      try {
+        const anonCred = await signInAnonymously(auth);
+        currentUser.uid = anonCred.user.uid;
+        updateUserDisplay();
+        listenToEnterpriseRecords();
+      } catch (err) {
+        console.error("Anonymous authentication error:", err);
+      }
+    }
+  });
 
   if (btnGoogleAuth) {
     btnGoogleAuth.addEventListener("click", async () => {
+      if (auth.currentUser && !auth.currentUser.isAnonymous) {
+        await signOut(auth);
+        showToast("Signed out successfully.");
+        return;
+      }
+
       try {
         const result = await signInWithPopup(auth, googleProvider);
         currentUser = {
@@ -107,10 +134,9 @@ function setupAuth() {
         };
         updateUserDisplay();
         btnGoogleAuth.textContent = "Sign Out";
-        showToast(`Welcome back, ${currentUser.name}`);
+        showToast(`Welcome, ${currentUser.name}`);
       } catch (err) {
-        console.warn("Auth popup closed or not configured yet. Retaining session.", err);
-        showToast("Using active local session.");
+        console.warn("Google Auth popup closed or cancelled:", err);
       }
     });
   }
@@ -372,7 +398,7 @@ function initSignatureCanvas() {
   window.addEventListener("touchend", stopDraw);
 }
 
-// Precise Arithmetic Calculation & Firestore Persistence
+// Submit Record directly to Firestore
 async function submitAssessment() {
   let correctCount = 0;
   const questions = activeCourse.questions || [];
@@ -394,8 +420,10 @@ async function submitAssessment() {
   const pad = (n) => String(n).padStart(2, '0');
   const timestampNZ = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 
+  const currentAuthUid = auth.currentUser ? auth.currentUser.uid : currentUser.uid;
+
   const submissionPayload = {
-    userId: currentUser.uid,
+    userId: currentAuthUid,
     workerName: currentUser.name,
     employer: currentUser.employer,
     moduleId: activeCourse.id,
@@ -409,12 +437,13 @@ async function submitAssessment() {
   };
 
   try {
-    await addDoc(collection(db, "submissions"), submissionPayload);
+    const docRef = await addDoc(collection(db, "submissions"), submissionPayload);
+    console.log("Document successfully written with ID:", docRef.id);
     showToast(`Record Logged to Firestore: ${submissionPayload.status} (${submissionPayload.scoreDisplay})`);
   } catch (err) {
-    console.warn("Firestore sync notice (fallback UI):", err);
+    console.error("Firestore submission error:", err);
     prependComplianceRow(submissionPayload);
-    showToast(`Record Logged Locally: ${submissionPayload.status} (${submissionPayload.scoreDisplay})`);
+    showToast(`Error writing to Firestore: ${err.message}`);
   }
 
   assessmentModal.classList.remove("active");
