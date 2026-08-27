@@ -1,0 +1,5 @@
+Answer, quick check 5 of 5.
+
+The correct answer is B: it is a best-practice guide, not a mandatory code of practice, but its "must" statements are legal requirements.
+
+Why: NZGTTM states it is a best-practice guide rather than a mandatory code of practice, intended for use by PCBUs. Within it, "must" denotes a legal requirement, while "should" and "could" denote recommended practice.

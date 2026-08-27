@@ -1,0 +1,7 @@
+What NZGTTM actually is.
+
+NZGTTM, 2023, is a best-practice guide — not a mandatory code of practice — intended for PCBUs who fund, plan, or engage in activities on or near roads. It moves the industry from the old, prescriptive Code of Practice for Temporary Traffic Management, COPTTM, fourth edition, to a risk-based system.
+
+It's designed to be read alongside other frameworks, not instead of them: WorkSafe's Good Practice Guide from 2022; the Health and Safety at Work Act 2015; the Road to Zero strategy; and the Land Transport Management Act 2003 together with the Local Government Act 2002.
+
+It's worth understanding how the guide uses its own language. The word "must" means a legal requirement — it has to be complied with. The words "should" and "could" mean a recommended practice or approach. Every "must" in this course is a legal requirement, not a suggestion.

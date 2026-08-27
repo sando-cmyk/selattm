@@ -1,0 +1,7 @@
+Seven concepts, five quick checks.
+
+This course works through the engineering logic of NZGTTM in order — each concept builds on the one before it. Along the way, five short knowledge checks let you test what's landing.
+
+Here's the path: one, Risk-Based Design. Two, TTM as Temporary Road Design. Three, Geometric Design Principles. Four, Traffic Engineering Principles. Five, Safety Engineering and Positive Protection. Six, Equipment Engineering. And seven, Specialist Projects and Complex Sites.
+
+Five short quick-check questions are woven through the deck — after Concepts one, two, five and seven, and one final wrap-up check before the close. Pick your answer, then move to the next slide to see if you were right, and why.

@@ -1,0 +1,10 @@
+Quick check, 1 of 5.
+
+What does a risk-based TTM decision need to be justified by?
+
+A: Matching the nearest standard diagram in the old code of practice.
+B: Site-specific hazards, road user behaviour, worker exposure, and environment or activity conditions.
+C: Whichever layout is fastest to set up.
+D: The contractor's usual preferred layout.
+
+Pick an answer, or just think it through — the reveal is on the next slide.

@@ -1,0 +1,10 @@
+Quick check, 2 of 5.
+
+Waka Kotahi describes TTM as:
+
+A: A temporary inconvenience with no formal design basis.
+B: A subset of construction site safety only.
+C: Permanent road design delivered temporarily.
+D: An administrative permitting process.
+
+Pick an answer — the reveal is on the next slide.

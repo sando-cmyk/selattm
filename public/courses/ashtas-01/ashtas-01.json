@@ -1,0 +1,12 @@
+{
+  "id": "ashtas-01",
+  "code": "ASHTAS-01",
+  "title": "ASHTAS Operative",
+  "description": "Introductory road safety and traffic management operative training program.",
+  "category": "TTM Training",
+  "price": 250.00,
+  "currency": "NZD",
+  "status": "active",
+  "launchPath": "/courses/ashtas-01/index.html",
+  "lastUpdated": "2026-08-26T12:32:00Z"
+}

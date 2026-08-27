@@ -1,0 +1,12 @@
+{
+  "id": "nzgttm-01",
+  "code": "NZGTTM-01",
+  "title": "NZGTTM Essentials",
+  "description": "Foundational training in the New Zealand Guidelines for Temporary Traffic Management.",
+  "category": "TTM Training",
+  "price": 45,
+  "currency": "NZD",
+  "status": "active",
+  "stripePriceId": "price_1U7sbz0flJvw3UeNHWAZ6T4N",
+  "launchPath": "/courses/nzgttm-essentials/index.html"
+}

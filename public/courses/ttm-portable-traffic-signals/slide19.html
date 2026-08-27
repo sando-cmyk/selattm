@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operation, Fail-Safe &amp; Communication — Working with Portable Traffic Signals</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="dots"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Operation, Fail-Safe &amp; Communication</div>
+  <div><a href="../sela-pts-course-firebase-web_$45/public/menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-image-wrap">
+    <img src="slides/slide19.jpg" alt="Slide 19: Operation, Fail-Safe &amp; Communication">
+  </div>
+
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/slide19.mp3" preload="auto" autoplay></audio>
+    <div class="narration-controls">
+      <button id="playBtn">▶ Play narration</button>
+      <button id="pauseBtn">⏸ Pause/Resume</button>
+      <button id="restartBtn">↺ Restart</button>
+      <label>Speed:
+        <select id="speedSelect">
+          <option value="0.85">Slow</option>
+          <option value="1" selected>Normal</option>
+          <option value="1.25">Fast</option>
+        </select>
+      </label>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module four covers daily inspection, monitoring, correct fail-safe behaviour, and communication protocols.</div>
+    <div id="autoplayHint" style="display:none;font-size:12px;color:#B36B00;margin-top:8px;">
+      Your browser blocked autoplay — press Play narration above to listen.
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <a class="btn" href="slide18.html">← Back</a>
+    <span style="color:#888;font-size:13px;">Slide 19 of 30</span>
+    <a class="btn amber" href="slide20.html">Next →</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  Course.markVisited(19);
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  Narration.init({
+    audio: narrationAudioEl,
+    playBtn: document.getElementById('playBtn'),
+    pauseBtn: document.getElementById('pauseBtn'),
+    restartBtn: document.getElementById('restartBtn'),
+    speedSelect: document.getElementById('speedSelect'),
+    transcriptToggle: document.getElementById('transcriptToggle'),
+    transcriptBox: document.getElementById('transcriptBox')
+  });
+  // Attempt autoplay; if the browser blocks it, show a hint to click Play.
+  var playAttempt = narrationAudioEl.play();
+  if (playAttempt !== undefined) {
+    playAttempt.catch(function () {
+      document.getElementById('autoplayHint').style.display = 'block';
+    });
+  }
+</script>
+</body>
+</html>

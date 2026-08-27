@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Core Engineering Concepts of TTM in New Zealand — Narrated Deck</title>
+<link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+  <div class="app">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <img src="assets/sela-logo-transparent.png" alt="Sela Civil Advisory" />
+        <div class="subtitle">TTM Engineering Essentials — Narrated Deck</div>
+      </div>
+      <div id="nav-list"></div>
+      <div class="progress-block">
+        <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+        <div id="progress-label">0% viewed</div>
+        <button id="btn-restart" class="restart-link" type="button">↺ Restart course</button>
+      </div>
+    </nav>
+    <main class="main">
+      <div id="audio-bar" class="audio-bar hidden">
+        <label>Narration</label>
+        <audio id="narration-audio" controls preload="auto"></audio>
+      </div>
+      <div id="slide-root"></div>
+      <div class="footer-nav">
+        <button id="btn-prev" class="btn">← Back</button>
+        <button id="btn-next" class="btn">Next →</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="scripts/progress-store.js"></script>
+  <script src="scripts/slide-data.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>

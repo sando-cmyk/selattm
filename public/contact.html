@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/site-header.css" />
+  <title>SELA TTM | Contact &amp; Corporate Onboarding</title>
+
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-blue: #38bdf8;
+      --accent-hover: #0284c7;
+      --accent-green: #22c55e;
+      --accent-red: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-container {
+      max-width: 720px;
+      margin: 48px auto;
+      padding: 0 24px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 36px 32px;
+      backdrop-filter: blur(12px);
+    }
+
+    .contact-header {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .contact-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-header p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 12px 14px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent-blue);
+    }
+
+    select option {
+      background: #1e293b;
+      color: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+
+    .btn-submit:hover {
+      background: #0369a1;
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status-msg {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      display: none;
+      text-align: center;
+    }
+
+    .status-success {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .status-error {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" id="global-header"></header>
+
+  <!-- Main Content -->
+  <main class="contact-container">
+    <div class="contact-card">
+      <header class="contact-header">
+        <h1>Contact &amp; Corporate Onboarding</h1>
+        <p>Interested in enterprise staff training, corporate invoicing, or barrier safety advisory? Submit your inquiry below and our team will get in touch.</p>
+      </header>
+
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="contact-name">Full Name *</label>
+          <input type="text" id="contact-name" required placeholder="e.g. Jane Smith" />
+        </div>
+
+        <div class="form-group">
+          <label for="contact-email">Business Email *</label>
+          <input type="email" id="contact-email" required placeholder="name@company.co.nz" />
+        </div>
+
+        <div class="form-group">
+          <label for="contact-company">Company / Organization *</label>
+          <input type="text" id="contact-company" required placeholder="e.g. Sela Civil Construction Ltd" />
+        </div>
+
+        <div class="form-group">
+          <label for="contact-type">Inquiry Type</label>
+          <select id="contact-type">
+            <option value="Enterprise / Corporate Training Account">Enterprise / Corporate Training Account</option>
+            <option value="Course Content / Certification Question">Course Content / Certification Question</option>
+            <option value="Barrier Safety Advisory">Barrier Safety Advisory</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-message">Message / Training Requirements</label>
+          <textarea id="contact-message" placeholder="Tell us about the number of trainees, specific corridors, or project timeline..."></textarea>
+        </div>
+
+        <button type="submit" id="btn-submit" class="btn-submit">Send Inquiry</button>
+        <div id="status-box" class="status-msg"></div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="global-footer"></footer>
+
+  <!-- Core Scripts -->
+  <script type="module" src="./js/firebase-init.js"></script>
+  <script type="module" src="./js/navigation.js"></script>
+
+  <!-- Form Submission Logic -->
+  <script type="module">
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const db = getFirestore();
+    const form = document.getElementById("contact-form");
+    const submitBtn = document.getElementById("btn-submit");
+    const statusBox = document.getElementById("status-box");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
+      statusBox.style.display = "none";
+      statusBox.className = "status-msg";
+
+      const payload = {
+        name: document.getElementById("contact-name").value.trim(),
+        email: document.getElementById("contact-email").value.trim(),
+        company: document.getElementById("contact-company").value.trim(),
+        subject: document.getElementById("contact-type").value,
+        message: document.getElementById("contact-message").value.trim(),
+        createdAt: serverTimestamp(),
+        status: "new"
+      };
+
+      try {
+        await addDoc(collection(db, "contact_inquiries"), payload);
+        statusBox.textContent = "Thank you. Your inquiry has been sent to our team.";
+        statusBox.classList.add("status-success");
+        statusBox.style.display = "block";
+        form.reset();
+      } catch (err) {
+        console.error("Submission error:", err);
+        statusBox.textContent = "Failed to submit inquiry: " + err.message;
+        statusBox.classList.add("status-error");
+        statusBox.style.display = "block";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Inquiry";
+      }
+    });
+  </script>
+</body>
+</html>

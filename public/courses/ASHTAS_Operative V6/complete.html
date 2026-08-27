@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Finish — ASHTAS Operative Training</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <strong>ASHTAS Operative Training</strong>
+      <span>Finish</span>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar"><span id="progressFill"></span></div>
+      <span class="progress-label" id="progressLabel">0 / 62 screens viewed</span>
+    </div>
+  </header>
+
+  <main class="slide-content">
+    <span class="module-tag">Finish</span>
+    <h1 class="page-title">Course content complete</h1>
+    <p class="subtitle">You've been through all 56 slides and all four check-ins.</p>
+
+    <section class="topic">
+      <h2>Next step</h2>
+      <p>Let your course facilitator know you're ready, then sit the official course test in Moodle:
+        30 multiple-choice questions, open book, 60 minutes, pass mark 80% (24/30). A minimum of 21 days
+        is required between resits, and failure to pass in 3 attempts results in exclusion from ASHTAS
+        Operative and Installer status.</p>
+    </section>
+
+    <section class="topic">
+      <h2>Mark this module complete</h2>
+      <p>This updates your progress in Moodle — it does not submit or affect the course test itself.</p>
+      <nav class="pager" style="margin-top:0;">
+        <button id="completeCourseBtn" type="button">Mark course content as complete</button>
+      </nav>
+    </section>
+
+    <div class="menu-jump">
+      <a href="menu.html">← Back to course menu</a>
+    </div>
+
+    <nav class="pager">
+      <a id="pagerPrev" href="slide56.html" >← Previous</a>
+      <span class="spacer"></span>
+      <a id="pagerNext" href="#" class="disabled">Next →</a>
+    </nav>
+  </main>
+
+  <footer class="foot">
+    © Lantra — ASHTAS Operative Training material, reproduced under licence for internal Moodle delivery.
+  </footer>
+</div>
+
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/speech.js"></script>
+<script>CourseNav.start("complete");</script>
+</body>
+</html>

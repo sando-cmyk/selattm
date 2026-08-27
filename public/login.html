@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Portal - Sela Civil Advisory Ltd</title>
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+  <div class="page-container">
+    <header class="site-header" id="global-header"></header>
+
+    <div class="main-wrapper">
+      <main class="container">
+        <div class="main-content" style="max-width: 480px; margin: 0 auto;">
+          <div class="auth-tabs">
+            <div class="auth-tab active" id="tab-signin">Sign In</div>
+            <div class="auth-tab" id="tab-register">Create Account</div>
+          </div>
+
+          <!-- Google Quick Auth -->
+          <button type="button" class="btn-google" id="btn-google-signin">
+            <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707 0-.59.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.347 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/></svg>
+            Continue with Google
+          </button>
+
+          <div style="display:flex; align-items:center; margin-bottom:1.5rem;">
+            <hr style="flex:1; border:0; border-top:1px solid #e2e8f0;">
+            <span style="padding:0 0.75rem; color:#718096; font-size:0.85rem; font-weight:600;">OR</span>
+            <hr style="flex:1; border:0; border-top:1px solid #e2e8f0;">
+          </div>
+
+          <!-- Sign In Form -->
+          <form id="signin-form">
+            <div class="form-group">
+              <label for="signin-email">Email Address</label>
+              <input type="email" id="signin-email" class="form-control" required placeholder="name@company.co.nz">
+            </div>
+            <div class="form-group">
+              <label for="signin-password">Password</label>
+              <input type="password" id="signin-password" class="form-control" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-primary" id="btn-signin-submit">Sign In</button>
+            <div style="margin-top: 1rem; text-align: center;">
+              <a href="#" id="link-forgot-password" style="font-size:0.85rem; color:var(--primary-color); font-weight:600; text-decoration:none;">Forgot your password?</a>
+            </div>
+          </form>
+
+          <!-- Register Form -->
+          <form id="register-form" style="display: none;">
+            <div class="form-group">
+              <label for="reg-email">Business / Personal Email</label>
+              <input type="email" id="reg-email" class="form-control" required placeholder="name@company.co.nz">
+            </div>
+            <div class="form-group">
+              <label for="reg-password">Password</label>
+              <input type="password" id="reg-password" class="form-control" required minlength="6" placeholder="At least 6 characters">
+            </div>
+            <div class="form-group">
+              <label for="reg-confirm">Confirm Password</label>
+              <input type="password" id="reg-confirm" class="form-control" required minlength="6" placeholder="Confirm password">
+            </div>
+            <button type="submit" class="btn-primary" id="btn-reg-submit">Create Account</button>
+          </form>
+
+          <!-- Forgot Password Form -->
+          <form id="forgot-form" style="display: none;">
+            <h3 style="font-family:'Playfair Display', serif; color:var(--dark-blue); margin-bottom:0.75rem;">Password Reset</h3>
+            <p style="font-size:0.9rem; color:#666; margin-bottom:1.25rem;">Enter your email to receive a password reset link.</p>
+            <div class="form-group">
+              <label for="forgot-email">Email Address</label>
+              <input type="email" id="forgot-email" class="form-control" required placeholder="name@company.co.nz">
+            </div>
+            <button type="submit" class="btn-primary" id="btn-forgot-submit">Send Reset Email</button>
+            <div style="margin-top: 1rem; text-align: center;">
+              <a href="#" id="link-back-to-signin" style="font-size:0.85rem; color:var(--primary-color); font-weight:600; text-decoration:none;">Back to Sign In</a>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <footer class="site-footer" id="global-footer"></footer>
+  </div>
+
+  <script type="module">
+    import "./js/navigation.js";
+    import { 
+      auth, 
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword, 
+      sendPasswordResetEmail, 
+      signInWithPopup, 
+      googleProvider,
+      onAuthStateChanged
+    } from "./js/firebase-init.js";
+    import { showAppModal, showErrorModal } from "./js/modal.js";
+
+    const tabSignIn = document.getElementById("tab-signin");
+    const tabRegister = document.getElementById("tab-register");
+    const signinForm = document.getElementById("signin-form");
+    const registerForm = document.getElementById("register-form");
+    const forgotForm = document.getElementById("forgot-form");
+    const linkForgot = document.getElementById("link-forgot-password");
+    const linkBack = document.getElementById("link-back-to-signin");
+    const btnGoogle = document.getElementById("btn-google-signin");
+
+    // Redirect if already authenticated
+    onAuthStateChanged(auth, (user) => {
+      if (user && !user.isAnonymous) {
+        window.location.replace("learner.html");
+      }
+    });
+
+    // Tab switching
+    tabSignIn.addEventListener("click", () => {
+      tabSignIn.classList.add("active");
+      tabRegister.classList.remove("active");
+      signinForm.style.display = "block";
+      registerForm.style.display = "none";
+      forgotForm.style.display = "none";
+    });
+
+    tabRegister.addEventListener("click", () => {
+      tabRegister.classList.add("active");
+      tabSignIn.classList.remove("active");
+      registerForm.style.display = "block";
+      signinForm.style.display = "none";
+      forgotForm.style.display = "none";
+    });
+
+    linkForgot.addEventListener("click", (e) => {
+      e.preventDefault();
+      signinForm.style.display = "none";
+      registerForm.style.display = "none";
+      forgotForm.style.display = "block";
+    });
+
+    linkBack.addEventListener("click", (e) => {
+      e.preventDefault();
+      forgotForm.style.display = "none";
+      signinForm.style.display = "block";
+    });
+
+    // Sign In Submission
+    signinForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("signin-email").value.trim();
+      const pass = document.getElementById("signin-password").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        window.location.replace("learner.html");
+      } catch (err) {
+        showErrorModal(err.message || "Invalid email or password.");
+      }
+    });
+
+    // Registration Submission
+    registerForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("reg-email").value.trim();
+      const pass = document.getElementById("reg-password").value;
+      const confirm = document.getElementById("reg-confirm").value;
+
+      if (pass !== confirm) {
+        showErrorModal("Passwords do not match. Please re-enter.");
+        return;
+      }
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, pass);
+        window.location.replace("learner.html");
+      } catch (err) {
+        showErrorModal(err.message || "Unable to create account.");
+      }
+    });
+
+    // Google Sign-In
+    btnGoogle.addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, googleProvider);
+        window.location.replace("learner.html");
+      } catch (err) {
+        showErrorModal(err.message || "Google sign-in failed.");
+      }
+    });
+
+    // Forgot Password
+    forgotForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("forgot-email").value.trim();
+
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showAppModal({
+          title: "Password Reset Sent",
+          message: "Check your email for the reset instructions.",
+          redirectUrl: ""
+        });
+        forgotForm.style.display = "none";
+        signinForm.style.display = "block";
+      } catch (err) {
+        showErrorModal(err.message || "Unable to send password reset.");
+      }
+    });
+  </script>
+</body>
+</html>

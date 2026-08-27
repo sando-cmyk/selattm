@@ -1,0 +1,3 @@
+Welcome to Core Engineering Concepts of TTM in New Zealand — an essentials primer, aligned with NZGTTM, 2023.
+
+This is a working guide to the engineering thinking behind Temporary Traffic Management, and — just as importantly — where each requirement actually comes from.

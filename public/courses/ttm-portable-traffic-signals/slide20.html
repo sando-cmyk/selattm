@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Inspection Checklist — Working with Portable Traffic Signals</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="dots"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Daily Inspection Checklist</div>
+  <div><a href="../sela-pts-course-firebase-web_$45/public/menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-image-wrap">
+    <img src="slides/slide20.jpg" alt="Slide 20: Daily Inspection Checklist">
+  </div>
+
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/slide20.mp3" preload="auto" autoplay></audio>
+    <div class="narration-controls">
+      <button id="playBtn">▶ Play narration</button>
+      <button id="pauseBtn">⏸ Pause/Resume</button>
+      <button id="restartBtn">↺ Restart</button>
+      <label>Speed:
+        <select id="speedSelect">
+          <option value="0.85">Slow</option>
+          <option value="1" selected>Normal</option>
+          <option value="1.25">Fast</option>
+        </select>
+      </label>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Every shift starts with a proper daily inspection, not just switching the power on. Check the signal heads are clean, visible, and correctly aligned, and that backing boards are fitted and unobstructed. Confirm the advance warning sign is installed at the correct distance, and the Stop Here On Red sign is in place. Confirm the communication link between the two units is working, and that batteries or solar charging are verified. Test the fail-safe behaviour itself — don&#x27;t just assume it works. Check that any nearby permanent signals are bagged or isolated, and confirm sight lines are unobstructed at both ends. Record this check — time, operator, result — every single day.</div>
+    <div id="autoplayHint" style="display:none;font-size:12px;color:#B36B00;margin-top:8px;">
+      Your browser blocked autoplay — press Play narration above to listen.
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <a class="btn" href="slide19.html">← Back</a>
+    <span style="color:#888;font-size:13px;">Slide 20 of 30</span>
+    <a class="btn amber" href="slide21.html">Next →</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  Course.markVisited(20);
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  Narration.init({
+    audio: narrationAudioEl,
+    playBtn: document.getElementById('playBtn'),
+    pauseBtn: document.getElementById('pauseBtn'),
+    restartBtn: document.getElementById('restartBtn'),
+    speedSelect: document.getElementById('speedSelect'),
+    transcriptToggle: document.getElementById('transcriptToggle'),
+    transcriptBox: document.getElementById('transcriptBox')
+  });
+  // Attempt autoplay; if the browser blocks it, show a hint to click Play.
+  var playAttempt = narrationAudioEl.play();
+  if (playAttempt !== undefined) {
+    playAttempt.catch(function () {
+      document.getElementById('autoplayHint').style.display = 'block';
+    });
+  }
+</script>
+</body>
+</html>

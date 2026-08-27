@@ -1,0 +1,12 @@
+{
+  "id": "ttm-eng-01",
+  "code": "TTM-ENG-01",
+  "title": "Core Engineering Concepts of TTM in New Zealand",
+  "description": "Narrated deck covering the core engineering principles behind temporary traffic management design.",
+  "category": "TTM Training",
+  "price": 45,
+  "currency": "NZD",
+  "status": "active",
+  "stripePriceId": "price_1U92F40flJvw3UeNlP1DNMjn",
+  "launchPath": "/courses/ttm-engineering-essentials/index.html"
+}

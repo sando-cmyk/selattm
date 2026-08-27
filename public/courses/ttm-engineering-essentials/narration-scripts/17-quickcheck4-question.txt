@@ -1,0 +1,10 @@
+Quick check, 4 of 5.
+
+Why might a rail level crossing near a TTM site require extra engineering attention?
+
+A: Level crossings never require any additional consideration.
+B: A standard road-only layout could compromise sighting of an approaching train, or cause vehicles to queue across the crossing.
+C: KiwiRail does not have any TTM-related guidance.
+D: NZGTTM's Part 3 toolbox already covers level crossing design in full detail.
+
+Pick an answer — the reveal is on the next slide.

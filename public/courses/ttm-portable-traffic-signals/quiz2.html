@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 Check: Equipment &amp; Signal Head Standards — Working with Portable Traffic Signals</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="dots"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Module 2 Check: Equipment &amp; Signal Head Standards</div>
+  <div><a href="../sela-pts-course-firebase-web_$45/public/menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <h2 style="color:var(--navy);">Module 2 Check: Equipment &amp; Signal Head Standards</h2>
+  <p style="color:#666;">Answer all questions, then select <strong>Submit</strong>. You need 80% (4 out of 5) to pass. You can retry if needed.</p>
+  <form id="quizForm">
+    <div class="quiz-question" data-qindex="0" data-answer="1">
+  <p class="qtext">1. Under AS 4191, what signal head configuration is required?</p>
+  <label><input type="radio" name="q0" value="0"> Two-aspect Red/Green only</label>
+<label><input type="radio" name="q0" value="1"> Three-aspect Red/Yellow/Green, circular lenses only</label>
+<label><input type="radio" name="q0" value="2"> Arrow aspects as standard</label>
+<label><input type="radio" name="q0" value="3"> Any configuration the supplier prefers</label>
+
+  <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+</div>
+<div class="quiz-question" data-qindex="1" data-answer="2">
+  <p class="qtext">2. What is the industry-standard lens diameter for a portable traffic signal?</p>
+  <label><input type="radio" name="q1" value="0"> 100 mm</label>
+<label><input type="radio" name="q1" value="1"> 150 mm</label>
+<label><input type="radio" name="q1" value="2"> 200 mm</label>
+<label><input type="radio" name="q1" value="3"> 300 mm</label>
+
+  <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+</div>
+<div class="quiz-question" data-qindex="2" data-answer="1">
+  <p class="qtext">3. What is the purpose of the black, matte backing board behind the signal lenses?</p>
+  <label><input type="radio" name="q2" value="0"> Purely decorative branding</label>
+<label><input type="radio" name="q2" value="1"> Reduces sun-washout and improves daytime visibility</label>
+<label><input type="radio" name="q2" value="2"> Provides the power supply</label>
+<label><input type="radio" name="q2" value="3"> Required only at night</label>
+
+  <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+</div>
+<div class="quiz-question" data-qindex="3" data-answer="1">
+  <p class="qtext">4. What must happen if the communication link between two signal units is lost?</p>
+  <label><input type="radio" name="q3" value="0"> Nothing — the units keep running independently</label>
+<label><input type="radio" name="q3" value="1"> The system must trigger a safe shutdown</label>
+<label><input type="radio" name="q3" value="2"> Both units automatically show green</label>
+<label><input type="radio" name="q3" value="3"> The nearest permanent signal takes over</label>
+
+  <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+</div>
+<div class="quiz-question" data-qindex="4" data-answer="1">
+  <p class="qtext">5. When is Stop/Go control generally preferred over Portable Traffic Signals?</p>
+  <label><input type="radio" name="q4" value="0"> On very long sections with poor inter-visibility</label>
+<label><input type="radio" name="q4" value="1"> On short sections where TTM Workers have good sight lines to each other</label>
+<label><input type="radio" name="q4" value="2"> Only during night works</label>
+<label><input type="radio" name="q4" value="3"> Never — signals are always preferred</label>
+
+  <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+</div>
+
+  </form>
+  <div id="quizResult"></div>
+  <div class="nav-row">
+    <button class="btn" id="submitBtn" type="button">Submit Answers</button>
+    <a class="btn amber" id="continueBtn" href="slide12.html" style="display:none;">Continue →</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>
+  var QUIZ_ID = "quiz2";
+  var TOTAL_Q = 5;
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    var questions = document.querySelectorAll('.quiz-question');
+    var score = 0;
+    var allAnswered = true;
+    questions.forEach(function(qEl){
+      var qi = qEl.getAttribute('data-qindex');
+      var correct = Number(qEl.getAttribute('data-answer'));
+      var selected = qEl.querySelector('input[name="q'+qi+'"]:checked');
+      var fb = qEl.querySelector('.qfeedback');
+      if (!selected) { allAnswered = false; return; }
+      var chosen = Number(selected.value);
+      fb.style.display = 'block';
+      if (chosen === correct) {
+        score++;
+        fb.innerHTML = '<span class="correct-answer">Correct.</span>';
+      } else {
+        var correctText = qEl.querySelectorAll('label')[correct].textContent.trim();
+        fb.innerHTML = '<span class="incorrect-answer">Not quite — correct answer: ' + correctText + '</span>';
+      }
+    });
+    if (!allAnswered) {
+      alert('Please answer every question before submitting.');
+      return;
+    }
+    var pct = Math.round((score / TOTAL_Q) * 100);
+    var passed = (score / TOTAL_Q) >= 0.8;
+    Course.recordQuiz(QUIZ_ID, score, TOTAL_Q);
+    var resultEl = document.getElementById('quizResult');
+    resultEl.innerHTML = '<div class="quiz-result ' + (passed ? 'pass' : 'fail') + '">' +
+      'You scored ' + score + ' / ' + TOTAL_Q + ' (' + pct + '%) — ' + (passed ? 'Passed!' : 'Not yet a pass — review the module and try again.') +
+      '</div>';
+    if (passed) {
+      document.getElementById('continueBtn').style.display = 'inline-block';
+      document.getElementById('submitBtn').style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>

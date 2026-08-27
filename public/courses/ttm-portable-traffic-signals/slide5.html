@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compliance Framework — Working with Portable Traffic Signals</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="dots"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Compliance Framework</div>
+  <div><a href="../sela-pts-course-firebase-web_$45/public/menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-image-wrap">
+    <img src="slides/slide5.jpg" alt="Slide 5: Compliance Framework">
+  </div>
+
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/slide5.mp3" preload="auto" autoplay></audio>
+    <div class="narration-controls">
+      <button id="playBtn">▶ Play narration</button>
+      <button id="pauseBtn">⏸ Pause/Resume</button>
+      <button id="restartBtn">↺ Restart</button>
+      <label>Speed:
+        <select id="speedSelect">
+          <option value="0.85">Slow</option>
+          <option value="1" selected>Normal</option>
+          <option value="1.25">Fast</option>
+        </select>
+      </label>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Portable Traffic Signals sit inside a clear compliance framework. The core technical standard is AS 4191:1994, which sets the operational and technical requirements — signal aspects, fail-safe behaviour, communication, and visibility. Only systems listed on NZTA&#x27;s Register of Approved Systems may be deployed on a public road — examples include BarrowLIGHT, Bartco, A1 Roadlines, and MPB units. Deployment must be authorised through an RCA-approved Traffic Management Plan, and operation must align with NZGTTM&#x27;s risk-based framework. It&#x27;s worth being explicit here: NZGTTM, the New Zealand Guide to Temporary Traffic Management, is the current national guide for this work. CoPTTM, the old Code of Practice for Temporary Traffic Management, has been retired — if you trained under CoPTTM previously, all current best practice, terminology, and processes now sit under NZGTTM instead. And underneath all of this, public road deployment is only ever permitted with proper authorisation in place.</div>
+    <div id="autoplayHint" style="display:none;font-size:12px;color:#B36B00;margin-top:8px;">
+      Your browser blocked autoplay — press Play narration above to listen.
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <a class="btn" href="slide4.html">← Back</a>
+    <span style="color:#888;font-size:13px;">Slide 5 of 30</span>
+    <a class="btn amber" href="slide6.html">Next →</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  Course.markVisited(5);
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  Narration.init({
+    audio: narrationAudioEl,
+    playBtn: document.getElementById('playBtn'),
+    pauseBtn: document.getElementById('pauseBtn'),
+    restartBtn: document.getElementById('restartBtn'),
+    speedSelect: document.getElementById('speedSelect'),
+    transcriptToggle: document.getElementById('transcriptToggle'),
+    transcriptBox: document.getElementById('transcriptBox')
+  });
+  // Attempt autoplay; if the browser blocks it, show a hint to click Play.
+  var playAttempt = narrationAudioEl.play();
+  if (playAttempt !== undefined) {
+    playAttempt.catch(function () {
+      document.getElementById('autoplayHint').style.display = 'block';
+    });
+  }
+</script>
+</body>
+</html>

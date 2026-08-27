@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/site-header.css" />
+  <title>SELA TTM | Learner Hub</title>
+
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-blue: #38bdf8;
+      --accent-green: #22c55e;
+      --accent-hover: #16a34a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .learner-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .learner-header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 20px;
+    }
+
+    .learner-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .learner-header p {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .learner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .course-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+
+    .course-code {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .course-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 8px 0 12px;
+      color: var(--text-main);
+    }
+
+    .course-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .btn-launch {
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      background: var(--accent-green);
+      color: #0f172a;
+      font-weight: 700;
+      padding: 12px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-launch:hover {
+      background: var(--accent-hover);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" id="global-header"></header>
+
+  <!-- Learner Content -->
+  <main class="learner-container">
+    <header class="learner-header">
+      <h1>Learner Training Hub</h1>
+      <p id="learner-welcome-text">Access your active training modules and assessments.</p>
+    </header>
+
+    <div id="learner-courses-grid" class="learner-grid">
+      <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">
+        Loading enrolled modules...
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="global-footer"></footer>
+
+  <!-- Global Scripts -->
+  <script type="module" src="./js/firebase-init.js"></script>
+  <script type="module" src="./js/navigation.js"></script>
+
+  <!-- Learner Hub Data Pipeline -->
+  <script type="module">
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs, doc, getDoc, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const auth = getAuth();
+    const db = getFirestore();
+
+    const FALLBACK_MODULES = [
+      {
+        id: "ashtas-01",
+        code: "ASHTAS-01",
+        title: "ASHTAS Operative",
+        description: "Interactive checkpoints, slide decks, and roadside practical knowledge.",
+        launchPath: "/courses/ashtas-01/index.html"
+      },
+      {
+        id: "pts-01",
+        code: "PTS-01",
+        title: "Working with Portable Traffic Signals",
+        description: "Certified training for the safe setup and operation of portable traffic signals on site.",
+        launchPath: "/courses/ttm-portable-traffic-signals/index.html"
+      },
+      {
+        id: "ttm-eng-01",
+        code: "TTM-ENG-01",
+        title: "Core Engineering Concepts of TTM in New Zealand",
+        description: "Narrated deck covering the core engineering principles behind temporary traffic management design.",
+        launchPath: "/courses/ttm-engineering-essentials/index.html"
+      },
+      {
+        id: "ttm-roles-01",
+        code: "TTM-ROLES-01",
+        title: "Roles & Responsibilities for TTM in New Zealand",
+        description: "Who does what on a TTM site -- roles, responsibilities, and accountability under NZ practice.",
+        launchPath: "/courses/ttm-roles-responsibilities/index.html"
+      },
+      {
+        id: "nzgttm-01",
+        code: "NZGTTM-01",
+        title: "NZGTTM Essentials",
+        description: "Foundational training in the New Zealand Guidelines for Temporary Traffic Management.",
+        launchPath: "/courses/nzgttm-essentials/index.html"
+      }
+    ];
+
+    /**
+     * Renders course module cards into the hub.
+     */
+    function renderModules(modules) {
+      const grid = document.getElementById("learner-courses-grid");
+      if (!grid) return;
+
+      if (!modules || !modules.length) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">No paid modules yet. <a href="store.html" style="color: var(--accent-green);">Browse the store</a> to enroll.</p>`;
+        return;
+      }
+
+      grid.innerHTML = modules.map(mod => {
+        const code = mod.code || mod.id || "TTM";
+        const title = mod.title || "Course Module";
+        const desc = mod.description || "Certified roadside training module.";
+        const launch = mod.launchPath || `/courses/${mod.id}/index.html`;
+
+        return `
+          <div class="course-card">
+            <div>
+              <span class="course-code">${code}</span>
+              <h3 class="course-title">${title}</h3>
+              <p class="course-desc">${desc}</p>
+            </div>
+            <div>
+              <a href="${launch}" class="btn-launch">Launch Module</a>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    /**
+     * Loads live modules from Firestore with local fallback.
+     */
+    async function loadLearnerModules(user, paidCourseIds) {
+      const welcomeText = document.getElementById("learner-welcome-text");
+      if (welcomeText && user) {
+        welcomeText.textContent = `Welcome back, ${user.displayName || user.email || 'Learner'}. Select a module to continue.`;
+      }
+
+      let catalog = null;
+
+      // 1. Check Firestore
+      try {
+        const snap = await getDocs(collection(db, "courses"));
+        if (!snap.empty) {
+          const live = [];
+          snap.forEach(d => live.push({ id: d.id, ...d.data() }));
+          catalog = live;
+        }
+      } catch (e) {
+        console.warn("[Learner] Firestore query bypassed:", e.message);
+      }
+
+      // 2. Check /data/courses.json
+      if (!catalog) {
+        try {
+          const res = await fetch("/data/courses.json", { cache: "no-cache" });
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data) && data.length > 0) catalog = data;
+          }
+        } catch (err) {
+          console.log("[Learner] Fallback JSON bypass:", err.message);
+        }
+      }
+
+      // 3. Guaranteed hardcoded fallback
+      if (!catalog) catalog = FALLBACK_MODULES;
+
+      // Only show courses this account has actually paid for.
+      const owned = catalog.filter(c => paidCourseIds.has(c.id) || paidCourseIds.has(c.code));
+      renderModules(owned);
+    }
+
+    // Authenticate, confirm payment, then load
+    onAuthStateChanged(auth, async (user) => {
+      if (!user || user.isAnonymous) {
+        window.location.replace("login.html");
+        return;
+      }
+
+      const paidCourseIds = new Set();
+      try {
+        const paidSnap = await getDocs(
+          query(collection(db, "customers", user.uid, "payments"), where("status", "==", "succeeded"))
+        );
+        paidSnap.forEach(d => {
+          const p = d.data();
+          if (p.courseId) paidCourseIds.add(p.courseId);
+        });
+      } catch (e) {
+        console.warn("[Learner] Payment lookup failed:", e.message);
+      }
+
+      loadLearnerModules(user, paidCourseIds);
+    });
+  </script>
+</body>
+</html>

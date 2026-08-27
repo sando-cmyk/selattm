@@ -1,0 +1,199 @@
+/* ==========================================================================
+   SELA Civil Advisory Ltd — Shared Site Header, Footer & Auth Styles
+   Single source of truth for the header used on EVERY page. Edit only here —
+   do not re-copy these rules into a page's own <style> block again.
+   (Verbatim subset of css/custom.css's header/footer/button rules, so pages
+   that already load custom.css in full are unaffected by also loading this.)
+   ========================================================================== */
+
+:root {
+    --primary-color: #1a6c7a;
+    --dark-blue: #000f2b;
+    --white: #ffffff;
+}
+
+.site-header {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--primary-color);
+    padding: 0.5rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+}
+
+.site-logo {
+    width: 180px;
+    height: 55px;
+    display: block;
+    object-fit: contain;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+}
+
+.main-nav a {
+    color: var(--text-color, #111111);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0.2rem 0;
+    transition: color 0.2s;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.header-auth-box {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0.4rem 0.85rem;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 15, 43, 0.15);
+    font-size: 0.85rem;
+}
+
+.auth-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+    color: var(--dark-blue);
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.auth-badge-dot {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    border-radius: 50%;
+    background-color: #a0aec0;
+}
+
+.auth-badge-dot.active {
+    background-color: #38a169;
+}
+
+.btn-primary {
+    display: inline-block;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 0.5rem 1.15rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #145560;
+}
+
+.btn-secondary {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--dark-blue);
+    border: 1px solid var(--dark-blue);
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(0, 15, 43, 0.05);
+}
+
+.btn-danger {
+    display: inline-block;
+    background-color: #e53e3e;
+    color: #ffffff;
+    border: none;
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background-color 0.2s;
+}
+
+.btn-danger:hover {
+    background-color: #c53030;
+}
+
+.site-footer {
+    margin-top: auto;
+    flex-shrink: 0;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.85rem;
+    color: #222222;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+}
+
+.site-footer a {
+    color: var(--dark-blue);
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+    .main-nav {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+}

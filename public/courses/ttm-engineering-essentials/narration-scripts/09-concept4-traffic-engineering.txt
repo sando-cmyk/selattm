@@ -1,0 +1,3 @@
+Concept 4 of 7: Traffic Engineering Principles.
+
+A geometrically sound layout still has to work under real traffic conditions — not just light, best-case traffic. TTM design must consider: operating speeds and speed management; traffic volumes and peak flows; queue lengths and delay modelling; pedestrian and cyclist movements; intersection control and temporary signalisation; and safe interaction with work vehicles.

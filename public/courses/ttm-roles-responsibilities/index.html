@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Roles & Responsibilities for TTM in New Zealand</title>
+<link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+  <div class="app">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo"><img src="images/sela-logo.png" alt="Sela Civil Advisory Limited" /></div>
+        <h1>Roles &amp; Responsibilities for TTM in New Zealand</h1>
+        <div class="subtitle">Regulatory &amp; Best Practice Primer — NZGTTM Edition</div>
+      </div>
+      <div id="nav-list"></div>
+      <div class="progress-block">
+        <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+        <div id="progress-label">0% viewed</div>
+      </div>
+    </nav>
+    <main class="main">
+      <div class="topbar">Temporary Traffic Management (TTM) &nbsp;·&nbsp; Roles &amp; Responsibilities &nbsp;·&nbsp; NZGTTM (2023) — current framework &nbsp;·&nbsp; CoPTTM (2018) retired 1 Jul 2026</div>
+      <div class="audio-bar" id="audio-bar">
+        <span class="audio-icon" aria-hidden="true">🔊</span>
+        <span class="audio-label" id="audio-label">Narration</span>
+        <audio id="narration-audio" controls preload="auto"></audio>
+        <span class="audio-hint">Press play if narration doesn't start automatically</span>
+      </div>
+      <div id="content"></div>
+      <div class="footer-nav">
+        <button id="btn-prev" class="btn btn-nav">← Back</button>
+        <button id="btn-next" class="btn btn-nav">Next →</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="scripts/progress-store.js"></script>
+  <script src="scripts/course-data.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>

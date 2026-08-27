@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portable Signals vs Stop/Go Boards — Working with Portable Traffic Signals</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="dots"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Portable Signals vs Stop/Go Boards</div>
+  <div><a href="../sela-pts-course-firebase-web_$45/public/menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-image-wrap">
+    <img src="slides/slide11.jpg" alt="Slide 11: Portable Signals vs Stop/Go Boards">
+  </div>
+
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/slide11.mp3" preload="auto" autoplay></audio>
+    <div class="narration-controls">
+      <button id="playBtn">▶ Play narration</button>
+      <button id="pauseBtn">⏸ Pause/Resume</button>
+      <button id="restartBtn">↺ Restart</button>
+      <label>Speed:
+        <select id="speedSelect">
+          <option value="0.85">Slow</option>
+          <option value="1" selected>Normal</option>
+          <option value="1.25">Fast</option>
+        </select>
+      </label>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Stop/Go boards and Portable Traffic Signals both solve the same basic problem — controlling opposing traffic through a single lane — but suit different situations. Stop/Go works well for shorter sections where the two TTM Workers can see or communicate with each other reliably, and for short-duration jobs. Portable Traffic Signals come into their own on longer sections, where sight lines are poor, or where works will run for days or weeks and staffing continuous TTM Workers isn&#x27;t practical — they give consistent, repeatable control without relying on constant in-the-moment judgement. Whichever method is used, it should match what&#x27;s specified in the approved Traffic Management Plan — don&#x27;t substitute one for the other on site without getting that change approved first.</div>
+    <div id="autoplayHint" style="display:none;font-size:12px;color:#B36B00;margin-top:8px;">
+      Your browser blocked autoplay — press Play narration above to listen.
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <a class="btn" href="slide10.html">← Back</a>
+    <span style="color:#888;font-size:13px;">Slide 11 of 30</span>
+    <a class="btn amber" href="quiz2.html">Continue to Module 2 Check →</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  Course.markVisited(11);
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  Narration.init({
+    audio: narrationAudioEl,
+    playBtn: document.getElementById('playBtn'),
+    pauseBtn: document.getElementById('pauseBtn'),
+    restartBtn: document.getElementById('restartBtn'),
+    speedSelect: document.getElementById('speedSelect'),
+    transcriptToggle: document.getElementById('transcriptToggle'),
+    transcriptBox: document.getElementById('transcriptBox')
+  });
+  // Attempt autoplay; if the browser blocks it, show a hint to click Play.
+  var playAttempt = narrationAudioEl.play();
+  if (playAttempt !== undefined) {
+    playAttempt.catch(function () {
+      document.getElementById('autoplayHint').style.display = 'block';
+    });
+  }
+</script>
+</body>
+</html>

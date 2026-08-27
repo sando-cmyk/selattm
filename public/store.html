@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/site-header.css" />
+  <title>SELA TTM | Available Training Modules</title>
+
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-blue: #38bdf8;
+      --accent-hover: #0284c7;
+      --accent-green: #22c55e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .store-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .store-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .store-header h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .store-header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+      margin-top: 16px;
+    }
+
+    .course-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    .course-code {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .course-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 8px 0 12px;
+      color: var(--text-main);
+    }
+
+    .course-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .course-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+
+    .btn-enroll {
+      width: 100%;
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-enroll:hover {
+      background: #0369a1;
+    }
+
+    .btn-enroll:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" id="global-header"></header>
+
+  <!-- Store Container -->
+  <main class="store-container">
+    <header class="store-header">
+      <h1>Available Training Modules</h1>
+      <p>Browse certified temporary traffic management, barrier systems, and high-speed corridor qualifications.</p>
+    </header>
+
+    <!-- Main Grid Container -->
+    <div id="store-catalog-grid" class="courses-grid">
+      <!-- Direct Inline Fallback Cards (Rendered with pure HTML so it NEVER appears empty).
+           Only add a course here once real content exists behind it AND a real Stripe
+           Price ID has been created -- selling a course with no content is a refund
+           waiting to happen. Keep this list in sync with public/data/courses.json. -->
+      <div class="course-card">
+        <div>
+          <span class="course-code">ASHTAS-01</span>
+          <h3 class="course-title">ASHTAS Operative</h3>
+          <p class="course-desc">Introductory road safety and traffic management operative training program.</p>
+        </div>
+        <div>
+          <div class="course-price">NZD $495.00</div>
+          <button class="btn-enroll" data-id="ashtas-01" data-price-id="price_1U7qQ30flJvw3UeN6hpTVLKY" data-title="ASHTAS Operative">Enroll &amp; Launch</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <div>
+          <span class="course-code">PTS-01</span>
+          <h3 class="course-title">Working with Portable Traffic Signals</h3>
+          <p class="course-desc">Certified training for the safe setup and operation of portable traffic signals on site.</p>
+        </div>
+        <div>
+          <div class="course-price">NZD $45.00</div>
+          <button class="btn-enroll" data-id="pts-01" data-price-id="price_1U92BF0flJvw3UeNDi7Ga1UG" data-title="Working with Portable Traffic Signals">Enroll &amp; Launch</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <div>
+          <span class="course-code">TTM-ENG-01</span>
+          <h3 class="course-title">Core Engineering Concepts of TTM in New Zealand</h3>
+          <p class="course-desc">Narrated deck covering the core engineering principles behind temporary traffic management design.</p>
+        </div>
+        <div>
+          <div class="course-price">NZD $45.00</div>
+          <button class="btn-enroll" data-id="ttm-eng-01" data-price-id="price_1U92F40flJvw3UeNlP1DNMjn" data-title="Core Engineering Concepts of TTM in New Zealand">Enroll &amp; Launch</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <div>
+          <span class="course-code">TTM-ROLES-01</span>
+          <h3 class="course-title">Roles &amp; Responsibilities for TTM in New Zealand</h3>
+          <p class="course-desc">Who does what on a TTM site -- roles, responsibilities, and accountability under NZ practice.</p>
+        </div>
+        <div>
+          <div class="course-price">NZD $55.00</div>
+          <button class="btn-enroll" data-id="ttm-roles-01" data-price-id="price_1U92Gv0flJvw3UeN8Pg8edac" data-title="Roles & Responsibilities for TTM in New Zealand">Enroll &amp; Launch</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <div>
+          <span class="course-code">NZGTTM-01</span>
+          <h3 class="course-title">NZGTTM Essentials</h3>
+          <p class="course-desc">Foundational training in the New Zealand Guidelines for Temporary Traffic Management.</p>
+        </div>
+        <div>
+          <div class="course-price">NZD $45.00</div>
+          <button class="btn-enroll" data-id="nzgttm-01" data-price-id="price_1U7sbz0flJvw3UeNHWAZ6T4N" data-title="NZGTTM Essentials">Enroll &amp; Launch</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="global-footer"></footer>
+
+  <!-- Global Scripts -->
+  <script type="module" src="./js/firebase-init.js"></script>
+  <script type="module" src="./js/navigation.js"></script>
+
+  <!-- Dynamic Firestore Catalog Refresh (Enhances the static HTML with live Firestore data if available) -->
+  <script type="module">
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const db = getFirestore();
+
+    function attachButtonListeners() {
+      document.querySelectorAll(".btn-enroll").forEach(button => {
+        button.onclick = async (e) => {
+          const priceId = e.currentTarget.dataset.priceId;
+          const courseTitle = e.currentTarget.dataset.title;
+
+          if (!priceId) {
+            alert(courseTitle + " isn't available for purchase yet (no Stripe price configured).");
+            return;
+          }
+
+          try {
+            button.disabled = true;
+            button.textContent = "Connecting...";
+            const stripeMod = await import("./js/stripe-service.js");
+            await stripeMod.initiateCheckout(priceId, (msg) => { button.textContent = msg; });
+          } catch (err) {
+            button.disabled = false;
+            button.textContent = "Enroll & Launch";
+            alert("Payment gateway notice for " + courseTitle + ": " + err.message);
+          }
+        };
+      });
+    }
+
+    async function syncWithFirestore() {
+      try {
+        const snap = await getDocs(collection(db, "courses"));
+        if (!snap.empty) {
+          const grid = document.getElementById("store-catalog-grid");
+          let html = "";
+          snap.forEach(docSnap => {
+            const course = docSnap.data();
+            const price = Number(course.price || 0).toFixed(2);
+            const currency = course.currency || "NZD";
+            const title = course.title || "Course Module";
+            const desc = course.description || "Certified TTM training program.";
+            const code = course.code || docSnap.id;
+
+            html += `
+              <div class="course-card">
+                <div>
+                  <span class="course-code">${code}</span>
+                  <h3 class="course-title">${title}</h3>
+                  <p class="course-desc">${desc}</p>
+                </div>
+                <div>
+                  <div class="course-price">${currency} $${price}</div>
+                  <button class="btn-enroll" data-id="${docSnap.id}" data-price-id="${course.stripePriceId || ''}" data-title="${title}">
+                    Enroll &amp; Launch
+                  </button>
+                </div>
+              </div>
+            `;
+          });
+          grid.innerHTML = html;
+        }
+      } catch (err) {
+        console.warn("Using default static catalog:", err.message);
+      } finally {
+        attachButtonListeners();
+      }
+    }
+
+    syncWithFirestore();
+  </script>
+</body>
+</html>

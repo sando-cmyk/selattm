@@ -1,0 +1,5 @@
+Concept 3 of 7: Geometric Design Principles.
+
+TTM layouts must maintain the same geometric discipline as permanent roads, so drivers experience a consistent, predictable environment through the worksite. That means: safe and consistent geometry through the worksite; predictable alignment, with no surprise changes in direction; adequate sight distances, so hazards can be seen in time to react; safe taper lengths and lane shifts, matched to operating speed; and appropriate lane widths for the actual vehicle mix, including heavy vehicles.
+
+Picture a taper schematically: an open lane on the left, narrowing through a series of cones, down to a closed-off work zone on the right. Geometry here is adapted from permanent design standards — a taper that's too short fails for the same physics-based reasons here as it would on a permanent road.

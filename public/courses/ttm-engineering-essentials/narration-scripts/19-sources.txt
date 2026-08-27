@@ -1,0 +1,13 @@
+Tying it together: Where These Concepts Come From.
+
+Five sources, in brief.
+
+One: NZGTTM, 2023 — the primary source. Part 1 covers why; Part 2 is the risk-based system; Part 3 is the toolbox, covering geometrics, equipment, and specialist projects; and Part 4 is the glossary.
+
+Two: permanent road-design standards — the Austroads Guide to Road Design and related guidance, referenced directly rather than duplicated, for geometric design and traffic engineering.
+
+Three: the Health and Safety at Work Act 2015 — eliminate or minimise risk, apply the hierarchy of controls, and demonstrate due diligence in engineering decisions.
+
+Four: the Road to Zero strategy — New Zealand's national road-safety strategy, focused on system-level harm reduction, safe speeds, and safe road design.
+
+And five: WorkSafe's Good Practice Guide — "Keeping healthy and safe while working on the road or roadside," from 2022 — covering worker safety engineering, separation distances, and safe plant operation.

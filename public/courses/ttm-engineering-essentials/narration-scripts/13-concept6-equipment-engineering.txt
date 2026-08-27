@@ -1,0 +1,5 @@
+Concept 6 of 7: Equipment Engineering.
+
+A well-designed layout only protects people if the equipment implementing it actually performs as intended. Four categories matter here. Delineation and channelising — cones, tubular delineators, barrels, cone bars, traffic separators. Barriers and TMAs — temporary road safety barriers and truck- or trailer-mounted attenuators, crash-tested to the AASHTO MASH protocol. Warning and control devices — beacons, arrow boards, light arrow systems, advanced warning VMS, hazard covers, and sign supports. And access control — fences and other access-prevention devices, plus temporary traffic control systems.
+
+One more thing worth noting: all equipment must comply with the Waka Kotahi M23 specification and guidelines for road safety hardware and devices; equipment outside M23 must be submitted for review and acceptance.

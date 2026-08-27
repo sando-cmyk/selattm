@@ -1,0 +1,5 @@
+Concept 2 of 7: TTM as Temporary Road Design.
+
+Here's a line worth remembering: "TTM is permanent road design delivered temporarily." That's Waka Kotahi New Zealand Transport Agency, in NZGTTM Part 3.
+
+Because of this, TTM borrows its engineering concepts directly from three established road-design disciplines. Geometric design — lane widths, tapers, alignment, sight distance. Traffic engineering — capacity, flow, speed environment, conflict points. And safety engineering — positive protection, crash attenuation, vulnerable road user protection.

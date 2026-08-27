@@ -1,0 +1,201 @@
+<?xml version="1.0" standalone="no" ?>
+<manifest identifier="ASHTAS_OPERATIVE_TRAINING_2026" version="6"
+  xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+  xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd
+                      http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+  <metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>1.2</schemaversion>
+  </metadata>
+  <organizations default="ASHTAS_ORG">
+    <organization identifier="ASHTAS_ORG">
+      <title>ASHTAS Operative Training</title>
+      <item identifier="ITEM_1" identifierref="RESOURCE_1" isvisible="true">
+        <title>ASHTAS Operative Training</title>
+        <adlcp:masteryscore>80</adlcp:masteryscore>
+      </item>
+    </organization>
+  </organizations>
+  <resources>
+    <resource identifier="RESOURCE_1" type="webcontent" adlcp:scormtype="sco" href="menu.html">
+      <file href="audio/slide1.mp3"/>
+      <file href="audio/slide10.mp3"/>
+      <file href="audio/slide11.mp3"/>
+      <file href="audio/slide12.mp3"/>
+      <file href="audio/slide13.mp3"/>
+      <file href="audio/slide14.mp3"/>
+      <file href="audio/slide15.mp3"/>
+      <file href="audio/slide16.mp3"/>
+      <file href="audio/slide17.mp3"/>
+      <file href="audio/slide18.mp3"/>
+      <file href="audio/slide19.mp3"/>
+      <file href="audio/slide2.mp3"/>
+      <file href="audio/slide20.mp3"/>
+      <file href="audio/slide21.mp3"/>
+      <file href="audio/slide22.mp3"/>
+      <file href="audio/slide23.mp3"/>
+      <file href="audio/slide24.mp3"/>
+      <file href="audio/slide25.mp3"/>
+      <file href="audio/slide27.mp3"/>
+      <file href="audio/slide28.mp3"/>
+      <file href="audio/slide29.mp3"/>
+      <file href="audio/slide3.mp3"/>
+      <file href="audio/slide30.mp3"/>
+      <file href="audio/slide31.mp3"/>
+      <file href="audio/slide32.mp3"/>
+      <file href="audio/slide33.mp3"/>
+      <file href="audio/slide34.mp3"/>
+      <file href="audio/slide35.mp3"/>
+      <file href="audio/slide36.mp3"/>
+      <file href="audio/slide37.mp3"/>
+      <file href="audio/slide38.mp3"/>
+      <file href="audio/slide39.mp3"/>
+      <file href="audio/slide4.mp3"/>
+      <file href="audio/slide40.mp3"/>
+      <file href="audio/slide41.mp3"/>
+      <file href="audio/slide42.mp3"/>
+      <file href="audio/slide43.mp3"/>
+      <file href="audio/slide44.mp3"/>
+      <file href="audio/slide45.mp3"/>
+      <file href="audio/slide46.mp3"/>
+      <file href="audio/slide47.mp3"/>
+      <file href="audio/slide48.mp3"/>
+      <file href="audio/slide49.mp3"/>
+      <file href="audio/slide5.mp3"/>
+      <file href="audio/slide50.mp3"/>
+      <file href="audio/slide51.mp3"/>
+      <file href="audio/slide52.mp3"/>
+      <file href="audio/slide53.mp3"/>
+      <file href="audio/slide54.mp3"/>
+      <file href="audio/slide55.mp3"/>
+      <file href="audio/slide6.mp3"/>
+      <file href="audio/slide7.mp3"/>
+      <file href="audio/slide8.mp3"/>
+      <file href="audio/slide9.mp3"/>
+      <file href="complete.html"/>
+      <file href="css/styles.css"/>
+      <file href="js/course.js"/>
+      <file href="js/scorm_api.js"/>
+      <file href="js/speech.js"/>
+      <file href="menu.html"/>
+      <file href="quiz1.html"/>
+      <file href="quiz2.html"/>
+      <file href="quiz3.html"/>
+      <file href="quiz4.html"/>
+      <file href="slide1.html"/>
+      <file href="slide10.html"/>
+      <file href="slide11.html"/>
+      <file href="slide12.html"/>
+      <file href="slide13.html"/>
+      <file href="slide14.html"/>
+      <file href="slide15.html"/>
+      <file href="slide16.html"/>
+      <file href="slide17.html"/>
+      <file href="slide18.html"/>
+      <file href="slide19.html"/>
+      <file href="slide2.html"/>
+      <file href="slide20.html"/>
+      <file href="slide21.html"/>
+      <file href="slide22.html"/>
+      <file href="slide23.html"/>
+      <file href="slide24.html"/>
+      <file href="slide25.html"/>
+      <file href="slide26.html"/>
+      <file href="slide27.html"/>
+      <file href="slide28.html"/>
+      <file href="slide29.html"/>
+      <file href="slide3.html"/>
+      <file href="slide30.html"/>
+      <file href="slide31.html"/>
+      <file href="slide32.html"/>
+      <file href="slide33.html"/>
+      <file href="slide34.html"/>
+      <file href="slide35.html"/>
+      <file href="slide36.html"/>
+      <file href="slide37.html"/>
+      <file href="slide38.html"/>
+      <file href="slide39.html"/>
+      <file href="slide4.html"/>
+      <file href="slide40.html"/>
+      <file href="slide41.html"/>
+      <file href="slide42.html"/>
+      <file href="slide43.html"/>
+      <file href="slide44.html"/>
+      <file href="slide45.html"/>
+      <file href="slide46.html"/>
+      <file href="slide47.html"/>
+      <file href="slide48.html"/>
+      <file href="slide49.html"/>
+      <file href="slide5.html"/>
+      <file href="slide50.html"/>
+      <file href="slide51.html"/>
+      <file href="slide52.html"/>
+      <file href="slide53.html"/>
+      <file href="slide54.html"/>
+      <file href="slide55.html"/>
+      <file href="slide56.html"/>
+      <file href="slide6.html"/>
+      <file href="slide7.html"/>
+      <file href="slide8.html"/>
+      <file href="slide9.html"/>
+      <file href="slides/slide1.jpg"/>
+      <file href="slides/slide10.jpg"/>
+      <file href="slides/slide11.jpg"/>
+      <file href="slides/slide12.jpg"/>
+      <file href="slides/slide13.jpg"/>
+      <file href="slides/slide14.jpg"/>
+      <file href="slides/slide15.jpg"/>
+      <file href="slides/slide16.jpg"/>
+      <file href="slides/slide17.jpg"/>
+      <file href="slides/slide18.jpg"/>
+      <file href="slides/slide19.jpg"/>
+      <file href="slides/slide2.jpg"/>
+      <file href="slides/slide20.jpg"/>
+      <file href="slides/slide21.jpg"/>
+      <file href="slides/slide22.jpg"/>
+      <file href="slides/slide23.jpg"/>
+      <file href="slides/slide24.jpg"/>
+      <file href="slides/slide25.jpg"/>
+      <file href="slides/slide26.jpg"/>
+      <file href="slides/slide27.jpg"/>
+      <file href="slides/slide28.jpg"/>
+      <file href="slides/slide29.jpg"/>
+      <file href="slides/slide3.jpg"/>
+      <file href="slides/slide30.jpg"/>
+      <file href="slides/slide31.jpg"/>
+      <file href="slides/slide32.jpg"/>
+      <file href="slides/slide33.jpg"/>
+      <file href="slides/slide34.jpg"/>
+      <file href="slides/slide35.jpg"/>
+      <file href="slides/slide36.jpg"/>
+      <file href="slides/slide37.jpg"/>
+      <file href="slides/slide38.jpg"/>
+      <file href="slides/slide39.jpg"/>
+      <file href="slides/slide4.jpg"/>
+      <file href="slides/slide40.jpg"/>
+      <file href="slides/slide41.jpg"/>
+      <file href="slides/slide42.jpg"/>
+      <file href="slides/slide43.jpg"/>
+      <file href="slides/slide44.jpg"/>
+      <file href="slides/slide45.jpg"/>
+      <file href="slides/slide46.jpg"/>
+      <file href="slides/slide47.jpg"/>
+      <file href="slides/slide48.jpg"/>
+      <file href="slides/slide49.jpg"/>
+      <file href="slides/slide5.jpg"/>
+      <file href="slides/slide50.jpg"/>
+      <file href="slides/slide51.jpg"/>
+      <file href="slides/slide52.jpg"/>
+      <file href="slides/slide53.jpg"/>
+      <file href="slides/slide54.jpg"/>
+      <file href="slides/slide55.jpg"/>
+      <file href="slides/slide56.jpg"/>
+      <file href="slides/slide6.jpg"/>
+      <file href="slides/slide7.jpg"/>
+      <file href="slides/slide8.jpg"/>
+      <file href="slides/slide9.jpg"/>
+    </resource>
+  </resources>
+</manifest>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Complete — Working with Portable Traffic Signals</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="dots"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Course Completion</div>
+  <div><a href="../sela-pts-course-firebase-web_$45/public/menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="complete-wrap">
+    <h1>Working with Portable Traffic Signals</h1>
+    <p id="statusMsg" style="font-size:16px;"></p>
+    <button class="btn amber" id="completeBtn">Mark Course Content Complete</button>
+    <p id="doneMsg" style="display:none;color:#2E7D32;font-weight:bold;margin-top:16px;">Recorded. You may close this window.</p>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>
+  var allSlides = Course.allSlidesVisited();
+  var allQuizzes = Course.allQuizzesPassed();
+  var msg = document.getElementById('statusMsg');
+  if (allSlides && allQuizzes) {
+    msg.textContent = 'All slides viewed and all module quizzes passed. You are ready to mark this course complete.';
+  } else {
+    var missing = [];
+    if (!allSlides) missing.push('view all slides');
+    if (!allQuizzes) missing.push('pass all four module quizzes (80%+)');
+    msg.innerHTML = 'Before marking complete, please ' + missing.join(' and ') + '. <a href="menu.html">Return to the menu</a>.';
+  }
+  document.getElementById('completeBtn').addEventListener('click', function(){
+    Course.markCourseComplete();
+    document.getElementById('doneMsg').style.display = 'block';
+  });
+</script>
+</body>
+</html>

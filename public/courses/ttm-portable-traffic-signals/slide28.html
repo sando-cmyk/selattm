@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handover Between Shifts &amp; Crews — Working with Portable Traffic Signals</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="dots"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Handover Between Shifts &amp; Crews</div>
+  <div><a href="../sela-pts-course-firebase-web_$45/public/menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-image-wrap">
+    <img src="slides/slide28.jpg" alt="Slide 28: Handover Between Shifts &amp; Crews">
+  </div>
+
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/slide28.mp3" preload="auto" autoplay></audio>
+    <div class="narration-controls">
+      <button id="playBtn">▶ Play narration</button>
+      <button id="pauseBtn">⏸ Pause/Resume</button>
+      <button id="restartBtn">↺ Restart</button>
+      <label>Speed:
+        <select id="speedSelect">
+          <option value="0.85">Slow</option>
+          <option value="1" selected>Normal</option>
+          <option value="1.25">Fast</option>
+        </select>
+      </label>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">A handover is where a lot of small safety gaps can quietly open up if it&#x27;s rushed. The outgoing operator should brief the incoming operator on current status — anything not quite right, anything to watch, any faults during the shift. Confirm the timing settings in use, power status, and any pending actions. Back this up with a formal handover record: who, when, and what was communicated. The core principle is that there should never be a gap in responsibility. And if you&#x27;re the incoming operator and something isn&#x27;t clear, ask before you accept responsibility, not after.</div>
+    <div id="autoplayHint" style="display:none;font-size:12px;color:#B36B00;margin-top:8px;">
+      Your browser blocked autoplay — press Play narration above to listen.
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <a class="btn" href="slide27.html">← Back</a>
+    <span style="color:#888;font-size:13px;">Slide 28 of 30</span>
+    <a class="btn amber" href="slide29.html">Next →</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  Course.markVisited(28);
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  Narration.init({
+    audio: narrationAudioEl,
+    playBtn: document.getElementById('playBtn'),
+    pauseBtn: document.getElementById('pauseBtn'),
+    restartBtn: document.getElementById('restartBtn'),
+    speedSelect: document.getElementById('speedSelect'),
+    transcriptToggle: document.getElementById('transcriptToggle'),
+    transcriptBox: document.getElementById('transcriptBox')
+  });
+  // Attempt autoplay; if the browser blocks it, show a hint to click Play.
+  var playAttempt = narrationAudioEl.play();
+  if (playAttempt !== undefined) {
+    playAttempt.catch(function () {
+      document.getElementById('autoplayHint').style.display = 'block';
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,9 +1,78 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Open access for initial setup & data verification
-    match /{document=**} {
-      allow read, write: if true;
+
+    // -- helpers --------------------------------------------------
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // -- admin roster ----------------------------------------------
+    // A doc existing here is what makes a uid an admin. Never
+    // writable from the client -- add/remove admins from the
+    // Firebase Console only.
+    match /admins/{uid} {
+      allow read: if isSignedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // -- user profiles -----------------------------------------------
+    // Owner only. Nobody, including other logged-in users, can read
+    // or edit a profile that isn't their own.
+    match /users/{uid} {
+      allow read, write: if isSignedIn() && request.auth.uid == uid;
+
+      match /enrolled_courses/{courseId} {
+        allow read, write: if isSignedIn() && request.auth.uid == uid;
+      }
+      match /enrollments/{courseId} {
+        allow read, write: if isSignedIn() && request.auth.uid == uid;
+      }
+    }
+
+    // -- catalog + promotions -- admin write, public read -----------
+    match /courses/{courseId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /coupons/{code} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // -- billing (Stripe extension) -- owner only --------------------
+    match /customers/{uid} {
+      allow read, write: if isSignedIn() && request.auth.uid == uid;
+
+      match /checkout_sessions/{sessionId} {
+        allow read, write: if isSignedIn() && request.auth.uid == uid;
+      }
+      match /payments/{paymentId} {
+        allow read, write: if isSignedIn() && request.auth.uid == uid;
+      }
+    }
+
+    // -- quiz / assessment records ------------------------------------
+    // A worker can log and read their own result. Only admins can
+    // read the full set.
+    match /submissions/{subId} {
+      allow create: if isSignedIn() &&
+        request.resource.data.userId == request.auth.uid;
+      allow read: if isSignedIn() &&
+        (resource.data.userId == request.auth.uid || isAdmin());
+      allow update, delete: if isAdmin();
+    }
+
+    // -- public contact form ----------------------------------------
+    match /contact_inquiries/{inquiryId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
     }
   }
 }

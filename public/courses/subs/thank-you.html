@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — Your Download Is Ready</title>
+<style>
+  :root {
+    --accent: #0f5f66;
+    --bg: #faf8f4;
+    --text: #1a1a1a;
+    --muted: #5a5a5a;
+    --card: #ffffff;
+    --border: #e2ddd3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    max-width: 560px;
+    width: 100%;
+    padding: 40px 36px;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .check {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+    font-family: Arial, sans-serif;
+  }
+  h1 {
+    font-size: 26px;
+    margin: 0 0 12px;
+    line-height: 1.3;
+  }
+  p {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 15px;
+    margin: 0 0 24px;
+  }
+  .btn-download {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 16px 32px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  .btn-download:hover { opacity: 0.92; }
+  .fineprint {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #8a8a8a;
+    margin-top: 8px;
+  }
+  .fineprint a { color: var(--accent); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="check">&#10003;</div>
+    <h1>Thanks for your purchase.</h1>
+    <p>Your copy of <em>Stop Wasting Your Money On Monthly Payments</em> is ready. Click below to download the PDF — save it somewhere you'll find it again.</p>
+    <a class="btn-download" href="Stop Wasting Your Money.pdf" download>Download Your PDF</a>
+    <p class="fineprint">Trouble downloading, or the file didn't open? Email <a href="mailto:craig@selacivil.co.nz">craig@selacivil.co.nz</a> and we'll sort it out.</p>
+  </div>
+</body>
+</html>

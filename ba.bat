@@ -1,0 +1,1 @@
+node build-all.js && firebase deploy --only hosting

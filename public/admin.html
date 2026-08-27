@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/site-header.css" />
+  <title>SELA TTM | Platform Operations Console</title>
+
+  <!-- Global Admin Styles -->
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-blue: #38bdf8;
+      --accent-green: #22c55e;
+      --accent-amber: #f59e0b;
+      --accent-red: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      width: 100%;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .page-title h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .page-title p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(12px);
+    }
+
+    .kpi-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .kpi-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-top: 8px;
+      color: var(--text-main);
+    }
+
+    /* Operational Panels */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 992px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+    }
+
+    .panel-card h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .panel-card p.subtitle {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* Drag & Drop Ingestion */
+    .drop-zone {
+      border: 2px dashed #475569;
+      border-radius: 8px;
+      padding: 36px 20px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .drop-zone.active {
+      border-color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .drop-zone svg {
+      width: 42px;
+      height: 42px;
+      fill: none;
+      stroke: var(--accent-blue);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      margin-bottom: 12px;
+    }
+
+    .drop-zone p {
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .drop-zone span.browse {
+      color: var(--accent-blue);
+      text-decoration: underline;
+    }
+
+    /* Ingestion Progress Bar */
+    .progress-wrapper {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: #334155;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--accent-green);
+      transition: width 0.15s ease-out;
+    }
+
+    /* Data Tables */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.6);
+      padding: 12px 16px;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-main);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-active {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--accent-green);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .badge-pending {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-amber);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-action {
+      background: #334155;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .btn-action:hover {
+      background: #475569;
+    }
+
+    .btn-primary-action {
+      background: #0284c7;
+      color: #fff;
+    }
+
+    .btn-primary-action:hover {
+      background: #0369a1;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" id="global-header"></header>
+
+  <!-- Admin View -->
+  <main class="admin-container">
+    
+    <header class="page-header">
+      <div class="page-title">
+        <h1>Operations &amp; Training Hub</h1>
+        <p>SELA Civil Advisory | Cloud Firestore Management System</p>
+      </div>
+      <div class="header-actions">
+        <button id="btn-repair-db" class="btn-action btn-primary-action">Sanitise &amp; Fix Prices</button>
+        <button id="btn-manual-sync" class="btn-action">Reload Cloud Data</button>
+      </div>
+    </header>
+
+    <!-- KPI Section -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Active Modules</div>
+        <div class="kpi-value" id="kpi-course-count">--</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Inquiries Logged</div>
+        <div class="kpi-value" id="kpi-inquiries-count">--</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Platform Status</div>
+        <div class="kpi-value" style="color: var(--accent-green); font-size: 1.5rem;">Online</div>
+      </div>
+    </section>
+
+    <div class="dashboard-grid">
+      
+      <!-- Bulk Ingestion Module -->
+      <section class="panel-card">
+        <h2>Bulk Course Ingestion Engine</h2>
+        <p class="subtitle">Drag &amp; drop CSV or JSON files to batch upload or update courses in Firestore.</p>
+
+        <div class="drop-zone" id="drop-zone">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <p>Drag catalog CSV/JSON here, or <span class="browse">browse file</span></p>
+          <input type="file" id="file-input" accept=".csv,.json" style="display: none;" />
+        </div>
+
+        <div class="progress-wrapper" id="progress-container">
+          <div class="progress-meta">
+            <span id="progress-status">Syncing batches...</span>
+            <span id="progress-pct">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Inquiries Log -->
+      <section class="panel-card">
+        <h2>Corporate Inquiries</h2>
+        <p class="subtitle">Latest submissions from <code>contact_inquiries</code>.</p>
+        
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Company / Name</th>
+                <th>Subject</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="inquiries-tbody">
+              <tr>
+                <td colspan="3" style="text-align: center; color: var(--text-muted);">Loading inquiries...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Active Course Catalog -->
+    <section class="panel-card">
+      <h2>Live Course Catalog</h2>
+      <p class="subtitle">Currently deployed training modules in Firestore.</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID / Code</th>
+              <th>Course Title</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Launch Path</th>
+            </tr>
+          </thead>
+          <tbody id="courses-tbody">
+            <tr>
+              <td colspan="5" style="text-align: center; color: var(--text-muted);">Loading course records...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" id="global-footer"></footer>
+
+  <!-- Core Scripts -->
+  <script type="module" src="./js/firebase-init.js"></script>
+  <script type="module" src="./js/navigation.js"></script>
+  <script type="module" src="./js/admin-app.js"></script>
+
+  <!-- Ingestion Script Wiring -->
+  <script type="module">
+    import { parseCSV, bulkUploadToFirestore } from './js/admin-importer.js';
+    import { refreshAdminDashboard } from './js/admin-app.js';
+    import { showModal } from './js/modal.js';
+
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const progressContainer = document.getElementById('progress-container');
+    const progressFill = document.getElementById('progress-fill');
+    const progressPct = document.getElementById('progress-pct');
+    const progressStatus = document.getElementById('progress-status');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('active');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('active');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('active');
+      if (e.dataTransfer.files.length) {
+        processUploadedFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length) {
+        processUploadedFile(e.target.files[0]);
+      }
+    });
+
+    async function processUploadedFile(file) {
+      const reader = new FileReader();
+
+      reader.onload = async (e) => {
+        try {
+          let records = [];
+          if (file.name.endsWith('.csv')) {
+            records = parseCSV(e.target.result);
+          } else if (file.name.endsWith('.json')) {
+            records = JSON.parse(e.target.result);
+          } else {
+            throw new Error('Unsupported format. Please upload a .csv or .json file.');
+          }
+
+          if (!records.length) {
+            throw new Error('No valid records found in file.');
+          }
+
+          progressContainer.style.display = 'block';
+
+          await bulkUploadToFirestore(records, (pct, current, total) => {
+            progressFill.style.width = `${pct}%`;
+            progressPct.textContent = `${pct}%`;
+            progressStatus.textContent = `Writing record ${current} of ${total}...`;
+          });
+
+          showModal({
+            title: "Bulk Ingestion Successful",
+            message: `Successfully uploaded ${records.length} courses to Cloud Firestore.`,
+            type: "success"
+          });
+
+          await refreshAdminDashboard();
+
+        } catch (err) {
+          console.error("Bulk upload failure:", err);
+          showModal({
+            title: "Ingestion Error",
+            message: err.message || "An unexpected error occurred during ingestion.",
+            type: "error"
+          });
+        } finally {
+          setTimeout(() => {
+            progressContainer.style.display = 'none';
+            progressFill.style.width = '0%';
+            fileInput.value = '';
+          }, 3000);
+        }
+      };
+
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+</html>

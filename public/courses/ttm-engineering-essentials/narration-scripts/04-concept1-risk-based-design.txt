@@ -1,0 +1,5 @@
+Concept 1 of 7: Risk-Based Design.
+
+NZGTTM replaces prescriptive layouts with a full risk-based approach: every engineering decision must be justified, not copied from a template.
+
+That justification rests on four things. First, site-specific hazards — sight lines, gradients, intersections, and adjacent hazards actually present at the site. Second, road user behaviour — how drivers, cyclists, and pedestrians actually behave, not just how they should. Third, worker exposure — how close workers are to live traffic, and for how long. And fourth, environment and activity conditions — weather, lighting, traffic volumes, and the nature of the work itself.
