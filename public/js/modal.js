@@ -82,3 +82,35 @@ export function showModal({ title = "Notice", message = "", type = "info" }) {
   modalOverlay.appendChild(modalBox);
   document.body.appendChild(modalOverlay);
 }
+/**
+ * Convenience wrapper: error-styled modal.
+ * @param {string} message
+ */
+export function showErrorModal(message) {
+  showModal({ title: "Error", message, type: "error" });
+}
+
+/**
+ * Convenience wrapper: generic informational/success modal
+ * (e.g. password reset confirmation).
+ * @param {Object} options - { title, message, redirectUrl }
+ */
+export function showAppModal({ title = "Notice", message = "", redirectUrl = "" }) {
+  showModal({ title, message, type: "success" });
+  if (redirectUrl) {
+    const check = setInterval(() => {
+      if (!document.getElementById("sela-custom-modal")) {
+        clearInterval(check);
+        window.location.href = redirectUrl;
+      }
+    }, 200);
+  }
+}
+
+/**
+ * Convenience wrapper: access-restricted modal (enterprise/admin gating).
+ * @param {string} message
+ */
+export function showUnauthorizedModal(message) {
+  showModal({ title: "Access Restricted", message, type: "error" });
+}

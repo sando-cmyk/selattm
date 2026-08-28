@@ -84,7 +84,6 @@
   </div>
 
   <script type="module">
-    import "./js/navigation.js";
     import { 
       auth, 
       signInWithEmailAndPassword, 
@@ -94,6 +93,7 @@
       googleProvider,
       onAuthStateChanged
     } from "./js/firebase-init.js";
+    import "./js/navigation.js";
     import { showAppModal, showErrorModal } from "./js/modal.js";
 
     const tabSignIn = document.getElementById("tab-signin");
