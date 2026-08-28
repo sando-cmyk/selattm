@@ -210,6 +210,17 @@
           <button class="btn-enroll" data-id="nzgttm-01" data-price-id="price_1U7sbz0flJvw3UeNHWAZ6T4N" data-title="NZGTTM Essentials">Enroll &amp; Launch</button>
         </div>
       </div>
+      <div class="course-card">
+        <div>
+          <span class="course-code">BOOK-01</span>
+          <h3 class="course-title">Stop Wasting Your Money</h3>
+          <p class="course-desc">The average household loses $2,628 a year to forgotten subscriptions. A practical, quick-read guide to finding and cutting the leaks.</p>
+        </div>
+        <div>
+          <div class="course-price">NZD $0.99</div>
+          <a class="btn-enroll" href="/courses/subs/index.html" style="display:block; text-align:center; text-decoration:none; box-sizing:border-box;">View &amp; Buy</a>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -226,7 +237,7 @@
     const db = getFirestore();
 
     function attachButtonListeners() {
-      document.querySelectorAll(".btn-enroll").forEach(button => {
+      document.querySelectorAll("button.btn-enroll").forEach(button => {
         button.onclick = async (e) => {
           const priceId = e.currentTarget.dataset.priceId;
           const courseTitle = e.currentTarget.dataset.title;
@@ -264,6 +275,12 @@
             const desc = course.description || "Certified TTM training program.";
             const code = course.code || docSnap.id;
 
+            const buyControl = course.externalUrl
+              ? `<a class="btn-enroll" href="${course.externalUrl}" style="display:block; text-align:center; text-decoration:none; box-sizing:border-box;">View &amp; Buy</a>`
+              : `<button class="btn-enroll" data-id="${docSnap.id}" data-price-id="${course.stripePriceId || ''}" data-title="${title}">
+                    Enroll &amp; Launch
+                  </button>`;
+
             html += `
               <div class="course-card">
                 <div>
@@ -273,9 +290,7 @@
                 </div>
                 <div>
                   <div class="course-price">${currency} $${price}</div>
-                  <button class="btn-enroll" data-id="${docSnap.id}" data-price-id="${course.stripePriceId || ''}" data-title="${title}">
-                    Enroll &amp; Launch
-                  </button>
+                  ${buyControl}
                 </div>
               </div>
             `;
