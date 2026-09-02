@@ -14,17 +14,18 @@
     <span class="brand">SELA CIVIL ADVISORY</span>
   </div>
   <div class="title">Working with Portable Traffic Signals</div>
-  <div><a href="../sela-pts-course-firebase-web_$45/public/menu.html">Menu</a></div>
+  <div><a href="menu.html">Menu</a></div>
 </div>
 <div class="container">
   <div class="slide-image-wrap">
-    <img src="slides/slide1.jpg" alt="Slide 1: Working with Portable Traffic Signals">
+    <video id="welcomeVideo" controls preload="auto" autoplay playsinline poster="slides/slide1.jpg">
+      <source src="video/pts-course-welcome.mp4" type="video/mp4">
+    </video>
   </div>
 
   <div class="narration-panel">
-    <audio id="narrationAudio" src="audio/slide1.mp3" preload="auto" autoplay></audio>
     <div class="narration-controls">
-      <button id="playBtn">▶ Play narration</button>
+      <button id="playBtn">▶ Play</button>
       <button id="pauseBtn">⏸ Pause/Resume</button>
       <button id="restartBtn">↺ Restart</button>
       <label>Speed:
@@ -38,12 +39,12 @@
     <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
     <div class="transcript" id="transcriptBox">Welcome to Working with Portable Traffic Signals, a Sela Civil Advisory training course. This course is for anyone who sets up, operates, or works around portable traffic signal installations on New Zealand roads. Over the next few modules we&#x27;ll cover why we use the term Portable Traffic Signals, the compliance framework and equipment standards behind them, how to plan and position a safe installation, how to operate and monitor signals through a shift, and how to pack down and hand over safely. Let&#x27;s get started.</div>
     <div id="autoplayHint" style="display:none;font-size:12px;color:#B36B00;margin-top:8px;">
-      Your browser blocked autoplay — press Play narration above to listen.
+      Your browser blocked autoplay — press Play above to start the video.
     </div>
   </div>
 
   <div class="nav-row">
-    <a class="btn" href="../sela-pts-course-firebase-web_$45/public/menu.html">← Menu</a>
+    <a class="btn" href="menu.html">← Menu</a>
     <span style="color:#888;font-size:13px;">Slide 1 of 30</span>
     <a class="btn amber" href="slide2.html">Next →</a>
   </div>
@@ -53,9 +54,9 @@
 <script src="js/audio_narration.js"></script>
 <script>
   Course.markVisited(1);
-  var narrationAudioEl = document.getElementById('narrationAudio');
+  var welcomeVideoEl = document.getElementById('welcomeVideo');
   Narration.init({
-    audio: narrationAudioEl,
+    audio: welcomeVideoEl,
     playBtn: document.getElementById('playBtn'),
     pauseBtn: document.getElementById('pauseBtn'),
     restartBtn: document.getElementById('restartBtn'),
@@ -64,7 +65,7 @@
     transcriptBox: document.getElementById('transcriptBox')
   });
   // Attempt autoplay; if the browser blocks it, show a hint to click Play.
-  var playAttempt = narrationAudioEl.play();
+  var playAttempt = welcomeVideoEl.play();
   if (playAttempt !== undefined) {
     playAttempt.catch(function () {
       document.getElementById('autoplayHint').style.display = 'block';
