@@ -20,8 +20,11 @@
     "price": 45,
     "currency": "NZD",
     "status": "active",
-    "stripePriceId": "price_1U7sbz0flJvw3UeNHWAZ6T4N",
-    "launchPath": "/courses/nzgttm-essentials/index.html"
+    "stripePriceId": "price_1UAIlw0flJvw3UeN3y87d1fd",
+    "launchPath": "/courses/nzgttm-essentials/index.html",
+    "legacyStripePriceIds": [
+      "price_1U7sbz0flJvw3UeNHWAZ6T4N"
+    ]
   },
   {
     "id": "ttm-eng-01",

@@ -61,6 +61,16 @@ export function normaliseCourseRecord(raw) {
     cleaned.stripePriceId = String(raw.stripePriceId).trim();
   }
 
+  // Legacy Stripe Price IDs -- prices this course used to sell under before
+  // being archived and replaced. Same pass-through-only-when-provided rule
+  // as stripePriceId above: this is what stops a customer who paid under an
+  // old price from silently losing learner.html access the next time this
+  // course's price changes. Never dropped or overwritten by a re-upload
+  // that omits it.
+  if (Array.isArray(raw.legacyStripePriceIds) && raw.legacyStripePriceIds.length) {
+    cleaned.legacyStripePriceIds = raw.legacyStripePriceIds.map(id => String(id).trim()).filter(Boolean);
+  }
+
   return cleaned;
 }
 

@@ -136,6 +136,70 @@
       opacity: 0.6;
       cursor: not-allowed;
     }
+
+    /* Checkout loading overlay -- shown the instant Enroll is clicked, so
+       the wait for Stripe never looks like nothing is happening. */
+    .checkout-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(6px);
+      z-index: 99999;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .checkout-overlay.visible {
+      display: flex;
+    }
+
+    .checkout-overlay-logo {
+      width: 88px;
+      height: auto;
+      margin-bottom: 24px;
+    }
+
+    .checkout-spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(56, 189, 248, 0.25);
+      border-top-color: var(--accent-blue);
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      animation: checkout-spin 0.8s linear infinite;
+    }
+
+    @keyframes checkout-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .checkout-overlay-status {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      max-width: 420px;
+    }
+
+    .checkout-overlay-promo {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 360px;
+      line-height: 1.5;
+    }
+
+    .checkout-overlay-promo a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .checkout-overlay-promo a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -149,8 +213,13 @@
       <p>Browse certified temporary traffic management, barrier systems, and high-speed corridor qualifications.</p>
     </header>
 
+    <!-- Loading placeholder shown only until we know whether to reveal the
+         Firestore-driven catalog or the static fallback below -- prevents the
+         page rendering the course list twice with two different orderings. -->
+    <p id="store-loading-msg" style="text-align:center; color:var(--text-muted); padding:32px 0;">Loading courses...</p>
+
     <!-- Main Grid Container -->
-    <div id="store-catalog-grid" class="courses-grid">
+    <div id="store-catalog-grid" class="courses-grid" style="display:none;">
       <!-- Direct Inline Fallback Cards (Rendered with pure HTML so it NEVER appears empty).
            Only add a course here once real content exists behind it AND a real Stripe
            Price ID has been created -- selling a course with no content is a refund
@@ -207,7 +276,7 @@
         </div>
         <div>
           <div class="course-price">NZD $45.00</div>
-          <button class="btn-enroll" data-id="nzgttm-01" data-price-id="price_1U7sbz0flJvw3UeNHWAZ6T4N" data-title="NZGTTM Essentials">Enroll &amp; Launch</button>
+          <button class="btn-enroll" data-id="nzgttm-01" data-price-id="price_1UAIlw0flJvw3UeN3y87d1fd" data-title="NZGTTM Essentials">Enroll &amp; Launch</button>
         </div>
       </div>
       <div class="course-card">
@@ -225,6 +294,19 @@
   </main>
 
   <footer class="site-footer" id="global-footer"></footer>
+
+  <!-- Checkout Loading Overlay -->
+  <div class="checkout-overlay" id="checkout-overlay">
+    <div>
+      <img src="img/sela-logo-transparent.png" alt="Sela Civil Advisory" class="checkout-overlay-logo" />
+      <div class="checkout-spinner"></div>
+      <p class="checkout-overlay-status" id="checkout-overlay-status">Taking you to secure checkout...</p>
+      <p class="checkout-overlay-promo">
+        While you wait, have you seen our main site?<br />
+        <a href="https://www.selacivil.co.nz" target="_blank" rel="noopener">www.selacivil.co.nz</a>
+      </p>
+    </div>
+  </div>
 
   <!-- Global Scripts -->
   <script type="module" src="./js/firebase-init.js"></script>
@@ -247,12 +329,27 @@
             return;
           }
 
+          // Show the branded loading overlay the instant the click happens --
+          // before even the stripe-service.js module has loaded -- so the
+          // wait for the Stripe extension never reads as the page being
+          // stuck. See "Why doesn't Stripe come up faster" thread: the
+          // extension's function runs in us-central1 and isn't kept warm,
+          // so this wait is real and can't be fully removed, only covered.
+          const overlay = document.getElementById("checkout-overlay");
+          const overlayStatus = document.getElementById("checkout-overlay-status");
+          if (overlay) overlay.classList.add("visible");
+          if (overlayStatus) overlayStatus.textContent = "Taking you to secure checkout...";
+
           try {
             button.disabled = true;
             button.textContent = "Connecting...";
             const stripeMod = await import("./js/stripe-service.js");
-            await stripeMod.initiateCheckout(priceId, (msg) => { button.textContent = msg; });
+            await stripeMod.initiateCheckout(priceId, (msg) => {
+              button.textContent = msg;
+              if (overlayStatus) overlayStatus.textContent = msg;
+            });
           } catch (err) {
+            if (overlay) overlay.classList.remove("visible");
             button.disabled = false;
             button.textContent = "Enroll & Launch";
             alert("Payment gateway notice for " + courseTitle + ": " + err.message);
@@ -301,6 +398,12 @@
         console.warn("Using default static catalog:", err.message);
       } finally {
         attachButtonListeners();
+        // Reveal the catalog now that we know which content it holds --
+        // either the freshly-rendered Firestore list, or (on error/empty
+        // result) the untouched static fallback cards. Never show one
+        // then swap to the other.
+        document.getElementById("store-loading-msg").style.display = "none";
+        document.getElementById("store-catalog-grid").style.display = "";
       }
     }
 

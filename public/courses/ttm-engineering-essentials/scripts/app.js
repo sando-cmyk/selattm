@@ -1,3 +1,5 @@
+import { auth, db, addDoc, collection } from "../../js/firebase-init.js";
+
 (function () {
   "use strict";
 
@@ -340,9 +342,45 @@
     return SLIDES.findIndex(function (s) { return s.kind === "finaltest-question" && s.testIndex === 0; });
   }
 
+  // Sends the pass to Firestore so it shows up in admin.html's "Course
+  // Results & Certificates" panel. Only fires once per browser per pass
+  // (guarded by a localStorage flag) so re-viewing this slide (e.g. via
+  // the sidebar) doesn't create duplicate rows.
+  function recordResultOnceIfPassed(result) {
+    if (!result.pass) return;
+
+    var FLAG_KEY = "sela_result_recorded::ttm-eng-01::v1";
+    try {
+      if (window.localStorage.getItem(FLAG_KEY)) return;
+    } catch (e) {}
+
+    var user = auth.currentUser;
+    if (!user || user.isAnonymous) {
+      console.warn("TTM Engineering result not sent: not signed in.");
+      return;
+    }
+
+    addDoc(collection(db, "submissions"), {
+      userId: user.uid,
+      email: (user.email || "").toLowerCase(),
+      courseId: "ttm-eng-01",
+      courseCode: "TTM-ENG-01",
+      courseTitle: "Core Engineering Concepts of TTM in New Zealand",
+      scorePercent: result.pct,
+      passed: true,
+      completedAt: new Date().toISOString(),
+      certificateIssued: false
+    }).then(function () {
+      try { window.localStorage.setItem(FLAG_KEY, "1"); } catch (e) {}
+    }).catch(function (err) {
+      console.error("Failed to record TTM Engineering result:", err);
+    });
+  }
+
   function renderFinalTestResult(slide) {
     var result = computeTestScore();
     SCORM.setCompleted(result.pass, result.pct);
+    recordResultOnceIfPassed(result);
 
     var wrap = el("div", { class: "test-result" });
     wrap.appendChild(el("div", { class: "kicker" }, "FINAL TEST RESULT"));

@@ -46,6 +46,30 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // -- manually granted course access -- admin write, owner read ---------
+    // Doc ID is the recipient's lowercased email. learner.html reads their
+    // own doc (matched against their verified auth email) to check for
+    // access granted directly by an admin, bypassing Stripe entirely --
+    // see admin.html's "Grant Course Access" panel.
+    match /grants/{email} {
+      // An admin can read the whole collection (needed for admin.html's
+      // "Manually Granted Access" table -- listing every grant, not just
+      // one). Anyone else can only read their own record, matched against
+      // their verified auth email (needed for learner.html's self-check).
+      allow read: if isAdmin() || (isSignedIn() && request.auth.token.email.lower() == email);
+      allow write: if isAdmin();
+    }
+
+    // Doc ID is the learner's lowercased email. Holds details (currently
+    // just full name) captured at certificate-issue time in admin.html's
+    // "Course Results & Certificates" panel, so the same email doesn't
+    // have to be re-typed for their next course. Only admins write it;
+    // the learner can read their own if a "my profile" view is ever added.
+    match /learner_profiles/{email} {
+      allow read: if isAdmin() || (isSignedIn() && request.auth.token.email.lower() == email);
+      allow write: if isAdmin();
+    }
+
     // -- billing (Stripe extension) -- owner only --------------------
     match /customers/{uid} {
       allow read, write: if isSignedIn() && request.auth.uid == uid;

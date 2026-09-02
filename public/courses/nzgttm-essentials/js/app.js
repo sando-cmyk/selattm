@@ -2,6 +2,8 @@
  * Course engine: navigation, quiz logic, browser-local progress tracking
  * Sela Civil Advisory Ltd - NZGTTM Essentials course (standalone web version)
  */
+import { auth, db, addDoc, collection } from "../../js/firebase-init.js";
+
 (function () {
   "use strict";
 
@@ -416,6 +418,45 @@
     }
     persistAndCommit();
     SCORM.finish();
+
+    recordResultOnceIfPassed();
+  }
+
+  // Sends the pass to Firestore so it shows up in admin.html's "Course
+  // Results & Certificates" panel. Only fires once per browser per pass
+  // (guarded by a localStorage flag) so re-viewing this screen doesn't
+  // create duplicate rows.
+  function recordResultOnceIfPassed() {
+    if (!state.quizPassed) return;
+
+    var FLAG_KEY = "sela_result_recorded::nzgttm-01::v1";
+    try {
+      if (window.localStorage.getItem(FLAG_KEY)) return;
+    } catch (e) {}
+
+    var user = auth.currentUser;
+    if (!user || user.isAnonymous) {
+      els.waitHint.textContent = "You may close this tab — your result is saved in this browser, but you weren't signed in, so it hasn't reached head office. Sign in at selattm.com and revisit this page to fix that.";
+      return;
+    }
+
+    addDoc(collection(db, "submissions"), {
+      userId: user.uid,
+      email: (user.email || "").toLowerCase(),
+      courseId: "nzgttm-01",
+      courseCode: "NZGTTM-01",
+      courseTitle: "NZGTTM Essentials",
+      scorePercent: state.quizScore,
+      passed: true,
+      completedAt: new Date().toISOString(),
+      certificateIssued: false
+    }).then(function () {
+      try { window.localStorage.setItem(FLAG_KEY, "1"); } catch (e) {}
+      els.waitHint.textContent = "Recorded — head office can now see this result. You may close this tab.";
+    }).catch(function (err) {
+      console.error("Failed to record NZGTTM result:", err);
+      els.waitHint.textContent = "Your result is saved in this browser, but sending it to head office failed. Please let head office know.";
+    });
   }
 
   function goNext() {

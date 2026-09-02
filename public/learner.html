@@ -228,7 +228,7 @@
     /**
      * Loads live modules from Firestore with local fallback.
      */
-    async function loadLearnerModules(user, paidCourseIds) {
+    async function loadLearnerModules(user, paidCourseIds, grantedCourseIds, grantedAllCourses) {
       const welcomeText = document.getElementById("learner-welcome-text");
       if (welcomeText && user) {
         welcomeText.textContent = `Welcome back, ${user.displayName || user.email || 'Learner'}. Select a module to continue.`;
@@ -264,8 +264,26 @@
       // 3. Guaranteed hardcoded fallback
       if (!catalog) catalog = FALLBACK_MODULES;
 
-      // Only show courses this account has actually paid for.
-      const owned = catalog.filter(c => paidCourseIds.has(c.id) || paidCourseIds.has(c.code));
+      // Only show courses this account has actually paid for, matched by
+      // the real Stripe Price ID recorded on the payment (not id/code, which
+      // the payment record never actually contains).
+      //
+      // A course also carries legacyStripePriceIds -- prices it used to sell
+      // under before being archived and replaced (e.g. a GST correction).
+      // Someone who paid under an old price must not lose access just
+      // because the catalog has since moved on to a new price ID for the
+      // same course -- check every ID the course has ever sold under, not
+      // only the current one.
+      const owned = catalog.filter(c => {
+        // Manually granted access (admin.html "Grant Course Access") wins
+        // outright -- no payment involved, that's the whole point of it.
+        if (grantedAllCourses) return true;
+        if (grantedCourseIds && grantedCourseIds.has(c.id)) return true;
+
+        const validIds = [c.stripePriceId, ...(Array.isArray(c.legacyStripePriceIds) ? c.legacyStripePriceIds : [])]
+          .filter(Boolean);
+        return validIds.some(id => paidCourseIds.has(id));
+      });
       renderModules(owned);
     }
 
@@ -283,13 +301,39 @@
         );
         paidSnap.forEach(d => {
           const p = d.data();
-          if (p.courseId) paidCourseIds.add(p.courseId);
+          // Real payment records from the firestore-stripe-payments extension carry
+          // an "items" array; each item's price.id is the actual Stripe Price ID
+          // purchased. There is no "courseId" field -- that was never real.
+          const items = Array.isArray(p.items) ? p.items : [];
+          items.forEach(item => {
+            const priceId = item && item.price && item.price.id;
+            if (priceId) paidCourseIds.add(priceId);
+          });
         });
       } catch (e) {
         console.warn("[Learner] Payment lookup failed:", e.message);
       }
 
-      loadLearnerModules(user, paidCourseIds);
+      // Manually granted access -- set from admin.html, no payment involved.
+      // Keyed by lowercased email, same normalisation the admin panel uses
+      // when it writes the grant.
+      let grantedCourseIds = new Set();
+      let grantedAllCourses = false;
+      try {
+        const grantEmail = (user.email || "").trim().toLowerCase();
+        if (grantEmail) {
+          const grantSnap = await getDoc(doc(db, "grants", grantEmail));
+          if (grantSnap.exists()) {
+            const g = grantSnap.data();
+            if (g.allCourses) grantedAllCourses = true;
+            if (Array.isArray(g.courseIds)) g.courseIds.forEach(id => grantedCourseIds.add(id));
+          }
+        }
+      } catch (e) {
+        console.warn("[Learner] Grant lookup failed:", e.message);
+      }
+
+      loadLearnerModules(user, paidCourseIds, grantedCourseIds, grantedAllCourses);
     });
   </script>
 </body>

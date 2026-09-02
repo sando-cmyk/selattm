@@ -249,6 +249,12 @@
       border: 1px solid rgba(245, 158, 11, 0.3);
     }
 
+    .badge-fail {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
     .btn-action {
       background: #334155;
       color: #fff;
@@ -288,7 +294,6 @@
         <p>SELA Civil Advisory | Cloud Firestore Management System</p>
       </div>
       <div class="header-actions">
-        <button id="btn-repair-db" class="btn-action btn-primary-action">Sanitise &amp; Fix Prices</button>
         <button id="btn-manual-sync" class="btn-action">Reload Cloud Data</button>
       </div>
     </header>
@@ -310,7 +315,44 @@
     </section>
 
     <div class="dashboard-grid">
-      
+
+      <!-- Manual Course Access Grant -->
+      <section class="panel-card">
+        <h2>Grant Course Access</h2>
+        <p class="subtitle">Give someone a course directly, no payment involved. For people you know personally -- trade shows, referrals, staff.</p>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <input
+            type="email"
+            id="grant-email"
+            placeholder="their.email@example.com"
+            style="background:#0f172a; border:1px solid #334155; color:#f8fafc; border-radius:6px; padding:10px 12px; font-size:0.95rem;"
+          />
+
+          <select
+            id="grant-course-select"
+            style="background:#0f172a; border:1px solid #334155; color:#f8fafc; border-radius:6px; padding:10px 12px; font-size:0.95rem;"
+          >
+            <option value="">Loading courses...</option>
+          </select>
+
+          <label style="display:flex; align-items:center; gap:8px; font-size:0.9rem; color:var(--text-muted);">
+            <input type="checkbox" id="grant-all-courses" style="width:18px; height:18px;" />
+            Grant every course instead of just the one above
+          </label>
+
+          <input
+            type="text"
+            id="grant-billing-note"
+            placeholder="Note for billing (optional) -- e.g. business name, who to invoice"
+            style="background:#0f172a; border:1px solid #334155; color:#f8fafc; border-radius:6px; padding:10px 12px; font-size:0.95rem;"
+          />
+
+          <button id="btn-grant-access" class="btn-action btn-primary-action" style="width:100%; padding:12px;">Grant Access</button>
+          <p id="grant-status-msg" style="font-size:0.85rem; min-height:1.2em; margin:0;"></p>
+        </div>
+      </section>
+
       <!-- Bulk Ingestion Module -->
       <section class="panel-card">
         <h2>Bulk Course Ingestion Engine</h2>
@@ -362,6 +404,57 @@
 
     </div>
 
+    <!-- Manually Granted Access -->
+    <section class="panel-card">
+      <h2>Manually Granted Access</h2>
+      <p class="subtitle">Everyone given a course directly rather than through checkout -- use this list to collate who to invoice.</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Access</th>
+              <th>Billing Note</th>
+              <th>Granted By</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="grants-tbody">
+            <tr>
+              <td colspan="5" style="text-align: center; color: var(--text-muted);">Loading...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Course Results & Certificates -->
+    <section class="panel-card">
+      <h2>Course Results &amp; Certificates</h2>
+      <p class="subtitle">Every quiz/course completion recorded from the live site. Issue a certificate once you've personally checked a pass.</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Learner</th>
+              <th>Course</th>
+              <th>Score</th>
+              <th>Result</th>
+              <th>Completed</th>
+              <th>Certificate</th>
+            </tr>
+          </thead>
+          <tbody id="results-tbody">
+            <tr>
+              <td colspan="6" style="text-align: center; color: var(--text-muted);">Loading results...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- Active Course Catalog -->
     <section class="panel-card">
       <h2>Live Course Catalog</h2>
@@ -376,11 +469,12 @@
               <th>Price</th>
               <th>Status</th>
               <th>Launch Path</th>
+              <th>Stripe Price ID</th>
             </tr>
           </thead>
           <tbody id="courses-tbody">
             <tr>
-              <td colspan="5" style="text-align: center; color: var(--text-muted);">Loading course records...</td>
+              <td colspan="6" style="text-align: center; color: var(--text-muted);">Loading course records...</td>
             </tr>
           </tbody>
         </table>
@@ -392,6 +486,7 @@
   <footer class="site-footer" id="global-footer"></footer>
 
   <!-- Core Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script type="module" src="./js/firebase-init.js"></script>
   <script type="module" src="./js/navigation.js"></script>
   <script type="module" src="./js/admin-app.js"></script>

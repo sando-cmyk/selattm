@@ -33,6 +33,7 @@ export async function initiateCheckout(priceId, showToast = console.log, timeout
       cancel_url: `${window.location.origin}/store.html?session=cancelled`,
       mode: "payment",
       allow_promotion_codes: true,
+      automatic_tax: { enabled: true },
       createdAt: new Date().toISOString()
     });
   } catch (err) {

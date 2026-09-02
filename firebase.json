@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "selattm-ba765",
     "public": "public",
     "ignore": [
       "firebase.json",

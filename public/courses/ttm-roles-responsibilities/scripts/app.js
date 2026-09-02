@@ -1,3 +1,5 @@
+import { auth, db, addDoc, collection } from "../../js/firebase-init.js";
+
 (function () {
   "use strict";
 
@@ -34,6 +36,33 @@
   function tagBadge(tag) {
     var isReg = tag === "regulatory";
     return el("span", { class: "badge " + (isReg ? "badge-reg" : "badge-bp") }, [isReg ? "Regulatory" : "Best Practice"]);
+  }
+
+  // Sends the pass to Firestore so it shows up in admin.html's "Course
+  // Results & Certificates" panel. Fires once per submit -- a genuine
+  // retake-and-repass after this is a new result and should be recorded
+  // again, so (unlike the other two courses) there's no localStorage
+  // duplicate guard here.
+  function recordResult(pct) {
+    var user = auth.currentUser;
+    if (!user || user.isAnonymous) {
+      console.warn("TTM Roles & Responsibilities result not sent: not signed in.");
+      return;
+    }
+
+    addDoc(collection(db, "submissions"), {
+      userId: user.uid,
+      email: (user.email || "").toLowerCase(),
+      courseId: "ttm-roles-01",
+      courseCode: "TTM-ROLES-01",
+      courseTitle: COURSE_TITLE,
+      scorePercent: pct,
+      passed: true,
+      completedAt: new Date().toISOString(),
+      certificateIssued: false
+    }).catch(function (err) {
+      console.error("Failed to record TTM Roles & Responsibilities result:", err);
+    });
   }
 
   function renderBody(bodyItems) {
@@ -169,7 +198,9 @@
         quizScore = correctCount;
         quizSubmitted = true;
         var pct = Math.round((quizScore / QUIZ.length) * 100);
-        SCORM.setCompleted(pct >= PASS_MARK, pct);
+        var passed = pct >= PASS_MARK;
+        SCORM.setCompleted(passed, pct);
+        if (passed) recordResult(pct);
         renderCurrent();
       });
       actionRow.appendChild(submitBtn);

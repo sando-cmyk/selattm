@@ -72,12 +72,17 @@ async function getAccessToken(sa) {
   return body.access_token;
 }
 
+function toFirestoreValue(v) {
+  if (typeof v === "number") return { doubleValue: v };
+  if (typeof v === "boolean") return { booleanValue: v };
+  if (Array.isArray(v)) return { arrayValue: { values: v.map(toFirestoreValue) } };
+  return { stringValue: String(v) };
+}
+
 function toFirestoreFields(obj) {
   const fields = {};
   for (const [k, v] of Object.entries(obj)) {
-    if (typeof v === "number") fields[k] = { doubleValue: v };
-    else if (typeof v === "boolean") fields[k] = { booleanValue: v };
-    else fields[k] = { stringValue: String(v) };
+    fields[k] = toFirestoreValue(v);
   }
   return fields;
 }
