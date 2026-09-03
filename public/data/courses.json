@@ -27,6 +27,21 @@
     ]
   },
   {
+    "id": "ttm-roles-01",
+    "code": "TTM-ROLES-01",
+    "title": "Roles & Responsibilities for TTM in New Zealand",
+    "description": "Who does what on a TTM site -- roles, responsibilities, and accountability under NZ practice.",
+    "category": "TTM Training",
+    "price": 55,
+    "currency": "NZD",
+    "status": "active",
+    "stripePriceId": "price_1UBSfH0flJvw3UeN8pTPATze",
+    "launchPath": "/courses/nzgttm-roles-responsibilities/index.html",
+    "legacyStripePriceIds": [
+      "price_1U92Gv0flJvw3UeN8Pg8edac"
+    ]
+  },
+  {
     "id": "ttm-eng-01",
     "code": "TTM-ENG-01",
     "title": "Core Engineering Concepts of TTM in New Zealand",
@@ -39,27 +54,15 @@
     "launchPath": "/courses/ttm-engineering-essentials/index.html"
   },
   {
-    "id": "pts-01",
-    "code": "PTS-01",
-    "title": "Working with Portable Traffic Signals",
-    "description": "Certified training for the safe setup and operation of portable traffic signals on site.",
+    "id": "ttm-portable-traffic-signals",
+    "code": "TTM-PORTABLE-TRAFFIC-SIGNALS",
+    "title": "Ttm Portable Traffic Signals",
+    "description": "Standard modular training program for Ttm Portable Traffic Signals.",
     "category": "TTM Training",
-    "price": 45,
+    "price": 250,
     "currency": "NZD",
     "status": "active",
-    "stripePriceId": "price_1U92BF0flJvw3UeNDi7Ga1UG",
-    "launchPath": "/courses/ttm-portable-traffic-signals/index.html"
-  },
-  {
-    "id": "ttm-roles-01",
-    "code": "TTM-ROLES-01",
-    "title": "Roles & Responsibilities for TTM in New Zealand",
-    "description": "Who does what on a TTM site -- roles, responsibilities, and accountability under NZ practice.",
-    "category": "TTM Training",
-    "price": 55,
-    "currency": "NZD",
-    "status": "active",
-    "stripePriceId": "price_1U92Gv0flJvw3UeN8Pg8edac",
-    "launchPath": "/courses/ttm-roles-responsibilities/index.html"
+    "launchPath": "/courses/ttm-portable-traffic-signals/index.html",
+    "lastUpdated": "2026-09-03T07:15:27.604Z"
   }
 ]

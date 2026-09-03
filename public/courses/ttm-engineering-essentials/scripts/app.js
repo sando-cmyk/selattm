@@ -1,4 +1,4 @@
-import { auth, db, addDoc, collection } from "../../js/firebase-init.js";
+import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
 
 (function () {
   "use strict";

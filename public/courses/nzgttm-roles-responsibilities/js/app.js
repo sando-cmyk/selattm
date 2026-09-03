@@ -515,7 +515,7 @@
       if (window.localStorage.getItem(FLAG_KEY)) return;
     } catch (e) {}
 
-    import("../../js/firebase-init.js").then(function (fb) {
+    import("../../../js/firebase-init.js").then(function (fb) {
       var user = fb.auth.currentUser;
       if (!user || user.isAnonymous) {
         els.waitHint.textContent = "You may close this tab — your result is saved in this browser, but you weren't signed in, so it hasn't reached head office. Sign in at selattm.com and revisit this page to fix that.";

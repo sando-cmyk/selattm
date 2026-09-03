@@ -2,7 +2,7 @@
  * Course engine: navigation, quiz logic, browser-local progress tracking
  * Sela Civil Advisory Ltd - NZGTTM Essentials course (standalone web version)
  */
-import { auth, db, addDoc, collection } from "../../js/firebase-init.js";
+import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
 
 (function () {
   "use strict";

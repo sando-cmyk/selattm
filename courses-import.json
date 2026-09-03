@@ -59,8 +59,11 @@
     "price": 55,
     "currency": "NZD",
     "status": "active",
-    "stripePriceId": "price_1U92Gv0flJvw3UeN8Pg8edac",
-    "launchPath": "/courses/ttm-roles-responsibilities/index.html"
+    "stripePriceId": "price_1UBSfH0flJvw3UeN8pTPATze",
+    "launchPath": "/courses/nzgttm-roles-responsibilities/index.html",
+    "legacyStripePriceIds": [
+      "price_1U92Gv0flJvw3UeN8Pg8edac"
+    ]
   },
   {
     "id": "book-01",

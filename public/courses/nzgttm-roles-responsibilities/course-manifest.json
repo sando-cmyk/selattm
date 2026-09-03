@@ -1,14 +1,15 @@
 {
-  "id": "nzgttm-roles-01",
-  "code": "NZGTTM-ROLES-01",
-  "title": "TTM Roles & Responsibilities",
-  "description": "How the NZGTTM frames roles and responsibilities across the temporary traffic management ecosystem — from PCBUs and Transport Access Organisations through to the Site Traffic Management Supervisor and wider workforce.",
+  "id": "ttm-roles-01",
+  "code": "TTM-ROLES-01",
+  "title": "Roles & Responsibilities for TTM in New Zealand",
+  "description": "Who does what on a TTM site -- roles, responsibilities, and accountability under NZ practice.",
   "category": "TTM Training",
-  "price": 45,
+  "price": 55,
   "currency": "NZD",
-  "status": "draft",
-  "stripePriceId": "REPLACE_ME_STRIPE_PRICE_ID",
+  "status": "active",
+  "stripePriceId": "price_1UBSfH0flJvw3UeN8pTPATze",
   "launchPath": "/courses/nzgttm-roles-responsibilities/index.html",
-  "legacyStripePriceIds": [],
-  "draftNotes": "PLACEHOLDER VALUES - do not treat as final. price and stripePriceId are placeholders copied from NZGTTM Essentials' shape, not confirmed figures. Create the real Stripe price first, then set stripePriceId and price to match, and only then change status to \"active\"."
+  "legacyStripePriceIds": [
+    "price_1U92Gv0flJvw3UeN8Pg8edac"
+  ]
 }
