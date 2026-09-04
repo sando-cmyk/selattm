@@ -5,17 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 2 Check: Equipment &amp; Signal Head Standards — Working with Portable Traffic Signals</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="../../css/course-base.css">
 </head>
-<body>
-<div class="topbar">
-  <div style="display:flex;align-items:center;">
-    <span class="dots"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span></span>
-    <span class="brand">SELA CIVIL ADVISORY</span>
-  </div>
-  <div class="title">Module 2 Check: Equipment &amp; Signal Head Standards</div>
-  <div><a href="menu.html">Menu</a></div>
-</div>
+<body data-course-id="pts-01" data-course-total-slides="30" data-course-quiz-ids="quiz1,quiz2,quiz3,quiz4" data-quiz="quiz2">
+
+<div id="course-header" data-title="Module 2 Check: Equipment &amp; Signal Head Standards"></div>
 <div class="container">
   <h2 style="color:var(--navy);">Module 2 Check: Equipment &amp; Signal Head Standards</h2>
   <p style="color:#666;">Answer all questions, then select <strong>Submit</strong>. You need 80% (4 out of 5) to pass. You can retry if needed.</p>
@@ -73,11 +67,9 @@
     <a class="btn amber" id="continueBtn" href="slide12.html" style="display:none;">Continue →</a>
   </div>
 </div>
-<script src="js/scorm_api.js"></script>
-<script src="js/course.js"></script>
+<script src="../../js/course-header.js"></script>
+<script src="../../js/course-progress.js"></script>
 <script>
-  var QUIZ_ID = "quiz2";
-  var TOTAL_Q = 5;
   document.getElementById('submitBtn').addEventListener('click', function(){
     var questions = document.querySelectorAll('.quiz-question');
     var score = 0;
@@ -102,14 +94,14 @@
       alert('Please answer every question before submitting.');
       return;
     }
-    var pct = Math.round((score / TOTAL_Q) * 100);
-    var passed = (score / TOTAL_Q) >= 0.8;
-    Course.recordQuiz(QUIZ_ID, score, TOTAL_Q);
+    var total = questions.length;
+    var pct = Math.round((score / total) * 100);
+    var result = CourseProgress.recordQuiz(score, total);
     var resultEl = document.getElementById('quizResult');
-    resultEl.innerHTML = '<div class="quiz-result ' + (passed ? 'pass' : 'fail') + '">' +
-      'You scored ' + score + ' / ' + TOTAL_Q + ' (' + pct + '%) — ' + (passed ? 'Passed!' : 'Not yet a pass — review the module and try again.') +
+    resultEl.innerHTML = '<div class="quiz-result ' + (result.passed ? 'pass' : 'fail') + '">' +
+      'You scored ' + score + ' / ' + total + ' (' + pct + '%) — ' + (result.passed ? 'Passed!' : 'Not yet a pass — review the module and try again.') +
       '</div>';
-    if (passed) {
+    if (result.passed) {
       document.getElementById('continueBtn').style.display = 'inline-block';
       document.getElementById('submitBtn').style.display = 'none';
     }

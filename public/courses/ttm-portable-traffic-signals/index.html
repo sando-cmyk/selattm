@@ -5,17 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Course Menu — Working with Portable Traffic Signals</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="../../css/course-base.css">
 </head>
-<body>
-<div class="topbar">
-  <div style="display:flex;align-items:center;">
-    <span class="dots"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span></span>
-    <span class="brand">SELA CIVIL ADVISORY</span>
-  </div>
-  <div class="title">Course Menu</div>
-  <div></div>
-</div>
+<body data-course-id="pts-01" data-course-total-slides="30" data-course-quiz-ids="quiz1,quiz2,quiz3,quiz4">
+
+<div id="course-header" data-title="Course Menu" data-hide-menu-link="true"></div>
+
 <div class="container">
   <div class="menu-header">
     <h1>Working with Portable Traffic Signals</h1>
@@ -80,11 +75,11 @@
     <a class="btn" href="complete.html">Go to Course Completion</a>
   </div>
 </div>
-<script src="js/scorm_api.js"></script>
-<script src="js/course.js"></script>
+<script src="../../js/course-header.js"></script>
+<script src="../../js/course-progress.js"></script>
 <script>
-  var state = Course.getState();
-  var pct = Course.overallPercent();
+  var state = CourseProgress.getState();
+  var pct = CourseProgress.overallPercent();
   document.getElementById('progressBar').style.width = pct + '%';
   document.getElementById('progressLabel').textContent = pct + '% complete';
 
@@ -92,8 +87,8 @@
     var tag = document.querySelector('[data-slide-status="'+n+'"]');
     if (tag) { tag.textContent = 'Viewed'; tag.classList.add('done'); }
   });
-  Course.QUIZ_IDS.forEach(function(id){
-    var r = Course.getQuizResult(id);
+  document.body.getAttribute('data-course-quiz-ids').split(',').forEach(function(id){
+    var r = CourseProgress.getQuizResult(id);
     var tag = document.querySelector('[data-quiz-status="'+id+'"]');
     if (r && tag) {
       tag.textContent = r.passed ? 'Passed (' + r.score + '/' + r.total + ')' : 'Retry (' + r.score + '/' + r.total + ')';
@@ -101,7 +96,7 @@
     }
   });
 
-  var last = Course.lastVisitedSlide();
+  var last = CourseProgress.lastVisitedSlide();
   if (last) {
     document.getElementById('resumeBanner').style.display = 'flex';
     document.getElementById('resumeText').textContent = 'You left off at Slide ' + last + '. Pick up where you left off?';

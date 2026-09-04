@@ -5,17 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Course Complete — Working with Portable Traffic Signals</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="../../css/course-base.css">
 </head>
-<body>
-<div class="topbar">
-  <div style="display:flex;align-items:center;">
-    <span class="dots"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span></span>
-    <span class="brand">SELA CIVIL ADVISORY</span>
-  </div>
-  <div class="title">Course Completion</div>
-  <div><a href="menu.html">Menu</a></div>
-</div>
+<body data-course-id="pts-01" data-course-total-slides="30" data-course-quiz-ids="quiz1,quiz2,quiz3,quiz4">
+
+<div id="course-header" data-title="Course Completion"></div>
+
 <div class="container">
   <div class="complete-wrap">
     <h1>Working with Portable Traffic Signals</h1>
@@ -24,18 +19,17 @@
     <p id="doneMsg" style="display:none;color:#2E7D32;font-weight:bold;margin-top:16px;"></p>
   </div>
 </div>
-<script src="js/scorm_api.js"></script>
-<script src="js/course.js"></script>
+
+<script src="../../js/course-header.js"></script>
+<script src="../../js/course-progress.js"></script>
 <script>
-  var allSlides = Course.allSlidesVisited();
-  var allQuizzes = Course.allQuizzesPassed();
   var msg = document.getElementById('statusMsg');
-  if (allSlides && allQuizzes) {
+  if (CourseProgress.isComplete()) {
     msg.textContent = 'All slides viewed and all module quizzes passed. You are ready to mark this course complete.';
   } else {
     var missing = [];
-    if (!allSlides) missing.push('view all slides');
-    if (!allQuizzes) missing.push('pass all four module quizzes (80%+)');
+    if (!CourseProgress.allSlidesVisited()) missing.push('view all slides');
+    if (!CourseProgress.allQuizzesPassed()) missing.push('pass all four module quizzes (80%+)');
     msg.innerHTML = 'Before marking complete, please ' + missing.join(' and ') + '. <a href="menu.html">Return to the menu</a>.';
   }
 
@@ -45,14 +39,13 @@
 
   // This button always does *something* visible when clicked, even if the
   // Firebase step below fails to load (e.g. no network) -- it should never
-  // feel like a dead button. Local SCORM-style progress is saved either way;
-  // the Firebase call on top of that is what lets head office see the result
+  // feel like a dead button. Local progress is saved either way; the
+  // Firebase call on top of that is what lets head office see the result
   // in admin.html and issue a certificate.
   completeBtn.addEventListener('click', function () {
-    Course.markCourseComplete();
     doneMsg.style.display = 'block';
 
-    if (!Course.isComplete()) {
+    if (!CourseProgress.isComplete()) {
       doneMsg.textContent = 'Progress saved in this browser. Come back once you have viewed every slide and passed all four quizzes, then click this button again to send your result to head office.';
       return;
     }
@@ -79,7 +72,7 @@
           courseId: 'pts-01',
           courseCode: 'PTS-01',
           courseTitle: 'Working with Portable Traffic Signals',
-          scorePercent: Course.overallPercent(),
+          scorePercent: CourseProgress.overallPercent(),
           passed: true,
           completedAt: new Date().toISOString(),
           certificateIssued: false

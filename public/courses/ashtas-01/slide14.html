@@ -9,16 +9,7 @@
 </head>
 <body>
 <div class="app">
-  <header class="topbar">
-    <div class="brand">
-      <strong>ASHTAS Operative Training</strong>
-      <span>Module 2: Introduction</span>
-    </div>
-    <div class="progress-wrap">
-      <div class="progress-bar"><span id="progressFill"></span></div>
-      <span class="progress-label" id="progressLabel">0 / 62 screens viewed</span>
-    </div>
-  </header>
+  <div id="ashtas-header" data-subtitle="Module 2: Introduction"></div>
 
   <main class="slide-content">
     <div class="slide-meta">
@@ -64,11 +55,10 @@
     </nav>
   </main>
 
-  <footer class="foot">
-    © Lantra — ASHTAS Operative Training material, reproduced under licence for internal Moodle delivery.
-  </footer>
+  <div id="ashtas-footer"></div>
 </div>
 
+<script src="js/ashtas-header.js"></script>
 <script src="js/scorm_api.js"></script>
 <script src="js/course.js"></script>
 <script src="js/speech.js"></script>

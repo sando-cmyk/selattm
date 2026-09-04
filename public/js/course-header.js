@@ -22,9 +22,13 @@
    next deploy.
 
    Optional attributes on the same #course-header element:
-     data-menu-href="menu.html"   -- override the Menu link's target
-                                      (defaults to "menu.html" in the same
-                                      folder as the current page)
+     data-menu-href="menu.html"     -- override the Menu link's target
+                                        (defaults to "menu.html" in the same
+                                        folder as the current page)
+     data-hide-menu-link="true"     -- omit the Menu link entirely (use on
+                                        the menu page itself, since a "Menu"
+                                        link back to the page you're already
+                                        on is pointless)
    ========================================================================== */
 (function () {
   "use strict";
@@ -39,6 +43,8 @@
 
     var title = mount.getAttribute("data-title") || document.title || "";
     var menuHref = mount.getAttribute("data-menu-href") || "menu.html";
+    var hideMenuLink = mount.getAttribute("data-hide-menu-link") === "true";
+    var menuSlot = hideMenuLink ? "<div></div>" : '<div><a href="' + menuHref + '">Menu</a></div>';
 
     mount.innerHTML =
       '<div class="topbar">' +
@@ -47,7 +53,7 @@
           '<span class="brand">SELA CIVIL ADVISORY</span>' +
         "</div>" +
         '<div class="title">' + escapeHtml(title) + "</div>" +
-        '<div><a href="' + menuHref + '">Menu</a></div>' +
+        menuSlot +
       "</div>";
   }
 

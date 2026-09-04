@@ -1,6 +1,6 @@
 # selattm.com — Project Status
 
-*Last updated: 3 September 2026. Written as a handoff so a new chat can pick up without re-explaining the project. Read this file first, then `COMMANDS-REFERENCE.md` for how-to commands and `MANUAL-CHANGES-LOG.md` for the history of console-only (non-code) changes.*
+*Last updated: 4 September 2026. Written as a handoff so a new chat can pick up without re-explaining the project. Read this file first, then `COMMANDS-REFERENCE.md` for how-to commands and `MANUAL-CHANGES-LOG.md` for the history of console-only (non-code) changes.*
 
 ## What this project is
 
@@ -10,19 +10,23 @@ Sela is acquiring the assets of Roading Industry Support Services Ltd (RISS.co.n
 
 ## Current state (as of this handoff)
 
-Git is clean and pushed — `origin/main` is at commit `afef3c7`, which bundles two pieces of work: the live-breaking import-path fix (below) and today's TTM Roles course replacement. Nothing is staged or pending in git.
+Not committed yet. 100 course HTML files plus one new JS file are modified/added and staged-but-uncommitted on Craig's machine, covering the PTS-01 + ASHTAS-01 header/footer migration described below. `.git-commit-msg.txt` in the repo root has the commit message ready. Craig needs to run, from his own PowerShell, in this order:
 
-**Still to be done by Craig, from his own PowerShell** (the assistant cannot reach the network or run these):
+1. `cd` into the repo folder, then `git add` the changed files (see `COMMANDS-REFERENCE.md` if unsure which)
+2. `git commit -F .git-commit-msg.txt`
+3. `git push`
+4. `firebase deploy --only hosting`
+5. After deploy, spot-check both courses live on a phone-width browser: PTS-01 (start at `slide1.html`, click through to a quiz and to `complete.html`) and ASHTAS-01 (`slide1.html` through to a quiz) — confirm the header renders correctly (it's now JS-injected on every page instead of hand-written, so this is the one thing genuinely worth eyeballing live before calling it done) and that PTS-01's "Mark Course Content Complete" button still records to Firestore.
 
-- `node scripts/sync-courses.js` — pushes the updated `courses-import.json` catalog to Firestore
-- `firebase deploy --only hosting` — publishes the code changes live
-- Ask Joseph to re-test these courses after the deploy and confirm they actually start and complete: NZGTTM Essentials, TTM Engineering Essentials, the new TTM Roles & Responsibilities course, and ideally PTS-01 as a control. This matters because the last deploy fixed a bug that had silently broken three courses — a quiet console isn't proof it's fixed, an actual run-through is.
-
-**Still open, longer-term, needs Craig's own action in a console:**
-
-- `www.selattm.com` does not resolve at all (confirmed by direct testing) — only the bare `selattm.com` works. Fix is Firebase Console → Hosting → Add custom domain → `www.selattm.com`, plus the DNS record it asks for at the domain registrar. Logged in `MANUAL-CHANGES-LOG.md`.
+No one has purchased or completed either course yet, so this was safe to do directly rather than staging behind a flag.
 
 ## What's been done recently (most recent first)
+
+**PTS-01 and ASHTAS-01 migrated off hand-duplicated headers.** Follow-up to Craig flagging that every course page hand-writes its own header markup and that mobile scrolling was excessive before reaching the Next/Submit button (see the PTS-01 mobile fix + shared kit entry below, from the previous session). With no one having paid for or completed either course yet, both were retrofitted now rather than later:
+- **PTS-01** (38 files): fully migrated onto the shared kit (`course-base.css` / `course-header.js` / `course-progress.js`) described in `COURSE-BUILD-SPEC.md`. Five "golden reference" files (menu/index, 404, complete, a slide, a quiz) were built and verified first, then a deterministic Python regex script (not an LLM rewrite — the transformation was 100% mechanical and a verified script is cheaper and more reliable for that) migrated the remaining 32 files in one pass.
+- **ASHTAS-01** (62 files, `index.html` untouched since it's just a redirect): this course turned out to be a real SCORM package meant to run inside Moodle (progress/completion go through the LMS's suspend-data, not Firestore/localStorage), with its own already-consistent CSS and an already-fine mobile layout — forcing it onto the PTS-01 kit would have re-skinned it and risked its Moodle wiring for no real benefit. Instead it got a matching, ASHTAS-specific fix: a new `public/courses/ashtas-01/js/ashtas-header.js` injects its header and footer from two mount divs, same principle as the shared kit (one definition, never duplicated) but built to match ASHTAS's own design. Confirmed via a live mobile screenshot (pre-migration) that ASHTAS never actually had PTS-01's header-wrapping bug — only the duplication problem needed fixing here.
+- Every one of the 100 migrated files was verified the same way: regex-based structural checks confirmed the exact same shape of change across every file in each course (no stray content drift), `node --check` passed on every extracted inline `<script>` block, HTML tag-balance checks passed, and `git diff` was read in full for a sample of each page type per course to visually confirm only header/footer/script-include lines changed — all slide text, quiz questions/answers, image/audio/video paths, and nav links came through byte-for-byte unchanged.
+- `COURSE-BUILD-SPEC.md`'s closing section was updated to describe this migration status instead of saying it hadn't happened yet.
 
 **TTM Roles & Responsibilities course replacement.** Joseph had re-recorded this course as a new video-based version, initially extracted into a new `nzgttm-roles-responsibilities` folder. Craig confirmed: use the new content, real Stripe price `price_1UBSfH0flJvw3UeN8pTPATze` ($55 + GST), no one had purchased the old course so no need to preserve old customer access, but keep the same catalog listing details (id `ttm-roles-01`, code `TTM-ROLES-01`, title, description) so it reads as an update rather than a new course. Done: updated `courses-import.json` and the new course's own manifest with the new price and a `legacyStripePriceIds` entry for the old price as a safety net; repointed `launchPath` to `/courses/nzgttm-roles-responsibilities/` everywhere it's referenced (`courses-import.json`, the manifest, `public/learner.html`); deleted the old `public/courses/ttm-roles-responsibilities/` folder entirely (confirmed via repo-wide grep that nothing still references it); regenerated `public/data/courses.json` with `node build-all.js`.
 

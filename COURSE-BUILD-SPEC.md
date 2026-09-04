@@ -63,6 +63,12 @@ Every page must be checked on a narrow phone width (390px or so) before being ca
 
 A course delivered with its own header markup, its own duplicate stylesheet, or hand-rolled progress tracking doesn't get added to the live catalog. It goes back for rework against this spec first. This isn't about style preference — it's what makes a header fix take one edit instead of thirty-six, and what makes sure a course's results actually reach the certificate system instead of silently going nowhere.
 
-## What this doesn't cover yet
+## Migration status of the five pre-existing courses
 
-The five courses already live on the site (ASHTAS Operative, PTS-01, NZGTTM Essentials, TTM Engineering Essentials, TTM Roles & Responsibilities) predate this spec and haven't been migrated to it — that's a separate, larger piece of work, not urgent since they work today, and will happen on its own timeline rather than blocking anything here. This spec governs course content delivered from now on.
+**PTS-01 (Portable Traffic Signals)** is now fully migrated onto this exact kit — every one of its 38 pages uses `course-base.css` / `course-header.js` / `course-progress.js` as described above. No user had completed or paid for this course yet, so it was retrofitted directly rather than left as a special case.
+
+**ASHTAS-01** is a genuine SCORM package built to run inside Moodle — progress and completion are reported through the LMS's own suspend-data mechanism (`js/scorm_api.js` / `js/course.js`), not through `CourseProgress`/Firestore, and it was already using a single shared stylesheet and a single shared `course.js` across all 62 pages before this kit existed. Forcing it onto `course-base.css` would mean re-skinning a course that's actually fine visually and changing how it talks to Moodle — neither is wanted. Instead it got a matching but separate fix: `public/courses/ashtas-01/js/ashtas-header.js` now renders its header and footer from `<div id="ashtas-header" data-subtitle="...">` and `<div id="ashtas-footer"></div>` mounts, so none of its 62 pages hand-write that markup any more — same principle (one definition, injected, never duplicated), implemented to match ASHTAS's own design and LMS wiring rather than PTS-01's. Its mobile layout was already fine and needed no CSS changes.
+
+**NZGTTM Essentials, TTM Engineering Essentials, and TTM Roles & Responsibilities** are single-page-app style courses (one `index.html` + one `app.js`, JS-driven "screens") and don't have PTS-01's per-page-header problem in the first place, so this kit doesn't apply to them structurally. They're unmigrated and that's fine.
+
+This spec governs course content delivered from now on.
