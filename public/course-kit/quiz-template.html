@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module N Check: QUIZ TITLE — COURSE TITLE</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="../../css/course-base.css">
+</head>
+<body data-course-id="your-course-id" data-course-total-slides="TOTAL_SLIDE_COUNT" data-course-quiz-ids="quiz1,quiz2,quiz3,quiz4" data-quiz="quizN">
+
+<div id="course-header" data-title="Module N Check: QUIZ TITLE"></div>
+
+<div class="container">
+  <h2 style="color:var(--navy);">Module N Check: QUIZ TITLE</h2>
+  <p style="color:#666;">Answer all questions, then select <strong>Submit</strong>. You need 80% to pass. You can retry if needed.</p>
+
+  <!-- One .quiz-question block per question. data-answer is the
+       zero-based index of the correct <label>/radio option. Add or
+       remove questions freely -- the submit script below counts
+       whatever .quiz-question elements are actually on the page, so it
+       does not need editing when a quiz has 4 questions instead of 5. -->
+  <form id="quizForm">
+    <div class="quiz-question" data-qindex="0" data-answer="0">
+      <p class="qtext">1. Question text goes here?</p>
+      <label><input type="radio" name="q0" value="0"> Correct option (matches data-answer="0")</label>
+      <label><input type="radio" name="q0" value="1"> Distractor option</label>
+      <label><input type="radio" name="q0" value="2"> Distractor option</label>
+      <label><input type="radio" name="q0" value="3"> Distractor option</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+  </form>
+
+  <div id="quizResult"></div>
+  <div class="nav-row">
+    <button class="btn" id="submitBtn" type="button">Submit Answers</button>
+    <a class="btn amber" id="continueBtn" href="slideNEXT_NUMBER.html" style="display:none;">Continue &rarr;</a>
+  </div>
+</div>
+
+<script src="../../js/course-header.js"></script>
+<script src="../../js/course-progress.js"></script>
+<script>
+  // This is the one bit of per-page logic that genuinely has to exist --
+  // checking THIS quiz's specific answers. It is the same on every quiz
+  // page (copy it as-is); only the questions in the HTML above change.
+  document.getElementById('submitBtn').addEventListener('click', function () {
+    var questions = document.querySelectorAll('.quiz-question');
+    var score = 0;
+    var allAnswered = true;
+    questions.forEach(function (qEl) {
+      var qi = qEl.getAttribute('data-qindex');
+      var correct = Number(qEl.getAttribute('data-answer'));
+      var selected = qEl.querySelector('input[name="q' + qi + '"]:checked');
+      var fb = qEl.querySelector('.qfeedback');
+      if (!selected) { allAnswered = false; return; }
+      var chosen = Number(selected.value);
+      fb.style.display = 'block';
+      if (chosen === correct) {
+        score++;
+        fb.innerHTML = '<span class="correct-answer">Correct.</span>';
+      } else {
+        var correctText = qEl.querySelectorAll('label')[correct].textContent.trim();
+        fb.innerHTML = '<span class="incorrect-answer">Not quite — correct answer: ' + correctText + '</span>';
+      }
+    });
+    if (!allAnswered) {
+      alert('Please answer every question before submitting.');
+      return;
+    }
+    var total = questions.length;
+    var pct = Math.round((score / total) * 100);
+    var result = CourseProgress.recordQuiz(score, total);
+    var resultEl = document.getElementById('quizResult');
+    resultEl.innerHTML = '<div class="quiz-result ' + (result.passed ? 'pass' : 'fail') + '">' +
+      'You scored ' + score + ' / ' + total + ' (' + pct + '%) — ' + (result.passed ? 'Passed!' : 'Not yet a pass — review the module and try again.') +
+      '</div>';
+    if (result.passed) {
+      document.getElementById('continueBtn').style.display = 'inline-block';
+      document.getElementById('submitBtn').style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>

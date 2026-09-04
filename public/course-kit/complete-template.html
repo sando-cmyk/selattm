@@ -3,57 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Course Complete — Working with Portable Traffic Signals</title>
+<title>Course Complete — COURSE TITLE</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="../../css/course-base.css">
 </head>
-<body>
-<div class="topbar">
-  <div style="display:flex;align-items:center;">
-    <span class="dots"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span></span>
-    <span class="brand">SELA CIVIL ADVISORY</span>
-  </div>
-  <div class="title">Course Completion</div>
-  <div><a href="menu.html">Menu</a></div>
-</div>
+<body data-course-id="your-course-id" data-course-total-slides="TOTAL_SLIDE_COUNT" data-course-quiz-ids="quiz1,quiz2,quiz3,quiz4">
+
+<div id="course-header" data-title="Course Completion"></div>
+
 <div class="container">
   <div class="complete-wrap">
-    <h1>Working with Portable Traffic Signals</h1>
+    <h1>COURSE TITLE</h1>
     <p id="statusMsg" style="font-size:16px;"></p>
     <button class="btn amber" id="completeBtn">Mark Course Content Complete</button>
     <p id="doneMsg" style="display:none;color:#2E7D32;font-weight:bold;margin-top:16px;"></p>
   </div>
 </div>
-<script src="js/scorm_api.js"></script>
-<script src="js/course.js"></script>
+
+<script src="../../js/course-header.js"></script>
+<script src="../../js/course-progress.js"></script>
 <script>
-  var allSlides = Course.allSlidesVisited();
-  var allQuizzes = Course.allQuizzesPassed();
+  // This block is the same on every course's completion page -- copy it
+  // as-is. It only knows about generic CourseProgress state, never this
+  // course's specific slides/quizzes, so nothing here needs editing per
+  // course beyond the courseId/courseCode/courseTitle in the submissions
+  // write below.
   var msg = document.getElementById('statusMsg');
-  if (allSlides && allQuizzes) {
+  if (CourseProgress.isComplete()) {
     msg.textContent = 'All slides viewed and all module quizzes passed. You are ready to mark this course complete.';
   } else {
     var missing = [];
-    if (!allSlides) missing.push('view all slides');
-    if (!allQuizzes) missing.push('pass all four module quizzes (80%+)');
+    if (!CourseProgress.allSlidesVisited()) missing.push('view all slides');
+    if (!CourseProgress.allQuizzesPassed()) missing.push('pass all module quizzes (80%+)');
     msg.innerHTML = 'Before marking complete, please ' + missing.join(' and ') + '. <a href="menu.html">Return to the menu</a>.';
   }
 
   var completeBtn = document.getElementById('completeBtn');
   var doneMsg = document.getElementById('doneMsg');
-  var FLAG_KEY = 'sela_result_recorded::pts-01::v1';
+  var FLAG_KEY = 'sela_result_recorded::your-course-id::v1'; // match data-course-id above
 
-  // This button always does *something* visible when clicked, even if the
-  // Firebase step below fails to load (e.g. no network) -- it should never
-  // feel like a dead button. Local SCORM-style progress is saved either way;
-  // the Firebase call on top of that is what lets head office see the result
-  // in admin.html and issue a certificate.
   completeBtn.addEventListener('click', function () {
-    Course.markCourseComplete();
     doneMsg.style.display = 'block';
 
-    if (!Course.isComplete()) {
-      doneMsg.textContent = 'Progress saved in this browser. Come back once you have viewed every slide and passed all four quizzes, then click this button again to send your result to head office.';
+    if (!CourseProgress.isComplete()) {
+      doneMsg.textContent = 'Progress saved in this browser. Come back once you have finished every slide and quiz, then click this button again to send your result to head office.';
       return;
     }
 
@@ -66,6 +59,7 @@
 
     doneMsg.textContent = 'Recording your result...';
 
+    // Fill in courseId / courseCode / courseTitle for THIS course below.
     import('../../js/firebase-init.js').then(function (fb) {
       var unsubscribe = fb.onAuthStateChanged(fb.auth, function (user) {
         unsubscribe();
@@ -76,10 +70,10 @@
         fb.addDoc(fb.collection(fb.db, 'submissions'), {
           userId: user.uid,
           email: (user.email || '').toLowerCase(),
-          courseId: 'pts-01',
-          courseCode: 'PTS-01',
-          courseTitle: 'Working with Portable Traffic Signals',
-          scorePercent: Course.overallPercent(),
+          courseId: 'your-course-id',
+          courseCode: 'YOUR-CODE-01',
+          courseTitle: 'COURSE TITLE',
+          scorePercent: CourseProgress.overallPercent(),
           passed: true,
           completedAt: new Date().toISOString(),
           certificateIssued: false
@@ -87,12 +81,12 @@
           try { window.localStorage.setItem(FLAG_KEY, '1'); } catch (e) {}
           doneMsg.textContent = 'Recorded -- head office can now see this result. You may close this window.';
         }).catch(function (err) {
-          console.error('Failed to record PTS-01 result:', err);
+          console.error('Failed to record result:', err);
           doneMsg.textContent = 'Your result is saved in this browser, but sending it to head office failed. Please let head office know.';
         });
       });
     }).catch(function (err) {
-      console.error('Failed to load firebase-init for PTS-01 completion:', err);
+      console.error('Failed to load firebase-init:', err);
       doneMsg.textContent = 'Progress saved in this browser, but sending it to head office failed to load. Please let head office know.';
     });
   });

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLIDE TITLE — COURSE TITLE</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="../../css/course-base.css">
+</head>
+<body data-course-id="your-course-id" data-course-total-slides="TOTAL_SLIDE_COUNT" data-course-quiz-ids="quiz1,quiz2,quiz3,quiz4" data-slide="SLIDE_NUMBER">
+
+<!-- Header: this ONE line is the entire header. Never write topbar HTML
+     by hand here -- course-header.js fills it in. -->
+<div id="course-header" data-title="Slide SLIDE_NUMBER: SLIDE TITLE"></div>
+
+<div class="container">
+  <div class="slide-image-wrap">
+    <!-- Replace with this slide's image or video. For video, keep
+         controls/preload/playsinline like this example: -->
+    <img src="slides/slideSLIDE_NUMBER.jpg" alt="Slide SLIDE_NUMBER: SLIDE TITLE">
+  </div>
+
+  <!-- Narration panel is optional -- delete this whole block if a slide
+       has no audio. Keep the ids as-is; audio_narration.js wires to them. -->
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/slideSLIDE_NUMBER.mp3" preload="auto" autoplay></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+      <label>Speed:
+        <select id="speedSelect">
+          <option value="0.85">Slow</option>
+          <option value="1" selected>Normal</option>
+          <option value="1.25">Fast</option>
+        </select>
+      </label>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Full narration transcript text goes here.</div>
+  </div>
+
+  <!-- Bottom nav: same three links/buttons on every slide, only the
+       hrefs and the "Slide X of Y" text change. -->
+  <div class="nav-row">
+    <a class="btn" href="menu.html">&larr; Menu</a>
+    <span style="color:#888;font-size:13px;">Slide SLIDE_NUMBER of TOTAL_SLIDE_COUNT</span>
+    <a class="btn amber" href="slideNEXT_NUMBER.html">Next &rarr;</a>
+  </div>
+</div>
+
+<!-- Shared scripts. Adjust the "../../" depth to match how deep this file
+     sits under /public (this template assumes public/courses/<course>/). -->
+<script src="../../js/course-header.js"></script>
+<script src="../../js/course-progress.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  // That's it. No markVisited() call needed -- the data-slide attribute
+  // on <body> already told course-progress.js this slide was visited.
+  var audioEl = document.getElementById('narrationAudio');
+  if (audioEl) {
+    Narration.init({
+      audio: audioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      speedSelect: document.getElementById('speedSelect'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox')
+    });
+  }
+</script>
+</body>
+</html>
