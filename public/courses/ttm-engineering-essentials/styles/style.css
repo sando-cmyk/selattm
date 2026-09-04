@@ -239,3 +239,69 @@ h1, h2, h3, .headfont { font-family: Cambria, Georgia, "Times New Roman", serif;
 .btn:disabled { opacity: .35; cursor: not-allowed; }
 .btn:hover:not(:disabled) { background: var(--card-bg); }
 .theme-dark ~ .footer-nav, .footer-nav.on-dark .btn { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.2); }
+
+/* ================================================================
+   MOBILE (this course had no responsive layout at all -- the fixed
+   264px sidebar plus several fixed multi-column grids made it
+   unusable on a phone: content was pushed off-screen and the
+   Back/Next buttons were unreachable without scrolling past
+   truncated text. This stacks the sidebar above the content, caps
+   the slide list to a short scrollable strip instead of showing all
+   35 items, collapses every multi-column grid to fewer columns, and
+   pins Back/Next to the bottom of the screen like the site's other
+   courses already do.) */
+@media (max-width: 768px) {
+  .app { flex-direction: column; }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: auto;
+  }
+  .sidebar-header img { max-width: 120px; }
+  #nav-list { max-height: 160px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
+  .main { height: auto; overflow-y: visible; }
+
+  .audio-bar { padding: 8px 16px; flex-wrap: wrap; }
+  .audio-bar audio { max-width: 100%; }
+
+  .slide { padding: 20px 18px 22px; }
+  .title-slide h1 { font-size: 26px; }
+  .closing-slide h1 { font-size: 26px; }
+
+  .card-grid.cols-2,
+  .card-grid.cols-3,
+  .triple-col,
+  .specialist-cols,
+  .source-grid,
+  .quiz-options-grid { grid-template-columns: 1fr; }
+
+  .source-grid .card:nth-child(4),
+  .source-grid .card:nth-child(5) { grid-column: auto; margin-left: 0; }
+
+  .summary-cards { grid-template-columns: repeat(2, 1fr); }
+
+  .two-col { flex-direction: column; }
+  .two-col .left { min-width: 0; width: 100%; }
+  .two-col .right { flex: 1 1 auto; width: 100%; }
+
+  .side-panel, .sidebar-note, .taper-wrap, .hierarchy-wrap,
+  .course-invite-card, .key-callout { max-width: 100%; }
+
+  .result-banner { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+  .footer-nav {
+    position: sticky;
+    bottom: 0;
+    background: #eef1f3;
+    border-top: 1px solid var(--line);
+    z-index: 5;
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-cards { grid-template-columns: 1fr; }
+}
