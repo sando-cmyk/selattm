@@ -578,3 +578,19 @@ main.slide-content {
   font-size: 0.88rem;
   white-space: nowrap;
 }
+
+.book-test-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.book-test-btn:hover {
+  background: var(--accent-light);
+  color: var(--navy);
+}

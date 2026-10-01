@@ -1,0 +1,12 @@
+{
+  "id": "basic-barrier-safety",
+  "code": "TTM-BBS-01",
+  "title": "Working Safely Near Barrier Systems",
+  "description": "Site Safety Awareness module for crew, subcontractors, and site visitors working on or near temporary or permanent barrier systems.",
+  "category": "Site Safety Awareness",
+  "price": 0,
+  "currency": "NZD",
+  "status": "draft",
+  "stripePriceId": "PENDING_PRICE_NOT_SET",
+  "launchPath": "/courses/basic-barrier-safety-course/index.html"
+}

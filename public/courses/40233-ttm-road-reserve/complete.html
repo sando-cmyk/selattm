@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Complete — Assist with Temporary Traffic Management within the Road Reserve</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Course Completion</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="complete-wrap">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <h1>Assist with Temporary Traffic Management within the Road Reserve</h1>
+    <p id="statusMsg" style="font-size:16px;"></p>
+    <button class="btn amber" id="completeBtn">Mark Course Content Complete</button>
+    <p id="doneMsg" style="display:none;color:#2E7D32;font-weight:bold;margin-top:16px;">Recorded. You may close this window.</p>
+    <div class="callout NOTE" style="margin-top:24px;text-align:left;">
+      <span class="callout-label">DON'T FORGET</span>
+      <p>Completing the three online modules and their quizzes covers the underpinning knowledge for Skill
+      Standard 40233. You still need the <b>Practical Sign-Off &amp; Assessment Booklet</b> completed on site with
+      your supervisor before the Skill Standard itself can be signed off. Visit the
+      <a href="assessment.html">Practical Assessment &amp; Sign-Off</a> page to download it and send it back in.</p>
+    </div>
+  </div>
+
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>
+  var allSlides = Course.allSlidesVisited();
+  var allQuizzes = Course.allQuizzesPassed();
+  var msg = document.getElementById('statusMsg');
+  if (allSlides && allQuizzes) {
+    msg.textContent = 'All slides viewed and all module quizzes passed. You are ready to mark this course complete.';
+  } else {
+    var missing = [];
+    if (!allSlides) missing.push('view all slides');
+    if (!allQuizzes) missing.push('pass all three module quizzes (80%+)');
+    msg.innerHTML = 'Before marking complete, please ' + missing.join(' and ') + '. <a href="menu.html">Return to the menu</a>.';
+  }
+  document.getElementById('completeBtn').addEventListener('click', function(){
+    Course.markCourseComplete();
+    document.getElementById('doneMsg').style.display = 'block';
+  });
+</script>
+</body>
+</html>

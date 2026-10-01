@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quick Check &mdash; Working Safely Near Barrier Systems</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Quick Check</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Quick Check</h2>
+    <div class="read-time">~1 min</div>
+    <div class="scenario-card" data-answered="false">
+      <h4>Quick Check</h4>
+      <p>A colleague wants to shift a water-filled barrier segment to make room for a delivery truck, without checking with the traffic controller. What should happen?</p>
+      <div class="choice-row">
+        <button type="button" class="choice-btn" onclick="Interactive.choice(this, 'qc1', 0, 0, false)">Let them go ahead &mdash; it will only take a minute</button>
+        <button type="button" class="choice-btn" onclick="Interactive.choice(this, 'qc1', 0, 1, true)">Stop and get authorisation from the TTM/traffic controller first</button>
+        <button type="button" class="choice-btn" onclick="Interactive.choice(this, 'qc1', 0, 2, false)">Tell them to do it after dark instead</button>
+        <button type="button" class="choice-btn" onclick="Interactive.choice(this, 'qc1', 0, 3, false)">It&#x27;s fine as long as no traffic is coming</button>
+      </div>
+      <div class="choice-feedback incorrect" id="qc1-fb-0-0">Not quite. Barriers should never be moved without authorisation from the person in charge of the Traffic Management Plan, even for a short time.</div>
+      <div class="choice-feedback correct" id="qc1-fb-0-1">Correct. Barriers should never be moved without authorisation from the person in charge of the Traffic Management Plan, even for a short time.</div>
+      <div class="choice-feedback incorrect" id="qc1-fb-0-2">Not quite. Barriers should never be moved without authorisation from the person in charge of the Traffic Management Plan, even for a short time.</div>
+      <div class="choice-feedback incorrect" id="qc1-fb-0-3">Not quite. Barriers should never be moved without authorisation from the person in charge of the Traffic Management Plan, even for a short time.</div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/5.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+      
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Quick Check.<br><br>A colleague wants to shift a water-filled barrier segment to make room for a delivery truck, without checking with the traffic controller. What should happen?<br><br>Correct. Barriers should never be moved without authorisation from the person in charge of the Traffic Management Plan, even for a short time.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide4.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 5 of 10</span>
+    <a class="btn amber" href="slide6.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox')
+    });
+  }
+</script>
+<script>Course.markVisited(5);</script>
+</body>
+</html>

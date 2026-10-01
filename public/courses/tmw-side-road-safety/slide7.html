@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spot the Hazard: Workers on Foot &mdash; Staging &amp; Vehicles on Side Roads</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Spot the Hazard</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+
+<div class="container">
+  <div class="slide-content">
+    <h2>Spot the Hazard</h2>
+    <div class="read-time">~2 min (interactive)</div>
+    <div class="slide-image-wrap"><img src="img/photo_workers_full.jpg" alt="Worker standing in the running lane beside a stopped truck at night on Store Road"></div>
+    <p class="activity-instructions">Same exercise, different photo. Tap each hotspot below to check the hazards, and think about what harm each one could cause, and to whom.</p>
+    <div id="hz7" data-total="4">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz7', 0)"><span class="hb-icon">&#128694;</span>Worker in the running lane</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz7', 1)"><span class="hb-icon">&#128666;</span>Truck stopped in the lane</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz7', 2)"><span class="hb-icon">&#128721;</span>No stop/go control visible</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz7', 3)"><span class="hb-icon">&#127762;</span>Night &amp; wet conditions</button>
+    </div>
+    <div class="hotspot-progress">0 of 4 explored</div>
+    <div class="hotspot-card" id="hz7-card0"><h4>Worker in the running lane</h4><p><span class="field-label">Hazard:</span> A worker is standing in the live lane beside a stopped truck, unseparated from through traffic.</p><p><span class="field-label">Harm &amp; who's at risk:</span> Struck by a vehicle that doesn’t stop in time &mdash; a position with no fallback, and potentially serious injury or fatality.</p></div>
+    <div class="hotspot-card" id="hz7-card1"><h4>Truck stopped in the lane</h4><p><span class="field-label">Hazard:</span> The truck itself is stopped in the running lane rather than off to the side.</p><p><span class="field-label">Harm &amp; who's at risk:</span> Forces oncoming drivers to react suddenly, risking loss of control or a collision with the truck or the worker standing beside it.</p></div>
+    <div class="hotspot-card" id="hz7-card2"><h4>No stop/go control visible</h4><p><span class="field-label">Hazard:</span> No stop/go or signal appears to be controlling the lane before the worker steps into it.</p><p><span class="field-label">Harm &amp; who's at risk:</span> Traffic keeps moving through while someone is exposed in the lane, removing the margin a controlled closure would give.</p></div>
+    <div class="hotspot-card" id="hz7-card3"><h4>Night &amp; wet conditions</h4><p><span class="field-label">Hazard:</span> Dark, wet conditions reduce how early an approaching driver can see the worker.</p><p><span class="field-label">Harm &amp; who's at risk:</span> Less reaction time increases the chance a vehicle doesn’t stop in time.</p></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/7.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Spot the Hazard. Same exercise, different photo. Look at this one as a crew would, before you see what the audit found. Tap each hotspot to check the hazards, and think about what harm each one could cause, and to whom.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide6.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 7 of 10</span>
+    <a class="btn amber" href="slide8.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>Course.markVisited(7);</script>
+</body>
+</html>

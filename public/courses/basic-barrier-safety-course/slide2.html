@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why This Matters &mdash; Working Safely Near Barrier Systems</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Why This Matters</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Why This Matters</h2>
+    <div class="read-time">~1 min read</div>
+    <div class="slide-image-wrap"><img src="img/20220403_083631.jpg" alt="Low-visibility fog on a barrier-lined road with traffic nearby"><div class="photo-cap">Low-visibility conditions are exactly when a barrier line matters most.</div></div>
+    <p>Barrier systems &mdash; water-filled barriers, concrete barriers, guardrail, temporary fencing and similar &mdash; are used on worksites to separate people from traffic, plant, drop-offs and other hazards.</p>
+    <p>A barrier only does its job if the people working around it understand what it's for, respect the space it protects, and know what to do if something goes wrong.</p>
+    <div class="callout CAUTION"><span class="callout-label">CAUTION</span><p>Incorrect behaviour around barriers &mdash; working too close to traffic, moving barriers without authorisation, or ignoring damage &mdash; is a recurring factor in worksite incidents.</p></div>
+    <p>This module gives you the awareness you need to work safely whenever a barrier system is part of the site.</p>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/2.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+      
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Why This Matters.<br><br>Barrier systems &mdash; water-filled barriers, concrete barriers, guardrail, temporary fencing and similar &mdash; are used on worksites to separate people from traffic, plant, drop-offs and other hazards.<br><br>A barrier only does its job if the people working around it understand what it&#x27;s for, respect the space it protects, and know what to do if something goes wrong.<br><br>Incorrect behaviour around barriers &mdash; working too close to traffic, moving barriers without authorisation, or ignoring damage &mdash; is a recurring factor in worksite incidents.<br><br>This module gives you the awareness you need to work safely whenever a barrier system is part of the site.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide1.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 2 of 10</span>
+    <a class="btn amber" href="slide3.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox')
+    });
+  }
+</script>
+<script>Course.markVisited(2);</script>
+</body>
+</html>

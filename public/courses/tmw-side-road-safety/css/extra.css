@@ -1,0 +1,81 @@
+/* Extensions for the Staging & Vehicles on Side Roads course — same shared
+   classes as the other Sela courses (brand-badge, slide-content, callout,
+   hotspot-grid/hotspot-card, step-card-row) loaded alongside the base
+   styles.css (same design tokens: --navy, --amber, etc.). */
+
+.brand-badge{background:var(--white);border-radius:6px;padding:4px 10px;display:flex;align-items:center;margin-right:10px;}
+.brand-logo{height:26px;display:block;}
+.menu-header .brand-badge{background:rgba(255,255,255,0.92);margin:0 0 14px;display:inline-flex;}
+.menu-header .brand-logo{height:34px;}
+.complete-wrap .brand-badge{background:var(--cream);display:inline-flex;margin:0 0 16px;}
+.complete-wrap .brand-logo{height:34px;}
+
+.slide-content{background:var(--white);border:1px solid #ddd;box-shadow:0 2px 8px rgba(0,0,0,0.08);border-radius:6px;padding:24px 28px;margin-bottom:18px;}
+.slide-content h2{color:var(--navy);margin-top:0;font-size:22px;}
+.slide-content .read-time{color:#888;font-size:13px;margin-top:-8px;margin-bottom:16px;}
+.slide-content p{line-height:1.6;font-size:15px;}
+.slide-content ul{line-height:1.6;font-size:15px;padding-left:22px;}
+.slide-content ul li{margin-bottom:6px;}
+.objectives-box{background:var(--cream);border-left:4px solid var(--amber);border-radius:4px;padding:14px 18px;margin-top:16px;}
+.objectives-box p{margin:0 0 8px;font-weight:bold;color:var(--navy);font-size:14px;}
+.objectives-box ul{margin:0;font-size:14px;}
+.callout{border-radius:6px;padding:14px 18px;margin-top:16px;border-left:4px solid var(--navy-light);background:#EEF3FA;}
+.callout .callout-label{font-weight:bold;font-size:12px;letter-spacing:0.5px;color:var(--navy);display:block;margin-bottom:6px;}
+.callout p{margin:0;font-size:14px;}
+.callout.KEYIDEA{border-left-color:var(--amber);background:#FFF8E8;}
+.callout.CAUTION{border-left-color:var(--red);background:#FDECEC;}
+.callout.CASESTUDY{border-left-color:var(--green);background:#EAF5EA;}
+.callout.NOTE{border-left-color:var(--navy-light);background:#EEF3FA;}
+.callout.SAFE{border-left-color:var(--green);background:#EAF5EA;}
+
+/* Interactive: hotspot grid (Spot the Hazard slides) */
+.hotspot-grid{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0;}
+.hotspot-btn{background:var(--navy);color:#fff;border:none;padding:8px 16px 8px 10px;border-radius:20px;cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:8px;}
+.hotspot-btn:hover{background:var(--navy-light);}
+.hotspot-btn.found{background:var(--green);}
+.hotspot-btn .hb-icon{width:22px;height:22px;flex:0 0 auto;background:#fff;border-radius:50%;padding:2px;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.hotspot-progress{font-size:13px;color:var(--slate);margin-bottom:6px;}
+.hotspot-card{display:none;background:var(--cream);border-radius:6px;padding:14px 18px;margin-bottom:10px;border:1px solid #e5e2da;}
+.hotspot-card.open{display:block;}
+.hotspot-card h4{margin:0 0 6px;color:var(--navy);font-size:15px;}
+.hotspot-card p{margin:4px 0;font-size:14px;}
+.hotspot-card .field-label{font-weight:bold;color:var(--navy-light);}
+
+/* Interactive: step cards (Staging & Parking Checklist) */
+.step-card-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0;}
+.step-card{background:var(--white);border:1px solid #ddd;border-radius:6px;padding:14px;cursor:pointer;}
+.step-card h4{margin:0 0 6px;color:var(--navy);font-size:15px;display:flex;align-items:center;gap:8px;}
+.step-card .step-letter{display:inline-block;background:var(--amber);color:var(--navy);font-weight:bold;border-radius:50%;width:26px;height:26px;text-align:center;line-height:26px;flex:0 0 auto;font-size:13px;}
+.step-card .step-detail{display:none;font-size:13px;margin-top:8px;color:var(--slate);}
+.step-card.open .step-detail{display:block;}
+
+/* Welcome hero */
+.hero{text-align:center;}
+.hero .badge-large{display:inline-block;background:var(--amber);color:var(--navy);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:bold;letter-spacing:1px;margin-bottom:14px;text-transform:uppercase;}
+.fine-print{font-size:12px;color:#888;margin-top:18px;padding-top:14px;border-top:1px solid #e5e2da;}
+
+/* Real site photos dropped into a slide */
+.slide-image-wrap{position:relative;background:var(--white);border:1px solid #ddd;box-shadow:0 2px 8px rgba(0,0,0,0.08);border-radius:6px;overflow:hidden;margin-bottom:18px;}
+.slide-image-wrap img{width:100%;display:block;max-height:380px;object-fit:cover;}
+.slide-image-wrap .photo-cap{background:var(--navy);color:#CADCFC;font-size:12.5px;padding:8px 14px;}
+.hero-photo-wrap{border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.12);margin:4px auto 16px;max-width:520px;}
+.hero-photo-wrap img{width:100%;display:block;max-height:280px;object-fit:cover;}
+
+.activity-instructions{font-size:13px;color:var(--slate);margin-bottom:10px;font-style:italic;}
+.activity-complete-badge{display:none;background:#E4F3E5;color:var(--green);border:1px solid var(--green);
+  border-radius:4px;padding:8px 12px;font-size:13px;font-weight:bold;margin-top:10px;}
+.activity-complete-badge.show{display:block;}
+
+/* Course menu header background photo */
+.menu-header{background-size:cover;background-position:center;}
+.menu-header::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg, rgba(19,34,61,0.94) 0%, rgba(19,34,61,0.80) 55%, rgba(19,34,61,0.55) 100%);z-index:0;}
+.menu-header > *{position:relative;z-index:1;}
+
+/* Two-column layout (If Something's Not Right) */
+.two-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:16px;}
+.two-col .col-card{background:var(--cream);border:1px solid #e5e2da;border-radius:6px;padding:16px 18px;}
+.two-col .col-card h4{margin:0 0 8px;color:var(--navy);font-size:15px;}
+.two-col .col-card ul{margin:0;padding-left:20px;font-size:14px;line-height:1.6;}
+
+.contact-box{background:var(--navy);color:#CADCFC;border-radius:6px;padding:14px 18px;margin-top:16px;font-size:13.5px;}
+.contact-box strong{color:#fff;}

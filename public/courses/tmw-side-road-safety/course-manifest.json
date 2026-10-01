@@ -1,0 +1,12 @@
+{
+  "id": "tmw-side-road-safety",
+  "code": "TTM-TMW-01",
+  "title": "Staging & Vehicles on Side Roads",
+  "description": "Toolbox-style module on safe staging and vehicle placement when working on side roads.",
+  "category": "TTM Training",
+  "price": 0,
+  "currency": "NZD",
+  "status": "draft",
+  "stripePriceId": "PENDING_PRICE_NOT_SET",
+  "launchPath": "/courses/tmw-side-road-safety/index.html"
+}

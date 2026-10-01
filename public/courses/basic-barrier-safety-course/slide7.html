@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Damaged or Displaced Barriers &mdash; Working Safely Near Barrier Systems</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Damaged or Displaced Barriers</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Damaged or Displaced Barriers</h2>
+    <div class="read-time">~2 min (interactive)</div>
+    <p>Compare a barrier in good condition against one that needs to be reported. Switch between the two below.</p>
+    <div id="dmg" data-total="2" data-seen="0">
+      <div class="tab-row">
+        <button type="button" class="tab-btn good active" onclick="Interactive.tab(this, 'dmg', 0)">Good Condition</button>
+        <button type="button" class="tab-btn bad" onclick="Interactive.tab(this, 'dmg', 1)">Damaged &mdash; Report This</button>
+      </div>
+      <div class="hotspot-progress">1 of 2 viewed &mdash; click each tab</div>
+      <div class="tab-panel active" id="dmg-panel0"><div class="tab-illustration"><img src="img/20240830_154520.jpg" alt="A well-aligned concrete barrier run in good condition"></div><ul><li>Units are aligned and sitting level</li><li>Linking pins fully connected</li><li>Water-filled units full to the correct level</li><li>No visible cracks or impact marks</li></ul></div>
+      <div class="tab-panel" id="dmg-panel1"><div class="tab-illustration"><img src="img/20220403_115559.jpg" alt="A damaged barrier unit with a crushed and torn panel that needs to be reported"></div><ul><li>Unit tilted or knocked out of alignment</li><li>Linking pin disconnected or missing</li><li>Water level low &mdash; reduced stability</li><li>Visible impact damage or cracking</li></ul></div>
+      <div class="activity-complete-badge" id="dmg-complete">Both conditions reviewed.</div>
+    </div>
+    <div class="callout CAUTION" style="margin-top:16px;"><span class="callout-label">IF YOU SEE THIS</span><p>If you notice any of the damage signs: stop work in the area, do not attempt to repair or reposition it yourself unless trained and authorised, cordon off the area if it's safe to do so, and report it immediately to your supervisor or site traffic management coordinator.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/7.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+      
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Damaged or Displaced Barriers.<br><br>Compare a barrier in good condition against one that needs to be reported. Switch between the two tabs below.<br><br>A barrier in good condition has units aligned and sitting level, linking pins fully connected, water-filled units full to the correct level, and no visible cracks or impact marks.<br><br>A damaged barrier that needs reporting may be tilted or knocked out of alignment, have a disconnected or missing linking pin, a low water level with reduced stability, or visible impact damage or cracking.<br><br>If you notice any of the damage signs: stop work in the area, do not attempt to repair or reposition it yourself unless trained and authorised, cordon off the area if it's safe to do so, and report it immediately to your supervisor or site traffic management coordinator.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide6.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 7 of 10</span>
+    <a class="btn amber" href="slide8.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox')
+    });
+  }
+</script>
+<script>Course.markVisited(7);</script>
+</body>
+</html>

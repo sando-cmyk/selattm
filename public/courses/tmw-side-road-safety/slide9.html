@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staging &amp; Parking Checklist &mdash; Staging &amp; Vehicles on Side Roads</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Staging &amp; Parking Checklist</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+
+<div class="container">
+  <div class="slide-content">
+    <h2>Staging &amp; Parking Checklist</h2>
+    <div class="read-time">~2 min (interactive)</div>
+    <p>Walk the side road, then open the site. Eight checks, five minutes, every shift. Tap each card for detail.</p>
+    <div class="step-card-row">
+      <div class="step-card" onclick="Interactive.step(this)"><h4><span class="step-letter">A</span>Staging area agreed</h4><div class="step-detail">Always within the workspace, agreed within the plan &mdash; not improvised on arrival.</div></div>
+      <div class="step-card" onclick="Interactive.step(this)"><h4><span class="step-letter">B</span>Side road used only as approved</h4><div class="step-detail">Not treated as a default base for vehicles beyond what’s on the layout.</div></div>
+      <div class="step-card" onclick="Interactive.step(this)"><h4><span class="step-letter">C</span>Parking coned &amp; signed</h4><div class="step-detail">Restrictions in place on and around the side road before vehicles arrive.</div></div>
+      <div class="step-card" onclick="Interactive.step(this)"><h4><span class="step-letter">D</span>Footpath &amp; clearways kept clear</h4><div class="step-detail">No vehicles blocking the footpath or reducing clearances on the side road.</div></div>
+      <div class="step-card" onclick="Interactive.step(this)"><h4><span class="step-letter">E</span>Plant kept within the workspace</h4><div class="step-detail">Rollers, mills and trucks loaded and unloaded from the workspace, not the side road.</div></div>
+      <div class="step-card" onclick="Interactive.step(this)"><h4><span class="step-letter">F</span>Workers kept off the live lane</h4><div class="step-detail">No standing in the running lane to flag or direct traffic &mdash; stay behind the cones.</div></div>
+      <div class="step-card" onclick="Interactive.step(this)"><h4><span class="step-letter">G</span>Rechecked mid-shift</h4><div class="step-detail">Staging and parking checked again &mdash; pressure builds as the night goes on.</div></div>
+      <div class="step-card" onclick="Interactive.step(this)"><h4><span class="step-letter">H</span>Vehicles called forward</h4><div class="step-detail">Held in the staging area until the STMS brings them onto site.</div></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/9.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Staging and Parking Checklist. Walk the side road, then open the site. Eight checks, five minutes, every shift. Staging area always within the workspace, agreed within the plan. The side road used only as approved, not as a default base for vehicles. Parking coned and signed before vehicles arrive. Footpath and clearways kept clear on the side road. Plant kept within the workspace — rollers, mills and trucks loaded and unloaded from the workspace, not the side road. Workers kept off the live lane — no standing in the running lane to flag or direct traffic. Staging and parking rechecked mid-shift, because pressure builds as the night goes on. And vehicles held in the staging area until the STMS calls them forward.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide8.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 9 of 10</span>
+    <a class="btn amber" href="slide10.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>Course.markVisited(9);</script>
+</body>
+</html>

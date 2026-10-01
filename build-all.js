@@ -18,11 +18,13 @@ const OUTPUT_JSON = path.join(DATA_DIR, 'courses.json');
 
 // Folders under /public/courses that are NOT sellable training modules and
 // must never be auto-scaffolded into the catalog with a placeholder price:
-//   - "subs"               -> the $0.99 PDF book, sold via its own Stripe
-//                              Payment Link, not through the course store.
-//   - "ASHTAS_Operative V6" -> a newer build of the ASHTAS course not yet
-//                              chosen as canonical. Add it here once it is.
-const EXCLUDED_FOLDERS = ['subs', 'ASHTAS_Operative V6'];
+//   - "subs"                -> the $0.99 PDF book, sold via its own Stripe
+//                               Payment Link, not through the course store.
+//   - "_Dont_Use_ashtas-01" -> the old pre-V6 ASHTAS-01 build, kept on disk
+//                               only as an archival copy after the V6 cutover
+//                               (2026-09-27). Same course id as the live
+//                               ashtas-01, so it must never be scanned too.
+const EXCLUDED_FOLDERS = ['subs', '_Dont_Use_ashtas-01'];
 
 /**
  * Traverses /public/courses, reads manifests or creates fallback descriptors,

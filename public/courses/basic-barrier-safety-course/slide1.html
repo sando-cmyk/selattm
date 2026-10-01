@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome &mdash; Working Safely Near Barrier Systems</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Welcome</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <div class="hero">
+      <span class="badge-large">Site Safety Awareness</span>
+      <h2>Working Safely Near Barrier Systems</h2>
+      <div class="hero-photo-wrap"><img src="img/20240611_091209.jpg" alt="A barrier-lined state highway worksite on a clear day"></div>
+      <p>This short module is for anyone who works on or visits a civil or roading worksite where temporary or permanent barrier systems are in use &mdash; crew, subcontractors, and site visitors alike.</p>
+      <p>It takes about 10&ndash;15 minutes to complete, including some quick checks and a short quiz at the end. You'll need a score of 80% or higher on the quiz to pass.</p>
+      <div class="callout NOTE"><span class="callout-label">HOW TO USE THIS MODULE</span><p>Use the <strong>Next</strong> and <strong>Back</strong> buttons below to move through the module. Some screens are interactive &mdash; tap the cards and icons to explore, and use the narration panel to listen to each section.</p></div>
+      <p class="fine-print">&copy; 2026 Sela Civil Advisory Limited. All rights reserved. This training material is produced and authorised by Sela Civil Advisory Limited.</p>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/1.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+      
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Welcome to Working Safely Near Barrier Systems.<br><br>This short module is for anyone who works on or visits a civil or roading worksite where temporary or permanent barrier systems are in use &mdash; crew, subcontractors, and site visitors alike.<br><br>It takes about ten to fifteen minutes to complete, including some quick checks and a short quiz at the end. You&#x27;ll need a score of eighty percent or higher on the quiz to pass.<br><br>Use the Next and Back buttons to move through the module. Some screens are interactive &mdash; tap the cards and icons to explore, and use the narration bar to listen to each section.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="index.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 1 of 10</span>
+    <a class="btn amber" href="slide2.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox')
+    });
+  }
+</script>
+<script>Course.markVisited(1);</script>
+</body>
+</html>

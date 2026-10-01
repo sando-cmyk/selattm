@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>If Something&#8217;s Not Right &mdash; Summary &mdash; Staging &amp; Vehicles on Side Roads</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">If Something&#8217;s Not Right</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+
+<div class="container">
+  <div class="slide-content">
+    <h2>If Something's Not Right &mdash; Summary</h2>
+    <div class="read-time">~1 min read</div>
+    <p>Stop-work authority sits with the STMS on site &mdash; but speaking up is everyone's job.</p>
+    <div class="two-col">
+      <div class="col-card">
+        <h4>Don't open on &ldquo;she'll be right&rdquo;</h4>
+        <p style="font-size:14px;">If the staging area, parking, plant position or worker position on the side road aren't right, and you can't fix it in a few minutes, the site does not open to traffic until it's fixed, or a supervisor has made the call.</p>
+      </div>
+      <div class="col-card">
+        <h4>Call it in</h4>
+        <ul>
+          <li>You see site traffic, plant or workers occupying the live lane &mdash; anyone on site, not just the STMS</li>
+          <li>Not sure the staging area is clear of sightlines</li>
+          <li>Vehicles parked or based up on the side road beyond what the layout allows</li>
+          <li>Anything that would fail one of the eight checks and can't be fixed on the spot</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-style:italic;color:#666;margin-top:16px;">Document what you found and what you did about it &mdash; that record protects you and the crew.</p>
+    <div class="objectives-box"><p>Every issue found on Store Road was avoidable with a five-minute check.</p></div>
+    <div class="contact-box">Questions about this toolbox talk? <strong>Joseph Rosendaal</strong>, Operations Manager, Sela Civil Advisory Limited &mdash; joseph@selacivil.co.nz &middot; 027 267 7264.</div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/10.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">If Something's Not Right. Stop-work authority sits with the STMS on site — but speaking up is everyone's job. Don't open on she'll be right: if the staging area, parking, plant position or worker position on the side road aren't right, and you can't fix it in a few minutes, the site does not open to traffic until it's fixed, or a supervisor has made the call. Call it in if you see site traffic, plant or workers occupying the live lane — that's anyone on site, not just the STMS. Call it in too if you're not sure the staging area is clear of sightlines, if vehicles are parked or based up on the side road beyond what the layout allows, or if anything would fail one of the eight checks and can't be fixed on the spot. Document what you found and what you did about it — that record protects you and the crew. Every issue found on Store Road was avoidable with a five-minute check. Questions about this talk can go to Joseph Rosendaal, Operations Manager, Sela Civil Advisory Limited.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide9.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 10 of 10</span>
+    <a class="btn amber" href="quiz1.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>Course.markVisited(10);</script>
+</body>
+</html>

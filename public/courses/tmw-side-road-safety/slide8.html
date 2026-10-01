@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workers on Foot in the Live Lane &mdash; Staging &amp; Vehicles on Side Roads</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Workers on Foot in the Live Lane</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+
+<div class="container">
+  <div class="slide-content">
+    <h2>Workers on Foot in the Live Lane</h2>
+    <div class="read-time">~1 min read</div>
+    <div class="slide-image-wrap"><img src="img/photo_workers_evidence.jpg" alt="Worker on foot in the live lane, Store Road, 15 September 2026"><div class="photo-cap">Store Road, SH39/SH23 Whatawhata &mdash; 15 September 2026, 9:14pm (audit dashcam)</div></div>
+    <div class="callout CAUTION"><span class="callout-label">WHAT THE AUDIT FOUND</span><p>A worker was standing in the running lane beside a stopped truck, unseparated from through traffic &mdash; a position with no fallback if a vehicle didn’t stop in time.</p></div>
+    <div class="objectives-box"><p>What right looks like:</p><ul>
+      <li>Foot movements stay behind the coned edge &mdash; never standing in the lane to direct or flag traffic.</li>
+      <li>A stop/go or a signal controls the lane before anyone steps into it, not the other way around.</li>
+      <li>If work genuinely requires being in the lane, that’s a full closure moment, not a quick dash while traffic waits.</li>
+    </ul></div>
+    
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/8.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">What the Audit Found — Workers on Foot in the Live Lane. A worker was standing in the running lane beside a stopped truck, unseparated from through traffic — a position with no fallback if a vehicle didn't stop in time. What right looks like: foot movements stay behind the coned edge, never standing in the lane to direct or flag traffic. A stop or go, or a signal, controls the lane before anyone steps into it, not the other way around. And if work genuinely requires being in the lane, that's a full closure moment, not a quick dash while traffic waits.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide7.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 8 of 10</span>
+    <a class="btn amber" href="slide9.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>Course.markVisited(8);</script>
+</body>
+</html>

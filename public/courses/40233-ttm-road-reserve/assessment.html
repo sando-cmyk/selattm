@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Assessment &amp; Sign-Off — Assist with Temporary Traffic Management within the Road Reserve</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Practical Assessment &amp; Sign-Off</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Practical Assessment &amp; Sign-Off</h2>
+    <div class="read-time">Final step — complete this after your online modules and on-the-job observation</div>
+    <p>The three online modules cover the underpinning knowledge for Skill Standard 40233. The practical
+    sign-off happens on site: your supervisor or assessor observes you working and completes the
+    <b>Practical Sign-Off &amp; Assessment Booklet</b> with you.</p>
+    <ol style="line-height:1.8;font-size:15px;padding-left:22px;">
+      <li>Download the booklet below and print it (or fill it in digitally).</li>
+      <li>Complete Part 1 with your supervisor/assessor, and have Part 2 observed and scored on site.</li>
+      <li>Both learner and supervisor sign the declarations in Part 3.</li>
+      <li>Send the completed, signed booklet back to Sela Civil Advisory using either option below.</li>
+    </ol>
+  </div>
+
+  <div class="assessment-card">
+    <h2>1. Download the assessment form</h2>
+    <p>Print-and-fill Word document — the same booklet your supervisor will use to sign you off on site.</p>
+    <a class="btn amber" href="40233-practical-signoff-assessment-booklet.docx" download>⬇ Download Practical Sign-Off &amp; Assessment Booklet (.docx)</a>
+  </div>
+
+  <div class="assessment-card">
+    <h2>2. Send back your completed form</h2>
+    <p><b>Option A — Email (always available):</b> attach your completed, signed booklet to an email and send it in.
+    This works immediately, with no extra setup.</p>
+    <p><a class="btn" href="mailto:joseph@selacivil.co.nz?subject=Completed%2040233%20Practical%20Assessment&amp;body=Learner%20name%3A%0ASite%2FEmployer%3A%0A%0A(Attach%20your%20completed%2C%20signed%20assessment%20booklet%20to%20this%20email%20before%20sending.)">✉ Email your completed form to Sela Civil Advisory</a></p>
+
+    <p style="margin-top:20px;"><b>Option B — Upload it here:</b></p>
+    <label style="font-size:14px;display:block;margin-bottom:8px;">Your name:
+      <input type="text" id="learnerName" placeholder="Full name" style="margin-left:8px;padding:6px 10px;border:1px solid #ccc;border-radius:4px;font-size:14px;">
+    </label>
+    <div class="upload-drop" id="uploadDrop">
+      <p style="margin:0 0 10px;">Drag your completed booklet here, or</p>
+      <input type="file" id="assessmentFile" accept=".docx,.doc,.pdf,.jpg,.jpeg,.png">
+    </div>
+    <ul class="upload-file-list" id="uploadFileList"></ul>
+    <button class="btn amber" id="uploadBtn" style="margin-top:10px;">Upload completed form</button>
+    <p class="upload-status" id="uploadStatus"></p>
+    <div class="callout BUILDNOTE" style="margin-top:16px;">
+      <span class="callout-label">BUILD NOTE (for Sela's developer)</span>
+      <p>Direct upload uses Firebase Storage and is shipped disabled by default, because this project's
+      <code>firebase.json</code> currently only configures Hosting. To switch it on: enable Cloud Storage for this
+      Firebase project, fill in the <code>firebaseConfig</code> object and add a Storage security rule for the
+      <code>assessment-uploads/</code> path in the &lt;script type="module"&gt; block near the bottom of
+      <code>assessment.html</code>. Until that's done, learners will see the email option as their working
+      fallback, and the upload button stays visibly disabled with an explanation rather than silently failing.</p>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <a class="btn" href="quiz3.html">← Back</a>
+    <span style="color:#888;font-size:13px;">Slide 27 of 27</span>
+    <a class="btn amber" href="complete.html">Finish Course →</a>
+  </div>
+
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>Course.markVisited(27);</script>
+<script type="module">
+  // ---- Optional Firebase Storage upload -----------------------------------------
+  // See the BUILD NOTE callout on this page for what your developer needs to fill in.
+  var firebaseConfig = {
+    apiKey: "",            // <-- fill in from Firebase console > Project settings
+    authDomain: "",        // <-- fill in
+    projectId: "",         // <-- fill in
+    storageBucket: "",     // <-- fill in
+    messagingSenderId: "", // <-- fill in
+    appId: ""               // <-- fill in
+  };
+  var uploadEnabled = !!(firebaseConfig.apiKey && firebaseConfig.storageBucket);
+
+  var fileInput = document.getElementById('assessmentFile');
+  var dropZone = document.getElementById('uploadDrop');
+  var statusEl = document.getElementById('uploadStatus');
+  var fileListEl = document.getElementById('uploadFileList');
+  var uploadBtn = document.getElementById('uploadBtn');
+  var chosenFile = null;
+
+  function showFile(file) {
+    chosenFile = file;
+    fileListEl.innerHTML = '<li>' + file.name + ' (' + Math.round(file.size / 1024) + ' KB)</li>';
+  }
+  if (fileInput) {
+    fileInput.addEventListener('change', function () { if (this.files[0]) showFile(this.files[0]); });
+  }
+  if (dropZone) {
+    dropZone.addEventListener('dragover', function (e) { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', function () { dropZone.classList.remove('dragover'); });
+    dropZone.addEventListener('drop', function (e) {
+      e.preventDefault(); dropZone.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) { showFile(e.dataTransfer.files[0]); fileInput.files = e.dataTransfer.files; }
+    });
+  }
+
+  if (!uploadEnabled) {
+    uploadBtn.disabled = true;
+    uploadBtn.textContent = 'Direct upload not yet enabled';
+    statusEl.textContent = 'Direct upload isn\'t switched on for this course yet — please use the email option above instead.';
+    statusEl.className = 'upload-status';
+  } else {
+    Promise.all([
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js'),
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js')
+    ]).then(function (mods) {
+      var initializeApp = mods[0].initializeApp;
+      var storageMod = mods[1];
+      var app = initializeApp(firebaseConfig);
+      var storage = storageMod.getStorage(app);
+      uploadBtn.addEventListener('click', function () {
+        if (!chosenFile) { statusEl.textContent = 'Choose a file first.'; statusEl.className = 'upload-status error'; return; }
+        var learnerNameEl = document.getElementById('learnerName');
+        var learnerName = ((learnerNameEl && learnerNameEl.value) || 'unnamed').trim().replace(/[^a-z0-9\- _]/gi, '').replace(/\s+/g, '-');
+        var path = 'assessment-uploads/' + learnerName + '-' + Date.now() + '-' + chosenFile.name;
+        var sref = storageMod.ref(storage, path);
+        statusEl.textContent = 'Uploading…'; statusEl.className = 'upload-status';
+        storageMod.uploadBytes(sref, chosenFile).then(function () {
+          statusEl.textContent = 'Uploaded successfully. Your assessor has been notified.';
+          statusEl.className = 'upload-status success';
+          Course.markAssessmentUploaded([chosenFile.name]);
+        }).catch(function (err) {
+          statusEl.textContent = 'Upload failed (' + err.message + '). Please use the email option above instead.';
+          statusEl.className = 'upload-status error';
+        });
+      });
+    }).catch(function () {
+      uploadBtn.disabled = true;
+      uploadBtn.textContent = 'Direct upload unavailable';
+      statusEl.textContent = 'Direct upload could not load — please use the email option above instead.';
+    });
+  }
+</script>
+</body>
+</html>

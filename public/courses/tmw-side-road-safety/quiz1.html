@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Check &mdash; Staging &amp; Vehicles on Side Roads</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Knowledge Check</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <h2 style="color:var(--navy);">Knowledge Check</h2>
+  <p style="color:#666;">Answer all questions, then select <strong>Submit</strong>. You need 80% or higher to pass. You can retry if needed.</p>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/quiz.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Knowledge Check. You'll now answer nine multiple-choice questions covering everything from this toolbox talk &mdash; staging, parking, the live-lane hazards from the photos, the checklist, and what to do if something's not right. A score of eighty percent or higher is required to pass. Take your time.</div>
+  </div>
+  <div style="margin-bottom:10px;"><a class="btn" href="slide10.html">&larr; Back</a></div>
+  <form id="quizForm">
+    <div class="quiz-question" data-qindex="0" data-answer="1">
+      <p class="qtext">1. What is the main focus of this toolbox talk?</p>
+      <label><input type="radio" name="q0" value="0"> How to get a Traffic Management Plan approved</label>
+      <label><input type="radio" name="q0" value="1"> Staging, parking and vehicles operating from the side road at Store Road</label>
+      <label><input type="radio" name="q0" value="2"> General PPE requirements on civil sites</label>
+      <label><input type="radio" name="q0" value="3"> How to fill in an incident report</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="1" data-answer="1">
+      <p class="qtext">2. Where should plant and vehicles be positioned before they're needed on site?</p>
+      <label><input type="radio" name="q1" value="0"> Wherever there's a gap in traffic</label>
+      <label><input type="radio" name="q1" value="1"> Within the workspace, as agreed in the traffic management plan</label>
+      <label><input type="radio" name="q1" value="2"> In a staging area on the side road, out of the way of vehicles</label>
+      <label><input type="radio" name="q1" value="3"> Anywhere on the side road, as long as the engine is off</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="2" data-answer="1">
+      <p class="qtext">3. True or false: it's fine to stage plant or vehicles on the side road, outside the workspace, as long as you picked the spot once you arrived on site.</p>
+      <label><input type="radio" name="q2" value="0"> True</label>
+      <label><input type="radio" name="q2" value="1"> False</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="3" data-answer="2">
+      <p class="qtext">4. What did the audit find about vehicles parked around Store Road?</p>
+      <label><input type="radio" name="q3" value="0"> They were all correctly coned and signed</label>
+      <label><input type="radio" name="q3" value="1"> There were no vehicles parked on site</label>
+      <label><input type="radio" name="q3" value="2"> They were parked on the footpath opposite the workspace, beyond what the approved layout allowed</label>
+      <label><input type="radio" name="q3" value="3"> They were parked off-site entirely</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="4" data-answer="1">
+      <p class="qtext">5. If plant must occupy the public accessible space, even briefly, what should happen?</p>
+      <label><input type="radio" name="q4" value="0"> Share the space with a spotter watching for traffic</label>
+      <label><input type="radio" name="q4" value="1"> A full stop-and-hold, not a share-the-lane situation</label>
+      <label><input type="radio" name="q4" value="2"> Proceed as normal if hazard lights are on</label>
+      <label><input type="radio" name="q4" value="3"> Only worry about it if it's raining</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="5" data-answer="0">
+      <p class="qtext">6. Where should foot movements stay during work near the live lane?</p>
+      <label><input type="radio" name="q5" value="0"> Behind the coned edge &mdash; never standing in the lane to flag or direct traffic</label>
+      <label><input type="radio" name="q5" value="1"> In the lane, so drivers can see you clearly</label>
+      <label><input type="radio" name="q5" value="2"> Wherever gives the best view of oncoming traffic</label>
+      <label><input type="radio" name="q5" value="3"> Beside the stopped vehicle, regardless of lane position</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="6" data-answer="2">
+      <p class="qtext">7. Who holds stop-work authority if the staging area, parking, or a worker/plant position on the side road isn't right?</p>
+      <label><input type="radio" name="q6" value="0"> The client's project manager only</label>
+      <label><input type="radio" name="q6" value="1"> Head office, once someone calls it in</label>
+      <label><input type="radio" name="q6" value="2"> The STMS on site</label>
+      <label><input type="radio" name="q6" value="3"> No one &mdash; the shift has to continue once it's started</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="7" data-answer="1">
+      <p class="qtext">8. True or false: if something isn't right and can't be fixed in a few minutes, the site can open to traffic anyway and be fixed later.</p>
+      <label><input type="radio" name="q7" value="0"> True</label>
+      <label><input type="radio" name="q7" value="1"> False</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="8" data-answer="2">
+      <p class="qtext">9. Who is responsible for speaking up if they see site traffic, plant or workers occupying the live lane or public accessible space?</p>
+      <label><input type="radio" name="q8" value="0"> Only the STMS</label>
+      <label><input type="radio" name="q8" value="1"> Only the site supervisor</label>
+      <label><input type="radio" name="q8" value="2"> Everyone on site</label>
+      <label><input type="radio" name="q8" value="3"> Only the person who caused it</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+  </form>
+  <div id="quizResult"></div>
+  <div class="nav-row">
+    <button class="btn" id="submitBtn" type="button">Submit Answers</button>
+    <a class="btn amber" id="continueBtn" href="complete.html" style="display:none;">Continue &rarr;</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script>
+  var QUIZ_ID = "quiz1";
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    var questions = document.querySelectorAll('.quiz-question');
+    var score = 0;
+    var allAnswered = true;
+    questions.forEach(function(qEl){
+      var qi = qEl.getAttribute('data-qindex');
+      var correct = Number(qEl.getAttribute('data-answer'));
+      var selected = qEl.querySelector('input[name="q'+qi+'"]:checked');
+      var fb = qEl.querySelector('.qfeedback');
+      if (!selected) { allAnswered = false; return; }
+      var chosen = Number(selected.value);
+      fb.style.display = 'block';
+      if (chosen === correct) {
+        score++;
+        fb.innerHTML = '<span class="correct-answer">Correct.</span>';
+      } else {
+        var correctText = qEl.querySelectorAll('label')[correct].textContent.trim();
+        fb.innerHTML = '<span class="incorrect-answer">Not quite &mdash; correct answer: ' + correctText + '</span>';
+      }
+    });
+    if (!allAnswered) {
+      alert('Please answer every question before submitting.');
+      return;
+    }
+    var total = questions.length;
+    var pct = Math.round((score / total) * 100);
+    var passed = (score / total) >= 0.8;
+    Course.recordQuiz(QUIZ_ID, score, total);
+    var resultEl = document.getElementById('quizResult');
+    resultEl.innerHTML = '<div class="quiz-result ' + (passed ? 'pass' : 'fail') + '">' +
+      'You scored ' + score + ' / ' + total + ' (' + pct + '%) &mdash; ' + (passed ? 'Passed!' : 'Not yet a pass &mdash; review the module and try again.') +
+      '</div>';
+    if (passed) {
+      document.getElementById('continueBtn').style.display = 'inline-block';
+      document.getElementById('submitBtn').style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why This Matters &mdash; Staging &amp; Vehicles on Side Roads</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Why This Matters</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+
+<div class="container">
+  <div class="slide-content">
+    <h2>Why This Matters</h2>
+    <div class="read-time">~1 min read</div>
+    <p>An unannounced overnight site health check on a TMW-controlled shift did not pass.</p>
+    <div class="callout CAUTION"><span class="callout-label">THE AUDITOR'S VERDICT</span><p>&ldquo;Did the worksite drive well?&rdquo; &mdash; <strong>No.</strong> That's the finding this talk is built around.</p></div>
+    <p><strong>Four issues</strong> were raised on the night, all tracing back to the side road: staging, parking, plant and workers ending up in the live lane off Store Road.</p>
+    <div class="objectives-box"><p>Keep in mind:</p><ul>
+      <li>This isn't about blame &mdash; it's about making sure the same side-road habits don't get repeated, on any TMW site, any night.</li>
+      <li>Every issue was avoidable. Each one comes down to how the side road was set up and checked, before the site opened to traffic.</li>
+      <li>You are the last line of defence. The STMS and TCs on site are the ones who catch this &mdash; no plan on paper fixes what's wrong on the ground.</li>
+    </ul></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/2.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Why This Matters. An unannounced overnight site health check on a TMW-controlled shift did not pass. The auditor's own summary verdict on the night was blunt: did the worksite drive well? No. Four issues were raised, and every one of them traced back to how the side road off Store Road was being used — staging, parking, plant, and workers all ending up too close to live traffic. This isn't about blame. It's about making sure the same side-road habits don't get repeated, on any TMW site, any night. Every issue found was avoidable. And the STMS and traffic controllers on site are the last line of defence — no plan on paper fixes what's wrong on the ground.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide1.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 2 of 10</span>
+    <a class="btn amber" href="slide3.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>Course.markVisited(2);</script>
+</body>
+</html>

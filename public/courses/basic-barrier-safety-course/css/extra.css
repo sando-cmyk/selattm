@@ -1,0 +1,148 @@
+/* Extensions for the Working Safely Near Barrier Systems course text-slides & interactive
+   activities. Loaded alongside the base styles.css (same design tokens: --navy, --amber, etc.)
+   — same shared classes as the Standard 40233 course build (brand-badge, slide-content, callout,
+   hotspot-grid/hotspot-card, tab-row/tab-panel, scenario-card/choice-row, step-card-row) plus a
+   small set of additions this course needs: flip cards, the welcome hero graphic, and the
+   emergency-response sequence cards. */
+
+/* Sela Civil Advisory logo badge (topbar sits on --navy, so the logo gets a light chip behind it) */
+.brand-badge{background:var(--white);border-radius:6px;padding:4px 10px;display:flex;align-items:center;margin-right:10px;}
+.brand-logo{height:26px;display:block;}
+.menu-header .brand-badge{background:rgba(255,255,255,0.92);margin:0 0 14px;display:inline-flex;}
+.menu-header .brand-logo{height:34px;}
+.complete-wrap .brand-badge{background:var(--cream);display:inline-flex;margin:0 0 16px;}
+.complete-wrap .brand-logo{height:34px;}
+
+.slide-content{background:var(--white);border:1px solid #ddd;box-shadow:0 2px 8px rgba(0,0,0,0.08);border-radius:6px;padding:24px 28px;margin-bottom:18px;}
+.slide-content h2{color:var(--navy);margin-top:0;font-size:22px;}
+.slide-content .read-time{color:#888;font-size:13px;margin-top:-8px;margin-bottom:16px;}
+.slide-content p{line-height:1.6;font-size:15px;}
+.slide-content ul{line-height:1.6;font-size:15px;padding-left:22px;}
+.slide-content ul li{margin-bottom:6px;}
+.objectives-box{background:var(--cream);border-left:4px solid var(--amber);border-radius:4px;padding:14px 18px;margin-top:16px;}
+.objectives-box p{margin:0 0 8px;font-weight:bold;color:var(--navy);font-size:14px;}
+.objectives-box ul{margin:0;font-size:14px;}
+.callout{border-radius:6px;padding:14px 18px;margin-top:16px;border-left:4px solid var(--navy-light);background:#EEF3FA;}
+.callout .callout-label{font-weight:bold;font-size:12px;letter-spacing:0.5px;color:var(--navy);display:block;margin-bottom:6px;}
+.callout p{margin:0;font-size:14px;}
+.callout.KEYIDEA{border-left-color:var(--amber);background:#FFF8E8;}
+.callout.CAUTION{border-left-color:var(--red);background:#FDECEC;}
+.callout.CASESTUDY{border-left-color:var(--green);background:#EAF5EA;}
+.callout.NOTE{border-left-color:var(--navy-light);background:#EEF3FA;}
+.callout.SAFE{border-left-color:var(--green);background:#EAF5EA;}
+
+/* Interactive: hotspot grid (Key Hazards) */
+.hotspot-grid{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0;}
+.hotspot-btn{background:var(--navy);color:#fff;border:none;padding:8px 16px 8px 10px;border-radius:20px;cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:8px;}
+.hotspot-btn:hover{background:var(--navy-light);}
+.hotspot-btn.found{background:var(--green);}
+.hotspot-btn .hb-icon{width:22px;height:22px;flex:0 0 auto;background:#fff;border-radius:50%;padding:2px;}
+.hotspot-progress{font-size:13px;color:var(--slate);margin-bottom:6px;}
+.hotspot-card{display:none;background:var(--cream);border-radius:6px;padding:14px 18px;margin-bottom:10px;border:1px solid #e5e2da;}
+.hotspot-card.open{display:block;}
+.hotspot-card h4{margin:0 0 6px;color:var(--navy);font-size:15px;}
+.hotspot-card p{margin:4px 0;font-size:14px;}
+.hotspot-card .field-label{font-weight:bold;color:var(--navy-light);}
+
+/* Interactive: tabs (Damaged or Displaced Barriers) */
+.tab-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;}
+.tab-btn{background:var(--cream);border:1px solid #ddd;padding:8px 14px;border-radius:4px;cursor:pointer;font-size:13px;color:var(--navy);font-weight:bold;}
+.tab-btn.active{background:var(--navy);color:#fff;}
+.tab-btn.good.active{background:var(--green);}
+.tab-btn.bad.active{background:var(--red);}
+.tab-panel{display:none;background:var(--cream);border-radius:6px;padding:14px 18px;border:1px solid #e5e2da;}
+.tab-panel.active{display:block;}
+.tab-panel .tab-illustration{margin-bottom:12px;}
+.tab-panel .tab-illustration svg{width:100%;max-width:420px;height:auto;display:block;margin:0 auto;}
+.tab-panel ul{margin:0;}
+
+/* Interactive: scenario choice (Quick Checks) */
+.scenario-card{background:var(--white);border:1px solid #ddd;border-radius:6px;padding:16px 18px;margin-bottom:18px;}
+.scenario-card h4{margin-top:0;color:var(--navy);}
+.choice-row{display:flex;flex-direction:column;gap:8px;margin:12px 0;}
+.choice-btn{text-align:left;background:var(--cream);border:1px solid #ddd;padding:10px 14px;border-radius:4px;cursor:pointer;font-size:14px;color:var(--slate);}
+.choice-btn:hover{background:#eee6d0;}
+.choice-btn.correct-picked{background:#E4F3E5;border-color:var(--green);}
+.choice-btn.wrong-picked{background:#FDECEC;border-color:var(--red);}
+.choice-feedback{display:none;margin-top:10px;padding:10px 12px;border-radius:4px;font-size:14px;}
+.choice-feedback.show{display:block;}
+.choice-feedback.correct{background:#E4F3E5;color:var(--green);}
+.choice-feedback.incorrect{background:#FDECEC;color:var(--red);}
+
+/* Interactive: step cards (Safe Work Practices) */
+.step-card-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0;}
+.step-card{background:var(--white);border:1px solid #ddd;border-radius:6px;padding:14px;cursor:pointer;}
+.step-card h4{margin:0 0 6px;color:var(--navy);font-size:15px;display:flex;align-items:center;gap:8px;}
+.step-card .step-letter{display:inline-block;background:var(--amber);color:var(--navy);font-weight:bold;border-radius:50%;width:26px;height:26px;text-align:center;line-height:26px;flex:0 0 auto;}
+.step-card .step-icon{width:22px;height:22px;flex:0 0 auto;}
+.step-card .step-detail{display:none;font-size:13px;margin-top:8px;color:var(--slate);}
+.step-card.open .step-detail{display:block;}
+
+/* Emergency Response sequence — static (not click-to-reveal), so the four steps
+   read at a glance in the order you should act. */
+.sequence-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:18px 0;}
+.sequence-card{background:var(--white);border:1px solid #ddd;border-radius:6px;padding:16px 12px;text-align:center;}
+.sequence-card .seq-num{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:bold;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;}
+.sequence-card .seq-icon{width:44px;height:44px;margin:0 auto 8px;}
+.sequence-card .seq-title{font-weight:bold;color:var(--navy);font-size:14px;margin-bottom:4px;}
+.sequence-card .seq-desc{font-size:12.5px;color:var(--slate);}
+
+/* Flip cards (Types of Barrier Systems) */
+.flip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px;}
+@media (max-width:560px){.flip-grid{grid-template-columns:1fr;}}
+.flip-card{perspective:1200px;height:190px;cursor:pointer;}
+.flip-card-inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;}
+.flip-card.flipped .flip-card-inner{transform:rotateY(180deg);}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;border:1px solid #ddd;border-radius:8px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.flip-front{background:var(--cream);}
+.flip-front svg{width:52px;height:52px;margin-bottom:8px;}
+.flip-front .fc-name{font-weight:bold;color:var(--navy);font-size:14px;}
+.flip-front .fc-hint{font-size:11px;color:#888;margin-top:8px;}
+.flip-back{background:var(--navy);color:#fff;transform:rotateY(180deg);font-size:12.5px;line-height:1.5;padding:16px;}
+.flip-back .fc-level{display:inline-block;background:var(--amber);color:var(--navy);padding:3px 10px;border-radius:12px;font-size:10.5px;font-weight:bold;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;}
+.flip-progress{text-align:center;font-size:12.5px;color:var(--slate);margin-top:10px;font-weight:bold;}
+
+/* Welcome hero */
+.hero{text-align:center;}
+.hero .badge-large{display:inline-block;background:var(--amber);color:var(--navy);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:bold;letter-spacing:1px;margin-bottom:14px;text-transform:uppercase;}
+.hero-scene{max-width:420px;margin:4px auto 14px;}
+.hero-scene svg{width:100%;height:auto;display:block;}
+.fine-print{font-size:12px;color:#888;margin-top:18px;padding-top:14px;border-top:1px solid #e5e2da;}
+
+/* Real site photos dropped into a slide (uses the existing .slide-image-wrap box) */
+.slide-image-wrap{position:relative;}
+.slide-image-wrap img{max-height:340px;object-fit:cover;}
+.slide-image-wrap .photo-cap{background:var(--navy);color:#CADCFC;font-size:12.5px;padding:8px 14px;}
+.hero-photo-wrap{border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.12);margin:4px auto 16px;max-width:520px;}
+.hero-photo-wrap img{width:100%;display:block;max-height:280px;object-fit:cover;}
+
+/* Flip cards (Types of Barrier Systems) — photo-backed front face */
+.flip-front.photo{padding:12px;position:relative;overflow:hidden;background-size:cover;background-position:center;justify-content:flex-end;align-items:flex-start;text-align:left;}
+.flip-front.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(19,34,61,0.88) 0%, rgba(19,34,61,0.25) 60%, rgba(19,34,61,0) 80%);}
+.flip-front.photo .fc-name, .flip-front.photo .fc-hint{position:relative;z-index:1;color:#fff;}
+.flip-front.photo .fc-hint{color:#CADCFC;}
+
+/* Tab illustration (Damaged or Displaced Barriers) — real photo instead of diagram */
+.tab-illustration img{width:100%;max-width:420px;height:200px;object-fit:cover;border-radius:6px;display:block;margin:0 auto;}
+
+/* Course menu header background photo */
+.menu-header{background-size:cover;background-position:center;}
+.menu-header::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg, rgba(19,34,61,0.94) 0%, rgba(19,34,61,0.80) 55%, rgba(19,34,61,0.55) 100%);z-index:0;}
+.menu-header > *{position:relative;z-index:1;}
+
+@keyframes glowPulse{0%,100%{opacity:.35;}50%{opacity:.75;}}
+.glow-anim{animation:glowPulse 2.6s ease-in-out infinite;}
+@keyframes driveAcross{0%{transform:translateX(-14px);}50%{transform:translateX(18px);}100%{transform:translateX(-14px);}}
+.car-anim{animation:driveAcross 4.5s ease-in-out infinite;transform-origin:center;}
+@keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(242,169,0,.55);}70%{box-shadow:0 0 0 14px rgba(242,169,0,0);}100%{box-shadow:0 0 0 0 rgba(242,169,0,0);}}
+.hotspot-btn:not(.found){animation:pulseDot 2s infinite;}
+
+/* Narration autoplay fallback: pulses the play button when a browser blocks autoplay */
+@keyframes narrationPulse{0%{box-shadow:0 0 0 0 rgba(242,169,0,0.65);}70%{box-shadow:0 0 0 10px rgba(242,169,0,0);}100%{box-shadow:0 0 0 0 rgba(242,169,0,0);}}
+.cta-pulse{background:var(--amber)!important;color:var(--navy)!important;font-weight:bold;animation:narrationPulse 1.6s infinite;}
+
+/* Activity completion badge (tabs / hotspot / flip activities) */
+.activity-complete-badge{display:none;background:#E4F3E5;color:var(--green);border:1px solid var(--green);
+  border-radius:4px;padding:8px 12px;font-size:13px;font-weight:bold;margin-top:10px;}
+.activity-complete-badge.show{display:block;}
+.activity-instructions{font-size:13px;color:var(--slate);margin-bottom:10px;font-style:italic;}

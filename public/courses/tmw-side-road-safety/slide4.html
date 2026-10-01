@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parking &amp; Operating from the Side Road &mdash; Staging &amp; Vehicles on Side Roads</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Parking &amp; Operating from the Side Road</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+
+<div class="container">
+  <div class="slide-content">
+    <h2>Parking &amp; Operating from the Side Road</h2>
+    <div class="read-time">~1 min read</div>
+    <div class="callout CAUTION"><span class="callout-label">WHAT THE AUDIT FOUND</span><p>Vehicles were parked on the footpath opposite the workspace, and the side road was being used as an informal base to operate from &mdash; beyond what the approved layout allowed &mdash; reducing clearances for both traffic and pedestrians.</p></div>
+    <div class="objectives-box"><p>What right looks like:</p><ul>
+      <li>Parking on and around the side road coned and signed ahead of time, not left to chance.</li>
+      <li>The side road used only for what's on the approved layout &mdash; not as a default place to base up or leave vehicles.</li>
+      <li>Checked again during the shift &mdash; staging and parking pressure builds as the night goes on.</li>
+    </ul></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/4.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Parking and Operating from the Side Road. Vehicles were parked on the footpath opposite the workspace, and the side road was being used as an informal base to operate from — beyond what the approved layout allowed — reducing clearances for both traffic and pedestrians. What right looks like: parking on and around the side road is coned and signed ahead of time, not left to chance. The side road is used only for what's on the approved layout, not as a default place to base up or leave vehicles. And it's checked again during the shift, because staging and parking pressure builds as the night goes on.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide3.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 4 of 10</span>
+    <a class="btn amber" href="slide5.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>Course.markVisited(4);</script>
+</body>
+</html>

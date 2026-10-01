@@ -1,35 +1,96 @@
-/* Course navigation + progress tracking (v3 — slide-by-slide deck, spoken
-   notes). Each page calls CourseNav.start(pageId) after including this
-   script. State (visited pages + chosen narration voice) persists via the
-   SCORM wrapper's cmi.suspend_data as a small JSON blob — no browser
-   storage is used, so everything round-trips through the LMS and degrades
-   gracefully to "not tracked" when previewed outside one. speech.js reads
-   and writes the voice choice through window.CourseState so it's
-   remembered as the learner moves between slides. */
+/* Course navigation + progress tracking (v5 — slide-by-slide deck, spoken
+   notes, narration-gated navigation). Each page calls CourseNav.start(pageId)
+   after including this script. State (visited pages + chosen narration
+   voice + bookmark + which slides' narration has been heard in full)
+   persists via the SCORM wrapper's cmi.suspend_data when the course is
+   launched from an LMS. When opened as a plain website (no SCORM API
+   found — Scorm.isAvailable is false), the same state is kept in the
+   browser's localStorage instead, so progress, the resume banner and the
+   "Viewed" menu badges all keep working for direct web/HTML delivery.
+   localStorage is scoped per browser/device — it won't follow a learner
+   across devices or sync back to an LMS gradebook the way SCORM does.
+   speech.js reads and writes the voice choice through window.CourseState
+   so it's remembered as the learner moves between slides.
+   initNarrationGate() below disables each slide's "Next" pager link until
+   that slide's narration audio has played through to the end at least
+   once (or, if the audio fails to load, immediately — so a broken file
+   never traps a learner). Slides with no narration, quizzes, and the
+   menu/complete pages have no narration-panel/audio to gate and are left
+   untouched. */
 (function () {
   "use strict";
 
   var PAGE_ORDER = ["menu", "slide1", "slide2", "slide3", "slide4", "slide5", "slide6", "quiz1", "slide7", "slide8", "slide9", "slide10", "slide11", "slide12", "slide13", "slide14", "slide15", "slide16", "slide17", "slide18", "slide19", "slide20", "quiz2", "slide21", "slide22", "slide23", "slide24", "slide25", "slide26", "quiz3", "slide27", "slide28", "slide29", "slide30", "slide31", "slide32", "slide33", "slide34", "slide35", "slide36", "slide37", "slide38", "slide39", "slide40", "slide41", "slide42", "slide43", "slide44", "slide45", "slide46", "slide47", "slide48", "slide49", "slide50", "slide51", "slide52", "quiz4", "slide53", "slide54", "slide55", "slide56", "complete"];
 
+  var LOCAL_KEY = "ashtas_operative_training_v6_progress";
+
+  // Wrapped in try/catch: localStorage can throw in private-browsing modes
+  // or when third-party storage is blocked. Failing silently just means
+  // the course behaves like it always did outside an LMS (not tracked).
+  var LocalStore = {
+    read: function () {
+      try {
+        return window.localStorage.getItem(LOCAL_KEY) || "";
+      } catch (e) {
+        return "";
+      }
+    },
+    write: function (raw) {
+      try {
+        window.localStorage.setItem(LOCAL_KEY, raw);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+  };
+
+  function usingScorm() {
+    return !!(window.Scorm && Scorm.isAvailable);
+  }
+
   function loadState() {
-    var raw = window.Scorm && Scorm.isAvailable ? Scorm.getSuspendData() : "";
-    if (!raw) return { visited: [], voice: "" };
+    var raw = usingScorm() ? Scorm.getSuspendData() : LocalStore.read();
+    if (!raw) return { visited: [], voice: "", location: "", audioCompleted: [] };
     try {
       var parsed = JSON.parse(raw);
       if (parsed && typeof parsed === "object") {
-        return { visited: Array.isArray(parsed.visited) ? parsed.visited : [], voice: parsed.voice || "" };
+        return {
+          visited: Array.isArray(parsed.visited) ? parsed.visited : [],
+          voice: parsed.voice || "",
+          location: parsed.location || "",
+          // Added in v5 (narration-gated navigation). Missing/older saved
+          // state just means nothing has been marked heard yet.
+          audioCompleted: Array.isArray(parsed.audioCompleted) ? parsed.audioCompleted : []
+        };
       }
     } catch (e) {
       // Legacy v2 format: plain comma-separated list of visited page ids.
-      return { visited: raw.split(",").filter(Boolean), voice: "" };
+      return { visited: raw.split(",").filter(Boolean), voice: "", location: "", audioCompleted: [] };
     }
-    return { visited: [], voice: "" };
+    return { visited: [], voice: "", location: "", audioCompleted: [] };
   }
 
   function saveState(state) {
-    if (window.Scorm && Scorm.isAvailable) {
+    if (usingScorm()) {
       Scorm.setSuspendData(JSON.stringify(state));
+    } else {
+      LocalStore.write(JSON.stringify(state));
     }
+  }
+
+  function setLocation(pageId) {
+    if (usingScorm()) {
+      Scorm.setLocation(pageId);
+    } else {
+      var state = loadState();
+      state.location = pageId;
+      saveState(state);
+    }
+  }
+
+  function getLocation() {
+    return usingScorm() ? Scorm.getLocation() : loadState().location;
   }
 
   function markVisited(pageId) {
@@ -39,6 +100,73 @@
       saveState(state);
     }
     return state.visited;
+  }
+
+  function isAudioComplete(pageId) {
+    return loadState().audioCompleted.indexOf(pageId) !== -1;
+  }
+
+  function markAudioComplete(pageId) {
+    var state = loadState();
+    if (state.audioCompleted.indexOf(pageId) === -1) {
+      state.audioCompleted.push(pageId);
+      saveState(state);
+    }
+  }
+
+  // Gates the "Next" pager link on any slide with narrated presenter notes
+  // (data-has-notes="true") so a learner can't skip ahead without having
+  // played the audio through to the end at least once. Slides with no
+  // narration, quizzes, and the menu/complete pages have no matching
+  // panel/audio element and so are left untouched. Once a slide's audio
+  // has completed, that's remembered in the same saved state as the rest
+  // of progress, so returning to an already-heard slide doesn't re-lock it.
+  function initNarrationGate(pageId) {
+    var panel = document.querySelector('.narration-panel[data-has-notes="true"]');
+    var nextLink = document.getElementById("pagerNext");
+    if (!panel || !nextLink) return;
+    var audio = panel.querySelector(".narration-audio");
+    if (!audio) return;
+
+    var originalLabel = nextLink.textContent;
+    var locked = false;
+
+    function lock() {
+      locked = true;
+      nextLink.classList.add("disabled");
+      nextLink.setAttribute("aria-disabled", "true");
+      nextLink.textContent = "🔒 Listen to continue";
+      nextLink.title = "Listen to the presenter notes above to unlock Next";
+    }
+
+    function unlock() {
+      locked = false;
+      nextLink.classList.remove("disabled");
+      nextLink.removeAttribute("aria-disabled");
+      nextLink.textContent = originalLabel;
+      nextLink.removeAttribute("title");
+    }
+
+    nextLink.addEventListener("click", function (e) {
+      if (locked) e.preventDefault();
+    });
+
+    if (isAudioComplete(pageId) || audio.error) {
+      unlock();
+    } else {
+      lock();
+    }
+
+    audio.addEventListener("ended", function () {
+      markAudioComplete(pageId);
+      unlock();
+    });
+
+    // If the narration audio can't load or play at all, don't trap the
+    // learner behind a presentation they have no way to hear — speech.js
+    // already falls back to showing the transcript on this same event, so
+    // let them continue once they've had a chance to read that instead.
+    audio.addEventListener("error", unlock);
   }
 
   function renderProgress(visited) {
@@ -63,10 +191,10 @@
     });
   }
 
-  function initResumeBanner() {
+  function initResumeBanner(priorLocation) {
     var banner = document.getElementById("resumeBanner");
     if (!banner) return;
-    var loc = window.Scorm && Scorm.isAvailable ? Scorm.getLocation() : "";
+    var loc = priorLocation;
     if (loc && loc !== "menu" && PAGE_ORDER.indexOf(loc) !== -1) {
       var link = document.getElementById("resumeLink");
       if (link) link.href = loc + ".html";
@@ -115,22 +243,44 @@
       document.addEventListener("DOMContentLoaded", function () {
         // Give scorm_api.js a moment to finish LMSInitialize.
         setTimeout(function () {
+          // Read the bookmark left by the *previous* page before this
+          // page overwrites it below, so the resume banner (shown on the
+          // menu) can point at wherever the learner last left off.
+          var priorLocation = getLocation();
           var visited = markVisited(pageId);
-          if (window.Scorm && Scorm.isAvailable) {
-            Scorm.setLocation(pageId);
-          }
+          setLocation(pageId);
           renderProgress(visited);
           markMenuBadges(visited);
           initSelfChecks();
-          initResumeBanner();
+          initResumeBanner(priorLocation);
+          initNarrationGate(pageId);
 
           if (pageId === "complete") {
             var completeBtn = document.getElementById("completeCourseBtn");
             if (completeBtn) {
+              // Reflect an already-completed state if the learner reloads
+              // this page (SCORM tracks this via lesson_status; the
+              // standalone web fallback keeps its own flag alongside the
+              // rest of the progress state in localStorage).
+              var priorState = loadState();
+              if (usingScorm()) {
+                if (Scorm.get("cmi.core.lesson_status") === "completed") {
+                  completeBtn.textContent = "Course marked complete ✓";
+                  completeBtn.disabled = true;
+                }
+              } else if (priorState.completed) {
+                completeBtn.textContent = "Course marked complete ✓";
+                completeBtn.disabled = true;
+              }
+
               completeBtn.addEventListener("click", function () {
-                if (window.Scorm && Scorm.isAvailable) {
+                if (usingScorm()) {
                   Scorm.complete();
                   Scorm.commit();
+                } else {
+                  var state = loadState();
+                  state.completed = true;
+                  saveState(state);
                 }
                 completeBtn.textContent = "Course marked complete ✓";
                 completeBtn.disabled = true;
