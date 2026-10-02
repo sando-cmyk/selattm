@@ -82,10 +82,10 @@
     "title": "Working Safely Near Barrier Systems",
     "description": "Site Safety Awareness module for crew, subcontractors, and site visitors working on or near temporary or permanent barrier systems.",
     "category": "Site Safety Awareness",
-    "price": 0,
+    "price": 45,
     "currency": "NZD",
-    "status": "draft",
-    "stripePriceId": "PENDING_PRICE_NOT_SET",
+    "status": "active",
+    "stripePriceId": "price_1ULtbB0flJvw3UeNw6bYPp69",
     "launchPath": "/courses/basic-barrier-safety-course/index.html"
   },
   {
@@ -94,10 +94,10 @@
     "title": "Staging & Vehicles on Side Roads",
     "description": "Toolbox-style module on safe staging and vehicle placement when working on side roads.",
     "category": "TTM Training",
-    "price": 0,
+    "price": 45,
     "currency": "NZD",
-    "status": "draft",
-    "stripePriceId": "PENDING_PRICE_NOT_SET",
+    "status": "active",
+    "stripePriceId": "price_1ULtZj0flJvw3UeNmAVKwkMu",
     "launchPath": "/courses/tmw-side-road-safety/index.html"
   },
   {
@@ -106,10 +106,10 @@
     "title": "Assist with Temporary Traffic Management within the Road Reserve",
     "description": "Course covering NZQA unit standard 40233 -- assisting with temporary traffic management within the road reserve.",
     "category": "TTM Training",
-    "price": 0,
+    "price": 250,
     "currency": "NZD",
-    "status": "draft",
-    "stripePriceId": "PENDING_PRICE_NOT_SET",
+    "status": "active",
+    "stripePriceId": "price_1ULtXX0flJvw3UeNFdw8QvXx",
     "launchPath": "/courses/40233-ttm-road-reserve/index.html"
   }
 ]

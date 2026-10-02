@@ -4,9 +4,9 @@
   "title": "Working Safely Near Barrier Systems",
   "description": "Site Safety Awareness module for crew, subcontractors, and site visitors working on or near temporary or permanent barrier systems.",
   "category": "Site Safety Awareness",
-  "price": 0,
+  "price": 45,
   "currency": "NZD",
-  "status": "draft",
-  "stripePriceId": "PENDING_PRICE_NOT_SET",
+  "status": "active",
+  "stripePriceId": "price_1ULtbB0flJvw3UeNw6bYPp69",
   "launchPath": "/courses/basic-barrier-safety-course/index.html"
 }

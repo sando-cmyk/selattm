@@ -2,11 +2,11 @@
   "id": "40233-ttm-road-reserve",
   "code": "US-40233",
   "title": "Assist with Temporary Traffic Management within the Road Reserve",
-  "description": "Course covering NZQA unit standard 40233 — assisting with temporary traffic management within the road reserve.",
+  "description": "Course covering NZQA unit standard 40233 \u2014 assisting with temporary traffic management within the road reserve.",
   "category": "TTM Training",
-  "price": 0,
+  "price": 250,
   "currency": "NZD",
-  "status": "draft",
-  "stripePriceId": "PENDING_PRICE_NOT_SET",
+  "status": "active",
+  "stripePriceId": "price_1ULtXX0flJvw3UeNFdw8QvXx",
   "launchPath": "/courses/40233-ttm-road-reserve/index.html"
 }

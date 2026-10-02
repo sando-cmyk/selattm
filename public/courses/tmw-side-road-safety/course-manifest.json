@@ -4,9 +4,9 @@
   "title": "Staging & Vehicles on Side Roads",
   "description": "Toolbox-style module on safe staging and vehicle placement when working on side roads.",
   "category": "TTM Training",
-  "price": 0,
+  "price": 45,
   "currency": "NZD",
-  "status": "draft",
-  "stripePriceId": "PENDING_PRICE_NOT_SET",
+  "status": "active",
+  "stripePriceId": "price_1ULtZj0flJvw3UeNmAVKwkMu",
   "launchPath": "/courses/tmw-side-road-safety/index.html"
 }
