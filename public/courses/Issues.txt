@@ -1,0 +1,10 @@
+Waiting for Josephs Issues
+
+02/10/2026 The TMW-side-road-safety course does not wait on slides. you can move on without reading or listening. Also on completion it did not provide course results or certificate. As admin I can not see this also
+
+02/10/2026 Have rewritten some files within course to fix reporting and certification of courses. 
+
+02/10/2026 Have amended the Working Safely Near Barrier Systems course as the current files not working correctly.
+
+02/10/2026 Craig needs to run his deploy so the version in his computer matches online
+

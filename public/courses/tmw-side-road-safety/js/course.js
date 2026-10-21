@@ -1,5 +1,6 @@
 var Course = (function () {
   var TOTAL_SLIDES = 10;
+  var GATED_SLIDES = 10;
   var QUIZ_IDS = ["quiz1"];
   var STORAGE_KEY = "tmw_side_road_safety_course_state_v1";
 
@@ -26,7 +27,16 @@ var Course = (function () {
     saveState(state);
   }
   function getQuizResult(quizId) { return state.quizzes[quizId] || null; }
-  function allSlidesVisited() { return state.visited.length >= TOTAL_SLIDES; }
+  // A slide only counts once its read/listen/watch lock was cleared too (see
+  // public/js/course-gate.js), so typing slide URLs cannot complete the course.
+  function gateClearedCount() {
+    try {
+      var m = location.pathname.match(/\/courses\/([^\/]+)\//);
+      var g = JSON.parse(window.localStorage.getItem("sela_course_gate::" + (m ? m[1] : "course") + "::v1") || "{}");
+      return Array.isArray(g.cleared) ? g.cleared.length : 0;
+    } catch (e) { return 0; }
+  }
+  function allSlidesVisited() { return state.visited.length >= TOTAL_SLIDES && gateClearedCount() >= GATED_SLIDES; }
   function allQuizzesPassed() {
     return QUIZ_IDS.every(function (id) { return state.quizzes[id] && state.quizzes[id].passed; });
   }

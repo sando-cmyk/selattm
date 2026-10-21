@@ -1,0 +1,13 @@
+Fix course results reporting and barrier course paths
+
+- tmw-side-road-safety, 40233-ttm-road-reserve: commit Joseph's rewritten
+  complete.html (completion result written to Firestore "submissions")
+- basic-barrier-safety-course: add the same results-reporting block to
+  complete.html (courseId basic-barrier-safety, TTM-BBS-01)
+- basic-barrier-safety-course: remove broken "../" path prefixes from
+  index.html and menu.html so menu/slides/css/js resolve
+- PROJECT-STATUS.md: record pricing commit, Joseph's Issues.txt findings,
+  and that slide/narration gating is still not implemented
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_015zfkpfQq97HqaSaZuxRgCT

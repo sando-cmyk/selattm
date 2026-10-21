@@ -52,3 +52,14 @@ var Narration = (function () {
   }
   return { init: init };
 })();
+
+// Load the shared read/listen/watch gate (public/js/course-gate.js) on slide pages.
+(function () {
+  var cs = document.currentScript;
+  if (!cs || !cs.src || !/slide\d+\.html$/i.test(location.pathname)) return;
+  var src = cs.src.replace(/\/courses\/[^\/]+\/js\/audio_narration\.js(\?.*)?$/, "/js/course-gate.js");
+  if (src === cs.src) return;
+  var g = document.createElement("script");
+  g.src = src;
+  document.head.appendChild(g);
+})();

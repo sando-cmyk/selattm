@@ -348,6 +348,7 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
   // the sidebar) doesn't create duplicate rows.
   function recordResultOnceIfPassed(result) {
     if (!result.pass) return;
+    if (!allNarratedCleared()) return; // slides weren't all listened to / read
 
     var FLAG_KEY = "sela_result_recorded::ttm-eng-01::v1";
     try {
@@ -379,6 +380,7 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
 
   function renderFinalTestResult(slide) {
     var result = computeTestScore();
+    if (result.pass && allNarratedCleared()) markCleared("__test_passed__");
     SCORM.setCompleted(result.pass, result.pct);
     recordResultOnceIfPassed(result);
 
@@ -438,12 +440,146 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
     }
   }
 
+  // ---------------------------------------------------------------- listen / read gate
+  // Each narrated slide must be listened to the whole way through before Next
+  // unlocks (forward-skipping on the audio bar is blocked). If a slide's audio
+  // file is missing or fails to load, a reading timer based on the amount of
+  // text on the slide is used instead (about 3.3 words/second, 10-45s).
+  // Cleared slides are remembered in localStorage and the sidebar only lets
+  // the learner jump to slides whose earlier slides are all cleared, so the
+  // course can't be finished by clicking around the menu.
+  var GATE_KEY = "sela_course_gate::ttm-engineering-essentials::v1";
+  var gateLocked = false;
+  var lastRenderedId = null;
+  var gateTimerId = null;
+
+  function readCleared() {
+    try {
+      var g = JSON.parse(window.localStorage.getItem(GATE_KEY) || "{}");
+      return Array.isArray(g.cleared) ? g.cleared : [];
+    } catch (e) { return []; }
+  }
+  function isCleared(id) { return readCleared().indexOf(id) !== -1; }
+  function markCleared(id) {
+    var c = readCleared();
+    if (c.indexOf(id) === -1) {
+      c.push(id);
+      try { window.localStorage.setItem(GATE_KEY, JSON.stringify({ cleared: c })); } catch (e) {}
+    }
+  }
+  function clearGateState() {
+    try { window.localStorage.removeItem(GATE_KEY); } catch (e) {}
+  }
+  // True once every narrated slide that comes BEFORE the final test result
+  // has been cleared (the closing slide comes after the result, so it is not
+  // required before the result can be recorded).
+  function allNarratedCleared() {
+    var c = readCleared();
+    var resultIdx = SLIDES.findIndex(function (s) { return s.kind === "finaltest-result"; });
+    if (resultIdx < 0) resultIdx = SLIDES.length;
+    return SLIDES.every(function (s, i) { return i >= resultIdx || !s.audio || c.indexOf(s.id) !== -1; });
+  }
+
+  // Can the learner open slide i? Every narrated slide before it must be
+  // cleared; the final test must also be answered in order.
+  function isAccessible(i) {
+    var c = readCleared();
+    var testPassedBefore = c.indexOf("__test_passed__") !== -1; // remembered across reloads
+    for (var j = 0; j < i; j++) {
+      var s = SLIDES[j];
+      if (s.audio && c.indexOf(s.id) === -1) return false;
+      if (s.kind === "finaltest-question" && !testPassedBefore && testAnswers[s.testIndex] === undefined) return false;
+    }
+    return true;
+  }
+
+  function slideWordCount(rootEl) {
+    var m = (rootEl.textContent || "").match(/\S+/g);
+    return m ? m.length : 0;
+  }
+
+  function applyNextState(slide) {
+    var isLast = currentIndex === SLIDES.length - 1;
+    var lockedNext = slide.kind === "finaltest-question" && testAnswers[slide.testIndex] === undefined;
+    nextBtn.disabled = isLast || lockedNext || gateLocked;
+    if (isLast) nextBtn.textContent = "Finished";
+  }
+
+  function stopGate() {
+    if (gateTimerId) { clearInterval(gateTimerId); gateTimerId = null; }
+    audioEl.ontimeupdate = null;
+    audioEl.onseeking = null;
+    audioEl.onended = null;
+  }
+
+  function releaseGate(slide) {
+    stopGate();
+    gateLocked = false;
+    markCleared(slide.id);
+    nextBtn.textContent = currentIndex === SLIDES.length - 1 ? "Finished" : "Next \u2192";
+    nextBtn.removeAttribute("title");
+    applyNextState(slide);
+    updateNavHighlight();
+  }
+
+  function startReadTimer(slide, rootEl) {
+    if (gateTimerId) return;
+    var secs = Math.round(slideWordCount(rootEl) / 3.3);
+    secs = Math.max(10, Math.min(45, secs));
+    var end = Date.now() + secs * 1000;
+    function tick() {
+      if (SLIDES[currentIndex] !== slide) { stopGate(); return; }
+      var left = Math.ceil((end - Date.now()) / 1000);
+      if (left <= 0) { releaseGate(slide); return; }
+      nextBtn.textContent = "\uD83D\uDD12 Please read this slide (" + left + "s)";
+    }
+    tick();
+    if (gateLocked) gateTimerId = setInterval(tick, 250);
+  }
+
+  function setupGate(slide, rootEl) {
+    stopGate();
+    gateLocked = false;
+    if (!slide.audio || isCleared(slide.id)) { applyNextState(slide); return; }
+
+    gateLocked = true;
+    nextBtn.title = "Finish this slide to unlock Next";
+    nextBtn.textContent = "\uD83D\uDD12 Listen to continue";
+    applyNextState(slide);
+
+    var maxPlayed = 0;
+    audioEl.ontimeupdate = function () {
+      if (!audioEl.seeking && audioEl.currentTime > maxPlayed) maxPlayed = audioEl.currentTime;
+    };
+    audioEl.onseeking = function () {
+      if (audioEl.currentTime > maxPlayed + 1) audioEl.currentTime = maxPlayed;
+    };
+    audioEl.onended = function () {
+      var d = audioEl.duration;
+      if (isFinite(d) && maxPlayed < d - 2) { audioEl.currentTime = maxPlayed; return; }
+      if (SLIDES[currentIndex] === slide) releaseGate(slide);
+    };
+    // Missing / unplayable audio must not trap the learner.
+    audioEl.onerror = function () {
+      audioBar.classList.add("hidden");
+      if (SLIDES[currentIndex] === slide && gateLocked) startReadTimer(slide, rootEl);
+    };
+    setTimeout(function () {
+      if (SLIDES[currentIndex] === slide && gateLocked && audioEl.readyState === 0 && audioEl.networkState === 3) {
+        startReadTimer(slide, rootEl);
+      }
+    }, 4000);
+  }
+
   // ---------------------------------------------------------------- shell / nav
   function buildNav() {
     var frag = document.createDocumentFragment();
     SLIDES.forEach(function (slide, i) {
       var item = el("div", { class: "nav-item" }, slide.nav || slide.title || slide.id);
-      item.addEventListener("click", function () { currentIndex = i; renderCurrent(); });
+      item.addEventListener("click", function () {
+        if (!isAccessible(i)) return;
+        currentIndex = i; renderCurrent();
+      });
       frag.appendChild(item);
     });
     navListEl.innerHTML = "";
@@ -454,6 +590,10 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
     Array.prototype.forEach.call(navListEl.querySelectorAll(".nav-item"), function (item, i) {
       item.classList.toggle("active", i === currentIndex);
       item.classList.toggle("visited", !!visited[SLIDES[i].id]);
+      var ok = isAccessible(i);
+      item.classList.toggle("locked", !ok);
+      if (!ok) item.title = "Finish the earlier slides to unlock this one";
+      else item.removeAttribute("title");
     });
   }
 
@@ -490,15 +630,22 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
     slideRootEl.innerHTML = "";
     slideRootEl.appendChild(root);
 
-    updateAudio(slide);
+    // Re-rendering the SAME slide (e.g. after picking a quiz answer) must not
+    // restart the narration or reset the listen gate.
+    var sameSlide = (lastRenderedId === slide.id);
+    lastRenderedId = slide.id;
+    if (!sameSlide) updateAudio(slide);
     updateNavHighlight();
     updateProgress();
 
-    var isLast = currentIndex === SLIDES.length - 1;
-    var lockedNext = slide.kind === "finaltest-question" && testAnswers[slide.testIndex] === undefined;
     prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = isLast || lockedNext;
-    nextBtn.textContent = isLast ? "Finished" : "Next →";
+    if (sameSlide) {
+      applyNextState(slide);
+    } else {
+      nextBtn.textContent = currentIndex === SLIDES.length - 1 ? "Finished" : "Next →";
+      nextBtn.removeAttribute("title");
+      setupGate(slide, root);
+    }
 
     // Completion is driven by the final test result (80% pass mark), not just
     // reaching the last slide — see renderFinalTestResult() / SCORM.setCompleted().
@@ -522,7 +669,11 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
     var bookmark = SCORM.getBookmark();
     if (bookmark) {
       var idx = SLIDES.findIndex(function (s) { return s.id === bookmark; });
-      if (idx >= 0) currentIndex = idx;
+      if (idx >= 0) {
+        // Resume only as far as the learner has legitimately got.
+        while (idx > 0 && !isAccessible(idx)) idx--;
+        currentIndex = idx;
+      }
     }
 
     prevBtn.addEventListener("click", function () { if (currentIndex > 0) { currentIndex--; renderCurrent(); } });
@@ -533,6 +684,8 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
       restartBtn.addEventListener("click", function () {
         if (window.confirm("Restart the course? This clears your saved progress and final test result on this device.")) {
           if (typeof SCORM.reset === "function") SCORM.reset();
+          clearGateState();
+          lastRenderedId = null;
           visited = {};
           quizPicks = {};
           quizRevealed = {};

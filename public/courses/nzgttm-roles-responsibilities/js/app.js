@@ -322,7 +322,22 @@
     els.nextBtn.disabled = true;
     els.waitHint.textContent = "Watch the video to continue";
 
+    // Watched-for-real check: remember the furthest point actually played,
+    // refuse forward jumps on the scrub bar, and only unlock Next at the end
+    // if the learner really got there by playing it.
+    var maxPlayed = 0;
+    videoEl.addEventListener("timeupdate", function () {
+      if (!videoEl.seeking && videoEl.currentTime > maxPlayed) maxPlayed = videoEl.currentTime;
+    });
+    videoEl.addEventListener("seeking", function () {
+      if (videoEl.currentTime > maxPlayed + 1) videoEl.currentTime = maxPlayed;
+    });
     videoEl.addEventListener("ended", function () {
+      var d = videoEl.duration;
+      if (isFinite(d) && maxPlayed < d - 2) {
+        videoEl.currentTime = maxPlayed;
+        return;
+      }
       els.nextBtn.disabled = false;
       els.waitHint.textContent = "";
     });

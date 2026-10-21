@@ -121,9 +121,45 @@
   // panel/audio element and so are left untouched. Once a slide's audio
   // has completed, that's remembered in the same saved state as the rest
   // of progress, so returning to an already-heard slide doesn't re-lock it.
+  function initDwellGate(pageId, nextLink) {
+    // Slides with no narration: hold Next for a minimum time on the page
+    // (45s where the slide is an embedded video, 8s for a single image).
+    var seconds = document.querySelector("iframe") ? 45 : 8;
+    var originalLabel = nextLink.textContent;
+    if (isAudioComplete(pageId)) return;
+    var end = Date.now() + seconds * 1000;
+    var locked = true;
+    nextLink.addEventListener("click", function (e) {
+      if (locked) e.preventDefault();
+    });
+    function tick() {
+      var left = Math.ceil((end - Date.now()) / 1000);
+      if (left <= 0) {
+        locked = false;
+        clearInterval(timer);
+        markAudioComplete(pageId);
+        nextLink.classList.remove("disabled");
+        nextLink.removeAttribute("aria-disabled");
+        nextLink.textContent = originalLabel;
+        nextLink.removeAttribute("title");
+        return;
+      }
+      nextLink.classList.add("disabled");
+      nextLink.setAttribute("aria-disabled", "true");
+      nextLink.textContent = "\uD83D\uDD12 Please view this slide (" + left + "s)";
+      nextLink.title = "Spend a moment on this slide to unlock Next";
+    }
+    var timer = setInterval(tick, 250);
+    tick();
+  }
+
   function initNarrationGate(pageId) {
     var panel = document.querySelector('.narration-panel[data-has-notes="true"]');
     var nextLink = document.getElementById("pagerNext");
+    if (nextLink && !panel && /^slide\d+$/.test(pageId)) {
+      initDwellGate(pageId, nextLink);
+      return;
+    }
     if (!panel || !nextLink) return;
     var audio = panel.querySelector(".narration-audio");
     if (!audio) return;
@@ -258,6 +294,25 @@
           if (pageId === "complete") {
             var completeBtn = document.getElementById("completeCourseBtn");
             if (completeBtn) {
+              // Every slide 1-56 must have been viewed, and every slide
+              // must have had its listen / view lock cleared.
+              var gateState = loadState();
+              var unfinished = [];
+              for (var gi = 1; gi <= 56; gi++) {
+                var gid = "slide" + gi;
+                if (gateState.visited.indexOf(gid) === -1 || gateState.audioCompleted.indexOf(gid) === -1) unfinished.push(gi);
+              }
+              if (unfinished.length) {
+                completeBtn.disabled = true;
+                completeBtn.textContent = "Finish all slides first (" + unfinished.length + " to go)";
+                var notice = document.createElement("p");
+                notice.style.cssText = "color:#B71C1C;margin-top:10px;";
+                notice.innerHTML = "You still need to listen to / view " + unfinished.length +
+                  " slide" + (unfinished.length === 1 ? "" : "s") + " (first one: slide " + unfinished[0] +
+                  "). <a href=\"slide" + unfinished[0] + ".html\">Go to slide " + unfinished[0] + " →</a>";
+                completeBtn.parentNode.appendChild(notice);
+                return;
+              }
               // Reflect an already-completed state if the learner reloads
               // this page (SCORM tracks this via lesson_status; the
               // standalone web fallback keeps its own flag alongside the

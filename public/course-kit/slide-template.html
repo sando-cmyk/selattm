@@ -40,6 +40,13 @@
     <div class="transcript" id="transcriptBox">Full narration transcript text goes here.</div>
   </div>
 
+  <!-- READ / LISTEN / WATCH LOCK: nothing to add here. course-progress.js
+       automatically loads ../../js/course-gate.js on slide pages, which keeps
+       the amber Next button locked until the narration audio (or video) has
+       played to the end -- or, on a slide with no media or a media file that
+       fails to load, until a reading timer based on the slide's text runs out.
+       The forward button must stay inside .nav-row with class "btn amber". -->
+
   <!-- Bottom nav: same three links/buttons on every slide, only the
        hrefs and the "Slide X of Y" text change. -->
   <div class="nav-row">

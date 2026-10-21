@@ -77,8 +77,17 @@
     }
   }
 
+  // A slide only counts as properly seen once the learner has also cleared
+  // its read/listen/watch lock (see course-gate.js), so typing slide URLs
+  // into the address bar cannot complete a course.
+  function gateClearedCount() {
+    try {
+      var g = JSON.parse(window.localStorage.getItem("sela_course_gate::" + courseId + "::v1") || "{}");
+      return Array.isArray(g.cleared) ? g.cleared.length : 0;
+    } catch (e) { return 0; }
+  }
   function allSlidesVisited() {
-    return totalSlides > 0 && state.visited.length >= totalSlides;
+    return totalSlides > 0 && state.visited.length >= totalSlides && gateClearedCount() >= totalSlides;
   }
   function allQuizzesPassed() {
     return quizIds.length > 0 && quizIds.every(function (id) {
@@ -109,6 +118,14 @@
   function lastVisitedSlide() {
     if (state.visited.length === 0) return null;
     return Math.max.apply(null, state.visited);
+  }
+
+  // Load the shared read/listen/watch gate on slide pages (no per-page
+  // script tag needed).
+  if (slideAttr && document.currentScript && document.currentScript.src) {
+    var gateScript = document.createElement("script");
+    gateScript.src = document.currentScript.src.replace(/course-progress\.js(\?.*)?$/, "course-gate.js");
+    document.head.appendChild(gateScript);
   }
 
   window.CourseProgress = {
