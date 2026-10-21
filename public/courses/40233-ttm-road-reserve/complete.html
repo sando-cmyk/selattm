@@ -26,7 +26,7 @@
     <h1>Assist with Temporary Traffic Management within the Road Reserve</h1>
     <p id="statusMsg" style="font-size:16px;"></p>
     <button class="btn amber" id="completeBtn">Mark Course Content Complete</button>
-    <p id="doneMsg" style="display:none;color:#2E7D32;font-weight:bold;margin-top:16px;">Recorded. You may close this window.</p>
+    <p id="doneMsg" style="display:none;color:#2E7D32;font-weight:bold;margin-top:16px;"></p>
     <div class="callout NOTE" style="margin-top:24px;text-align:left;">
       <span class="callout-label">DON'T FORGET</span>
       <p>Completing the three online modules and their quizzes covers the underpinning knowledge for Skill
@@ -51,9 +51,66 @@
     if (!allQuizzes) missing.push('pass all three module quizzes (80%+)');
     msg.innerHTML = 'Before marking complete, please ' + missing.join(' and ') + '. <a href="menu.html">Return to the menu</a>.';
   }
-  document.getElementById('completeBtn').addEventListener('click', function(){
+
+  var completeBtn = document.getElementById('completeBtn');
+  var doneMsg = document.getElementById('doneMsg');
+  var FLAG_KEY = 'sela_result_recorded::40233-ttm-road-reserve::v1';
+
+  // Local/SCORM progress is always saved first. The Firebase step on top of
+  // that is what writes to the 'submissions' collection, so head office can
+  // see the result in admin.html and issue a certificate. Same pattern as
+  // ttm-portable-traffic-signals/complete.html.
+  completeBtn.addEventListener('click', function () {
     Course.markCourseComplete();
-    document.getElementById('doneMsg').style.display = 'block';
+    doneMsg.style.display = 'block';
+
+    if (!Course.isComplete()) {
+      doneMsg.textContent = "Progress saved in this browser. Come back once you have viewed every slide and passed all three module quizzes, then click this button again to send your result to head office.";
+      return;
+    }
+
+    var alreadySent = false;
+    try { alreadySent = !!window.localStorage.getItem(FLAG_KEY); } catch (e) {}
+    if (alreadySent) {
+      doneMsg.textContent = 'Recorded. You may close this window.';
+      return;
+    }
+
+    completeBtn.disabled = true;
+    doneMsg.textContent = 'Recording your result...';
+
+    import('../../js/firebase-init.js').then(function (fb) {
+      var unsubscribe = fb.onAuthStateChanged(fb.auth, function (user) {
+        unsubscribe();
+        if (!user || user.isAnonymous) {
+          completeBtn.disabled = false;
+          doneMsg.textContent = "Your result is saved in this browser, but you weren't signed in, so it hasn't reached head office. Sign in at selattm.com and revisit this page to fix that.";
+          return;
+        }
+        fb.addDoc(fb.collection(fb.db, 'submissions'), {
+          userId: user.uid,
+          email: (user.email || '').toLowerCase(),
+          courseId: "40233-ttm-road-reserve",
+          courseCode: "US-40233",
+          courseTitle: "Assist with Temporary Traffic Management within the Road Reserve",
+          scorePercent: Course.overallPercent(),
+          passed: true,
+          completedAt: new Date().toISOString(),
+          certificateIssued: false
+        }).then(function () {
+          try { window.localStorage.setItem(FLAG_KEY, '1'); } catch (e) {}
+          doneMsg.textContent = 'Recorded -- head office can now see this result. You may close this window.';
+        }).catch(function (err) {
+          completeBtn.disabled = false;
+          console.error("Failed to record US-40233 result:", err);
+          doneMsg.textContent = 'Your result is saved in this browser, but sending it to head office failed. Please let head office know.';
+        });
+      });
+    }).catch(function (err) {
+      completeBtn.disabled = false;
+      console.error("Failed to load firebase-init for US-40233 completion:", err);
+      doneMsg.textContent = 'Progress saved in this browser, but sending it to head office failed to load. Please let head office know.';
+    });
   });
 </script>
 </body>
