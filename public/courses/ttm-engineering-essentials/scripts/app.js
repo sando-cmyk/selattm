@@ -346,21 +346,30 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
   // Results & Certificates" panel. Only fires once per browser per pass
   // (guarded by a localStorage flag) so re-viewing this slide (e.g. via
   // the sidebar) doesn't create duplicate rows.
-  function recordResultOnceIfPassed(result) {
+  function recordResultOnceIfPassed(result, onStatus) {
+    function say(t) { if (onStatus) onStatus(t); }
     if (!result.pass) return;
-    if (!allNarratedCleared()) return; // slides weren't all listened to / read
+    if (!allNarratedCleared()) {
+      say("Your result has not been sent to head office yet because not every slide has been listened to or read. Go back through the slides, then return to this page.");
+      return; // slides weren't all listened to / read
+    }
 
     var FLAG_KEY = "sela_result_recorded::ttm-eng-01::v1";
     try {
-      if (window.localStorage.getItem(FLAG_KEY)) return;
+      if (window.localStorage.getItem(FLAG_KEY)) {
+        say("Recorded \u2014 head office has your result. You may close this window.");
+        return;
+      }
     } catch (e) {}
 
     var user = auth.currentUser;
     if (!user || user.isAnonymous) {
       console.warn("TTM Engineering result not sent: not signed in.");
+      say("Your result is saved in this browser, but you weren't signed in, so it hasn't reached head office. Sign in at selattm.com and revisit this page to fix that.");
       return;
     }
 
+    say("Recording your result...");
     addDoc(collection(db, "submissions"), {
       userId: user.uid,
       email: (user.email || "").toLowerCase(),
@@ -373,8 +382,10 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
       certificateIssued: false
     }).then(function () {
       try { window.localStorage.setItem(FLAG_KEY, "1"); } catch (e) {}
+      say("Recorded \u2014 head office can now see this result. You may close this window.");
     }).catch(function (err) {
       console.error("Failed to record TTM Engineering result:", err);
+      say("Your result is saved in this browser, but sending it to head office failed. Please let head office know.");
     });
   }
 
@@ -382,7 +393,8 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
     var result = computeTestScore();
     if (result.pass && allNarratedCleared()) markCleared("__test_passed__");
     SCORM.setCompleted(result.pass, result.pct);
-    recordResultOnceIfPassed(result);
+    var recordStatus = el("p", { class: "record-status", style: "font-weight:bold;margin:12px 0;" }, "");
+    recordResultOnceIfPassed(result, function (t) { recordStatus.textContent = t; });
 
     var wrap = el("div", { class: "test-result" });
     wrap.appendChild(el("div", { class: "kicker" }, "FINAL TEST RESULT"));
@@ -398,6 +410,7 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
     ));
     banner.appendChild(bannerText);
     wrap.appendChild(banner);
+    if (result.pass) wrap.appendChild(recordStatus);
 
     if (!result.pass) {
       var retake = el("button", { class: "btn retake-btn" }, "Retake the test");

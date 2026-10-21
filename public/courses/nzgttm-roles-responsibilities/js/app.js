@@ -540,9 +540,9 @@
       return fb.addDoc(fb.collection(fb.db, "submissions"), {
         userId: user.uid,
         email: (user.email || "").toLowerCase(),
-        courseId: "nzgttm-roles-01",
-        courseCode: "NZGTTM-ROLES-01",
-        courseTitle: "TTM Roles & Responsibilities",
+        courseId: "ttm-roles-01",
+        courseCode: "TTM-ROLES-01",
+        courseTitle: "Roles & Responsibilities for TTM in New Zealand",
         scorePercent: state.quizScore,
         passed: true,
         completedAt: new Date().toISOString(),
