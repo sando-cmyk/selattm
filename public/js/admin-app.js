@@ -499,7 +499,7 @@ async function loadImageAsDataUrl(url) {
   });
 }
 
-async function generateCertificatePdf({ fullName, courseTitle, scorePercent, completedAt, certificateNumber }) {
+async function generateCertificatePdf({ fullName, courseTitle, scorePercent, completedAt, certificateNumber, download = true }) {
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF({ orientation: "landscape", unit: "pt", format: "a4" });
   const pageWidth = pdf.internal.pageSize.getWidth();   // 842
@@ -595,7 +595,7 @@ async function generateCertificatePdf({ fullName, courseTitle, scorePercent, com
   pdf.text(`Certificate No. ${certificateNumber}`, pageWidth - 40, 572, { align: "right" });
   pdf.text("Sela Civil Advisory Ltd  |  NZBN 9429053816207  |  www.selacivil.co.nz", pageWidth - 40, 584, { align: "right" });
 
-  pdf.save(`Certificate-${certificateNumber}.pdf`);
+  if (download) pdf.save(`Certificate-${certificateNumber}.pdf`);
   return pdf;
 }
 
@@ -651,7 +651,9 @@ function renderResultsTable(rows) {
 
     let certCell;
     if (r.certificateIssued) {
-      certCell = `<span class="badge badge-pending" style="text-transform:none;">${r.certificateNumber || "Issued"}</span>`;
+      const emailedNote = r.certificateEmailedTo ? `<div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Emailed ${r.certificateEmailQueuedAt ? new Date(r.certificateEmailQueuedAt).toLocaleDateString("en-NZ") : ""}</div>` : "";
+      certCell = `<span class="badge badge-pending" style="text-transform:none;">${r.certificateNumber || "Issued"}</span>
+        <button class="btn-action btn-resend-cert" data-id="${r._id}" style="padding:4px 8px; font-size:0.75rem; margin-left:6px;">${r.certificateEmailedTo ? "Resend email" : "Email certificate"}</button>${emailedNote}`;
     } else if (r.passed) {
       certCell = `<button class="btn-action btn-issue-cert" data-id="${r._id}" style="padding:6px 10px; font-size:0.8rem;">Issue Certificate</button>`;
     } else {
@@ -688,9 +690,63 @@ async function loadSubmissions() {
   }
 }
 
+// Re-sends an already-issued certificate: rebuilds the same PDF (same
+// certificate number and printed name) and queues it to the learner again.
+async function resendCertificateEmail(btn) {
+  const docId = btn.dataset.id;
+  const originalLabel = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  try {
+    const subSnap = await getDoc(doc(db, "submissions", docId));
+    if (!subSnap.exists()) throw new Error("That result no longer exists -- try refreshing.");
+    const sub = subSnap.data();
+    const email = (sub.email || "").toLowerCase();
+    if (!email) throw new Error("This result has no email address on it.");
+
+    let fullName = sub.certificateName || "";
+    if (!fullName) {
+      try {
+        const p = await getDoc(doc(db, "learner_profiles", email));
+        if (p.exists()) fullName = p.data().fullName || "";
+      } catch (_) {}
+    }
+    if (!fullName && sub.userId) {
+      try {
+        const u = await getDoc(doc(db, "users", sub.userId));
+        const d = u.exists() ? u.data() : {};
+        if (d.firstName && d.lastName) fullName = `${d.firstName} ${d.lastName}`;
+      } catch (_) {}
+    }
+    fullName = (prompt(`Name on the certificate for ${email}:`, fullName) || "").trim();
+    if (!fullName) { btn.disabled = false; btn.textContent = originalLabel; return; }
+
+    const courseTitle = sub.courseTitle || sub.courseId || "Training Course";
+    const certificateNumber = sub.certificateNumber || buildCertificateNumber(sub.courseCode);
+    const pdf = await generateCertificatePdf({
+      fullName, courseTitle, scorePercent: sub.scorePercent, completedAt: sub.completedAt,
+      certificateNumber, download: false,
+    });
+    await emailCertificate({ pdf, email, fullName, courseTitle, certificateNumber });
+    await setDoc(doc(db, "submissions", docId), {
+      certificateNumber, certificateName: fullName,
+      certificateEmailedTo: email, certificateEmailQueuedAt: new Date().toISOString(),
+    }, { merge: true });
+    await loadSubmissions();
+    showModal({ title: "Certificate Emailed", message: `Certificate ${certificateNumber} has been sent to ${email}.`, type: "success" });
+  } catch (err) {
+    console.error("Certificate email failed:", err);
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+    showModal({ title: "Email Failed", message: `Could not queue the email: ${err.message}`, type: "error" });
+  }
+}
+
 const resultsTbodyEl = document.getElementById("results-tbody");
 if (resultsTbodyEl) {
   resultsTbodyEl.addEventListener("click", async (e) => {
+    const resendBtn = e.target.closest(".btn-resend-cert");
+    if (resendBtn) { await resendCertificateEmail(resendBtn); return; }
     const btn = e.target.closest(".btn-issue-cert");
     if (!btn) return;
 
@@ -756,6 +812,7 @@ if (resultsTbodyEl) {
         certificateNumber,
         certificateIssuedAt: new Date().toISOString(),
         certificateIssuedBy: auth.currentUser?.email || "unknown",
+        certificateName: fullName,
       }, { merge: true });
 
       const courseTitle = sub.courseTitle || sub.courseId || "Training Course";
@@ -775,6 +832,7 @@ if (resultsTbodyEl) {
           await setDoc(doc(db, "submissions", docId), { certificateEmailedTo: email, certificateEmailQueuedAt: new Date().toISOString() }, { merge: true });
         } catch (mailErr) {
           console.error("Certificate email failed:", mailErr);
+          var mailErrText = mailErr && mailErr.message ? mailErr.message : String(mailErr);
         }
       }
 
@@ -783,7 +841,7 @@ if (resultsTbodyEl) {
         title: "Certificate Issued",
         message: emailed
           ? `Certificate ${certificateNumber} downloaded and emailed to ${email}.`
-          : `Certificate ${certificateNumber} downloaded, but it could not be emailed automatically. Please send the PDF to ${email || "the learner"} yourself.`,
+          : `Certificate ${certificateNumber} downloaded, but it could not be emailed automatically${typeof mailErrText !== "undefined" ? ` (${mailErrText})` : ""}. Use "Email certificate" in the table to try again, or send the PDF to ${email || "the learner"} yourself.`,
         type: emailed ? "success" : "error",
       });
     } catch (err) {
