@@ -26,6 +26,9 @@ service cloud.firestore {
     // or edit a profile that isn't their own.
     match /users/{uid} {
       allow read, write: if isSignedIn() && request.auth.uid == uid;
+      // Admins read the learner's own first/last name, date of birth and
+      // postcode (js/learner-profile.js) when issuing certificates.
+      allow read: if isAdmin();
 
       match /enrolled_courses/{courseId} {
         allow read, write: if isSignedIn() && request.auth.uid == uid;
@@ -91,6 +94,13 @@ service cloud.firestore {
       allow read: if isSignedIn() &&
         (resource.data.userId == request.auth.uid || isAdmin());
       allow update, delete: if isAdmin();
+    }
+
+    // -- outgoing email (Trigger Email extension) -- admin only -------
+    // admin.html queues certificate emails here; the extension sends them.
+    match /mail/{mailId} {
+      allow create, read: if isAdmin();
+      allow update, delete: if false;
     }
 
     // -- public contact form ----------------------------------------

@@ -1,13 +1,18 @@
-Fix course results reporting and barrier course paths
+Certificates signed by Joseph and emailed; first-visit learner details
 
-- tmw-side-road-safety, 40233-ttm-road-reserve: commit Joseph's rewritten
-  complete.html (completion result written to Firestore "submissions")
-- basic-barrier-safety-course: add the same results-reporting block to
-  complete.html (courseId basic-barrier-safety, TTM-BBS-01)
-- basic-barrier-safety-course: remove broken "../" path prefixes from
-  index.html and menu.html so menu/slides/css/js resolve
-- PROJECT-STATUS.md: record pricing commit, Joseph's Issues.txt findings,
-  and that slide/narration gating is still not implemented
+- Certificate signatory is now Joseph Rosendaal, Training Manager, with his
+  signature (public/img/signature-joseph.png) above the dotted line.
+- Issuing a certificate in admin.html now also emails the PDF to the learner:
+  it queues a doc in the "mail" collection for the Trigger Email extension
+  (firebase/firestore-send-email) to send. The admin gets a confirmation, or a
+  prompt to send it manually if queueing fails. Submission records
+  certificateEmailedTo / certificateEmailQueuedAt.
+- First visit to Your Courses (learner.html) now asks for first name, last
+  name, date of birth and 4-digit postcode (public/js/learner-profile.js),
+  saved on users/{uid} and set as the account display name. The admin
+  certificate prompt pre-fills from this.
+- firestore.rules: admins can read users/{uid}; new admin-only "mail"
+  collection.
 
-Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_015zfkpfQq97HqaSaZuxRgCT
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_0157UNeFSDjQUcHDNi9tJzjQ

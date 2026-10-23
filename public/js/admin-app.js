@@ -11,6 +11,7 @@ import {
   doc, 
   getDoc, 
   setDoc, 
+  addDoc,
   deleteDoc,
   arrayUnion,
   collection, 
@@ -572,14 +573,21 @@ async function generateCertificatePdf({ fullName, courseTitle, scorePercent, com
 
   // Signature block sits on the artwork's dotted line (bottom right, ~x 466-801, y ~518).
   const sigX = 633;
+  try {
+    const sigData = await loadImageAsDataUrl("img/signature-joseph.png");
+    const sigW = 96, sigH = sigW * (126 / 248); // signature-joseph.png is 248x126
+    pdf.addImage(sigData, "PNG", sigX - sigW / 2, 514 - sigH, sigW, sigH);
+  } catch (e) {
+    console.warn("Certificate: signature failed to load, continuing without it.", e);
+  }
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(12);
   pdf.setTextColor(...SLATE);
-  pdf.text("Craig Sanders", sigX, 536, { align: "center" });
+  pdf.text("Joseph Rosendaal", sigX, 536, { align: "center" });
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(10);
   pdf.setTextColor(...GREY);
-  pdf.text("Director, Sela Civil Advisory Ltd", sigX, 550, { align: "center" });
+  pdf.text("Training Manager, Sela Civil Advisory Ltd", sigX, 550, { align: "center" });
 
   // Footer in the clear strip below the artwork.
   pdf.setFontSize(8.5);
@@ -588,6 +596,40 @@ async function generateCertificatePdf({ fullName, courseTitle, scorePercent, com
   pdf.text("Sela Civil Advisory Ltd  |  NZBN 9429053816207  |  www.selacivil.co.nz", pageWidth - 40, 584, { align: "right" });
 
   pdf.save(`Certificate-${certificateNumber}.pdf`);
+  return pdf;
+}
+
+// Queues the certificate email. Delivery is done by the "Trigger Email from
+// Firestore" extension (firebase/firestore-send-email), which watches the
+// "mail" collection and sends each new doc over SMTP. The PDF goes along as a
+// base64 attachment (about 150 KB, well under Firestore's 1 MB doc limit).
+async function emailCertificate({ pdf, email, fullName, courseTitle, certificateNumber }) {
+  const base64 = pdf.output("datauristring").split(",")[1];
+  const firstName = (fullName || "").split(" ")[0] || "there";
+  const safe = s => String(s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  await addDoc(collection(db, "mail"), {
+    to: email,
+    message: {
+      subject: `Your certificate: ${courseTitle}`,
+      text:
+        `Kia ora ${firstName},\n\n` +
+        `Congratulations on completing ${courseTitle}. Your certificate (No. ${certificateNumber}) is attached.\n\n` +
+        `Nga mihi,\nJoseph Rosendaal\nTraining Manager, Sela Civil Advisory Ltd\njoseph@selacivil.co.nz | 027 267 7264\nhttps://selattm.com`,
+      html:
+        `<p>Kia ora ${safe(firstName)},</p>` +
+        `<p>Congratulations on completing <strong>${safe(courseTitle)}</strong>. ` +
+        `Your certificate (No. ${safe(certificateNumber)}) is attached to this email.</p>` +
+        `<p>Ng&#257; mihi,<br>Joseph Rosendaal<br>Training Manager, Sela Civil Advisory Ltd<br>` +
+        `joseph@selacivil.co.nz &nbsp;|&nbsp; 027 267 7264<br><a href="https://selattm.com">selattm.com</a></p>`,
+      attachments: [{
+        filename: `Certificate-${certificateNumber}.pdf`,
+        content: base64,
+        encoding: "base64",
+        contentType: "application/pdf",
+      }],
+    },
+    meta: { type: "certificate", certificateNumber, sentBy: auth.currentUser?.email || "unknown", queuedAt: new Date().toISOString() },
+  });
 }
 
 function renderResultsTable(rows) {
@@ -672,10 +714,23 @@ if (resultsTbodyEl) {
 
       // Pull any previously-saved name for this email so it carries
       // across courses -- only needs to be typed in once per person.
+      // Prefer the name the learner entered themselves on first sign-in
+      // (users/{uid}, see js/learner-profile.js), then any name saved here.
       let defaultName = "";
       try {
-        const profileSnap = await getDoc(doc(db, "learner_profiles", email));
-        if (profileSnap.exists()) defaultName = profileSnap.data().fullName || "";
+        if (sub.userId) {
+          const userSnap = await getDoc(doc(db, "users", sub.userId));
+          const u = userSnap.exists() ? userSnap.data() : {};
+          if (u.firstName && u.lastName) defaultName = `${u.firstName} ${u.lastName}`;
+        }
+      } catch (e) {
+        console.warn("Learner user-profile lookup failed:", e.message);
+      }
+      try {
+        if (!defaultName) {
+          const profileSnap = await getDoc(doc(db, "learner_profiles", email));
+          if (profileSnap.exists()) defaultName = profileSnap.data().fullName || "";
+        }
       } catch (e) {
         console.warn("Learner profile lookup failed:", e.message);
       }
@@ -703,15 +758,34 @@ if (resultsTbodyEl) {
         certificateIssuedBy: auth.currentUser?.email || "unknown",
       }, { merge: true });
 
-      await generateCertificatePdf({
+      const courseTitle = sub.courseTitle || sub.courseId || "Training Course";
+      const pdf = await generateCertificatePdf({
         fullName,
-        courseTitle: sub.courseTitle || sub.courseId || "Training Course",
+        courseTitle,
         scorePercent: sub.scorePercent,
         completedAt: sub.completedAt,
         certificateNumber,
       });
 
+      let emailed = false;
+      if (email) {
+        try {
+          await emailCertificate({ pdf, email, fullName, courseTitle, certificateNumber });
+          emailed = true;
+          await setDoc(doc(db, "submissions", docId), { certificateEmailedTo: email, certificateEmailQueuedAt: new Date().toISOString() }, { merge: true });
+        } catch (mailErr) {
+          console.error("Certificate email failed:", mailErr);
+        }
+      }
+
       await loadSubmissions();
+      showModal({
+        title: "Certificate Issued",
+        message: emailed
+          ? `Certificate ${certificateNumber} downloaded and emailed to ${email}.`
+          : `Certificate ${certificateNumber} downloaded, but it could not be emailed automatically. Please send the PDF to ${email || "the learner"} yourself.`,
+        type: emailed ? "success" : "error",
+      });
     } catch (err) {
       console.error("Failed to issue certificate:", err);
       showModal({ title: "Certificate Failed", message: err.message, type: "error" });
