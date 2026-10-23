@@ -599,37 +599,57 @@ async function generateCertificatePdf({ fullName, courseTitle, scorePercent, com
   return pdf;
 }
 
-// Queues the certificate email. Delivery is done by the "Trigger Email from
-// Firestore" extension (firebase/firestore-send-email), which watches the
-// "mail" collection and sends each new doc over SMTP. The PDF goes along as a
-// base64 attachment (about 150 KB, well under Firestore's 1 MB doc limit).
-async function emailCertificate({ pdf, email, fullName, courseTitle, certificateNumber }) {
-  const base64 = pdf.output("datauristring").split(",")[1];
+// Certificate emails are sent from the admin's own email app, the same way
+// as the "Draft Email" button for access grants: the PDF downloads, then a
+// pre-written email (To / Subject / message) opens in Outlook via mailto:.
+// mailto: links cannot carry attachments, so the admin drags the downloaded
+// PDF into the draft and presses Send. (The Trigger Email extension route
+// was blocked because SMTP AUTH is disabled on the Microsoft 365 tenant.)
+function buildCertificateEmailLink({ email, fullName, courseTitle, certificateNumber }) {
   const firstName = (fullName || "").split(" ")[0] || "there";
-  const safe = s => String(s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  await addDoc(collection(db, "mail"), {
-    to: email,
-    message: {
-      subject: `Your certificate: ${courseTitle}`,
-      text:
-        `Kia ora ${firstName},\n\n` +
-        `Congratulations on completing ${courseTitle}. Your certificate (No. ${certificateNumber}) is attached.\n\n` +
-        `Nga mihi,\nJoseph Rosendaal\nTraining Manager, Sela Civil Advisory Ltd\njoseph@selacivil.co.nz | 027 267 7264\nhttps://selattm.com`,
-      html:
-        `<p>Kia ora ${safe(firstName)},</p>` +
-        `<p>Congratulations on completing <strong>${safe(courseTitle)}</strong>. ` +
-        `Your certificate (No. ${safe(certificateNumber)}) is attached to this email.</p>` +
-        `<p>Ng&#257; mihi,<br>Joseph Rosendaal<br>Training Manager, Sela Civil Advisory Ltd<br>` +
-        `joseph@selacivil.co.nz &nbsp;|&nbsp; 027 267 7264<br><a href="https://selattm.com">selattm.com</a></p>`,
-      attachments: [{
-        filename: `Certificate-${certificateNumber}.pdf`,
-        content: base64,
-        encoding: "base64",
-        contentType: "application/pdf",
-      }],
-    },
-    meta: { type: "certificate", certificateNumber, sentBy: auth.currentUser?.email || "unknown", queuedAt: new Date().toISOString() },
-  });
+  const subject = `Your certificate: ${courseTitle}`;
+  const body = [
+    `Kia ora ${firstName},`,
+    "",
+    `Congratulations on completing ${courseTitle}. Your certificate (No. ${certificateNumber}) is attached.`,
+    "",
+    "Ngā mihi,",
+    "Joseph Rosendaal",
+    "Training Manager, Sela Civil Advisory Ltd",
+    "joseph@selacivil.co.nz | 027 267 7264",
+    "https://selattm.com",
+  ].join("\n");
+  return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+// Small dialog with a real link to click (browsers only open the email app
+// reliably from a direct click, not after the async certificate work).
+function showCertificateEmailDialog({ email, fullName, courseTitle, certificateNumber }) {
+  const existing = document.getElementById("sela-cert-email-dialog");
+  if (existing) existing.remove();
+  const href = buildCertificateEmailLink({ email, fullName, courseTitle, certificateNumber });
+  const safe = v => String(v || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const overlay = document.createElement("div");
+  overlay.id = "sela-cert-email-dialog";
+  overlay.style.cssText = "position:fixed;inset:0;background:rgba(15,23,42,.75);backdrop-filter:blur(6px);" +
+    "display:flex;align-items:center;justify-content:center;z-index:99999;padding:20px;";
+  overlay.innerHTML = `
+    <div style="background:#1e293b;border:1px solid rgba(255,255,255,.15);border-radius:12px;max-width:460px;width:100%;
+      padding:26px 24px;color:#f8fafc;font-family:inherit;box-shadow:0 20px 40px rgba(0,0,0,.4);text-align:center;">
+      <h3 style="margin:0 0 10px;color:#4ade80;font-size:1.25rem;">Certificate ready</h3>
+      <p style="margin:0 0 6px;color:#cbd5e1;line-height:1.5;">
+        <strong>Certificate-${safe(certificateNumber)}.pdf</strong> has downloaded.</p>
+      <p style="margin:0 0 18px;color:#cbd5e1;line-height:1.5;">
+        Click below to open the email to <strong>${safe(email)}</strong>, drag the PDF from your
+        Downloads folder into it, then press Send.</p>
+      <a href="${href}" id="sela-cert-email-open" style="display:inline-block;background:#0284c7;color:#fff;text-decoration:none;
+        font-weight:700;padding:11px 20px;border-radius:8px;">Open email draft</a>
+      <div><button type="button" id="sela-cert-email-close" style="margin-top:14px;background:none;border:none;
+        color:#94a3b8;cursor:pointer;font-size:.9rem;">Close</button></div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelector("#sela-cert-email-close").addEventListener("click", () => overlay.remove());
+  overlay.querySelector("#sela-cert-email-open").addEventListener("click", () => setTimeout(() => overlay.remove(), 400));
 }
 
 function renderResultsTable(rows) {
@@ -651,9 +671,10 @@ function renderResultsTable(rows) {
 
     let certCell;
     if (r.certificateIssued) {
-      const emailedNote = r.certificateEmailedTo ? `<div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Emailed ${r.certificateEmailQueuedAt ? new Date(r.certificateEmailQueuedAt).toLocaleDateString("en-NZ") : ""}</div>` : "";
+      const draftedAt = r.certificateEmailDraftedAt || r.certificateEmailQueuedAt;
+      const emailedNote = draftedAt ? `<div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Email drafted ${new Date(draftedAt).toLocaleDateString("en-NZ")}</div>` : "";
       certCell = `<span class="badge badge-pending" style="text-transform:none;">${r.certificateNumber || "Issued"}</span>
-        <button class="btn-action btn-resend-cert" data-id="${r._id}" style="padding:4px 8px; font-size:0.75rem; margin-left:6px;">${r.certificateEmailedTo ? "Resend email" : "Email certificate"}</button>${emailedNote}`;
+        <button class="btn-action btn-resend-cert" data-id="${r._id}" style="padding:4px 8px; font-size:0.75rem; margin-left:6px;">Email certificate</button>${emailedNote}`;
     } else if (r.passed) {
       certCell = `<button class="btn-action btn-issue-cert" data-id="${r._id}" style="padding:6px 10px; font-size:0.8rem;">Issue Certificate</button>`;
     } else {
@@ -696,7 +717,7 @@ async function resendCertificateEmail(btn) {
   const docId = btn.dataset.id;
   const originalLabel = btn.textContent;
   btn.disabled = true;
-  btn.textContent = "Sending...";
+  btn.textContent = "Preparing...";
   try {
     const subSnap = await getDoc(doc(db, "submissions", docId));
     if (!subSnap.exists()) throw new Error("That result no longer exists -- try refreshing.");
@@ -723,22 +744,21 @@ async function resendCertificateEmail(btn) {
 
     const courseTitle = sub.courseTitle || sub.courseId || "Training Course";
     const certificateNumber = sub.certificateNumber || buildCertificateNumber(sub.courseCode);
-    const pdf = await generateCertificatePdf({
+    await generateCertificatePdf({
       fullName, courseTitle, scorePercent: sub.scorePercent, completedAt: sub.completedAt,
-      certificateNumber, download: false,
+      certificateNumber,
     });
-    await emailCertificate({ pdf, email, fullName, courseTitle, certificateNumber });
     await setDoc(doc(db, "submissions", docId), {
       certificateNumber, certificateName: fullName,
-      certificateEmailedTo: email, certificateEmailQueuedAt: new Date().toISOString(),
+      certificateEmailDraftedTo: email, certificateEmailDraftedAt: new Date().toISOString(),
     }, { merge: true });
     await loadSubmissions();
-    showModal({ title: "Certificate Emailed", message: `Certificate ${certificateNumber} has been sent to ${email}.`, type: "success" });
+    showCertificateEmailDialog({ email, fullName, courseTitle, certificateNumber });
   } catch (err) {
     console.error("Certificate email failed:", err);
     btn.disabled = false;
     btn.textContent = originalLabel;
-    showModal({ title: "Email Failed", message: `Could not queue the email: ${err.message}`, type: "error" });
+    showModal({ title: "Certificate Failed", message: err.message, type: "error" });
   }
 }
 
@@ -824,26 +844,16 @@ if (resultsTbodyEl) {
         certificateNumber,
       });
 
-      let emailed = false;
-      if (email) {
-        try {
-          await emailCertificate({ pdf, email, fullName, courseTitle, certificateNumber });
-          emailed = true;
-          await setDoc(doc(db, "submissions", docId), { certificateEmailedTo: email, certificateEmailQueuedAt: new Date().toISOString() }, { merge: true });
-        } catch (mailErr) {
-          console.error("Certificate email failed:", mailErr);
-          var mailErrText = mailErr && mailErr.message ? mailErr.message : String(mailErr);
-        }
-      }
-
+      await setDoc(doc(db, "submissions", docId), {
+        certificateEmailDraftedTo: email || null,
+        certificateEmailDraftedAt: new Date().toISOString(),
+      }, { merge: true });
       await loadSubmissions();
-      showModal({
-        title: "Certificate Issued",
-        message: emailed
-          ? `Certificate ${certificateNumber} downloaded and emailed to ${email}.`
-          : `Certificate ${certificateNumber} downloaded, but it could not be emailed automatically${typeof mailErrText !== "undefined" ? ` (${mailErrText})` : ""}. Use "Email certificate" in the table to try again, or send the PDF to ${email || "the learner"} yourself.`,
-        type: emailed ? "success" : "error",
-      });
+      if (email) {
+        showCertificateEmailDialog({ email, fullName, courseTitle, certificateNumber });
+      } else {
+        showModal({ title: "Certificate Issued", message: `Certificate ${certificateNumber} downloaded. This result has no email address, so please send it to the learner yourself.`, type: "success" });
+      }
     } catch (err) {
       console.error("Failed to issue certificate:", err);
       showModal({ title: "Certificate Failed", message: err.message, type: "error" });
