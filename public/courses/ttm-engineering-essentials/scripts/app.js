@@ -514,8 +514,10 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
   function applyNextState(slide) {
     var isLast = currentIndex === SLIDES.length - 1;
     var lockedNext = slide.kind === "finaltest-question" && testAnswers[slide.testIndex] === undefined;
-    nextBtn.disabled = isLast || lockedNext || gateLocked;
-    if (isLast) nextBtn.textContent = "Finished";
+    // On the closing slide "Finished" unlocks once its narration is done and
+    // takes the learner back to Your Courses (it used to stay disabled).
+    nextBtn.disabled = lockedNext || gateLocked;
+    if (isLast && !gateLocked) nextBtn.textContent = "Finished \u2713";
   }
 
   function stopGate() {
@@ -690,7 +692,11 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
     }
 
     prevBtn.addEventListener("click", function () { if (currentIndex > 0) { currentIndex--; renderCurrent(); } });
-    nextBtn.addEventListener("click", function () { if (currentIndex < SLIDES.length - 1) { currentIndex++; renderCurrent(); } });
+    nextBtn.addEventListener("click", function () {
+      if (nextBtn.disabled) return;
+      if (currentIndex < SLIDES.length - 1) { currentIndex++; renderCurrent(); }
+      else { window.location.href = "/learner.html"; }
+    });
 
     var restartBtn = document.getElementById("btn-restart");
     if (restartBtn) {

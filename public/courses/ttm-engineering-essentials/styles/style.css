@@ -306,3 +306,8 @@ h1, h2, h3, .headfont { font-family: Cambria, Georgia, "Times New Roman", serif;
 @media (max-width: 480px) {
   .summary-cards { grid-template-columns: 1fr; }
 }
+
+/* The green "% viewed" bar was distracting (and on phones it sat at the top of
+   the screen above the slide). Hidden rather than deleted from index.html,
+   because app.js still updates these elements. Home / Restart stay visible. */
+.progress-track, #progress-label { display: none; }
