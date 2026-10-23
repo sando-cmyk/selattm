@@ -501,71 +501,91 @@ async function loadImageAsDataUrl(url) {
 async function generateCertificatePdf({ fullName, courseTitle, scorePercent, completedAt, certificateNumber }) {
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF({ orientation: "landscape", unit: "pt", format: "a4" });
-  const pageWidth = pdf.internal.pageSize.getWidth();
-  const pageHeight = pdf.internal.pageSize.getHeight();
+  const pageWidth = pdf.internal.pageSize.getWidth();   // 842
+  const pageHeight = pdf.internal.pageSize.getHeight(); // 595
+  const centerX = pageWidth / 2;
 
-  pdf.setDrawColor(15, 76, 58);
-  pdf.setLineWidth(2);
-  pdf.rect(24, 24, pageWidth - 48, pageHeight - 48);
+  // Brand colours taken from the Sela SkillsHub certificate artwork.
+  const NAVY = [22, 50, 110];
+  const GREEN = [62, 140, 46];
+  const SLATE = [58, 65, 80];
+  const GREY = [95, 100, 110];
 
+  // Full-page background (Sela SkillsHub logo, swooshes, watermark and the
+  // dotted signature line are all part of the artwork, so nothing else is drawn
+  // for them here). Text positions below are fitted to that artwork.
   try {
-    const logoData = await loadImageAsDataUrl("img/sela-logo-transparent.png");
-    pdf.addImage(logoData, "PNG", pageWidth / 2 - 60, 45, 120, 60);
+    const bgData = await loadImageAsDataUrl("img/certificate-bg.jpg");
+    pdf.addImage(bgData, "JPEG", 0, 0, pageWidth, pageHeight);
   } catch (e) {
-    console.warn("Certificate: logo failed to load, continuing without it.", e);
+    console.warn("Certificate: background failed to load, falling back to plain layout.", e);
+    try {
+      const logoData = await loadImageAsDataUrl("img/sela-logo-transparent.png");
+      pdf.addImage(logoData, "PNG", 40, 40, 120, 60);
+    } catch (_) { /* continue without imagery */ }
   }
 
   pdf.setFont("times", "bold");
-  pdf.setFontSize(30);
-  pdf.setTextColor(15, 76, 58);
-  pdf.text("Certificate of Completion", pageWidth / 2, 150, { align: "center" });
+  pdf.setFontSize(34);
+  pdf.setTextColor(...NAVY);
+  pdf.text("Certificate of Completion", centerX, 210, { align: "center" });
 
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(14);
-  pdf.setTextColor(60, 60, 60);
-  pdf.text("This certifies that", pageWidth / 2, 190, { align: "center" });
+  pdf.setTextColor(...GREY);
+  pdf.text("This certifies that", centerX, 248, { align: "center" });
 
   pdf.setFont("times", "bolditalic");
-  pdf.setFontSize(26);
-  pdf.setTextColor(20, 20, 20);
-  pdf.text(fullName, pageWidth / 2, 225, { align: "center" });
+  let nameSize = 30;
+  pdf.setFontSize(nameSize);
+  while (pdf.getTextWidth(fullName) > 520 && nameSize > 18) {
+    nameSize -= 1;
+    pdf.setFontSize(nameSize);
+  }
+  pdf.setTextColor(...SLATE);
+  pdf.text(fullName, centerX, 290, { align: "center" });
+
+  pdf.setDrawColor(...GREEN);
+  pdf.setLineWidth(1.5);
+  pdf.line(centerX - 160, 302, centerX + 160, 302);
 
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(14);
-  pdf.setTextColor(60, 60, 60);
-  pdf.text("has successfully completed the course", pageWidth / 2, 255, { align: "center" });
+  pdf.setTextColor(...GREY);
+  pdf.text("has successfully completed the course", centerX, 330, { align: "center" });
 
   pdf.setFont("helvetica", "bold");
-  pdf.setFontSize(18);
-  pdf.setTextColor(15, 76, 58);
-  pdf.text(courseTitle, pageWidth / 2, 285, { align: "center" });
+  pdf.setFontSize(19);
+  pdf.setTextColor(...NAVY);
+  const titleLines = pdf.splitTextToSize(courseTitle || "", 500).slice(0, 2);
+  titleLines.forEach((line, i) => pdf.text(line, centerX, 362 + i * 23, { align: "center" }));
+  const afterTitleY = 362 + (titleLines.length - 1) * 23;
 
   const completedDate = completedAt
     ? new Date(completedAt).toLocaleDateString("en-NZ", { day: "numeric", month: "long", year: "numeric" })
     : "--";
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(12);
-  pdf.setTextColor(60, 60, 60);
+  pdf.setTextColor(...GREY);
   const scoreText = typeof scorePercent === "number" ? `${scorePercent}%` : "--";
-  pdf.text(`Score: ${scoreText}   |   Completed: ${completedDate}`, pageWidth / 2, 315, { align: "center" });
+  pdf.text(`Score: ${scoreText}   |   Completed: ${completedDate}`, centerX, afterTitleY + 32, { align: "center" });
 
-  const sigY = pageHeight - 110;
-  pdf.setDrawColor(120, 120, 120);
-  pdf.setLineWidth(1);
-  pdf.line(pageWidth / 2 - 120, sigY, pageWidth / 2 + 120, sigY);
+  // Signature block sits on the artwork's dotted line (bottom right, ~x 466-801, y ~518).
+  const sigX = 633;
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(12);
-  pdf.setTextColor(20, 20, 20);
-  pdf.text("Craig Sanders", pageWidth / 2, sigY + 18, { align: "center" });
+  pdf.setTextColor(...SLATE);
+  pdf.text("Craig Sanders", sigX, 536, { align: "center" });
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(10);
-  pdf.setTextColor(90, 90, 90);
-  pdf.text("Director, Sela Civil Advisory Ltd", pageWidth / 2, sigY + 32, { align: "center" });
+  pdf.setTextColor(...GREY);
+  pdf.text("Director, Sela Civil Advisory Ltd", sigX, 550, { align: "center" });
 
-  pdf.setFontSize(9);
+  // Footer in the clear strip below the artwork.
+  pdf.setFontSize(8.5);
   pdf.setTextColor(130, 130, 130);
-  pdf.text(`Certificate No. ${certificateNumber}`, 40, pageHeight - 34);
-  pdf.text("Sela Civil Advisory Ltd  |  NZBN 9429053816207  |  www.selacivil.co.nz", pageWidth - 40, pageHeight - 34, { align: "right" });
+  pdf.text(`Certificate No. ${certificateNumber}`, pageWidth - 40, 572, { align: "right" });
+  pdf.text("Sela Civil Advisory Ltd  |  NZBN 9429053816207  |  www.selacivil.co.nz", pageWidth - 40, 584, { align: "right" });
 
   pdf.save(`Certificate-${certificateNumber}.pdf`);
 }

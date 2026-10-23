@@ -21,7 +21,7 @@ const auth = getAuth();
 const db = getFirestore();
 
 const NAV_LINKS = [
-  { href: "store.html", label: "Courses" },
+  { href: "store.html", label: "Sela Course Library" },
   { href: "about-us.html", label: "About" },
   { href: "contact.html", label: "Contact" }
 ];
@@ -89,7 +89,7 @@ function bindAuthState() {
     }
 
     if (dynamicLinks) {
-      let links = `<a href="learner.html"${isCurrentPage("learner.html") ? ' class="active"' : ""}>Learner Hub</a>`;
+      let links = `<a href="learner.html"${isCurrentPage("learner.html") ? ' class="active"' : ""}>Your Courses</a>`;
       if (isAdmin) {
         links += ` <a href="admin.html" style="color: var(--primary-color);"${isCurrentPage("admin.html") ? ' class="active"' : ""}>Admin</a>`;
       }
