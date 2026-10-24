@@ -17,7 +17,8 @@ import {
   collection, 
   getDocs, 
   query, 
-  limit 
+  limit,
+  onSnapshot 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { showModal } from "./modal.js";
 
@@ -624,7 +625,7 @@ function buildCertificateEmailLink({ email, fullName, courseTitle, certificateNu
 
 // Small dialog with a real link to click (browsers only open the email app
 // reliably from a direct click, not after the async certificate work).
-function showCertificateEmailDialog({ email, fullName, courseTitle, certificateNumber }) {
+function showCertificateEmailDialog({ email, fullName, courseTitle, certificateNumber, note = "" }) {
   const existing = document.getElementById("sela-cert-email-dialog");
   if (existing) existing.remove();
   const href = buildCertificateEmailLink({ email, fullName, courseTitle, certificateNumber });
@@ -636,7 +637,8 @@ function showCertificateEmailDialog({ email, fullName, courseTitle, certificateN
   overlay.innerHTML = `
     <div style="background:#1e293b;border:1px solid rgba(255,255,255,.15);border-radius:12px;max-width:460px;width:100%;
       padding:26px 24px;color:#f8fafc;font-family:inherit;box-shadow:0 20px 40px rgba(0,0,0,.4);text-align:center;">
-      <h3 style="margin:0 0 10px;color:#4ade80;font-size:1.25rem;">Certificate ready</h3>
+      <h3 style="margin:0 0 10px;color:${note ? "#fbbf24" : "#4ade80"};font-size:1.25rem;">${note ? "Send it from Outlook instead" : "Certificate ready"}</h3>
+      ${note ? `<p style="margin:0 0 10px;color:#fca5a5;font-size:.88rem;line-height:1.4;">${safe(note)}</p>` : ""}
       <p style="margin:0 0 6px;color:#cbd5e1;line-height:1.5;">
         <strong>Certificate-${safe(certificateNumber)}.pdf</strong> has downloaded.</p>
       <p style="margin:0 0 18px;color:#cbd5e1;line-height:1.5;">
@@ -672,9 +674,11 @@ function renderResultsTable(rows) {
     let certCell;
     if (r.certificateIssued) {
       const draftedAt = r.certificateEmailDraftedAt || r.certificateEmailQueuedAt;
-      const emailedNote = draftedAt ? `<div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Email drafted ${new Date(draftedAt).toLocaleDateString("en-NZ")}</div>` : "";
+      const emailedNote = r.certificateEmailedAt
+        ? `<div style="font-size:0.72rem;color:#4ade80;margin-top:4px;">Emailed ${new Date(r.certificateEmailedAt).toLocaleDateString("en-NZ")}</div>`
+        : draftedAt ? `<div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Outlook draft ${new Date(draftedAt).toLocaleDateString("en-NZ")}</div>` : "";
       certCell = `<span class="badge badge-pending" style="text-transform:none;">${r.certificateNumber || "Issued"}</span>
-        <button class="btn-action btn-resend-cert" data-id="${r._id}" style="padding:4px 8px; font-size:0.75rem; margin-left:6px;">Email certificate</button>${emailedNote}`;
+        <button class="btn-action btn-resend-cert" data-id="${r._id}" style="padding:4px 8px; font-size:0.75rem; margin-left:6px;">${r.certificateEmailedAt ? "Resend email" : "Email certificate"}</button>${emailedNote}`;
     } else if (r.passed) {
       certCell = `<button class="btn-action btn-issue-cert" data-id="${r._id}" style="padding:6px 10px; font-size:0.8rem;">Issue Certificate</button>`;
     } else {
@@ -711,13 +715,89 @@ async function loadSubmissions() {
   }
 }
 
+// Automatic certificate email: queued in "mail" for the Trigger Email
+// extension (sends via Brevo SMTP as joseph@selacivil.co.nz) with the PDF
+// attached. The admin page watches the queued doc for the extension's
+// delivery result and, if it fails or takes too long, falls back to the
+// Outlook draft dialog above so the certificate still gets sent.
+function waitForDelivery(ref, timeoutMs = 75000) {
+  return new Promise(resolve => {
+    let done = false;
+    const finish = (r) => { if (!done) { done = true; clearTimeout(t); unsub(); resolve(r); } };
+    const t = setTimeout(() => finish({ state: "TIMEOUT" }), timeoutMs);
+    const unsub = onSnapshot(ref, snap => {
+      const d = snap.data() && snap.data().delivery;
+      if (d && (d.state === "SUCCESS" || d.state === "ERROR")) finish({ state: d.state, error: d.error || "" });
+    }, err => finish({ state: "ERROR", error: err.message }));
+  });
+}
+
+async function sendCertificateAutomatically({ pdf, alreadyDownloaded, docId, email, fullName, courseTitle, certificateNumber }) {
+  const firstName = (fullName || "").split(" ")[0] || "there";
+  const safe = v => String(v || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  showModal({ title: "Sending certificate...", message: `Emailing certificate ${certificateNumber} to ${email}. This usually takes 10-30 seconds -- please keep this page open.`, type: "info" });
+  let outcome;
+  try {
+    const ref = await addDoc(collection(db, "mail"), {
+      to: email,
+      message: {
+        subject: `Your certificate: ${courseTitle}`,
+        text:
+          `Kia ora ${firstName},\n\n` +
+          `Congratulations on completing ${courseTitle}. Your certificate (No. ${certificateNumber}) is attached.\n\n` +
+          `Nga mihi,\nJoseph Rosendaal\nTraining Manager, Sela Civil Advisory Ltd\njoseph@selacivil.co.nz | 027 267 7264\nhttps://selattm.com`,
+        html:
+          `<p>Kia ora ${safe(firstName)},</p>` +
+          `<p>Congratulations on completing <strong>${safe(courseTitle)}</strong>. ` +
+          `Your certificate (No. ${safe(certificateNumber)}) is attached to this email.</p>` +
+          `<p>Ng&#257; mihi,<br>Joseph Rosendaal<br>Training Manager, Sela Civil Advisory Ltd<br>` +
+          `joseph@selacivil.co.nz &nbsp;|&nbsp; 027 267 7264<br><a href="https://selattm.com">selattm.com</a></p>`,
+        attachments: [{
+          filename: `Certificate-${certificateNumber}.pdf`,
+          content: pdf.output("datauristring").split(",")[1],
+          encoding: "base64",
+          contentType: "application/pdf",
+        }],
+      },
+      meta: { type: "certificate", certificateNumber, submissionId: docId, sentBy: auth.currentUser?.email || "unknown", queuedAt: new Date().toISOString() },
+    });
+    outcome = await waitForDelivery(ref);
+  } catch (err) {
+    outcome = { state: "ERROR", error: err.message };
+  }
+  const existing = document.getElementById("sela-custom-modal");
+  if (existing) existing.remove();
+
+  if (outcome.state === "SUCCESS") {
+    await setDoc(doc(db, "submissions", docId), {
+      certificateEmailedTo: email, certificateEmailedAt: new Date().toISOString(),
+    }, { merge: true });
+    await loadSubmissions();
+    showModal({ title: "Certificate Emailed", message: `Certificate ${certificateNumber} was emailed to ${email}.`, type: "success" });
+    return;
+  }
+
+  console.error("Automatic certificate email failed:", outcome);
+  if (!alreadyDownloaded) pdf.save(`Certificate-${certificateNumber}.pdf`);
+  await setDoc(doc(db, "submissions", docId), {
+    certificateEmailDraftedTo: email, certificateEmailDraftedAt: new Date().toISOString(),
+  }, { merge: true });
+  await loadSubmissions();
+  showCertificateEmailDialog({
+    email, fullName, courseTitle, certificateNumber,
+    note: outcome.state === "TIMEOUT"
+      ? "The automatic email hasn't been confirmed yet (it may still arrive). To be safe, send it from Outlook."
+      : `The automatic email failed: ${outcome.error || "unknown error"}`,
+  });
+}
+
 // Re-sends an already-issued certificate: rebuilds the same PDF (same
 // certificate number and printed name) and queues it to the learner again.
 async function resendCertificateEmail(btn) {
   const docId = btn.dataset.id;
   const originalLabel = btn.textContent;
   btn.disabled = true;
-  btn.textContent = "Preparing...";
+  btn.textContent = "Sending...";
   try {
     const subSnap = await getDoc(doc(db, "submissions", docId));
     if (!subSnap.exists()) throw new Error("That result no longer exists -- try refreshing.");
@@ -744,16 +824,12 @@ async function resendCertificateEmail(btn) {
 
     const courseTitle = sub.courseTitle || sub.courseId || "Training Course";
     const certificateNumber = sub.certificateNumber || buildCertificateNumber(sub.courseCode);
-    await generateCertificatePdf({
+    const pdf = await generateCertificatePdf({
       fullName, courseTitle, scorePercent: sub.scorePercent, completedAt: sub.completedAt,
-      certificateNumber,
+      certificateNumber, download: false,
     });
-    await setDoc(doc(db, "submissions", docId), {
-      certificateNumber, certificateName: fullName,
-      certificateEmailDraftedTo: email, certificateEmailDraftedAt: new Date().toISOString(),
-    }, { merge: true });
-    await loadSubmissions();
-    showCertificateEmailDialog({ email, fullName, courseTitle, certificateNumber });
+    await setDoc(doc(db, "submissions", docId), { certificateNumber, certificateName: fullName }, { merge: true });
+    await sendCertificateAutomatically({ pdf, alreadyDownloaded: false, docId, email, fullName, courseTitle, certificateNumber });
   } catch (err) {
     console.error("Certificate email failed:", err);
     btn.disabled = false;
@@ -844,13 +920,9 @@ if (resultsTbodyEl) {
         certificateNumber,
       });
 
-      await setDoc(doc(db, "submissions", docId), {
-        certificateEmailDraftedTo: email || null,
-        certificateEmailDraftedAt: new Date().toISOString(),
-      }, { merge: true });
       await loadSubmissions();
       if (email) {
-        showCertificateEmailDialog({ email, fullName, courseTitle, certificateNumber });
+        await sendCertificateAutomatically({ pdf, alreadyDownloaded: true, docId, email, fullName, courseTitle, certificateNumber });
       } else {
         showModal({ title: "Certificate Issued", message: `Certificate ${certificateNumber} downloaded. This result has no email address, so please send it to the learner yourself.`, type: "success" });
       }
