@@ -392,6 +392,9 @@ import { auth, db, addDoc, collection } from "../../../js/firebase-init.js";
   function renderFinalTestResult(slide) {
     var result = computeTestScore();
     if (result.pass && allNarratedCleared()) markCleared("__test_passed__");
+    // Every attempt (pass or fail) is also logged for the admin learner history.
+    try { import("/js/attempt-logger.js").then(function (m) { m.logAttempt({ quizId: "final-test", score: result.correct, total: result.total, passed: result.pass }); }); } catch (e) {}
+
     SCORM.setCompleted(result.pass, result.pct);
     var recordStatus = el("p", { class: "record-status", style: "font-weight:bold;margin:12px 0;" }, "");
     recordResultOnceIfPassed(result, function (t) { recordStatus.textContent = t; });

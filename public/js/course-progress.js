@@ -112,6 +112,8 @@
     if (!quizId || !total) return;
     state.quizzes[quizId] = { score: score, total: total, passed: (score / total) >= 0.8 };
     saveState();
+    // Every attempt (pass or fail) is also logged for the admin learner history.
+    try { import("/js/attempt-logger.js").then(function (m) { m.logAttempt({ quizId: quizId, score: score, total: total, passed: (score / total) >= 0.8 }); }); } catch (e) {}
     return state.quizzes[quizId];
   }
 

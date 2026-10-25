@@ -16,6 +16,7 @@
 
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import "./last-seen.js"; // records "last active" for the admin Learners panel
 
 const auth = getAuth();
 const db = getFirestore();

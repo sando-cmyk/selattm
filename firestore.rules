@@ -82,6 +82,8 @@ service cloud.firestore {
       }
       match /payments/{paymentId} {
         allow read, write: if isSignedIn() && request.auth.uid == uid;
+        // Admins see which courses a learner has paid for (Learners panel).
+        allow read: if isAdmin();
       }
     }
 
@@ -94,6 +96,25 @@ service cloud.firestore {
       allow read: if isSignedIn() &&
         (resource.data.userId == request.auth.uid || isAdmin());
       allow update, delete: if isAdmin();
+    }
+
+    // -- every quiz / test attempt, pass or fail (js/attempt-logger.js) --
+    // A learner can log their own attempts; only admins read them all.
+    match /attempts/{attemptId} {
+      allow create: if isSignedIn() &&
+        request.resource.data.userId == request.auth.uid;
+      allow read: if isSignedIn() &&
+        (resource.data.userId == request.auth.uid || isAdmin());
+      allow update, delete: if isAdmin();
+    }
+
+    // -- learner course order, set by admins (admin-learners.js) ------
+    // Keyed by lowercased email so it can be set before first sign-in.
+    // The learner can read their own plan but never change it.
+    match /learner_plans/{email} {
+      allow read: if isAdmin() ||
+        (isSignedIn() && request.auth.token.email.lower() == email);
+      allow write: if isAdmin();
     }
 
     // -- outgoing email (Trigger Email extension) -- admin only -------

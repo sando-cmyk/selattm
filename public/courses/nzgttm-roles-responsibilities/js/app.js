@@ -435,6 +435,8 @@
     state.quizPassed = pct >= COURSE.meta.passmark;
     SCORM.setScore(pct, 100, 0);
     SCORM.setStatus(state.quizPassed ? "passed" : "failed");
+    // Every attempt (pass or fail) is also logged for the admin learner history.
+    try { import("/js/attempt-logger.js").then(function (m) { m.logAttempt({ quizId: "final", score: correctCount, total: COURSE.quiz.length, passed: state.quizPassed }); }); } catch (e) {}
     return { correctCount: correctCount, pct: pct };
   }
 

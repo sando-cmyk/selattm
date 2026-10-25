@@ -455,6 +455,35 @@
       </div>
     </section>
 
+    <!-- Learners -->
+    <section class="panel-card">
+      <h2>Learners</h2>
+      <p class="subtitle">Everyone with an account, a pre-paid course or a result. Click View for their full profile: last login, every attempt and outcome, pre-paid courses and the order they must complete them in.</p>
+      <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+        <input id="learners-search" type="search" placeholder="Search name or email..." style="flex:1 1 260px;padding:10px;border-radius:6px;" />
+        <button id="btn-refresh-learners" class="btn-action">Refresh</button>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Learner</th>
+              <th>Last active</th>
+              <th>Pre-paid</th>
+              <th>Attempts</th>
+              <th>Courses passed</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="learners-tbody">
+            <tr>
+              <td colspan="6" style="text-align: center; color: var(--text-muted);">Loading...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- Active Course Catalog -->
     <section class="panel-card">
       <h2>Live Course Catalog</h2>
@@ -490,6 +519,7 @@
   <script type="module" src="./js/firebase-init.js"></script>
   <script type="module" src="./js/navigation.js"></script>
   <script type="module" src="./js/admin-app.js"></script>
+  <script type="module" src="./js/admin-learners.js"></script>
 
   <!-- Ingestion Script Wiring -->
   <script type="module">

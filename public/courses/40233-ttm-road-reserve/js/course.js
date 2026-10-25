@@ -25,6 +25,8 @@ var Course = (function () {
   function recordQuiz(quizId, score, total) {
     state.quizzes[quizId] = { score: score, total: total, passed: (score / total) >= 0.8 };
     saveState(state);
+    // Every attempt (pass or fail) is also logged for the admin learner history.
+    try { import("/js/attempt-logger.js").then(function (m) { m.logAttempt({ quizId: quizId, score: score, total: total, passed: (score / total) >= 0.8 }); }); } catch (e) {}
   }
   function getQuizResult(quizId) { return state.quizzes[quizId] || null; }
   // A slide only counts once its read/listen/watch lock was cleared too (see

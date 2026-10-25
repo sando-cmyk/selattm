@@ -117,6 +117,22 @@
       transition: background 0.2s;
     }
 
+    .course-step {
+      display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: .04em;
+      background: rgba(56, 189, 248, 0.15); color: var(--accent-blue);
+      padding: 3px 8px; border-radius: 999px; margin: 0 6px 8px 0;
+    }
+    .course-done {
+      display: inline-block; font-size: 0.75rem; font-weight: 700;
+      background: rgba(34, 197, 94, 0.15); color: var(--accent-green);
+      padding: 3px 8px; border-radius: 999px; margin: 0 6px 8px 0;
+    }
+    .course-locked { opacity: 0.6; }
+    .btn-locked, .btn-locked:hover {
+      background: rgba(148, 163, 184, 0.2) !important; color: var(--text-muted) !important;
+      cursor: not-allowed; font-size: 0.85rem; line-height: 1.3;
+    }
+
     .btn-launch:hover {
       background: var(--accent-hover);
     }
@@ -151,6 +167,7 @@
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import { getFirestore, collection, getDocs, doc, getDoc, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
     import { ensureLearnerProfile } from "./js/learner-profile.js";
+    import { loadSequence } from "./js/course-sequence.js";
 
     const auth = getAuth();
     const db = getFirestore();
@@ -210,16 +227,22 @@
         const title = mod.title || "Course Module";
         const desc = mod.description || "Certified roadside training module.";
         const launch = mod.launchPath || `/courses/${mod.id}/index.html`;
+        const step = mod._step ? `<span class="course-step">Step ${mod._step}</span>` : "";
+        const done = mod._passed ? `<span class="course-done">&#10003; Completed</span>` : "";
+        const action = mod._lockedBy
+          ? `<span class="btn-launch btn-locked" title="Complete the earlier course first">&#128274; Complete &ldquo;${mod._lockedBy}&rdquo; first</span>`
+          : `<a href="${launch}" class="btn-launch">${mod._passed ? "Review Module" : "Launch Module"}</a>`;
 
         return `
-          <div class="course-card">
+          <div class="course-card${mod._lockedBy ? " course-locked" : ""}">
             <div>
+              ${step}${done}
               <span class="course-code">${code}</span>
               <h3 class="course-title">${title}</h3>
               <p class="course-desc">${desc}</p>
             </div>
             <div>
-              <a href="${launch}" class="btn-launch">Launch Module</a>
+              ${action}
             </div>
           </div>
         `;
@@ -285,6 +308,26 @@
           .filter(Boolean);
         return validIds.some(id => paidCourseIds.has(id));
       });
+      // Admin-set completion order (admin.html -> Learners -> View). Courses in
+      // the plan come first, in order; anything else follows. When the plan is
+      // enforced, a course stays locked until every earlier one is passed.
+      try {
+        const seq = await loadSequence(user);
+        const ownedIds = owned.map(c => c.id);
+        const pos = id => { const i = seq.order.indexOf(id); return i === -1 ? 9999 : i; };
+        owned.sort((a, b) => pos(a.id) - pos(b.id));
+        owned.forEach(c => {
+          c._passed = seq.passed.has(c.id);
+          if (seq.order.includes(c.id) && seq.order.length > 1) c._step = seq.order.filter(id => ownedIds.includes(id)).indexOf(c.id) + 1;
+          const prev = seq.blockedBy(c.id, ownedIds);
+          if (prev) {
+            const p = catalog.find(x => x.id === prev);
+            c._lockedBy = (p && (p.title || p.code)) || prev;
+          }
+        });
+      } catch (e) {
+        console.warn("[Learner] sequence check skipped:", e.message);
+      }
       renderModules(owned);
     }
 
