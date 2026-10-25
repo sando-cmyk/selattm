@@ -115,6 +115,42 @@
       margin-bottom: 16px;
     }
 
+    /* Course outline (what you'll cover / demonstrate) -- js/course-summaries.js */
+    .course-outline {
+      margin: -6px 0 20px;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.35);
+    }
+    .course-outline summary {
+      cursor: pointer;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-blue);
+      list-style: none;
+    }
+    .course-outline summary::-webkit-details-marker { display: none; }
+    .course-outline summary::before { content: "\25B8"; display: inline-block; margin-right: 8px; transition: transform .15s; }
+    .course-outline[open] summary::before { transform: rotate(90deg); }
+    .course-outline-body {
+      padding: 0 14px 12px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+    .course-outline-body h4 {
+      margin: 12px 0 4px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+    }
+    .course-outline-body ul { margin: 0; padding-left: 18px; }
+    .course-outline-body li { margin: 3px 0; }
+    .course-outline-body p { margin: 0 0 6px; }
+    .course-outline-body .co-overview { color: var(--text-main); }
+
     .btn-enroll {
       width: 100%;
       background: #0284c7;
@@ -348,6 +384,19 @@
   <!-- Dynamic Firestore Catalog Refresh (Enhances the static HTML with live Firestore data if available) -->
   <script type="module">
     import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { courseOutlineHtml } from "./js/course-summaries.js";
+
+    // Adds the "Course outline" (what you'll cover / demonstrate) under each
+    // course's description, whichever way the cards were rendered.
+    function addCourseOutlines() {
+      document.querySelectorAll("#store-catalog-grid .course-card").forEach(card => {
+        if (card.querySelector(".course-outline")) return;
+        const btn = card.querySelector("[data-id]");
+        const outline = btn ? courseOutlineHtml(btn.dataset.id) : "";
+        const top = card.firstElementChild;
+        if (outline && top) top.insertAdjacentHTML("beforeend", outline);
+      });
+    }
 
     const db = getFirestore();
 
@@ -431,6 +480,7 @@
         console.warn("Using default static catalog:", err.message);
       } finally {
         attachButtonListeners();
+        addCourseOutlines();
         // Reveal the catalog now that we know which content it holds --
         // either the freshly-rendered Firestore list, or (on error/empty
         // result) the untouched static fallback cards. Never show one
