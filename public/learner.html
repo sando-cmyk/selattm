@@ -134,7 +134,7 @@
     }
 
     .btn-record {
-      display: block; width: 100%; margin-top: 10px; padding: 10px;
+      display: inline-block; margin-top: 14px; padding: 10px 18px;
       background: transparent; color: var(--accent-blue);
       border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 6px;
       font-weight: 600; font-size: 0.85rem; cursor: pointer;
@@ -156,6 +156,7 @@
     <header class="learner-header">
       <h1>Your Courses</h1>
       <p id="learner-welcome-text">Access your active training modules and assessments.</p>
+      <button type="button" id="btn-record-of-learning" class="btn-record" style="display:none;">&#11015; Download my Record of Learning (PDF)</button>
     </header>
 
     <div id="learner-courses-grid" class="learner-grid">
@@ -254,7 +255,6 @@
             </div>
             <div>
               ${action}
-              ${mod._passed ? `<button type="button" class="btn-record" data-course-id="${mod.id}" data-title="${title}" data-code="${mod.code || ""}">&#11015; Download Record of Learning</button>` : ""}
             </div>
           </div>
         `;
@@ -340,18 +340,21 @@
       } catch (e) {
         console.warn("[Learner] sequence check skipped:", e.message);
       }
+      window.__learnerCourses = owned.map(c => ({ id: c.id, title: c.title, code: c.code }));
+      const recBtn = document.getElementById("btn-record-of-learning");
+      if (recBtn) recBtn.style.display = "";
       renderModules(owned);
     }
 
-    // Record of Learning PDF for completed courses (js/record-of-learning.js).
-    document.getElementById("learner-courses-grid")?.addEventListener("click", async (e) => {
-      const btn = e.target.closest(".btn-record");
-      if (!btn) return;
+    // One Record of Learning PDF covering all of the learner's Sela Skills Hub
+    // learning (js/record-of-learning.js).
+    document.getElementById("btn-record-of-learning")?.addEventListener("click", async (e) => {
+      const btn = e.currentTarget;
       const label = btn.innerHTML;
       btn.disabled = true;
-      btn.textContent = "Preparing PDF...";
+      btn.textContent = "Preparing your PDF...";
       try {
-        await downloadRecordOfLearning({ user: auth.currentUser, courseId: btn.dataset.courseId, courseTitle: btn.dataset.title, courseCode: btn.dataset.code });
+        await downloadRecordOfLearning({ user: auth.currentUser, courses: window.__learnerCourses || [] });
       } catch (err) {
         alert(err.message);
       } finally {
