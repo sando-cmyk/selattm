@@ -10,6 +10,7 @@ export const COURSES = {
   "tmw-side-road-safety": { courseId: "tmw-side-road-safety", courseCode: "TTM-TMW-01", courseTitle: "Staging & Vehicles on Side Roads" },
   "40233-ttm-road-reserve": { courseId: "40233-ttm-road-reserve", courseCode: "US-40233", courseTitle: "Assist with Temporary Traffic Management within the Road Reserve" },
   "nzgttm-essentials": { courseId: "nzgttm-01", courseCode: "NZGTTM-01", courseTitle: "NZGTTM Essentials" },
+  "nzgttm-ra-01": { courseId: "nzgttm-ra-01", courseCode: "NZGTTM-RA-01", courseTitle: "NZGTTM Risk Assessment & TMP Fundamentals" },
   "nzgttm-roles-responsibilities": { courseId: "ttm-roles-01", courseCode: "TTM-ROLES-01", courseTitle: "Roles & Responsibilities for TTM in New Zealand" },
   "ttm-engineering-essentials": { courseId: "ttm-eng-01", courseCode: "TTM-ENG-01", courseTitle: "Core Engineering Concepts of TTM in New Zealand" },
   "ashtas-01": { courseId: "ashtas-01", courseCode: "ASHTAS-01", courseTitle: "ASHTAS Operative" },

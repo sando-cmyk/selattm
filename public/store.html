@@ -115,6 +115,29 @@
       margin-bottom: 16px;
     }
 
+    /* Course Library sub-menus */
+    .library-tabs {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+      margin: 0 0 28px;
+    }
+    .library-tabs a {
+      text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.95rem;
+      padding: 9px 16px; border-radius: 999px; border: 1px solid var(--card-border);
+      background: var(--card-bg); transition: all .15s;
+    }
+    .library-tabs a:hover { color: var(--text-main); border-color: rgba(56, 189, 248, 0.4); }
+    .library-tabs a.active { background: #0284c7; border-color: #0284c7; color: #fff; }
+    .library-tabs .tab-count { opacity: .7; font-weight: 500; margin-left: 2px; }
+    .library-group-heading {
+      grid-column: 1 / -1; margin: 12px 0 -10px; font-size: 1.1rem; font-weight: 700;
+      color: var(--text-main); border-bottom: 1px solid var(--card-border); padding-bottom: 8px;
+    }
+    .library-group-heading:first-child { margin-top: 0; }
+    @media (max-width: 600px) {
+      .library-tabs { gap: 8px; }
+      .library-tabs a { white-space: nowrap; font-size: 0.88rem; padding: 8px 13px; }
+    }
+
     /* Course outline (what you'll cover / demonstrate) -- js/course-summaries.js */
     .course-outline {
       margin: -6px 0 20px;
@@ -246,12 +269,21 @@
   <main class="store-container">
     <header class="store-header">
       <h1>Sela Course Library</h1>
-      <p>Browse certified temporary traffic management, barrier systems, and high-speed corridor qualifications.</p>
+      <p>Browse SELA certified courses in temporary traffic management, barrier systems and high-speed corridor work.</p>
     </header>
 
     <!-- Loading placeholder shown only until we know whether to reveal the
          Firestore-driven catalog or the static fallback below -- prevents the
          page rendering the course list twice with two different orderings. -->
+    <!-- Course Library sub-menus (also linked from the site nav dropdown as
+         store.html#barrier / #ttm / #other) -->
+    <nav class="library-tabs" id="library-tabs" aria-label="Course categories" style="display:none;">
+      <a href="#all" data-group="all">All courses <span class="tab-count"></span></a>
+      <a href="#barrier" data-group="barrier">Barrier Training <span class="tab-count"></span></a>
+      <a href="#ttm" data-group="ttm">TTM Training <span class="tab-count"></span></a>
+      <a href="#other" data-group="other">Other Training <span class="tab-count"></span></a>
+    </nav>
+
     <p id="store-loading-msg" style="text-align:center; color:var(--text-muted); padding:32px 0;">Loading courses...</p>
 
     <!-- Main Grid Container -->
@@ -275,7 +307,7 @@
         <div>
           <span class="course-code">PTS-01</span>
           <h3 class="course-title">Working with Portable Traffic Signals</h3>
-          <p class="course-desc">Certified training for the safe setup and operation of portable traffic signals on site.</p>
+          <p class="course-desc">SELA certified training for the safe setup and operation of portable traffic signals on site.</p>
         </div>
         <div>
           <div class="course-price">NZD $45.00</div>
@@ -317,6 +349,17 @@
       </div>
       <div class="course-card">
         <div>
+          <span class="course-code">NZGTTM-RA-01</span>
+          <h3 class="course-title">NZGTTM Risk Assessment &amp; TMP Fundamentals</h3>
+          <p class="course-desc">Six-module course on the NZGTTM risk-based approach: identifying, analysing and rating TTM risks, selecting controls for lowest total risk, building the risk register and TMP, and keeping the plan live on site.</p>
+        </div>
+        <div>
+          <div class="course-price">NZD $175.00</div>
+          <button class="btn-enroll" data-id="nzgttm-ra-01" data-price-id="price_1UXH5I0flJvw3UeNMNfj1Igr" data-title="NZGTTM Risk Assessment &amp; TMP Fundamentals">Enroll &amp; Launch</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <div>
           <span class="course-code">TTM-BBS-01</span>
           <h3 class="course-title">Working Safely Near Barrier Systems</h3>
           <p class="course-desc">Site Safety Awareness module for crew, subcontractors, and site visitors working on or near temporary or permanent barrier systems.</p>
@@ -341,7 +384,7 @@
         <div>
           <span class="course-code">US-40233</span>
           <h3 class="course-title">Assist with Temporary Traffic Management within the Road Reserve</h3>
-          <p class="course-desc">Course covering NZQA unit standard 40233 -- assisting with temporary traffic management within the road reserve.</p>
+          <p class="course-desc">Built against Skill Standard 40233 (NZQA Level 3, 5 credits): online learning plus a practical sign-off on site for assisting with temporary traffic management within the road reserve.</p>
         </div>
         <div>
           <div class="course-price">NZD $250.00</div>
@@ -385,6 +428,72 @@
   <script type="module">
     import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
     import { courseOutlineHtml } from "./js/course-summaries.js";
+
+    // ---- Course Library sub-menus: Barrier / TTM / Other ------------------
+    const LIBRARY_GROUPS = [
+      { key: "barrier", label: "Barrier Training" },
+      { key: "ttm", label: "TTM Training" },
+      { key: "other", label: "Other Training" },
+    ];
+    // Explicit placement by course id; anything new falls back to its category.
+    const GROUP_BY_ID = {
+      "ashtas-01": "barrier",
+      "basic-barrier-safety": "barrier",
+      "nzgttm-01": "ttm",
+      "nzgttm-ra-01": "ttm",
+      "ttm-roles-01": "ttm",
+      "ttm-eng-01": "ttm",
+      "pts-01": "ttm",
+      "tmw-side-road-safety": "ttm",
+      "40233-ttm-road-reserve": "ttm",
+      "book-01": "other",
+    };
+    function groupForCard(card) {
+      const id = card.querySelector("[data-id]")?.dataset.id || card.dataset.courseId || "";
+      if (GROUP_BY_ID[id]) return GROUP_BY_ID[id];
+      const cat = (card.dataset.category || "").toLowerCase();
+      if (/barrier/.test(cat) || /barrier/.test(id)) return "barrier";
+      if (/ttm|traffic/.test(cat)) return "ttm";
+      return "other";
+    }
+    function setupLibraryTabs() {
+      const grid = document.getElementById("store-catalog-grid");
+      const tabs = document.getElementById("library-tabs");
+      if (!grid || !tabs) return;
+      grid.querySelectorAll(".library-group-heading").forEach(h => h.remove());
+      const cards = [...grid.querySelectorAll(".course-card")];
+      cards.forEach(c => { c.dataset.group = groupForCard(c); });
+      // Group the cards in menu order, each group under its own heading.
+      LIBRARY_GROUPS.forEach(g => {
+        const inGroup = cards.filter(c => c.dataset.group === g.key);
+        if (!inGroup.length) return;
+        const h = document.createElement("h2");
+        h.className = "library-group-heading";
+        h.dataset.groupHeading = g.key;
+        h.textContent = g.label;
+        grid.appendChild(h);
+        inGroup.forEach(c => grid.appendChild(c));
+      });
+      tabs.querySelectorAll("a").forEach(a => {
+        const g = a.dataset.group;
+        const n = g === "all" ? cards.length : cards.filter(c => c.dataset.group === g).length;
+        a.querySelector(".tab-count").textContent = `(${n})`;
+        if (g !== "all" && !n) a.style.display = "none";
+      });
+      tabs.style.display = "";
+      applyLibraryFilter();
+    }
+    function applyLibraryFilter() {
+      const grid = document.getElementById("store-catalog-grid");
+      const tabs = document.getElementById("library-tabs");
+      if (!grid || !tabs) return;
+      const want = (location.hash || "#all").slice(1);
+      const key = ["barrier", "ttm", "other"].includes(want) ? want : "all";
+      tabs.querySelectorAll("a").forEach(a => a.classList.toggle("active", a.dataset.group === key));
+      grid.querySelectorAll(".course-card").forEach(c => { c.style.display = key === "all" || c.dataset.group === key ? "" : "none"; });
+      grid.querySelectorAll(".library-group-heading").forEach(h => { h.style.display = key === "all" ? "" : "none"; });
+    }
+    window.addEventListener("hashchange", applyLibraryFilter);
 
     // Adds the "Course outline" (what you'll cover / demonstrate) under each
     // course's description, whichever way the cards were rendered.
@@ -451,7 +560,7 @@
             const price = Number(course.price || 0).toFixed(2);
             const currency = course.currency || "NZD";
             const title = course.title || "Course Module";
-            const desc = course.description || "Certified TTM training program.";
+            const desc = course.description || "SELA certified TTM training course.";
             const code = course.code || docSnap.id;
 
             const buyControl = course.externalUrl
@@ -461,7 +570,7 @@
                   </button>`;
 
             html += `
-              <div class="course-card">
+              <div class="course-card" data-course-id="${docSnap.id}" data-category="${course.category || ""}">
                 <div>
                   <span class="course-code">${code}</span>
                   <h3 class="course-title">${title}</h3>
@@ -481,6 +590,7 @@
       } finally {
         attachButtonListeners();
         addCourseOutlines();
+        setupLibraryTabs();
         // Reveal the catalog now that we know which content it holds --
         // either the freshly-rendered Firestore list, or (on error/empty
         // result) the untouched static fallback cards. Never show one

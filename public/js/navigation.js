@@ -22,7 +22,15 @@ const auth = getAuth();
 const db = getFirestore();
 
 const NAV_LINKS = [
-  { href: "store.html", label: "Sela Course Library" },
+  {
+    href: "store.html", label: "Sela Course Library",
+    // Sub-menu: opens the library on that category's tab (store.html#...).
+    children: [
+      { href: "store.html#barrier", label: "Barrier Training" },
+      { href: "store.html#ttm", label: "TTM Training" },
+      { href: "store.html#other", label: "Other Training" },
+    ],
+  },
   { href: "about-us.html", label: "About" },
   { href: "contact.html", label: "Contact" }
 ];
@@ -38,13 +46,44 @@ function isCurrentPage(href) {
   return current === href;
 }
 
+// Dropdown styles live here (not in a CSS file) because pages use either
+// css/site-header.css or css/custom.css -- this keeps it working on both.
+function ensureSubMenuStyles() {
+  if (document.getElementById("nav-sub-styles")) return;
+  const st = document.createElement("style");
+  st.id = "nav-sub-styles";
+  st.textContent = `
+    .main-nav .nav-has-sub { position: relative; }
+    .main-nav .nav-sub {
+      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      min-width: 190px; margin: 0; padding: 6px 0; list-style: none; z-index: 1000;
+      background: #fff; border-radius: 8px; box-shadow: 0 10px 28px rgba(15, 23, 42, .18);
+      border: 1px solid rgba(15, 23, 42, .08);
+    }
+    .main-nav .nav-sub li { display: block; margin: 0; }
+    .main-nav .nav-sub a {
+      display: block; padding: 9px 16px; white-space: nowrap; font-size: .92rem;
+      color: #1f2937; text-decoration: none; border: none !important;
+    }
+    .main-nav .nav-sub a:hover { background: #f1f5f9; color: #0f172a; }
+    @media (hover: hover) and (min-width: 769px) {
+      .main-nav .nav-has-sub:hover > .nav-sub,
+      .main-nav .nav-has-sub:focus-within > .nav-sub { display: block; }
+    }`;
+  document.head.appendChild(st);
+}
+
 function renderHeader() {
   const header = document.getElementById("global-header");
   if (!header) return; // page hasn't added the header container -- nothing to do
 
-  const linksHtml = NAV_LINKS.map(
-    link => `<li><a href="${link.href}"${isCurrentPage(link.href) ? ' class="active"' : ""}>${link.label}</a></li>`
-  ).join("");
+  const linksHtml = NAV_LINKS.map(link => {
+    const a = `<a href="${link.href}"${isCurrentPage(link.href) ? ' class="active"' : ""}>${link.label}</a>`;
+    if (!link.children) return `<li>${a}</li>`;
+    const sub = link.children.map(c => `<li><a href="${c.href}">${c.label}</a></li>`).join("");
+    return `<li class="nav-has-sub">${a}<ul class="nav-sub">${sub}</ul></li>`;
+  }).join("");
+  ensureSubMenuStyles();
 
   header.innerHTML = `
     <div class="nav-container">

@@ -196,7 +196,7 @@
         id: "pts-01",
         code: "PTS-01",
         title: "Working with Portable Traffic Signals",
-        description: "Certified training for the safe setup and operation of portable traffic signals on site.",
+        description: "SELA certified training for the safe setup and operation of portable traffic signals on site.",
         launchPath: "/courses/ttm-portable-traffic-signals/index.html"
       },
       {
@@ -237,7 +237,7 @@
       grid.innerHTML = modules.map(mod => {
         const code = mod.code || mod.id || "TTM";
         const title = mod.title || "Course Module";
-        const desc = mod.description || "Certified roadside training module.";
+        const desc = mod.description || "SELA certified roadside training module.";
         const launch = mod.launchPath || `/courses/${mod.id}/index.html`;
         const step = mod._step ? `<span class="course-step">Step ${mod._step}</span>` : "";
         const done = mod._passed ? `<span class="course-done">&#10003; Completed</span>` : "";

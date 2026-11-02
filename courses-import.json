@@ -27,6 +27,18 @@
     ]
   },
   {
+    "id": "nzgttm-ra-01",
+    "code": "NZGTTM-RA-01",
+    "title": "NZGTTM Risk Assessment & TMP Fundamentals",
+    "description": "Six-module course on the NZGTTM risk-based approach: identifying, analysing and rating TTM risks, selecting controls for lowest total risk, building the risk register and TMP, and keeping the plan live on site.",
+    "category": "TTM Training",
+    "price": 175,
+    "currency": "NZD",
+    "status": "active",
+    "stripePriceId": "price_1UXH5I0flJvw3UeNMNfj1Igr",
+    "launchPath": "/courses/nzgttm-ra-01/index.html"
+  },
+  {
     "id": "ttm-eng-01",
     "code": "TTM-ENG-01",
     "title": "Core Engineering Concepts of TTM in New Zealand",
@@ -42,7 +54,7 @@
     "id": "pts-01",
     "code": "PTS-01",
     "title": "Working with Portable Traffic Signals",
-    "description": "Certified training for the safe setup and operation of portable traffic signals on site.",
+    "description": "SELA certified training for the safe setup and operation of portable traffic signals on site.",
     "category": "TTM Training",
     "price": 45,
     "currency": "NZD",
@@ -104,7 +116,7 @@
     "id": "40233-ttm-road-reserve",
     "code": "US-40233",
     "title": "Assist with Temporary Traffic Management within the Road Reserve",
-    "description": "Course covering NZQA unit standard 40233 -- assisting with temporary traffic management within the road reserve.",
+    "description": "Built against Skill Standard 40233 (NZQA Level 3, 5 credits): online learning plus a practical sign-off on site for assisting with temporary traffic management within the road reserve.",
     "category": "TTM Training",
     "price": 250,
     "currency": "NZD",

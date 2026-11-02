@@ -32,7 +32,7 @@ export function normaliseCourseRecord(raw) {
   // Format title and code
   const title = String(raw.title || raw.name || "Untitled Course").trim();
   const code = String(raw.code || id.toUpperCase()).trim();
-  const description = String(raw.description || "Certified TTM training module.").trim();
+  const description = String(raw.description || "SELA certified TTM training module.").trim();
   const category = String(raw.category || "TTM Training").trim();
   const currency = String(raw.currency || DEFAULT_CURRENCY).trim().toUpperCase();
   const status = String(raw.status || "active").trim().toLowerCase();
