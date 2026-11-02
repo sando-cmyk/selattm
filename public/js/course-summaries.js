@@ -96,6 +96,27 @@ export const COURSE_SUMMARIES = {
     assessment: "Final knowledge check, 80% required to pass.",
   },
 
+  "nzgttm-ra-01": {
+    format: "Online, self-paced · 6 modules, 47 narrated slides with a welcome video · approx. 1–1.5 hours",
+    audience: "STMS, TMP planners and designers, engineers and supervisors who prepare, review or run TMPs under the NZGTTM. Best taken after NZGTTM Essentials.",
+    overview: "A practical course on running an NZGTTM risk assessment and turning it into a defensible TMP: identify, rate and control the risks, apply lowest total risk, and keep the plan live on site.",
+    covers: [
+      "Why the NZGTTM is risk-based, and the legal duties behind it",
+      "Activity and environment context, and identifying who is at risk",
+      "Analysing and rating risk with a risk matrix, and what can be tolerated",
+      "The hierarchy of controls, TTM methodologies and lowest total risk",
+      "Building the risk register and TMP, and getting it reviewed",
+      "Keeping the plan live on site: checks, quality assurance and emergency response",
+    ],
+    demonstrates: [
+      "Describes TTM risks in terms of hazard, exposure and consequence",
+      "Rates risks consistently and matches planning effort to the level of risk",
+      "Selects and justifies controls using the hierarchy of controls and lowest total risk",
+      "Records risks and controls in a risk register and TMP that hold up to review",
+      "Monitors and adjusts the plan on site, and knows when to stop and re-plan",
+    ],
+    assessment: "A knowledge check at the end of each of the 6 modules, then a 20-question final assessment drawn from a bank of 30. 80% required to pass each. Every slide must be completed in order before moving on.",
+  },
   "ttm-roles-01": {
     format: "Online, self-paced · approx. 20 minutes",
     audience: "TTM workers, supervisors, planners and client representatives who need to know who is responsible for what.",
