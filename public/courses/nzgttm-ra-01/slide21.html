@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Can Be Tolerated &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">What Can Be Tolerated</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>What Can Be Tolerated</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide21.svg" alt="A car hits a truck-mounted attenuator: minor damage tolerated, crew protected"></div>
+    <div class="two-col">
+      <div class="col-card" style="background:#FDECEC;border-color:#f3c9c9;"><h4>Never tolerate</h4><ul><li>Risks of <strong>fatal</strong> or <strong>serious injury</strong></li></ul></div>
+      <div class="col-card col-new"><h4>May need to tolerate</h4><ul><li>Risk of <strong>minor injury</strong> or <strong>property damage</strong> &ndash; to reduce the risk of a fatal or serious injury</li></ul></div>
+    </div>
+    <div class="callout CASESTUDY"><span class="callout-label">NZGTTM EXAMPLES</span><p>A <strong>truck-mounted attenuator</strong> reduces the risk of a fatal crash, but a car hitting the TMA can still cause injury. A <strong>road safety barrier</strong> prevents a fatal crash, though it may damage cars and cause minor injury.</p></div>
+    <div class="callout KEYIDEA"><span class="callout-label">PLAN FOR HUMAN ERROR</span><p>Design controls so that a collision does not cause fatal or serious injuries.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/21.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Not all safety risks are the same. The TTM sector should never tolerate risks of fatal or serious injury. But it may need to tolerate a risk of minor injury or property damage, in order to reduce the risk of a fatal or serious injury. Two examples from the NZGTTM. A truck mounted attenuator reduces the risk of a fatal crash, but there&#x27;s still a risk of injury if a car crashes into it. And a road safety barrier system can prevent a fatal crash, even though it may damage cars and cause minor injuries if drivers hit it. In designing controls, acknowledge the limits of what we can do, and plan for human error, so a collision does not cause death or serious injury.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide20.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 21 of 47</span>
+    <a class="btn amber" href="slide22.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(21);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

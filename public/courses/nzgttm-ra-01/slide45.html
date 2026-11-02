@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quality, Assurance and Control &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Quality, Assurance &amp; Control</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Quality, Assurance and Control</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide45.svg" alt="Swiss cheese model: six layers of quality, assurance and control"></div>
+    <p>Many sites are unsafe before an audit is even done &ndash; so reviews start <strong>before installation</strong>. <em>Assurance</em> covers planning; <em>control</em> covers delivery.</p>
+    <table class="simple-table">
+      <thead><tr><th>Layer</th><th>Process</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>TMP review (risk assessment review)</td></tr>
+        <tr><td><strong>2</strong></td><td>STMS / contractor review</td></tr>
+        <tr><td><strong>3</strong></td><td>G check / partial review</td></tr>
+        <tr><td><strong>4</strong></td><td>Compliance-based audit</td></tr>
+        <tr><td><strong>5</strong></td><td>Full risk-based review (like a comprehensive road safety audit)</td></tr>
+        <tr><td><strong>6</strong></td><td>Systems audit &ndash; ISO 9001; accreditation needs an independent organisation</td></tr>
+      </tbody>
+    </table>
+    <div class="callout KEYIDEA"><span class="callout-label">SWISS CHEESE MODEL</span><p>Every layer has holes. Stack enough layers and the holes rarely line up.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m6/45.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Evidence suggests many sites are unsafe before an on-site audit is even carried out, so reviews should happen before the site is installed. The NZGTTM uses a quality, assurance and control system: assurance during planning, and control during delivery. It&#x27;s shown as the Swiss cheese model. Every layer has holes, but stack enough layers and the holes rarely line up. There are six layers. One: the TMP review, or risk assessment review. Two: the STMS and contractor review. Three: the G check, or partial review. Four: the compliance-based audit. Five: a full risk-based review, similar to a comprehensive road safety audit. And six: a systems audit, which is an ISO nine thousand and one quality management audit. Companies can run their own systems audits, but ISO accreditation needs an independent organisation.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide44.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 45 of 47</span>
+    <a class="btn amber" href="slide46.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(45);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

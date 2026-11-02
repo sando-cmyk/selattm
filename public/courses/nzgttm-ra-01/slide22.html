@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matching Planning Effort to Risk &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Level of Planning</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Matching Planning Effort to Risk</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide22.svg" alt="Planning effort grows from common to site-specific sites"></div>
+    <p>The level of planning should be consistent with the level of risk &ndash; <strong>more risk means more planning effort</strong>.</p>
+    <table class="simple-table">
+      <thead><tr><th>Common</th><th>In-between</th><th>Site-specific</th></tr></thead>
+      <tbody><tr>
+        <td>Repeated tasks, e.g. maintenance. A pre-approved scheme and risk assessment may suit &ndash; still checked for fit.</td>
+        <td>A pre-approved scheme plus an updated job safety analysis (JSA) and site-specific checks.</td>
+        <td>A detailed risk assessment. May need a TIA, traffic modelling, road safety audit or temporary works.</td>
+      </tr></tbody>
+    </table>
+    <div class="objectives-box"><p>Before reusing a pre-approved scheme, ask:</p><ul>
+      <li>What are the differences in the environment and activity?</li>
+      <li>Do those differences affect the risk assessment?</li>
+      <li>Are there new or different stakeholders?</li>
+      <li>Are additional controls (such as a JSA) needed?</li></ul></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/22.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">The effort you put into planning should be consistent with the level of risk: more risk means more planning. The NZGTTM shows this as a scale. At one end are common sites, often repeated maintenance tasks, where a pre-approved reusable scheme and risk assessment may be suitable. They still need a risk assessment, a TMP and diagrams, and a check that they fit. In the middle, a pre-approved scheme might be used with an updated job safety analysis. At the other end are site-specific sites, which need a detailed risk assessment, and possibly specialist inputs like a traffic impact assessment, traffic modelling, a road safety audit or temporary works design. Before reusing any scheme, ask: what&#x27;s different about this activity and environment? Do the differences change the risk? Are there new stakeholders? And are extra controls needed? If a plan doesn&#x27;t fit, don&#x27;t use it.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide21.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 22 of 47</span>
+    <a class="btn amber" href="slide23.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(22);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

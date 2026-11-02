@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peer Review and Approvals &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Review &amp; Approvals</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Peer Review and Approvals</h2>
+    <div class="read-time">~1.5 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide37.svg" alt="Review flow: plan, risk review, network access, regulatory, approved by the contractor PCBU"></div>
+    <div class="step-card-row">
+      <div class="step-card open"><h4><span class="step-letter">1</span>Risk review</h4><div class="step-detail">TAOs (RCA, rail, public transport, Police) review the risk assessment and give <strong>improvement recommendations</strong> &ndash; they don&rsquo;t approve it.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">2</span>Network access</h4><div class="step-detail">Checks space and time clashes (e.g. a detour through another closure) and area-wide transport impacts.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">3</span>Regulatory</h4><div class="step-detail">Traffic control devices (TCD Rule 2004), road closures, temporary speed limits (Setting of Speed Limits 2024), rail access (Railways Act 2005 s75).</div></div>
+    </div>
+    <div class="callout KEYIDEA"><span class="callout-label">WHO APPROVES THE TMP?</span><p>The <strong>contractor PCBU</strong>. Peer review replaces the old CoPTTM approver role &ndash; but a TAO can still stop a TMP it judges too risky.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/37.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Several reviews happen before a TMP is used. First, risk review. Transport authority organisations, such as road controlling authorities, KiwiRail, public transport authorities or Police, peer review the risk assessment to make sure the needs of the people they represent are addressed. The risk reviewer doesn&#x27;t approve the risk assessment; they provide improvement recommendations. That&#x27;s an important shift away from the old CoPTTM approver role. It&#x27;s the contractor PCBU that approves the TMP. A transport authority can still stop a TMP that isn&#x27;t fit for purpose. Next, network access coordination checks for clashes in space and time, for example a detour running through another road closure, and reviews the transport impacts of all the sites in an area. Finally, regulatory approvals: authorising traffic control devices under the Traffic Control Devices Rule, road closures, temporary speed limits under the Setting of Speed Limits Rule twenty twenty-four, and written permission from the rail access provider for work on or near railway infrastructure.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide36.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 37 of 47</span>
+    <a class="btn amber" href="slide38.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(37);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When the Site Changes &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">When the Site Changes</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>When the Site Changes</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide43.svg" alt="When the site changes: call the planner, update the TMP, record every change"></div>
+    <div class="step-card-row">
+      <div class="step-card open"><h4><span class="step-letter">1</span>TMP doesn&rsquo;t fit</h4><div class="step-detail">The STMS contacts the TTM planner to update the TMP.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">2</span>New risk found</h4><div class="step-detail">Change the site as needed &ndash; reviewed by a qualified person, preferably the planner.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">3</span>Can&rsquo;t reach anyone</h4><div class="step-detail">Use NZGTTM knowledge to make the best decision possible &ndash; and <strong>document it</strong>.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">4</span>Police or WorkSafe instruct a change</h4><div class="step-detail">Make it safely and quickly; they record and sign it on the TMP/TMD; tell the planner ASAP.</div></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m6/43.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Sites change. If the approved TMP isn&#x27;t right for the worksite, the STMS contacts the TTM planner to update it. If a new risk is identified, change the site as necessary, and have the change reviewed by a qualified person, preferably the planner. If the STMS can&#x27;t reach the planner or another suitably qualified person, they use their knowledge of the NZGTTM to make the best decision possible, and document the change. And if an authorised person, such as Police or a WorkSafe representative, instructs a change, put it in place safely and quickly, have the requesting person record and sign it on the TMP or TMD, and tell the planner as soon as possible.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide42.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 43 of 47</span>
+    <a class="btn amber" href="slide44.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(43);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

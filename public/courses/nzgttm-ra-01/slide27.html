@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worked Example: SH6 Culvert &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Example: SH6 Culvert</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Worked Example: SH6 Culvert</h2>
+    <div class="read-time">~1.5 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide27.svg" alt="SH6 culvert: a 360 km detour versus a closure with periodic openings"></div>
+    <p>A culvert on <strong>SH6, about 2&nbsp;km south of the SH63 junction</strong> (Nelson&ndash;Westport) needs replacing. The road is 7&nbsp;m seal-to-seal &ndash; too narrow to separate workers from passing traffic.</p>
+    <table class="simple-table">
+      <thead><tr><th>Option</th><th>Total-risk verdict</th></tr></thead>
+      <tbody>
+        <tr><td>Full closure &ndash; 360&nbsp;km, 5-hour detour</td><td>Transfers risk to the public &ndash; likely not acceptable</td></tr>
+        <tr><td><strong>Closure with periodic openings</strong> (e.g. 50&nbsp;min closed, 10&nbsp;min open)</td><td><strong>Eliminates worker risk, public stay on route &ndash; total risk reduction</strong></td></tr>
+        <tr><td>Night works</td><td>Reduction, but adds fatigue, poor visibility and cold</td></tr>
+        <tr><td>Pipe jacking (substitute)</td><td>Potential reduction &ndash; needs its own risk assessment</td></tr>
+        <tr><td>Barrier (isolate)</td><td>Reduction &ndash; needs very small deflection on a narrow road</td></tr>
+        <tr><td>Speed measures (engineering)</td><td>Small reduction &ndash; doesn&rsquo;t separate workers</td></tr>
+        <tr><td>Administrative / PPE alone</td><td>Very little reduction</td></tr>
+      </tbody>
+    </table>
+    <div class="callout KEYIDEA"><span class="callout-label">COST IS NOT A REASON</span><p>The higher cost of a longer job is not a justifiable reason to avoid a better control (HSWA 2015).</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/27.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Here&#x27;s the NZGTTM&#x27;s first worked example. A culvert needs replacing on State Highway six, about two kilometres south of the State Highway sixty-three junction, between Nelson and Westport. The road is seven metres wide with no room for a safe exclusion zone. Closing the road would eliminate risk to workers, but the only detour is three hundred and sixty kilometres and five hours longer. That&#x27;s a transfer of risk to the public, and probably not acceptable. So look again at the hierarchy. Closing the road for fifty minutes, then opening it for ten, still eliminates risk to workers while they&#x27;re on the road, and keeps the public on the same route with an inconvenient, but well communicated, delay. Night works, pipe jacking, a narrow-deflection barrier, and speed reduction measures were all weighed up too. Administrative controls and PPE do very little on their own. The recommended option: closure with periodic openings. And remember: the extra cost of a longer job is not a justifiable reason to avoid a better control.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide26.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 27 of 47</span>
+    <a class="btn amber" href="slide28.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(27);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

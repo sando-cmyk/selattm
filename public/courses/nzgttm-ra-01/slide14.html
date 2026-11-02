@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Should Be in the Room &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Who Should Be in the Room</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Who Should Be in the Room</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide14.svg" alt="Risk assessment group: crew, TTM staff and client, plus community and road users for complex sites"></div>
+    <p>Who carries out the assessment changes the result. Watch for:</p>
+    <ul>
+      <li><strong>Experience</strong> &ndash; builds knowledge, but can also bring complacency or habits that no longer apply.</li>
+      <li><strong>Personal bias</strong> &ndash; our own experiences shape how we respond to new information.</li>
+      <li><strong>Single view</strong> &ndash; a team sees more than one person; we don&rsquo;t all perceive hazards the same way.</li>
+    </ul>
+    <div class="two-col">
+      <div class="col-card"><h4>Many sites</h4><ul><li>Works crew</li><li>TTM staff</li><li>Client</li></ul></div>
+      <div class="col-card col-new"><h4>Complex sites &ndash; add</h4><ul><li>The community near the site</li><li>Road users passing through: light and heavy vehicle drivers, cyclists, pedestrians, public transport users</li><li>Blind, low-vision and mobility-impaired users</li></ul></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/14.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Who does the risk assessment matters. A person with one day of experience will make different decisions from a person with five years, and someone with twenty-five years will decide differently again. Experience can build knowledge, but it can also bring complacency, or habits that no longer apply. Personal bias affects how we respond to new information. And one person sees things differently from a team; we don&#x27;t all perceive hazards and probability the same way. For many sites, a group made up of the works crew, the TTM staff and the client is enough. For more complex sites, the group should represent all stakeholders: add the community near the site, and road users who pass through it, such as drivers, cyclists, public transport users, and people who are blind, have low vision, or are mobility impaired.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide13.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 14 of 47</span>
+    <a class="btn amber" href="slide15.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(14);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

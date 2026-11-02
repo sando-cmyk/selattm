@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Three-Part TMP Form &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">The TMP Form</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>The Three-Part TMP Form</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide34.svg" alt="The TMP form parts: planning, general, TMD and on-site record"></div>
+    <p>The NZGTTM&rsquo;s example TMP form isn&rsquo;t mandatory &ndash; a PCBU can use its own &ndash; but its structure shows what a good TMP covers.</p>
+    <table class="simple-table">
+      <thead><tr><th>Part</th><th>For</th><th>Covers</th></tr></thead>
+      <tbody>
+        <tr><td><strong>TMP Planning Form</strong></td><td>Risk reviewers and approvers only</td><td>Each risk, its control and <em>hierarchy level</em>, and why it was chosen &ndash; including options considered and discounted. Authorisations and delay calculations.</td></tr>
+        <tr><td><strong>TMP General Form</strong></td><td>Site staff, reviewers and approvers</td><td>Location, activity, contacts, general contingencies</td></tr>
+        <tr><td><strong>TMD Form</strong></td><td>Site staff &ndash; one per layout or stage</td><td>e.g. one for the attended layout, one for the unattended layout</td></tr>
+        <tr><td><strong>On-site Record Form</strong></td><td>TTM practitioners on site</td><td>A companion record of implementation and ongoing checks</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/34.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">The NZGTTM includes an example TMP form. It isn&#x27;t mandatory, and a PCBU can use its own, but its structure is worth knowing. It has three parts. The TMP Planning Form is for the risk reviewers and approvers only. It explains each risk, the control used, where that control sits in the hierarchy of controls, and why it was chosen, including the options considered and discounted. It also records authorisations and delay calculations. The TMP General Form is for site staff as well as reviewers: location, activity, contacts and contingencies. And there&#x27;s a TMD form for each layout, for example one for the attended site and another for the unattended site. Alongside these sits an on-site record form, for recording how the controls were put in place and checked.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide33.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 34 of 47</span>
+    <a class="btn amber" href="slide35.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(34);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

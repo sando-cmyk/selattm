@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergency Response &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Emergency Response</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Emergency Response</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide46.svg" alt="Four emergency response phases from short term to recovery"></div>
+    <div class="callout CAUTION"><span class="callout-label">THE EMERGENCY VISION</span><p>&ldquo;Do the best you can with what you have, to ensure road workers and road users go home safe every day.&rdquo;</p></div>
+    <table class="simple-table" style="margin-top:14px;">
+      <thead><tr><th>Phase</th><th>Roughly</th><th>What it looks like</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Short term</strong></td><td>First hour</td><td>Reactive, limited resources</td></tr>
+        <tr><td><strong>Medium term</strong></td><td>1&ndash;3 hours</td><td>Still reactive; more resources arrive</td></tr>
+        <tr><td><strong>Long term</strong></td><td>3 hours+</td><td>More leadership; changes made in a planned way</td></tr>
+        <tr><td><strong>Recovery</strong></td><td>Until normal</td><td>Normal operation with pre-planning and peer review</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:14px;color:#666;">Move to a planned response as quickly as possible. This doesn&rsquo;t apply to work that can be foreseen and planned, like routine maintenance.</p>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m6/46.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Emergencies are different. Crashes, fires, floods, live power cables, gas leaks and large objects on the road may not allow time for a full risk assessment and TMP. But PCBUs are still legally obliged to keep workers and the public safe, so far as is reasonably practicable. So the vision changes to: do the best you can with what you have, to ensure road workers and road users go home safe every day. Responders should cause no more harm, whether through action or inaction. There are four phases: the short-term response, roughly the first hour; the medium term, up to around three hours; the long term, until the incident is stabilised; and the recovery period, back to normal operation with full planning. The aim is to move to a planned response as quickly as possible. And this approach doesn&#x27;t apply to work that can be foreseen and planned, like routine maintenance.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide45.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 46 of 47</span>
+    <a class="btn amber" href="slide47.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(46);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

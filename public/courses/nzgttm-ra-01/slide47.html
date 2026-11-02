@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Site Check &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Site Check</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Site Check</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide47.svg" alt="Site check: hidden sign, barrier with no end treatment, path to nowhere"></div>
+    <p class="activity-instructions">You&rsquo;re the STMS on a drive-through check of the cabinet-repair site. Three things are wrong. Decide what you&rsquo;d do about each, and who you&rsquo;d tell &ndash; then tap to compare.</p>
+    <div id="hz47" data-total="3">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz47', 0)"><span class="hb-icon">&#127795;</span>Sign hidden by a hedge</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz47', 1)"><span class="hb-icon">&#128679;</span>Barrier with no end</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz47', 2)"><span class="hb-icon">&#128694;</span>Path to nowhere</button>
+    </div>
+    <div class="hotspot-progress">0 of 3 explored</div>
+    <div class="hotspot-card" id="hz47-card0"><h4>Advance warning sign hidden by a hedge</h4><p><span class="field-label">Why it matters:</span> eastbound drivers get no warning and may meet the work or a queue unprepared.</p><p><span class="field-label">Model answer:</span> move the sign to where it&rsquo;s clearly visible at the right sight distance, mark the change on the TMP, record it, and let the planner know.</p></div>
+    <div class="hotspot-card" id="hz47-card1"><h4>Temporary barrier without an end treatment</h4><p><span class="field-label">Why it matters:</span> an untreated barrier end can spear or launch a vehicle &ndash; the control has become a hazard.</p><p><span class="field-label">Model answer:</span> make the area safe straight away (for example, a TMA or a lane closure covering the barrier end), install the correct end treatment to the manufacturer&rsquo;s specification, record it, and report it to the planner and contractor.</p></div>
+    <div class="hotspot-card" id="hz47-card2"><h4>Temporary footpath leads to a dead end</h4><p><span class="field-label">Why it matters:</span> pedestrians will step into the live lane to get around it &ndash; the exact risk the path was meant to control.</p><p><span class="field-label">Model answer:</span> walk the route yourself, connect it back to the footpath (or guide pedestrians through until it&rsquo;s fixed), record the change, and tell the planner so the TMP is updated.</p></div>
+    </div>
+    <div class="callout KEYIDEA"><span class="callout-label">CHECK &rarr; ACT</span><p>This is the Check and Act part of Plan&ndash;Do&ndash;Check&ndash;Act. Fix it, record it, tell the planner &ndash; every time.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m6/47.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Last activity. You&#x27;re the STMS doing a drive-through check of the cabinet repair site. Three things are wrong. Before you tap each one, think about what you&#x27;d do about it, and who you&#x27;d tell. Then tap to compare with the model answer.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide46.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 47 of 47</span>
+    <a class="btn amber" href="quiz6.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(47);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

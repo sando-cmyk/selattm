@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Complete the Planning Form &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Planning Form</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Complete the Planning Form</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide38.svg" alt="Filling in the TMP planning form: risk, control and level, reasoning"></div>
+    <p class="activity-instructions">Same cabinet-repair site as before. For each risk, write the <strong>control</strong>, its <strong>hierarchy level</strong> and your <strong>reasoning</strong> (including options discounted) &ndash; as you would in the TMP Planning Form. Then tap to compare.</p>
+    <div id="hz38" data-total="3">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz38', 0)"><span class="hb-icon">&#128694;</span>Risk 1: Pedestrians</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz38', 1)"><span class="hb-icon">&#127751;</span>Risk 2: Afternoon sun</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz38', 2)"><span class="hb-icon">&#128656;</span>Risk 3: Van access</button>
+    </div>
+    <div class="hotspot-progress">0 of 3 explored</div>
+    <div class="hotspot-card" id="hz38-card0"><h4>Risk 1: Pedestrians, including school children, pushed into the live lane</h4><p><span class="field-label">Control:</span> A temporary footpath past the cabinet, physically separated from traffic and from the work, plus scheduling the noisiest work away from school finishing time.</p><p><span class="field-label">Hierarchy level:</span> Isolate (separation), supported by administrative (timing).</p><p><span class="field-label">Why:</span> Closing the footpath was considered and discounted &ndash; it would send children across a 50&nbsp;km/h arterial where drivers don&rsquo;t expect them, a higher total risk.</p></div>
+    <div class="hotspot-card" id="hz38-card1"><h4>Risk 2: Low sun hides signs and workers from westbound drivers</h4><p><span class="field-label">Control:</span> Finish the work before the sun is low, and place advance signs where they stay visible against the glare.</p><p><span class="field-label">Hierarchy level:</span> Administrative (timing), supported by engineering (sign placement).</p><p><span class="field-label">Why:</span> Working in the low-sun window was discounted. A temporary speed limit for the whole street was considered, but speed is reduced only where needed, as long sites with unexplained limits get ignored.</p></div>
+    <div class="hotspot-card" id="hz38-card2"><h4>Risk 3: Work van entering and leaving traffic</h4><p><span class="field-label">Control:</span> Park the van inside the protected work area on the verge, so no lane is occupied, and enter and exit only when traffic allows.</p><p><span class="field-label">Hierarchy level:</span> Isolate, supported by administrative (entry and exit procedure).</p><p><span class="field-label">Why:</span> A lane closure to park the van was considered and discounted &ndash; it would block a lane on an arterial for no safety gain.</p></div>
+    </div>
+    <div class="callout NOTE"><span class="callout-label">THE TEST</span><p>Could a reviewer, your STMS or a court follow your reasoning from what you wrote? If not, the planning process has failed.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/38.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Let&#x27;s put it together. Go back to the cabinet repair site from the earlier modules. For each of these three risks, write down what you&#x27;d put in the TMP planning form: the control, its level in the hierarchy of controls, and why you chose it, including the options you considered and discounted. Then tap each row to compare with the model answer.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide37.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 38 of 47</span>
+    <a class="btn amber" href="quiz5.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(38);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

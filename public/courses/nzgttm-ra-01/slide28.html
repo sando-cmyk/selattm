@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worked Example: Footpath Closure &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Example: Footpath</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Worked Example: Footpath Closure</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide28.svg" alt="Footpath closure sends pedestrians across the road; a temporary path keeps them safe"></div>
+    <p>A utility crew repairs a cabinet on a verge beside a busy two-lane suburban arterial. The base case: <strong>close the footpath</strong> &ndash; room for the crew, and the public kept away from live cables.</p>
+    <div class="two-col">
+      <div class="col-card" style="background:#FDECEC;border-color:#f3c9c9;"><h4>But total risk includes&hellip;</h4><ul>
+        <li>Public reaching live cables</li>
+        <li>Pedestrians crossing where drivers don&rsquo;t expect them</li>
+        <li>Drivers swerving to avoid pedestrians</li>
+        <li>Workers hit by an out-of-control vehicle</li></ul></div>
+      <div class="col-card col-new"><h4>Likely lower total risk</h4><ul>
+        <li>A temporary footpath past the work</li>
+        <li>Guiding pedestrians through the site with appropriate staffing</li></ul></div>
+    </div>
+    <div class="callout NOTE"><span class="callout-label">SOUND FAMILIAR?</span><p>This is the same kind of site as the Module 2 and 3 activities.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/28.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">The second worked example is one you&#x27;ll recognise from earlier modules. A utility crew is repairing a cabinet on a verge, with a footpath past it and a busy two-lane suburban arterial alongside. The obvious answer is to close the footpath: it gives the technicians room and keeps the public away from live cables. But there&#x27;s no other footpath or verge. So pedestrians will cross the road where drivers aren&#x27;t expecting them. Total risk here is the risk from the live cables, plus the risk to pedestrians crossing, plus the risk to drivers swerving to avoid them, plus the risk to workers from an out of control vehicle. A temporary footpath, or staff guiding pedestrians through the site, is likely to give a lower total risk.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide27.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 28 of 47</span>
+    <a class="btn amber" href="slide29.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(28);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

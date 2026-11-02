@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Rate It &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Rate It</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Rate It</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide23.svg" alt="The four activity risks placed on the teaching matrix"></div>
+    <p class="activity-instructions">Same site as Module 2 &ndash; the cabinet repair on a 50&nbsp;km/h arterial near a school and bus stop, 1&ndash;4&nbsp;pm. Rate each risk on the teaching matrix (likelihood &times; consequence) and rank them. Then tap to compare with the model answer.</p>
+    <div id="hz23" data-total="4">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz23', 0)"><span class="hb-icon">&#128694;</span>Footpath closed</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz23', 1)"><span class="hb-icon">&#128652;</span>Bus stop nearby</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz23', 2)"><span class="hb-icon">&#128656;</span>Work van access</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz23', 3)"><span class="hb-icon">&#127751;</span>Afternoon sun</button>
+    </div>
+    <div class="hotspot-progress">0 of 4 explored</div>
+    <div class="hotspot-card" id="hz23-card0"><h4>Footpath closed &ndash; <span class="rm-pill rm-vhigh">20 Very high</span></h4><p><span class="field-label">Likelihood 4 (Likely):</span> school finishes during the works, so children will reach the closure and many will cross or step into the road.</p><p><span class="field-label">Consequence 5 (Catastrophic):</span> a child struck at 50&nbsp;km/h is likely to be killed &ndash; well above the 30&nbsp;km/h survivable limit.</p><p><strong>Rank 1 &ndash; deal with this first.</strong></p></div>
+    <div class="hotspot-card" id="hz23-card1"><h4>Bus stop nearby &ndash; <span class="rm-pill rm-high">15 High</span></h4><p><span class="field-label">Likelihood 3 (Possible):</span> buses stop every few minutes and passengers walk around the site.</p><p><span class="field-label">Consequence 5 (Catastrophic):</span> a pedestrian struck at 50&nbsp;km/h could be killed.</p><p><strong>Rank 2 (equal).</strong></p></div>
+    <div class="hotspot-card" id="hz23-card2"><h4>Work van access &ndash; <span class="rm-pill rm-med">9 Medium</span></h4><p><span class="field-label">Likelihood 3 (Possible):</span> several entries and exits during the shift.</p><p><span class="field-label">Consequence 3 (Serious):</span> a vehicle-to-vehicle collision at urban speed is likely to cause injuries needing hospital treatment.</p><p><strong>Rank 4.</strong></p></div>
+    <div class="hotspot-card" id="hz23-card3"><h4>Afternoon sun &ndash; <span class="rm-pill rm-high">15 High</span></h4><p><span class="field-label">Likelihood 3 (Possible):</span> low sun on an east&ndash;west road late in the window.</p><p><span class="field-label">Consequence 5 (Catastrophic):</span> a dazzled driver could strike a worker.</p><p><strong>Rank 2 (equal).</strong></p></div>
+    </div>
+    <div class="callout KEYIDEA"><span class="callout-label">YOUR RATING WAS DIFFERENT?</span><p>That&rsquo;s normal &ndash; people rate risk differently. What matters is that you can explain your reasoning, and that the highest risk gets dealt with first.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/23.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Time to practise rating. Here are the four risks from the Spot the Risks activity in module two. Using the teaching matrix, decide a likelihood and a consequence for each, work out the score, and put them in order. Then tap each one to compare your rating with the model answer. Don&#x27;t worry if yours is different. What matters is that you can explain your reasoning.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide22.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 23 of 47</span>
+    <a class="btn amber" href="quiz3.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(23);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

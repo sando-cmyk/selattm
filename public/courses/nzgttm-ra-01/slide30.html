@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Design Rules &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Practical Design Rules</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Practical Design Rules</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide30.svg" alt="Practical design rules: short site, right time, quick set-up, fewer lanes, walk and cycle options, coordinate"></div>
+    <div class="two-col">
+      <div class="col-card"><h4>Space and time</h4><ul>
+        <li><strong>Keep the site short</strong> &ndash; reduce speed only where it&rsquo;s needed</li>
+        <li><strong>Time it from actual hourly counts</strong>; if traffic is still heavy after a crash, wait</li>
+        <li><strong>Set up just before, pack up straight after</strong></li></ul></div>
+      <div class="col-card"><h4>People and network</h4><ul>
+        <li><strong>Minimise blocked lanes</strong> &ndash; can the vehicle use the shoulder or verge?</li>
+        <li><strong>Realistic options for walking and cycling</strong> &ndash; long diversions won&rsquo;t be used</li>
+        <li><strong>Coordinate</strong> with other works nearby</li></ul></div>
+    </div>
+    <div class="callout KEYIDEA"><span class="callout-label">BEFORE YOU CHOOSE</span><p>Consult the people who will implement the controls, the people doing the works, and groups representing road users.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/30.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">A few practical rules make any control work better. Keep the length of road and path under TTM as short as possible. Long sites where drivers can&#x27;t see why they&#x27;re being delayed lead to speeding, so only reduce speeds where it&#x27;s needed. Choose your timing from actual hourly traffic counts, and if a crash means traffic is still heavy, wait until it clears. Set up right before the activity starts and pack up as soon as it&#x27;s finished. Don&#x27;t block a lane if the work vehicle can use the shoulder or verge. Give pedestrians and cyclists realistic options, because a long diversion won&#x27;t be used. And coordinate with other work nearby. Before choosing, consult the people who&#x27;ll implement it and the groups who represent road users.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide29.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 30 of 47</span>
+    <a class="btn amber" href="slide31.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(30);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

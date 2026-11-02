@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitoring: Active and Inactive Hours &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Monitoring the Site</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Monitoring: Active and Inactive Hours</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide42.svg" alt="STMS monitoring by driving, walking and cycling through the site"></div>
+    <p>The STMS&rsquo;s primary duty is the safety of workers and the public. <strong>Drive, walk and cycle through</strong> the site regularly.</p>
+    <div class="two-col">
+      <div class="col-card"><h4>Each shift, check</h4><ul>
+        <li>Signs and cones correctly positioned, secure and visible</li>
+        <li>Manual and ITS operations consistent with other signs</li>
+        <li>Barriers still meet the manufacturer&rsquo;s specification</li>
+        <li>TMAs and arrow boards working as intended</li></ul></div>
+      <div class="col-card"><h4>Inactive hours</h4><ul>
+        <li>Separate controls, planned in the TMP</li>
+        <li>No workers = a different risk profile</li>
+        <li>Devices must keep working as designed</li></ul></div>
+    </div>
+    <div class="callout KEYIDEA"><span class="callout-label">DON&rsquo;T OVER-CONTROL</span><p>Excessive TTM undermines the public&rsquo;s trust &ndash; and TTM that people ignore doesn&rsquo;t work.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m6/42.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Once the site is set up, the STMS monitors how well it&#x27;s working. Drive, walk and cycle through the site regularly. Check the controls are working as expected and there aren&#x27;t any unexpected risks. At the start of and during each shift, check that signs and cones are still correctly positioned, signs are secure and visible from the right sight distance, manual and ITS operations match the other signs, barriers still meet the manufacturer&#x27;s specification, and TMAs and arrow boards still work as intended. Inactive hours need their own controls in the TMP, because with no workers on site the risk profile is different. And don&#x27;t over-control. If the public stop trusting that the TTM is there for a reason, they stop paying attention to it, and it stops working.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide41.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 42 of 47</span>
+    <a class="btn amber" href="slide43.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(42);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

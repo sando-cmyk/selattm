@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Common TTM Risks &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Common TTM Risks</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Common TTM Risks</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide12.svg" alt="Common TTM risks on a site: queues, glare, abuse, bus stops, boundary breaches"></div>
+    <p>The NZGTTM guidance note <em>Identification of TTM risks</em> lists common issues to prompt your thinking:</p>
+    <div class="two-col">
+      <div class="col-card"><h4>People</h4><ul>
+        <li>Vulnerable road users unable to pass safely, or facing long detours</li>
+        <li>Abuse, thrown objects and assault on road workers</li>
+        <li>Vehicles breaching the TTM boundary &ndash; by mistake or on purpose</li>
+        <li>Shifts over 14 hours &ndash; fatigue</li></ul></div>
+      <div class="col-card"><h4>Site and network</h4><ul>
+        <li>End-of-queue collisions</li>
+        <li>Sun glare, fog, shadows, night conditions</li>
+        <li>Emergency vehicle access</li>
+        <li>Bus stops, rail crossings, stock crossings, over-size loads</li></ul></div>
+    </div>
+    <div class="callout CAUTION"><span class="callout-label">A PROMPT, NOT AN ASSESSMENT</span><p>The list is not complete and must not be used as the risk assessment for a site.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/12.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">The NZGTTM&#x27;s guidance note on identifying TTM risks lists common issues to prompt your thinking. They include vulnerable road users who can&#x27;t pass the site safely, or who face an unreasonable detour. Abuse, thrown objects and assaults on road workers. Vehicles breaching the TTM boundary, whether by mistake or on purpose. End of queue collisions. Shifts longer than fourteen hours, and the fatigue that comes with them. Sun glare, fog and shadows hiding signs. Night conditions. Emergency vehicle access. Bus stops and railway crossings inside the site. Stock crossings on rural roads. And heavy or over-sized loads needing room to turn. Remember: this list is a prompt only. It is not complete, and it must never be used as your risk assessment for a site.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide11.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 12 of 47</span>
+    <a class="btn amber" href="slide13.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(12);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

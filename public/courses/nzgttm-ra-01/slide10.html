@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity and Environment Context &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity &amp; Environment</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity and Environment Context</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide10.svg" alt="Activity context plus five environment categories"></div>
+    <p>The first step in site planning is to clearly understand the proposed <strong>activity</strong> and its <strong>environment</strong>.</p>
+    <div class="callout NOTE"><span class="callout-label">ACTIVITY CONTEXT</span><p>What the client is doing, how, when and for how long &ndash; their intentions and goals.</p></div>
+    <p style="margin-top:16px;"><strong>Environment context &ndash; five categories:</strong></p>
+    <ul>
+      <li><strong>Transport corridor</strong> &ndash; lanes, bus and cycle lanes, footpaths, intersections, traffic signals, street lighting.</li>
+      <li><strong>Programme</strong> &ndash; the days and times of the activity.</li>
+      <li><strong>Network users</strong> &ndash; everyone who may be affected, across all modes.</li>
+      <li><strong>Neighbours</strong> &ndash; owners and users of property affected by the activity.</li>
+      <li><strong>Natural environment</strong> &ndash; weather, or natural hazards such as cliff faces.</li>
+    </ul>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/10.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">The first step in planning any site is to clearly understand the activity and its environment. Activity context means understanding what the client is actually doing, how they&#x27;re doing it, when, and for how long. Environment context has five categories. The transport corridor: the lanes, bus lanes, cycle lanes, footpaths, intersections, signals and street lighting your activity will affect. The programme: the days and times of the work. Network users: everyone who may be affected, across every mode. Neighbours: the owners and users of property affected by the activity. And the natural environment, such as weather, or natural hazards like cliff faces. Contractor PCBUs need to describe this context alongside the activity before they can properly consider the risks.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide9.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 10 of 47</span>
+    <a class="btn amber" href="slide11.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(10);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Risk Register &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">The Risk Register</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>The Risk Register</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide33.svg" alt="A risk register: hazards, ratings, controls and residual risk"></div>
+    <p>The risk register documents each step of the risk assessment and lets everyone in the contracting chain communicate about it. People won&rsquo;t always agree on risk levels &ndash; that&rsquo;s why it matters.</p>
+    <table class="simple-table">
+      <thead><tr><th>The register should contain</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Risks identified</strong> &ndash; hazard, event, consequence</td></tr>
+        <tr><td><strong>Assessment</strong> &ndash; a ranking of each risk</td></tr>
+        <tr><td><strong>Control options</strong> &ndash; the fundamental TTM controls in preferred order</td></tr>
+        <tr><td><strong>Residual risk</strong> &ndash; what&rsquo;s left if each option were used</td></tr>
+        <tr><td><strong>Lowest total risk</strong> &ndash; how each option works for road users and workers</td></tr>
+        <tr><td><strong>Adopted controls</strong> &ndash; what will actually be implemented</td></tr>
+        <tr><td><strong>Peer review</strong> &ndash; reviewer, feedback, and the contractor PCBU&rsquo;s response and decision</td></tr>
+      </tbody>
+    </table>
+    <div class="callout CAUTION"><span class="callout-label">WHY IT MATTERS</span><p>The documented decision is a critical record should the worst happen and somebody gets hurt.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/33.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module five: the risk register, the TMP and review. The risk register documents each step of your risk assessment, and it&#x27;s how everyone in the contracting chain communicates about risk. Not everybody will agree on the levels of risk, and that&#x27;s natural, which is exactly why the register matters. It should contain the risks identified, described as the hazard, the event and the consequence. The assessment of each risk. The possible control options, using the fundamental TTM controls in preferred order. The residual risk left if each option was used. A lowest total risk assessment for each option. And the control options actually adopted. Feedback and decisions from peer review belong in it too. Remember: the documented decision is a critical record should the worst happen and somebody gets hurt.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz4.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 33 of 47</span>
+    <a class="btn amber" href="slide34.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(33);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

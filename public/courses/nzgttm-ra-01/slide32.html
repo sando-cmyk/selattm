@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Choose the Control &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Choose the Control</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Choose the Control</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide32.svg" alt="Three sites to choose a control for: rural highway, residential street, school footpath"></div>
+    <p class="activity-instructions">For each site, pick a fundamental methodology (around, through, past, in the gaps) and say why. Then tap to compare with the model answer.</p>
+    <div id="hz32" data-total="3">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz32', 0)"><span class="hb-icon">&#128739;</span>A: Rural 100&nbsp;km/h edge repair</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz32', 1)"><span class="hb-icon">&#127968;</span>B: Residential water main</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz32', 2)"><span class="hb-icon">&#127979;</span>C: Footpath outside a school</button>
+    </div>
+    <div class="hotspot-progress">0 of 3 explored</div>
+    <div class="hotspot-card" id="hz32-card0"><h4>A: Rural 100&nbsp;km/h edge repair</h4><p><span class="field-label">Site:</span> One day of seal-edge repair on a two-lane rural highway. The nearest alternative route adds 40&nbsp;km.</p><p><span class="field-label">Model answer &ndash; go past:</span> a lane closure with an exclusion zone and a TMA protecting the crew, plus a temporary speed limit only through the work area.</p><p><span class="field-label">Total risk:</span> a 40&nbsp;km detour on rural roads would move risk onto the public. If the lane can&rsquo;t fit an exclusion zone, consider go through (stop/go or portable signals).</p></div>
+    <div class="hotspot-card" id="hz32-card1"><h4>B: Residential water main</h4><p><span class="field-label">Site:</span> Two days of trench work across a quiet residential street, with a short, safe route around the block.</p><p><span class="field-label">Model answer &ndash; go around:</span> close the street and detour traffic around the block, eliminating traffic from the site.</p><p><span class="field-label">Total risk:</span> the detour is short and safe, but keep pedestrian and resident access, and allow for emergency vehicles.</p></div>
+    <div class="hotspot-card" id="hz32-card2"><h4>C: Footpath outside a school</h4><p><span class="field-label">Site:</span> Half a day of footpath repair outside a primary school gate on a 50&nbsp;km/h road.</p><p><span class="field-label">Model answer &ndash; timing + a protected temporary path:</span> work outside drop-off and pick-up times, and give pedestrians a protected temporary path rather than closing the footpath.</p><p><span class="field-label">Total risk:</span> closing the footpath would send children across the road &ndash; a higher total risk than the work itself.</p></div>
+    </div>
+    <div class="callout KEYIDEA"><span class="callout-label">THERE&rsquo;S RARELY ONE RIGHT ANSWER</span><p>What matters is that your choice follows the hierarchy, passes the lowest-total-risk test, and you can explain it.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/32.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Time to choose. For each of these three sites, decide which fundamental methodology you&#x27;d use, around, through, past or in the gaps, and why. Think about lowest total risk for everyone affected. Then tap each site to compare with the model answer.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide31.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 32 of 47</span>
+    <a class="btn amber" href="quiz4.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(32);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

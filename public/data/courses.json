@@ -51,6 +51,18 @@
     ]
   },
   {
+    "id": "nzgttm-ra-01",
+    "code": "NZGTTM-RA-01",
+    "title": "Nzgttm Ra 01",
+    "description": "Standard modular training program for Nzgttm Ra 01.",
+    "category": "TTM Training",
+    "price": 250,
+    "currency": "NZD",
+    "status": "active",
+    "launchPath": "/courses/nzgttm-ra-01/index.html",
+    "lastUpdated": "2026-11-02T04:12:10.101Z"
+  },
+  {
     "id": "ttm-roles-01",
     "code": "TTM-ROLES-01",
     "title": "Roles & Responsibilities for TTM in New Zealand",
@@ -99,6 +111,6 @@
     "currency": "NZD",
     "status": "active",
     "launchPath": "/courses/ttm-portable-traffic-signals/index.html",
-    "lastUpdated": "2026-10-01T23:55:26.018Z"
+    "lastUpdated": "2026-11-02T04:12:10.116Z"
   }
 ]

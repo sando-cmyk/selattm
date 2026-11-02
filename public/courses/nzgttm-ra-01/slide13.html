@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Types of Risk &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Types of Risk</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Types of Risk</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide13.svg" alt="Safety is the main focus among many risk types"></div>
+    <p>Include all relevant risk types &ndash; but in TTM, <strong>safety is the main focus</strong>.</p>
+    <table class="simple-table">
+      <tbody>
+        <tr><td><strong>Safety</strong></td><td>Impacts on a person&rsquo;s safety</td></tr>
+        <tr><td><strong>Security</strong></td><td>Malicious, intentional acts affecting a person&rsquo;s safety</td></tr>
+        <tr><td><strong>Health</strong></td><td>Impacts on health and wellbeing</td></tr>
+        <tr><td><strong>Environmental</strong></td><td>Environmental harm</td></tr>
+        <tr><td><strong>Legal</strong></td><td>Potential for prosecution</td></tr>
+        <tr><td><strong>Quality, property, reputation, financial</strong></td><td>Poor standards, damage, bad publicity, cost or lost revenue</td></tr>
+      </tbody>
+    </table>
+    <div class="callout NOTE"><span class="callout-label">EVENTS</span><p>For events with crowds, a security risk is treated the same as a safety risk. NZ Police have a self-assessment tool for event security risk.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/13.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">There are many types of risk. Safety: the potential for impacts on a person&#x27;s safety. Security: the potential for malicious, intentional acts to affect someone&#x27;s safety. Health: impacts on a person&#x27;s health and wellbeing. Environmental harm. Legal risk, the potential for prosecution. Quality. Damage to public or private property. Reputation. And financial risk: cost increases or lost revenue. All relevant types should be included, but in TTM, safety is the main focus. One emerging type is security at events with crowds of people. In the context of TTM, a security risk is treated the same as a safety risk, and NZ Police have a self-assessment tool to help determine the level of security risk for an event.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide12.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 13 of 47</span>
+    <a class="btn amber" href="slide14.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(13);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Describe Every Risk in Three Parts &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Describe Every Risk</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Describe Every Risk in Three Parts</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide9.svg" alt="Hazard, event, consequence: a hidden sign leads to a rear-end crash"></div>
+    <p>Describe risks carefully &ndash; otherwise you could choose the wrong control and end up <em>increasing</em> the risk.</p>
+    <table class="simple-table">
+      <thead><tr><th>Part</th><th>What it is</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Hazard</strong></td><td>The source of the risk</td><td>Vegetation hides the advance warning sign on the approach</td></tr>
+        <tr><td><strong>2. Event</strong></td><td>What could happen because of the hazard</td><td>A driver is unaware of the queue ahead and doesn&rsquo;t slow</td></tr>
+        <tr><td><strong>3. Consequence</strong></td><td>The impact of the event, and on whom</td><td>Rear-end collision injuring people in the queued vehicles</td></tr>
+      </tbody>
+    </table>
+    <div class="callout KEYIDEA"><span class="callout-label">KEY IDEA</span><p>A good description tells you exactly what you need to control.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/9.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">If you describe a risk badly, you can choose the wrong control and end up increasing the risk. So the NZGTTM asks you to describe every risk in three parts. First, the hazard: the source of the risk. Second, the event that could result from that hazard. Third, the consequence: the impact of that event, and who it falls on. Here&#x27;s an example. Vegetation is hiding an advance warning sign. That&#x27;s the hazard. A driver comes around the bend unaware there&#x27;s a queue ahead. That&#x27;s the event. The driver runs into the back of the queue, injuring people in the stopped vehicles. That&#x27;s the consequence. A description like that tells you exactly what you need to fix.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide8.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 9 of 47</span>
+    <a class="btn amber" href="slide10.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(9);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

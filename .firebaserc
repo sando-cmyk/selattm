@@ -6,6 +6,7 @@
   "etags": {
     "selattm-ba765": {
       "extensionInstances": {
+        "firestore-send-email": "a8e024fd7c021481c48e09c824eb954706af6731c5cda1f60fc89bc7fdd26564",
         "firestore-stripe-payments": "a2a8f2afea2a14de195b5f79898db4d3a8a445989f7b02cf2d15275810ee0b76"
       }
     }

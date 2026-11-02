@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Five Key TTM Responsibilities &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Five Key Responsibilities</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>The Five Key TTM Responsibilities</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide7.svg" alt="The five key TTM responsibilities"></div>
+    <div class="step-card-row">
+      <div class="step-card open"><h4><span class="step-letter">1</span>Everybody</h4><div class="step-detail">Everybody involved has responsibilities for safety.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">2</span>Safety</h4><div class="step-detail">The safety of everyone in the transport system.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">3</span>Risk</h4><div class="step-detail">Proactively identify risks and eliminate or minimise them.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">4</span>Mistakes</h4><div class="step-detail">People make mistakes or take risks.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">5</span>Vulnerability</h4><div class="step-detail">People should not pay for mistakes with their lives.</div></div>
+    </div>
+    <div class="objectives-box"><p>Next: the Module 1 knowledge check &ndash; five questions, 80% to pass. You can retry.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/7.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide6.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 7 of 47</span>
+    <a class="btn amber" href="quiz1.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(7);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

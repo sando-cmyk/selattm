@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Five Fundamental TTM Methodologies &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Five TTM Methodologies</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>The Five Fundamental TTM Methodologies</h2>
+    <div class="read-time">~1.5 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide25.svg" alt="Five fundamental TTM methodologies: remove, around, through, past, in the gaps"></div>
+    <p>The hierarchy of controls, applied to TTM &ndash; in order of preference:</p>
+    <table class="simple-table">
+      <thead><tr><th>#</th><th>Method</th><th>Options</th><th>Watch out for</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td><strong>Remove the need to do the work</strong></td><td>&mdash;</td><td>Usually not possible &ndash; but always ask</td></tr>
+        <tr><td><strong>2</strong></td><td><strong>Go around</strong> the site</td><td>Detour, temporary road</td><td>Don&rsquo;t push road users, pedestrians or cyclists onto a less safe route</td></tr>
+        <tr><td><strong>3</strong></td><td><strong>Go through</strong> the site</td><td>Portable traffic control device, manual stop/stop or stop/go</td><td>Road users&rsquo; risk passing through. A device beats exposing a person</td></tr>
+        <tr><td><strong>4</strong></td><td><strong>Go past</strong> the site</td><td>Barrier or exclusion zone, TMA, stop/go periods</td><td>Barriers need end treatments; deflection must suit the space</td></tr>
+        <tr><td><strong>5</strong></td><td><strong>In the gaps</strong> &ndash; lowest</td><td>Safe work method statements; training and close supervision</td><td>Needs a contingency if a worker can&rsquo;t clear the lane in time</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/25.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">The NZGTTM applies the hierarchy of controls to TTM as five fundamental methodologies, in order of preference. One: remove the need to do the work. If the work isn&#x27;t needed, there&#x27;s no risk to anyone. Two: go around the site, with a detour or a temporary road, so traffic is removed from the worksite. Take care not to send road users, pedestrians or cyclists onto a less safe route. Three: go through the site. The road is temporarily closed so workers aren&#x27;t exposed, then the work pauses and traffic is released through. That can use a portable traffic control device, which is better than putting a person at risk, or manual stop-go. Four: go past the site, separating traffic from workers with a barrier or exclusion zone, a truck mounted attenuator, or stop-go periods. Five, the lowest form: in the gaps, where workers enter the lane between vehicles. That relies on safe work method statements, training and close supervision, and it needs a contingency plan for when a worker can&#x27;t get off the road in time.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide24.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 25 of 47</span>
+    <a class="btn amber" href="slide26.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(25);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 Knowledge Check &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Module 5 Knowledge Check</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <h2 style="color:var(--navy);">Module 5 Knowledge Check</h2>
+  <p style="color:#666;">Answer all questions, then select <strong>Submit</strong>. You need 80% or higher to pass. You can retry if needed.</p>
+  <div style="margin-bottom:10px;"><a class="btn" href="slide38.html">&larr; Back</a></div>
+  <form id="quizForm">
+    <div class="quiz-question" data-qindex="0" data-answer="1">
+      <p class="qtext">1. Under NZGTTM, who approves the TMP?</p>
+      <label><input type="radio" name="q0" value="0"> The road controlling authority</label>
+      <label><input type="radio" name="q0" value="1"> The contractor PCBU</label>
+      <label><input type="radio" name="q0" value="2"> The STMS on site</label>
+      <label><input type="radio" name="q0" value="3"> WorkSafe</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="1" data-answer="2">
+      <p class="qtext">2. What does a transport authority organisation&rsquo;s risk reviewer do?</p>
+      <label><input type="radio" name="q1" value="0"> Approves the risk assessment and TMP design</label>
+      <label><input type="radio" name="q1" value="1"> Sets up the site</label>
+      <label><input type="radio" name="q1" value="2"> Provides improvement recommendations &mdash; they don&rsquo;t approve the risk assessment</label>
+      <label><input type="radio" name="q1" value="3"> Nothing &mdash; risk review was removed under NZGTTM</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="2" data-answer="0">
+      <p class="qtext">3. Which part of the example TMP form is intended for risk reviewers and approvers only?</p>
+      <label><input type="radio" name="q2" value="0"> The TMP Planning Form</label>
+      <label><input type="radio" name="q2" value="1"> The TMD Form</label>
+      <label><input type="radio" name="q2" value="2"> The On-site Record Form</label>
+      <label><input type="radio" name="q2" value="3"> The TMP General Form</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="3" data-answer="1">
+      <p class="qtext">4. About how long is the queue if 1,000 vehicles/hour are stopped for 40 seconds (8 m per vehicle)?</p>
+      <label><input type="radio" name="q3" value="0"> About 20 m</label>
+      <label><input type="radio" name="q3" value="1"> About 89 m</label>
+      <label><input type="radio" name="q3" value="2"> About 320 m</label>
+      <label><input type="radio" name="q3" value="3"> About 1.8 km</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="4" data-answer="2">
+      <p class="qtext">5. Why is the documented risk register and decision so important?</p>
+      <label><input type="radio" name="q4" value="0"> It&rsquo;s needed to get paid</label>
+      <label><input type="radio" name="q4" value="1"> It replaces the need for a TMD</label>
+      <label><input type="radio" name="q4" value="2"> It&rsquo;s the critical record of how and why the site was set up, should the worst happen</label>
+      <label><input type="radio" name="q4" value="3"> It is only used for training</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+  </form>
+  <div id="quizResult"></div>
+  <div class="nav-row">
+    <button class="btn" id="submitBtn" type="button">Submit Answers</button>
+    <a class="btn amber" id="continueBtn" href="slide39.html" style="display:none;">Continue to Module 6 &rarr;</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>
+  var QUIZ_ID = "quiz5";
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    var questions = document.querySelectorAll('.quiz-question');
+    var score = 0;
+    var allAnswered = true;
+    questions.forEach(function(qEl){
+      var qi = qEl.getAttribute('data-qindex');
+      var correct = Number(qEl.getAttribute('data-answer'));
+      var selected = qEl.querySelector('input[name="q'+qi+'"]:checked');
+      var fb = qEl.querySelector('.qfeedback');
+      if (!selected) { allAnswered = false; return; }
+      var chosen = Number(selected.value);
+      fb.style.display = 'block';
+      if (chosen === correct) {
+        score++;
+        fb.innerHTML = '<span class="correct-answer">Correct.</span>';
+      } else {
+        var correctText = qEl.querySelectorAll('label')[correct].textContent.trim();
+        fb.innerHTML = '<span class="incorrect-answer">Not quite &mdash; correct answer: ' + correctText + '</span>';
+      }
+    });
+    if (!allAnswered) {
+      alert('Please answer every question before submitting.');
+      return;
+    }
+    var total = questions.length;
+    var pct = Math.round((score / total) * 100);
+    var passed = (score / total) >= 0.8;
+    Course.recordQuiz(QUIZ_ID, score, total);
+    var resultEl = document.getElementById('quizResult');
+    resultEl.innerHTML = '<div class="quiz-result ' + (passed ? 'pass' : 'fail') + '">' +
+      'You scored ' + score + ' / ' + total + ' (' + pct + '%) &mdash; ' + (passed ? 'Passed!' : 'Not yet a pass &mdash; review the module and try again.') +
+      '</div>';
+    if (passed) {
+      document.getElementById('continueBtn').style.display = 'inline-block';
+      document.getElementById('submitBtn').style.display = 'none';
+    }
+  });
+</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

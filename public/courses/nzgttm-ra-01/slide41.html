@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Installing and Removing the Site &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Install &amp; Remove</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Installing and Removing the Site</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide41.svg" alt="Installing the site as designed; removal is often high risk because of fatigue"></div>
+    <div class="two-col">
+      <div class="col-card"><h4>Installing</h4><ul>
+        <li>In the TMP, and risk assessed like the active site</li>
+        <li>Install as designed &ndash; e.g. a TMA positioned to protect workers, a barrier <em>with</em> its end treatment</li>
+        <li>Mark any changes on the TMP so it stays an accurate record</li></ul></div>
+      <div class="col-card" style="background:#FDECEC;border-color:#f3c9c9;"><h4>Removing &ndash; often high risk</h4><ul>
+        <li>Fatigue, and crews focused on getting home</li>
+        <li>Risk assess it first: duration, length, complexity, permanent speed, observed speeds, time of day, weather and glare</li>
+        <li>Plan shift changes; removing a long-term site can confuse regular drivers</li></ul></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m6/41.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Installing the site should be included in the TMP and risk assessed in the same way as the active site. If it isn&#x27;t installed as designed, the controls may not work. For example, a TMA not positioned to protect workers, or a barrier missing its end treatment. Any changes made during set-up must be marked on the TMP so it stays an accurate record. Removing the site is often high risk, because crews are fatigued and focused on getting home. So the removal process should be in the TMP and risk assessed too. Before removal, consider the duration and length of the site, its complexity, the permanent speed of the road, the speeds actually observed during the work, the time of day, and conditions like weather or sun glare. Removing a long-term site can even confuse regular drivers.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide40.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 41 of 47</span>
+    <a class="btn amber" href="slide42.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(41);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

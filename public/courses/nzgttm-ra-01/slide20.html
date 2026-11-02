@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading the Ranking &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Reading the Ranking</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Reading the Ranking</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide20.svg" alt="Ranking risks: the highest score is dealt with first"></div>
+    <p>Once every risk has a rating, rank them so the highest-rated risks are dealt with first.</p>
+    <ul>
+      <li><strong>Not all risks are equal.</strong> Find the highest-rated risks and focus there first.</li>
+      <li>Look at both the <strong>absolute rating</strong> and the <strong>relative differences</strong> between risks.</li>
+      <li>The highest-ranked risks get priority for elimination, or for controls that minimise them.</li>
+    </ul>
+    <div class="callout NOTE"><span class="callout-label">WHO DECIDES</span><p>The contracting PCBU decides the best way to assess the risks and makes sure the assessment team is an appropriately diverse group. People will rate the same risk differently &ndash; that conversation is the point.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/20.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Once each risk has a rating, rank them. Not all risks are equal. The goal is to find the risks with the highest ratings, so you can focus on those first, either eliminating them or developing controls to minimise them. Look at both the absolute rating and the relative differences between risks. Two risks might both be rated high, but one may be much closer to very high than the other. It&#x27;s the contracting PCBU&#x27;s responsibility to decide the best way to assess risks, and to make sure the risk assessment team is an appropriately diverse group of people. Different people will rate the same risk differently, which is exactly why the conversation matters.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide19.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 20 of 47</span>
+    <a class="btn amber" href="slide21.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(20);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

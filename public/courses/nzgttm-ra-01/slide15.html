@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Spot the Risks &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Spot the Risks</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Spot the Risks</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide15.svg" alt="Plan view of the activity site: school, cabinet on the footpath, bus stop, low afternoon sun"></div>
+    <div class="callout CASESTUDY"><span class="callout-label">THE SITE</span><p>A utility crew needs to repair a cabinet on the grass verge of a busy two-lane suburban arterial (50&nbsp;km/h). The footpath runs right past the cabinet. There&rsquo;s a bus stop 30&nbsp;m further along, a primary school 200&nbsp;m away, and work is planned for 1&ndash;4&nbsp;pm on a school day. The road runs east&ndash;west.</p></div>
+    <p class="activity-instructions" style="margin-top:14px;">Tap each hotspot. Try to describe the hazard, event and consequence yourself before you open it.</p>
+    <div id="hz15" data-total="4">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz15', 0)"><span class="hb-icon">&#128694;</span>Footpath closed</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz15', 1)"><span class="hb-icon">&#128652;</span>Bus stop nearby</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz15', 2)"><span class="hb-icon">&#128656;</span>Work van access</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz15', 3)"><span class="hb-icon">&#127751;</span>Afternoon sun</button>
+    </div>
+    <div class="hotspot-progress">0 of 4 explored</div>
+    <div class="hotspot-card" id="hz15-card0"><h4>Footpath closed</h4><p><span class="field-label">Hazard:</span> No footpath or verge past the cabinet, at school finishing time.</p><p><span class="field-label">Event:</span> Pedestrians &ndash; including children &ndash; cross the arterial where drivers aren&rsquo;t expecting them, or walk in the live lane.</p><p><span class="field-label">Consequence:</span> A pedestrian is struck by a vehicle &ndash; serious injury or death. Drivers swerving to avoid them also put others at risk.</p></div>
+    <div class="hotspot-card" id="hz15-card1"><h4>Bus stop nearby</h4><p><span class="field-label">Hazard:</span> A bus stop 30&nbsp;m from the site, with passengers getting on and off.</p><p><span class="field-label">Event:</span> Passengers move unpredictably around the site; a stopped bus blocks sight lines to the TTM.</p><p><span class="field-label">Consequence:</span> Passengers struck by traffic, or a rear-end collision behind the bus. Public transport users and drivers are at risk.</p></div>
+    <div class="hotspot-card" id="hz15-card2"><h4>Work van access</h4><p><span class="field-label">Hazard:</span> Crew vehicles need to enter and leave the live traffic stream.</p><p><span class="field-label">Event:</span> A van pulls out or stops suddenly at an unsafe entry or exit point.</p><p><span class="field-label">Consequence:</span> Collision with general traffic &ndash; injury to the crew and road users.</p></div>
+    <div class="hotspot-card" id="hz15-card3"><h4>Afternoon sun</h4><p><span class="field-label">Hazard:</span> Low sun on an east&ndash;west road in the afternoon.</p><p><span class="field-label">Event:</span> Westbound drivers are dazzled and can&rsquo;t see the signs or workers in time.</p><p><span class="field-label">Consequence:</span> A driver hits equipment or a worker &ndash; serious injury to the crew.</p></div>
+    </div>
+    <div class="callout KEYIDEA"><span class="callout-label">NOTICE</span><p>Closing the footpath protects pedestrians from the cabinet but creates a new risk. That&rsquo;s <em>lowest total risk</em> &ndash; covered in Module 4.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/15.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Time to practise. Read the site description, then tap each hotspot to see the risk described in three parts: the hazard, the event, and the consequence, including who&#x27;s at risk. Before you open each one, try to describe it yourself.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide14.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 15 of 47</span>
+    <a class="btn amber" href="quiz2.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(15);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

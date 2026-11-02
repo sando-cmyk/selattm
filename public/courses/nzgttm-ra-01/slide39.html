@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handover and Pre-start Review &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Handover &amp; Pre-start</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Handover and Pre-start Review</h2>
+    <div class="read-time">~1.5 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide39.svg" alt="The planner hands the risk register to the STMS; a stopwatch speed check"></div>
+    <p>There will always be <strong>residual risks</strong>. The TTM planner gives the risk register to the STMS so they can brief everyone, and understand why each control was chosen before changing any.</p>
+    <div class="two-col">
+      <div class="col-card"><h4>STMS pre-start review</h4><ul>
+        <li>Have all risks been identified? Anything missing from the TMP?</li>
+        <li>Add new risks to the register &ndash; and get the planner&rsquo;s input</li>
+        <li>Record every decision and action</li></ul></div>
+      <div class="col-card"><h4>Quick field checks</h4><ul>
+        <li><strong>Volume:</strong> a 5-minute traffic count</li>
+        <li><strong>Speed:</strong> stopwatch over a known distance &ndash; 100&nbsp;m in 3.6&nbsp;s = 100&nbsp;km/h; 50&nbsp;m in 3.6&nbsp;s = 50&nbsp;km/h</li>
+        <li>Duration, location, weather, nearby businesses and properties</li></ul></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m6/39.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module six: keeping the plan live on site. Even with the planner&#x27;s controls in place, there will be residual risks. So the TTM planner must give the risk register to the STMS. That way the STMS knows the residual risks, can brief everyone on site, and understands why each control was chosen before making any decision to change one. Before work starts, the STMS peer reviews the risk register. Have all the risks been identified? Is anything missing from the TMP? Add any new risks, and get input from the planner. Quick field checks help. A five minute traffic count gives a good estimate of volume. And you can estimate speed with a stopwatch and known distances, like centreline dashes or edge marker posts: a vehicle covering one hundred metres in three point six seconds is doing one hundred kilometres an hour, and fifty metres in three point six seconds is fifty. Also confirm the duration and location of the work, the weather, and the businesses and properties nearby.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz5.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 39 of 47</span>
+    <a class="btn amber" href="slide40.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(39);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

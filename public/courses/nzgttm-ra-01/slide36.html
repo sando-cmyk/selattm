@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engineering Checks: Capacity and Queues &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Capacity &amp; Queues</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Engineering Checks: Capacity and Queues</h2>
+    <div class="read-time">~1.5 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide36.svg" alt="A stop/go queue about 89 metres long; advance warning must sit beyond it"></div>
+    <p>TTM is permanent design delivered temporarily &ndash; simple traffic engineering backs up the risk assessment.</p>
+    <table class="simple-table">
+      <thead><tr><th>Check</th><th>Rule of thumb (NZGTTM)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Lane capacity</strong></td><td>~1,800 vehicles/hour &ndash; 3,600&nbsp;s &divide; 2&nbsp;s between vehicles</td></tr>
+        <tr><td><strong>Signals, stop/go</strong></td><td>Each direction gets only part of the hour, so capacity is lower</td></tr>
+        <tr><td><strong>Stopped queue</strong></td><td>1,000&nbsp;veh/h stopped for 40&nbsp;s &times; 8&nbsp;m per vehicle &asymp; <strong>89&nbsp;m</strong></td></tr>
+        <tr><td><strong>Demand &gt; capacity</strong></td><td>1,500 arriving vs 1,300 capacity = 200 queued every hour &rarr; ~3.2&nbsp;km after 2 hours</td></tr>
+      </tbody>
+    </table>
+    <div class="callout CAUTION"><span class="callout-label">THE TRAP</span><p>If advance warning signs are spaced only for safe stopping distance and the queue is longer, there&rsquo;s no warning of the stopped queue &ndash; an <strong>uncontrolled risk</strong>.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/36.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">TTM is permanent road design delivered temporarily, so simple traffic engineering checks back up your risk assessment. A single lane can carry about eighteen hundred vehicles an hour, because at maximum density vehicles are about two seconds apart, and an hour is thirty-six hundred seconds. Traffic signals and stop-go only give each direction part of the hour, so capacity is lower. Stopped traffic queues. If one thousand vehicles an hour are stopped for forty seconds, and each vehicle takes about eight metres, that&#x27;s a queue of about eighty-nine metres. And when demand is higher than capacity, the queue keeps growing. Fifteen hundred vehicles an hour arriving at a merge that can only take thirteen hundred builds two hundred queued vehicles every hour. After two hours, that&#x27;s around three point two kilometres. Here&#x27;s why it matters: if your advance warning signs are spaced only for safe stopping distance, and the queue is longer than that, drivers meet the back of the queue with no warning. That&#x27;s an uncontrolled risk.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide35.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 36 of 47</span>
+    <a class="btn amber" href="slide37.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(36);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

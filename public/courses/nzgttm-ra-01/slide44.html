@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Records and Incidents &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Records &amp; Incidents</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Records and Incidents</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide44.svg" alt="Video the site set-up, keep daily records and preserve evidence after incidents"></div>
+    <div class="two-col">
+      <div class="col-card"><h4>Daily records</h4><ul>
+        <li>Detailed enough to <strong>recreate the site years later</strong></li>
+        <li>STMS, date, location, job and TMP references, inspection times</li>
+        <li>Adjustments &ndash; who made and who authorised them</li>
+        <li>Handovers, weather, device checks</li>
+        <li><strong>Video</strong> is the best record of set-up</li></ul></div>
+      <div class="col-card" style="background:#FDECEC;border-color:#f3c9c9;"><h4>After a serious incident</h4><ul>
+        <li>Record and photograph the TTM in use at the time</li>
+        <li>Preserve all evidence until Police finish their examination</li>
+        <li>Only change the site to help the injured or make it safe</li>
+        <li>Tampering with evidence is a <strong>criminal offence</strong></li></ul></div>
+    </div>
+    <div class="callout NOTE"><span class="callout-label">NOTIFIABLE EVENTS</span><p>Check WorkSafe&rsquo;s guidance on what a PCBU must do when a notifiable event occurs.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m6/44.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Keep detailed records and update them every day. They should let the STMS recreate the site in the future, which could be a couple of years later, and they may be used in legal proceedings. Records include the STMS&#x27;s details, date, location, job reference, the time of inspections, any adjustments, who made and who authorised them, the TMP reference, handovers at shift change, the weather, and checks of every device. A video is the best way to show how a site was set up. If there&#x27;s an incident, record and photograph the actual TTM arrangements in use at the time. If someone is killed or seriously injured, preserve all evidence until Police can complete their examination. Only change the site to help the injured or make it safe. Tampering with evidence, including moving signs and devices, is a criminal offence. Preserving evidence matters more than traffic access, so more closures may be needed.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide43.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 44 of 47</span>
+    <a class="btn amber" href="slide45.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(44);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

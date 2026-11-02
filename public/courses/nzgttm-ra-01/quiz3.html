@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 3 Knowledge Check &mdash; NZGTTM Risk Assessment &amp; TMP Fundamentals</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Module 3 Knowledge Check</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <h2 style="color:var(--navy);">Module 3 Knowledge Check</h2>
+  <p style="color:#666;">Answer all questions, then select <strong>Submit</strong>. You need 80% or higher to pass. You can retry if needed.</p>
+  <div style="margin-bottom:10px;"><a class="btn" href="slide23.html">&larr; Back</a></div>
+  <form id="quizForm">
+    <div class="quiz-question" data-qindex="0" data-answer="0">
+      <p class="qtext">1. Which standard is the NZGTTM&rsquo;s risk management process based on?</p>
+      <label><input type="radio" name="q0" value="0"> AS/NZS ISO 31000:2018</label>
+      <label><input type="radio" name="q0" value="1"> ISO 9001 quality management</label>
+      <label><input type="radio" name="q0" value="2"> AS/NZS 3845 road safety barriers</label>
+      <label><input type="radio" name="q0" value="3"> The Traffic Control Devices Rule 2004</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="1" data-answer="2">
+      <p class="qtext">2. Is there a mandatory New Zealand TTM risk matrix you must use?</p>
+      <label><input type="radio" name="q1" value="0"> Yes &mdash; the NZGTTM matrix</label>
+      <label><input type="radio" name="q1" value="1"> Yes &mdash; the Austroads AGTTM Part 10 matrix</label>
+      <label><input type="radio" name="q1" value="2"> No &mdash; the organisation doing the assessment chooses the method</label>
+      <label><input type="radio" name="q1" value="3"> No &mdash; risk ratings aren&rsquo;t needed under NZGTTM</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="2" data-answer="1">
+      <p class="qtext">3. Which risks should the TTM sector never tolerate?</p>
+      <label><input type="radio" name="q2" value="0"> Any property damage</label>
+      <label><input type="radio" name="q2" value="1"> Risks of fatal or serious injury</label>
+      <label><input type="radio" name="q2" value="2"> Minor injury from a car hitting a TMA</label>
+      <label><input type="radio" name="q2" value="3"> Delays to road users</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="3" data-answer="2">
+      <p class="qtext">4. When can a pre-approved reusable scheme be used?</p>
+      <label><input type="radio" name="q3" value="0"> Whenever the road is a local road</label>
+      <label><input type="radio" name="q3" value="1"> Only at night</label>
+      <label><input type="radio" name="q3" value="2"> After checking the activity and environment differences, stakeholders and any extra controls &mdash; and confirming it fits</label>
+      <label><input type="radio" name="q3" value="3"> Any time &mdash; it has already been approved</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="4" data-answer="2">
+      <p class="qtext">5. How much planning effort should a site get?</p>
+      <label><input type="radio" name="q4" value="0"> The same for every site</label>
+      <label><input type="radio" name="q4" value="1"> As little as possible to keep costs down</label>
+      <label><input type="radio" name="q4" value="2"> Effort consistent with the level of risk &mdash; more risk, more planning</label>
+      <label><input type="radio" name="q4" value="3"> Whatever the client asks for</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+  </form>
+  <div id="quizResult"></div>
+  <div class="nav-row">
+    <button class="btn" id="submitBtn" type="button">Submit Answers</button>
+    <a class="btn amber" id="continueBtn" href="slide24.html" style="display:none;">Continue to Module 4 &rarr;</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>
+  var QUIZ_ID = "quiz3";
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    var questions = document.querySelectorAll('.quiz-question');
+    var score = 0;
+    var allAnswered = true;
+    questions.forEach(function(qEl){
+      var qi = qEl.getAttribute('data-qindex');
+      var correct = Number(qEl.getAttribute('data-answer'));
+      var selected = qEl.querySelector('input[name="q'+qi+'"]:checked');
+      var fb = qEl.querySelector('.qfeedback');
+      if (!selected) { allAnswered = false; return; }
+      var chosen = Number(selected.value);
+      fb.style.display = 'block';
+      if (chosen === correct) {
+        score++;
+        fb.innerHTML = '<span class="correct-answer">Correct.</span>';
+      } else {
+        var correctText = qEl.querySelectorAll('label')[correct].textContent.trim();
+        fb.innerHTML = '<span class="incorrect-answer">Not quite &mdash; correct answer: ' + correctText + '</span>';
+      }
+    });
+    if (!allAnswered) {
+      alert('Please answer every question before submitting.');
+      return;
+    }
+    var total = questions.length;
+    var pct = Math.round((score / total) * 100);
+    var passed = (score / total) >= 0.8;
+    Course.recordQuiz(QUIZ_ID, score, total);
+    var resultEl = document.getElementById('quizResult');
+    resultEl.innerHTML = '<div class="quiz-result ' + (passed ? 'pass' : 'fail') + '">' +
+      'You scored ' + score + ' / ' + total + ' (' + pct + '%) &mdash; ' + (passed ? 'Passed!' : 'Not yet a pass &mdash; review the module and try again.') +
+      '</div>';
+    if (passed) {
+      document.getElementById('continueBtn').style.display = 'inline-block';
+      document.getElementById('submitBtn').style.display = 'none';
+    }
+  });
+</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>
