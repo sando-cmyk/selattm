@@ -267,6 +267,18 @@
       transition: background 0.2s;
     }
 
+    .inq-sub { color: var(--text-muted); font-size: 0.82rem; }
+    .inq-detail td { background: rgba(15, 23, 42, 0.35); }
+    .inq-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 6px; }
+    .inq-msg { white-space: pre-wrap; line-height: 1.5; margin-bottom: 8px; }
+    .inq-history { margin-top: 12px; }
+    .inq-reply-item { border-left: 3px solid var(--accent-green); padding: 4px 10px; margin: 6px 0; }
+    .inq-meta { font-size: 0.78rem; color: var(--text-muted); }
+    .inq-detail input.inq-subject, .inq-detail textarea.inq-text { width: 100%; box-sizing: border-box; margin: 4px 0 8px; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--card-border); background: #0f172a; color: var(--text-main); font: inherit; font-size: 0.9rem; }
+    .inq-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .inq-note { font-size: 0.78rem; color: var(--text-muted); }
+    .btn-action:disabled { opacity: .5; cursor: not-allowed; }
+
     .btn-action:hover {
       background: #475569;
     }
@@ -305,7 +317,7 @@
         <div class="kpi-value" id="kpi-course-count">--</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">Inquiries Logged</div>
+        <div class="kpi-label">Inquiries (open / total)</div>
         <div class="kpi-value" id="kpi-inquiries-count">--</div>
       </div>
       <div class="kpi-card">
@@ -382,20 +394,22 @@
       <!-- Inquiries Log -->
       <section class="panel-card">
         <h2>Corporate Inquiries</h2>
-        <p class="subtitle">Latest submissions from <code>contact_inquiries</code>.</p>
+        <p class="subtitle">Contact form submissions, newest first. Select <strong>View &amp; Reply</strong> to read the full message and respond.</p>
         
         <div class="table-container">
           <table>
             <thead>
               <tr>
-                <th>Company / Name</th>
-                <th>Subject</th>
+                <th>Received</th>
+                <th>From</th>
+                <th>Type</th>
                 <th>Status</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="inquiries-tbody">
               <tr>
-                <td colspan="3" style="text-align: center; color: var(--text-muted);">Loading inquiries...</td>
+                <td colspan="5" style="text-align: center; color: var(--text-muted);">Loading inquiries...</td>
               </tr>
             </tbody>
           </table>

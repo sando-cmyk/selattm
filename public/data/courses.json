@@ -99,7 +99,8 @@
     "currency": "NZD",
     "status": "active",
     "stripePriceId": "price_1ULtZj0flJvw3UeNmAVKwkMu",
-    "launchPath": "/courses/tmw-side-road-safety/index.html"
+    "launchPath": "/courses/tmw-side-road-safety/index.html",
+    "visibility": "private"
   },
   {
     "id": "ttm-eng-01",
@@ -135,6 +136,6 @@
     "currency": "NZD",
     "status": "active",
     "launchPath": "/courses/ttm-portable-traffic-signals/index.html",
-    "lastUpdated": "2026-11-05T02:54:54.099Z"
+    "lastUpdated": "2026-11-05T04:58:24.462Z"
   }
 ]

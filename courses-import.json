@@ -110,7 +110,8 @@
     "currency": "NZD",
     "status": "active",
     "stripePriceId": "price_1ULtZj0flJvw3UeNmAVKwkMu",
-    "launchPath": "/courses/tmw-side-road-safety/index.html"
+    "launchPath": "/courses/tmw-side-road-safety/index.html",
+    "visibility": "private"
   },
   {
     "id": "40233-ttm-road-reserve",

@@ -393,17 +393,6 @@
       </div>
       <div class="course-card">
         <div>
-          <span class="course-code">TTM-TMW-01</span>
-          <h3 class="course-title">Staging &amp; Vehicles on Side Roads</h3>
-          <p class="course-desc">Toolbox-style module on safe staging and vehicle placement when working on side roads.</p>
-        </div>
-        <div>
-          <div class="course-price">NZD $45.00</div>
-          <button class="btn-enroll" data-id="tmw-side-road-safety" data-price-id="price_1ULtZj0flJvw3UeNmAVKwkMu" data-title="Staging & Vehicles on Side Roads">Enroll &amp; Launch</button>
-        </div>
-      </div>
-      <div class="course-card">
-        <div>
           <span class="course-code">US-40233</span>
           <h3 class="course-title">Assist with Temporary Traffic Management within the Road Reserve</h3>
           <p class="course-desc">Built against Skill Standard 40233 (NZQA Level 3, 5 credits): online learning plus a practical sign-off on site for assisting with temporary traffic management within the road reserve.</p>
@@ -581,6 +570,9 @@
           let html = "";
           snap.forEach(docSnap => {
             const course = docSnap.data();
+            // Private courses are only given out by an admin (Grant Course Access /
+            // learner profile) -- never listed or sold in the store.
+            if (String(course.visibility || "").toLowerCase() === "private") return;
             const price = Number(course.price || 0).toFixed(2);
             const currency = course.currency || "NZD";
             const title = course.title || "Course Module";

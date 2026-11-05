@@ -74,7 +74,8 @@ async function loadAll() {
     safeGetAll("courses"), safeGetAll("users"), safeGetAll("grants"),
     safeGetAll("learner_plans"), safeGetAll("attempts"), safeGetAll("submissions"),
   ]);
-  state.catalog = catalog.filter(c => c.launchPath || c.status === "active").sort((a, b) => String(a.title).localeCompare(String(b.title)));
+  // Course docs keep their id as the document name, not a field -- copy it in.
+  state.catalog = catalog.map(c => ({ ...c, id: c.id || c._id })).filter(c => c.launchPath || c.status === "active").sort((a, b) => String(a.title).localeCompare(String(b.title)));
   state.grants = new Map(grants.map(g => [lower(g._id), g]));
   state.plans = new Map(plans.map(p => [lower(p._id), p]));
   state.attempts = attempts;

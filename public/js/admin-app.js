@@ -123,7 +123,7 @@ function renderCourseTable(courses) {
         <td><strong style="color: #38bdf8;">${code}</strong></td>
         <td>${title}</td>
         <td>${currency} $${price}</td>
-        <td><span class="badge badge-active">${status}</span></td>
+        <td><span class="badge badge-active">${status}</span>${String(course.visibility || "").toLowerCase() === "private" ? ` <span class="badge badge-pending" title="Not shown in the store -- admin grant only">Private</span>` : ""}</td>
         <td><code>${launch}</code></td>
         <td>
           <div style="display:flex; gap:6px; align-items:center;">
@@ -143,47 +143,189 @@ function renderCourseTable(courses) {
   }).join("");
 }
 
+// ---- Corporate Inquiries ----------------------------------------------------
+// Reads contact_inquiries (written by contact.html), newest first, and lets
+// an admin read the full message, reply from this page (queued in "mail" for
+// the Trigger Email extension, sent from joseph@selacivil.co.nz -- same route
+// as certificate emails), fall back to their own email app, and mark the
+// inquiry handled. Everything shown comes from a public form, so it is
+// always HTML-escaped before display.
+let inquiryCache = {};
+const escInq = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+function inqDate(v) {
+  if (!v) return null;
+  if (typeof v.toDate === "function") return v.toDate();
+  const d = new Date(v);
+  return isNaN(d) ? null : d;
+}
+function fmtInqDate(d) {
+  return d ? d.toLocaleString("en-NZ", { day: "numeric", month: "short", year: "numeric", hour: "numeric", minute: "2-digit" }) : "--";
+}
+function inqStatusBadge(status) {
+  if (status === "handled") return `<span class="badge badge-active">Handled</span>`;
+  if (status === "replied") return `<span class="badge badge-active">Replied</span>`;
+  return `<span class="badge badge-pending">New</span>`;
+}
+function inqSignature() {
+  return "Ngā mihi,\nJoseph Rosendaal\nTraining Manager, Sela Civil Advisory Ltd\njoseph@selacivil.co.nz | 027 267 7264\nhttps://selattm.com";
+}
+function inqReplySubject(data) {
+  return `Re: ${data.subject || "Your inquiry"} - Sela Civil Advisory`;
+}
+function inqQuoted(data) {
+  const when = fmtInqDate(inqDate(data.createdAt));
+  return `\n\n----- Your inquiry (${when}) -----\n${data.message || ""}`;
+}
+
 async function loadInquiries() {
   const tbody = document.getElementById("inquiries-tbody");
   const kpiInquiries = document.getElementById("kpi-inquiries-count");
 
   try {
-    const q = query(collection(db, "contact_inquiries"), limit(10));
-    const snap = await getDocs(q);
+    const snap = await getDocs(query(collection(db, "contact_inquiries"), limit(200)));
+    const rows = [];
+    inquiryCache = {};
+    snap.forEach(d => { inquiryCache[d.id] = d.data(); rows.push({ id: d.id, ...d.data() }); });
+    rows.sort((a, b) => (inqDate(b.createdAt)?.getTime() || 0) - (inqDate(a.createdAt)?.getTime() || 0));
 
-    if (kpiInquiries) {
-      kpiInquiries.textContent = snap.size;
-    }
+    const open = rows.filter(r => !r.status || r.status === "new").length;
+    if (kpiInquiries) kpiInquiries.textContent = rows.length ? `${open} open / ${rows.length}` : "0";
 
     if (!tbody) return;
-
-    if (snap.empty) {
-      tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #94a3b8; padding: 20px;">No inquiries received yet.</td></tr>`;
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8; padding: 20px;">No inquiries received yet.</td></tr>`;
       return;
     }
 
-    let html = "";
-    snap.forEach(docSnap => {
-      const data = docSnap.data();
-      const sender = data.name || data.company || data.email || "Anonymous";
-      const subject = data.subject || "General Inquiry";
-      html += `
-        <tr>
-          <td><strong>${sender}</strong></td>
-          <td>${subject}</td>
-          <td><span class="badge badge-pending">New</span></td>
+    tbody.innerHTML = rows.map(r => {
+      const replies = Array.isArray(r.replies) ? r.replies : [];
+      const history = replies.length
+        ? `<div class="inq-history"><div class="inq-label">Replies sent</div>` + replies.map(x =>
+            `<div class="inq-reply-item"><div class="inq-meta">${escInq(fmtInqDate(inqDate(x.sentAt)))} &middot; ${escInq(x.sentBy || "")}</div><div class="inq-msg">${escInq(x.text)}</div></div>`).join("") + `</div>`
+        : "";
+      const handled = r.status === "handled";
+      return `
+        <tr class="inq-row" data-id="${escInq(r.id)}">
+          <td style="white-space:nowrap;">${escInq(fmtInqDate(inqDate(r.createdAt)))}</td>
+          <td><strong>${escInq(r.name || "Anonymous")}</strong>${r.company ? `<br><span class="inq-sub">${escInq(r.company)}</span>` : ""}${r.email ? `<br><a class="inq-sub" href="mailto:${escInq(r.email)}">${escInq(r.email)}</a>` : ""}</td>
+          <td>${escInq(r.subject || "General Inquiry")}</td>
+          <td>${inqStatusBadge(r.status)}</td>
+          <td style="white-space:nowrap;"><button class="btn-action btn-inq-view" data-id="${escInq(r.id)}" style="padding:6px 10px; font-size:0.8rem;">View &amp; Reply</button></td>
         </tr>
-      `;
-    });
-    tbody.innerHTML = html;
-
+        <tr class="inq-detail" id="inq-detail-${escInq(r.id)}" hidden>
+          <td colspan="5">
+            <div class="inq-label">Message</div>
+            <div class="inq-msg">${escInq(r.message || "(no message)")}</div>
+            ${history}
+            <div class="inq-label" style="margin-top:14px;">Reply to ${escInq(r.email || "(no email given)")}</div>
+            <input type="text" class="inq-subject" value="${escInq(inqReplySubject(r))}">
+            <textarea class="inq-text" rows="8">${escInq(`Kia ora ${(r.name || "").split(" ")[0] || "there"},\n\nThank you for getting in touch with Sela Civil Advisory.\n\n\n\n${inqSignature()}`)}</textarea>
+            <div class="inq-actions">
+              <button class="btn-action btn-primary-action btn-inq-send" data-id="${escInq(r.id)}" ${r.email ? "" : "disabled"}>Send Reply</button>
+              <button class="btn-action btn-inq-mailto" data-id="${escInq(r.id)}" ${r.email ? "" : "disabled"}>Open in Email App</button>
+              <button class="btn-action btn-inq-status" data-id="${escInq(r.id)}" data-status="${handled ? "new" : "handled"}">${handled ? "Reopen" : "Mark Handled"}</button>
+              <span class="inq-note">Sent from joseph@selacivil.co.nz. Your original message is quoted below the reply.</span>
+            </div>
+          </td>
+        </tr>`;
+    }).join("");
   } catch (err) {
     console.warn("Unable to fetch contact inquiries:", err);
     if (kpiInquiries) kpiInquiries.textContent = "0";
     if (tbody) {
-      tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #94a3b8;">Inquiries offline / Firestore permission restricted.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8;">Inquiries offline / Firestore permission restricted.</td></tr>`;
     }
   }
+}
+
+async function sendInquiryReply(btn) {
+  const id = btn.dataset.id;
+  const data = inquiryCache[id];
+  const box = document.getElementById(`inq-detail-${id}`);
+  if (!data || !box || !data.email) return;
+  const subject = box.querySelector(".inq-subject").value.trim() || inqReplySubject(data);
+  const text = box.querySelector(".inq-text").value.trim();
+  if (!text) { showModal({ title: "Reply is empty", message: "Write your reply before sending.", type: "error" }); return; }
+  if (!confirm(`Send this reply to ${data.email}?`)) return;
+
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  const fullText = text + inqQuoted(data);
+  const html = `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.5;">${escInq(text).replace(/\n/g, "<br>")}` +
+    `<hr style="border:none;border-top:1px solid #ccc;margin:18px 0;"><p style="color:#666;font-size:13px;">Your inquiry (${escInq(fmtInqDate(inqDate(data.createdAt)))}):<br>${escInq(data.message || "").replace(/\n/g, "<br>")}</p></div>`;
+  let outcome;
+  try {
+    const ref = await addDoc(collection(db, "mail"), {
+      to: data.email,
+      message: { subject, text: fullText, html },
+      meta: { type: "inquiry-reply", inquiryId: id, sentBy: auth.currentUser?.email || "unknown", queuedAt: new Date().toISOString() },
+    });
+    outcome = await waitForDelivery(ref);
+  } catch (err) {
+    outcome = { state: "ERROR", error: err.message };
+  }
+  btn.disabled = false;
+  btn.textContent = original;
+
+  if (outcome.state === "SUCCESS") {
+    await setDoc(doc(db, "contact_inquiries", id), {
+      status: "replied",
+      repliedAt: new Date().toISOString(),
+      replies: arrayUnion({ sentAt: new Date().toISOString(), sentBy: auth.currentUser?.email || "", subject, text }),
+    }, { merge: true });
+    showModal({ title: "Reply Sent", message: `Your reply was emailed to ${data.email}.`, type: "success" });
+    await loadInquiries();
+    return;
+  }
+  console.error("Inquiry reply failed:", outcome);
+  showModal({
+    title: "Reply not confirmed",
+    message: outcome.state === "TIMEOUT"
+      ? "The email hasn't been confirmed yet (it may still arrive). To be safe, use Open in Email App to send it from your own email."
+      : `The email could not be sent: ${outcome.error || "unknown error"}. Use Open in Email App instead.`,
+    type: "error",
+  });
+}
+
+const inquiriesTbodyEl = document.getElementById("inquiries-tbody");
+if (inquiriesTbodyEl) {
+  inquiriesTbodyEl.addEventListener("click", async (e) => {
+    const view = e.target.closest(".btn-inq-view");
+    if (view) {
+      const row = document.getElementById(`inq-detail-${view.dataset.id}`);
+      if (row) { row.hidden = !row.hidden; view.textContent = row.hidden ? "View & Reply" : "Close"; }
+      return;
+    }
+    const send = e.target.closest(".btn-inq-send");
+    if (send) { await sendInquiryReply(send); return; }
+
+    const mailto = e.target.closest(".btn-inq-mailto");
+    if (mailto) {
+      const data = inquiryCache[mailto.dataset.id];
+      const box = document.getElementById(`inq-detail-${mailto.dataset.id}`);
+      if (!data || !data.email || !box) return;
+      const subject = box.querySelector(".inq-subject").value.trim() || inqReplySubject(data);
+      const body = box.querySelector(".inq-text").value + inqQuoted(data);
+      window.location.href = `mailto:${data.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      return;
+    }
+    const st = e.target.closest(".btn-inq-status");
+    if (st) {
+      st.disabled = true;
+      try {
+        await setDoc(doc(db, "contact_inquiries", st.dataset.id), {
+          status: st.dataset.status,
+          statusChangedAt: new Date().toISOString(),
+          statusChangedBy: auth.currentUser?.email || "",
+        }, { merge: true });
+        await loadInquiries();
+      } catch (err) {
+        st.disabled = false;
+        showModal({ title: "Couldn't update", message: err.message, type: "error" });
+      }
+    }
+  });
 }
 
 export async function refreshAdminDashboard() {
