@@ -140,6 +140,26 @@ export const COURSE_SUMMARIES = {
     ],
     assessment: "A knowledge check at the end of each of the 6 modules, then a 15-question final assessment drawn from a bank of 24. 80% required to pass each. Every slide must be completed in order before moving on.",
   },
+  "ttm-fb-01": {
+    format: "Online, self-paced · 3 modules, 11 narrated slides · approx. 15 minutes",
+    audience: "Anyone who works on or near live traffic, including TCs, STMS, crew and supervisors, who wants to understand why speed and separation decide whether a crash is survivable.",
+    overview: "A short course on the physics behind TTM. It explains in plain terms why the human body can't survive being hit at traffic speeds, and how each TTM control uses speed, time, distance and separation to protect the crew.",
+    covers: [
+      "Newton's three laws of motion, using road and worksite examples",
+      "What happens to a vehicle occupant, and to a worker on foot, in a collision",
+      "Why speed matters so much: impact energy rises with the square of speed",
+      "How the body fails in a crash, and the survivable speeds behind the Safe System",
+      "Stopping distance: reaction time plus braking distance",
+      "The physics behind TTM controls such as speed limits, advance warning, safety zones and TMAs",
+    ],
+    demonstrates: [
+      "Explains Newton's laws in plain terms using worksite examples",
+      "Describes why a worker on foot is so much more vulnerable than a vehicle occupant",
+      "Explains why small increases in speed cause much bigger increases in impact energy and stopping distance",
+      "Links each TTM control to the physics it uses to protect the crew",
+    ],
+    assessment: "A 3-question knowledge check at the end of each of the 3 modules, then a 10-question final assessment drawn from a bank of 15. 80% required to pass each.",
+  },
   "ttm-roles-01": {
     format: "Online, self-paced · approx. 20 minutes",
     audience: "TTM workers, supervisors, planners and client representatives who need to know who is responsible for what.",

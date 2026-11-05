@@ -8,7 +8,7 @@ Add NZGTTM-VRU-01 and TTM-FB-01 courses with Stripe prices
 - Both added to courses-import.json, Courses.txt, course manifests,
   store.html (static card + TTM group) and js/course-map.js;
   public/data/courses.json regenerated with build-all.js.
-- Store outline for NZGTTM-VRU-01 in js/course-summaries.js.
+- Store outlines for NZGTTM-VRU-01 and TTM-FB-01 in js/course-summaries.js.
 - NZGTTM-RA-01: each course page now carries its own Next-lock record
   (data-course-id), so courses opened from a folder can't share progress.
 
