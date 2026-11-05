@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notice and On-Site Setup &mdash; Protecting Vulnerable Road Users in TTM</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-vru-01-narrated">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Notice and On-Site Setup</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Notice and On-Site Setup</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide20.svg" alt="Notice periods for bus stop changes: 5 working days, 10 working days, 6 weeks"></div>
+    <table class="simple-table">
+      <thead><tr><th>Change</th><th>Notice to RCA / PTA</th></tr></thead>
+      <tbody>
+        <tr><td>Stop stays open, buses not affected</td><td>5 working days</td></tr>
+        <tr><td>Buses may be delayed, or stop moved with no diversion</td><td>10 working days</td></tr>
+        <tr><td>Stop closed and/or buses diverted</td><td>6 weeks</td></tr>
+      </tbody>
+    </table>
+    <div class="objectives-box"><p>On site, the STMS:</p><ul>
+      <li>Covers or removes the old stop sign and posts a notice with a map <strong>2 working days</strong> before</li>
+      <li>Sets up the temporary stop <strong>before</strong> closing the old one</li>
+      <li>Installs TEMPORARY BUS STOP and TEMPORARY BUS STOP AHEAD signs</li>
+      <li>Cones at 2.5 m centres along 33 m; no-parking signs at each end</li>
+    </ul></div>
+    <div class="callout CAUTION"><span class="callout-label">TMP DOESN&rsquo;T FIT?</span><p>Tell the TTM planner straight away. Minor changes are noted on the TMP; major changes mean stop work and minimise the site until it&rsquo;s fixed.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/20.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Any TTM that affects a bus stop must be approved in advance by the road controlling authority or public transport authority. The recommended lead times are five working days if the stop stays open and buses aren&#x27;t affected, ten working days if buses may be delayed, or if the stop is moved without a diversion, and six weeks if the stop is closed or buses are diverted. Include the stop details, the dates, the effect on pedestrians, photos of the stop, and your risk register. On site, the STMS covers or removes the old bus stop sign, and puts up a notice with a map showing the temporary stop two working days before the change. The temporary stop is set up before the old one closes, with TEMPORARY BUS STOP and TEMPORARY BUS STOP AHEAD signs, cones at two and a half metre spacing along thirty-three metres, and no-parking signs at each end. If the TMP doesn&#x27;t suit the site, tell the TTM planner straight away. Next is the Module four knowledge check.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide19.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 20 of 25</span>
+    <a class="btn amber" href="quiz4.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(20);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

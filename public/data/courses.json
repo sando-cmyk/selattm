@@ -53,14 +53,14 @@
   {
     "id": "nzgttm-ra-01",
     "code": "NZGTTM-RA-01",
-    "title": "Nzgttm Ra 01",
-    "description": "Standard modular training program for Nzgttm Ra 01.",
+    "title": "NZGTTM Risk Assessment & TMP Fundamentals",
+    "description": "Six-module course on the NZGTTM risk-based approach: identifying, analysing and rating TTM risks, selecting controls for lowest total risk, building the risk register and TMP, and keeping the plan live on site.",
     "category": "TTM Training",
-    "price": 250,
+    "price": 175,
     "currency": "NZD",
     "status": "active",
-    "launchPath": "/courses/nzgttm-ra-01/index.html",
-    "lastUpdated": "2026-11-02T04:12:10.101Z"
+    "stripePriceId": "price_1UXH5I0flJvw3UeNMNfj1Igr",
+    "launchPath": "/courses/nzgttm-ra-01/index.html"
   },
   {
     "id": "ttm-roles-01",
@@ -76,6 +76,18 @@
     "legacyStripePriceIds": [
       "price_1U92Gv0flJvw3UeN8Pg8edac"
     ]
+  },
+  {
+    "id": "nzgttm-vru-01",
+    "code": "NZGTTM-VRU-01",
+    "title": "Protecting Vulnerable Road Users in TTM",
+    "description": "Keep people walking, cycling, using mobility devices or catching the bus safe around TTM sites: footpaths, cycle routes, crossings, bus stops, level crossings and on-site checks.",
+    "category": "TTM Training",
+    "price": 85,
+    "currency": "NZD",
+    "status": "active",
+    "stripePriceId": "price_1UYGis0flJvw3UeN8Y693TcN",
+    "launchPath": "/courses/nzgttm-vru-01/index.html"
   },
   {
     "id": "tmw-side-road-safety",
@@ -102,6 +114,18 @@
     "launchPath": "/courses/ttm-engineering-essentials/index.html"
   },
   {
+    "id": "ttm-fb-01",
+    "code": "TTM-FB-01",
+    "title": "Force & the Body: Why Road Workers Are Vulnerable",
+    "description": "Why road workers are so vulnerable to traffic: Newton's laws and the body, speed, energy and human limits, and applying the physics on site.",
+    "category": "TTM Training",
+    "price": 39,
+    "currency": "NZD",
+    "status": "active",
+    "stripePriceId": "price_1UYGjw0flJvw3UeN4Ogouwav",
+    "launchPath": "/courses/ttm-fb-01/index.html"
+  },
+  {
     "id": "ttm-portable-traffic-signals",
     "code": "TTM-PORTABLE-TRAFFIC-SIGNALS",
     "title": "Ttm Portable Traffic Signals",
@@ -111,6 +135,6 @@
     "currency": "NZD",
     "status": "active",
     "launchPath": "/courses/ttm-portable-traffic-signals/index.html",
-    "lastUpdated": "2026-11-02T04:12:10.116Z"
+    "lastUpdated": "2026-11-05T02:54:54.099Z"
   }
 ]

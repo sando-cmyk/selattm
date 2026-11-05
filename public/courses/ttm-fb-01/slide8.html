@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survivable Speeds &mdash; Force &amp; the Body: Why Road Workers Are Vulnerable</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Survivable Speeds</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Survivable Speeds: the Safe System</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide8.svg" alt="A speedometer with the 30 km/h survivable zone marked in green"></div>
+
+<p data-cue="0.0" data-cue-sec="0.0">New Zealand’s road safety approach is built on the <strong>Safe System</strong>. It accepts that people make mistakes, and designs the system so that a mistake doesn’t cost a life. It’s based on the impact speeds the human body can usually survive:</p>
+<table class="simple-table">
+<tr data-cue="0.264" data-cue-sec="11.2"><th>Crash type</th><th>Survivable impact speed (approx.)</th><th>Why</th></tr>
+<tr data-cue="0.366" data-cue-sec="15.1"><td><strong>Person on foot struck</strong> (worker, pedestrian, cyclist)</td><td><strong>≈ 30 km/h</strong></td><td>No structure absorbs the energy. The body takes the full stop.</td></tr>
+<tr data-cue="0.46" data-cue-sec="18.7"><td>Side impact, vehicle into vehicle</td><td>≈ 50 km/h</td><td>Little crush space between the occupant and the striking vehicle.</td></tr>
+<tr data-cue="0.528" data-cue-sec="22.1"><td>Head-on, vehicle into vehicle</td><td>≈ 70 km/h</td><td>Crumple zones, belts and airbags extend the stop.</td></tr>
+</table>
+<div class="callout CAUTION" data-cue="0.665" data-cue-sec="28.9"><span class="callout-label">A ROAD WORKER IS AN UNPROTECTED ROAD USER</span><p>Above about 30 km/h, survival is unlikely. On most worksites live traffic is passing well above that, so separation, not luck, has to protect the crew.</p></div>
+<div class="objectives-box" data-cue="0.95" data-cue-sec="42.6"><p>Next: the Module 2 knowledge check – three questions, 80% to pass.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/8.mp3" preload="auto" data-est-dur="47"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">New Zealand&#x27;s approach to road safety is called the Safe System. It accepts that people make mistakes, and it designs roads and worksites so that a mistake doesn&#x27;t cost someone their life. It&#x27;s built on the impact speeds the human body can usually survive. For a person on foot, that&#x27;s about thirty kilometres an hour. For a side impact between vehicles, about fifty. For a head-on, about seventy, because crumple zones, belts and airbags stretch out the stop. A road worker is an unprotected road user. There&#x27;s no crumple zone around you. Above about thirty, survival is unlikely, and most traffic past a worksite is travelling well above that. So separation has to protect the crew.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide7.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 8 of 11</span>
+    <a class="btn amber" href="quiz2.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/narration-sync.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(8);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

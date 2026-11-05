@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Law: Inertia &mdash; Force &amp; the Body: Why Road Workers Are Vulnerable</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">First Law: Inertia</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Newton’s First Law: Inertia</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide2.svg" alt="A car stopping while a box on the deck keeps sliding forward"></div>
+
+<p data-cue="0.037" data-cue-sec="1.4">Newton’s First Law of Motion states: <em>“A body at rest will remain at rest, and a body in motion will remain in motion, unless it is acted upon by an external force.”</em></p>
+<div class="two-col">
+<div class="col-card" data-cue="0.199" data-cue-sec="8.6"><h4>A body in motion…</h4><ul>
+<li>A vehicle travelling at 100 km/h wants to keep going at 100 km/h.</li>
+<li>So does everything inside it: the driver, passengers, tools and loose gear.</li>
+<li>Brakes, a seatbelt or a crash are the “external force”.</li></ul></div>
+<div class="col-card" data-cue="0.548" data-cue-sec="23.1"><h4>A body at rest…</h4><ul>
+<li>A worker standing on the roadside has zero speed.</li>
+<li>If a vehicle hits them, the body has to be pushed from 0 to vehicle speed in a few hundredths of a second.</li>
+<li>That sudden push is what causes the injury.</li></ul></div>
+</div>
+<div class="callout CAUTION" data-cue="0.881" data-cue-sec="37.0"><span class="callout-label">ON SITE</span><p>Unsecured cones, signs and tools on a ute deck or shadow truck keep moving when the vehicle stops. A loose sign base becomes a projectile. Secure every load, and never ride on the deck or tail of a moving vehicle.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/2.mp3" preload="auto" data-est-dur="52"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Newton&#x27;s first law is about inertia. A body at rest stays at rest, and a body in motion stays in motion, unless a force acts on it. On the road, that means a vehicle at a hundred kilometres an hour wants to keep doing a hundred, and so does everything inside it: the driver, the passengers, and any loose gear. Brakes, a seatbelt, or a crash supply the force that changes that. It works the other way too. A worker standing on the roadside isn&#x27;t moving. If a vehicle hits them, their body has to be pushed from standing still to vehicle speed in a fraction of a second. That sudden push is what injures. And remember, unsecured gear on a site vehicle keeps moving when the vehicle stops.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide1.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 2 of 11</span>
+    <a class="btn amber" href="slide3.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/narration-sync.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(2);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

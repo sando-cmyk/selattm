@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physics Behind the Controls &mdash; Force &amp; the Body: Why Road Workers Are Vulnerable</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Physics Behind the Controls</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>The Physics Behind TTM Controls</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide10.svg" alt="A work site protected by a speed sign, safety zone, shadow truck with TMA and barrier"></div>
+
+<p data-cue="0.0" data-cue-sec="0.0">Every TTM control does at least one of three things: it <strong>lowers speed</strong>, it <strong>adds time and distance</strong>, or it <strong>keeps the energy away from people</strong>.</p>
+<table class="simple-table">
+<tr data-cue="0.187" data-cue-sec="10.1"><th>Control</th><th>Physics it uses</th><th>What it does for the crew</th></tr>
+<tr data-cue="0.187" data-cue-sec="10.1"><td>Temporary speed limit</td><td>Energy rises with speed²; shorter stopping distance</td><td>Less energy, more chance to stop</td></tr>
+<tr data-cue="0.289" data-cue-sec="14.2"><td>Advance warning signs</td><td>Gives drivers their reaction time earlier</td><td>Traffic is already slower when it reaches you</td></tr>
+<tr data-cue="0.344" data-cue-sec="18.2"><td>Safety zones and buffer space</td><td>Distance gives an errant vehicle room to stop</td><td>The energy runs out before it reaches people</td></tr>
+<tr data-cue="0.432" data-cue-sec="22.7"><td>Shadow (blocker) vehicle</td><td>Mass and the Third Law: the heavy truck takes the errant vehicle’s momentum</td><td>The errant vehicle is stopped before it reaches the crew ahead. A roll-ahead gap allows for the truck being shunted forward.</td></tr>
+<tr data-cue="0.561" data-cue-sec="28.9"><td>TMA on the shadow vehicle</td><td>Second Law: crushes progressively to stretch the stopping time</td><td>Protects the people in the errant vehicle, so hitting the blocker is survivable for them too</td></tr>
+<tr data-cue="0.766" data-cue-sec="39.4"><td>Crash-tested barriers</td><td>Redirect momentum and absorb energy</td><td>Vehicles can’t enter the work space</td></tr>
+<tr data-cue="0.8" data-cue-sec="41.7"><td>Secured loads, belts in site vehicles</td><td>First Law: inertia</td><td>People and gear stop with the vehicle</td></tr>
+<tr data-cue="0.847" data-cue-sec="44.5"><td>Face traffic, keep an escape route</td><td>Buys human reaction time</td><td>A chance to move before impact</td></tr>
+</table>
+<div class="callout NOTE" data-cue="0.895" data-cue-sec="47.7"><span class="callout-label">FOLLOW THE PLAN</span><p>This course explains <em>why</em> controls exist. Site layouts, distances and speeds come from the approved TMP and the NZGTTM risk assessment. Cones guide traffic but won’t stop a vehicle.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/10.mp3" preload="auto" data-est-dur="59"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Every temporary traffic management control does at least one of three things. It lowers speed, it adds time and distance, or it keeps the vehicle&#x27;s energy away from people. A temporary speed limit cuts energy, which depends on speed squared, and shortens stopping distance. Advance warning gives drivers their reaction time earlier. Safety zones give an errant vehicle room to stop before it reaches anyone. A heavy shadow truck acts as a blocker, taking the errant vehicle&#x27;s momentum before it reaches the crew ahead. The attenuator on the back of that truck is there for the road user: it crushes to stretch out their stop, so hitting the blocker is survivable for them too. Barriers redirect a vehicle&#x27;s momentum. Secured loads and seatbelts deal with inertia. And facing traffic buys you reaction time. Remember, cones guide traffic. They won&#x27;t stop a vehicle. Always follow the approved plan.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide9.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 10 of 11</span>
+    <a class="btn amber" href="slide11.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/narration-sync.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(10);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

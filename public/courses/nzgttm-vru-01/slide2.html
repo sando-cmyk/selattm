@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why This Matters &mdash; Protecting Vulnerable Road Users in TTM</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-vru-01-narrated">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Why This Matters</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Why This Matters</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide2.svg" alt="Design for people walking and cycling first, then vehicles"></div>
+    <p>In October 2019 a cyclist was killed at a construction site in Christchurch. The enforceable undertakings that followed produced an industry practice note on protecting vulnerable road users (VRUs) in TTM, published by Civil Contractors NZ in December 2023.</p>
+    <div class="two-col">
+      <div class="col-card"><h4>How we have usually planned</h4><ul>
+        <li>Vehicles first</li>
+        <li>People walking and cycling fitted in last</li>
+        <li>VRUs get the least attention, despite the highest risk</li></ul></div>
+      <div class="col-card col-new"><h4>What good practice asks</h4><ul>
+        <li>Design for VRUs <strong>first</strong></li>
+        <li>Then fit the work and the vehicles around them</li>
+        <li>Understand <em>why</em> &ndash; controls without the why don&rsquo;t work</li></ul></div>
+    </div>
+    <div class="callout KEYIDEA"><span class="callout-label">KEY IDEA</span><p>Road workers walk and cycle too. A site that is safer for the public is safer for their families as well.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/2.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module one: who vulnerable road users are. In October twenty nineteen, a cyclist was killed at a construction site in Christchurch. The enforceable undertakings that followed led to an industry practice note on protecting vulnerable road users in temporary traffic management, published by Civil Contractors New Zealand in December twenty twenty-three. This course draws on that practice note. Its central message is simple. People walking and cycling are the most at risk on our sites, yet they usually get the least attention in planning. We have a habit of designing for vehicles first and fitting people on foot and on bikes in afterwards. The practice note asks us to do the opposite: design for vulnerable road users first. And remember, the people who work on our sites walk and cycle too, and so do their families.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide1.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 2 of 25</span>
+    <a class="btn amber" href="slide3.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(2);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

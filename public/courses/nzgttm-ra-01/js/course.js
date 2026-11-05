@@ -34,7 +34,7 @@ var Course = (function () {
   function gateClearedCount() {
     try {
       var m = location.pathname.match(/\/courses\/([^\/]+)\//);
-      var g = JSON.parse(window.localStorage.getItem("sela_course_gate::" + (m ? m[1] : "course") + "::v1") || "{}");
+      var g = JSON.parse(window.localStorage.getItem("sela_course_gate::" + ((document.body && document.body.getAttribute("data-course-id")) || (m ? m[1] : "course")) + "::v1") || "{}");
       return Array.isArray(g.cleared) ? g.cleared.length : 0;
     } catch (e) { return 0; }
   }

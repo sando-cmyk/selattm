@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Ride the Site &mdash; Protecting Vulnerable Road Users in TTM</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-vru-01-narrated">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Ride the Site</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Ride the Site</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide16.svg" alt="A cycle lane closure with three problem points to find"></div>
+    <table class="simple-table">
+      <thead><tr><th>Item</th><th>Guidance</th></tr></thead>
+      <tbody>
+        <tr><td>Sign visible to cyclists from</td><td>20 m (30 km/h) &middot; 32 m (50 km/h) &middot; 60 m (70 km/h)</td></tr>
+        <tr><td>Warning sign before the hazard</td><td>About half the speed: 15 m (30 km/h) to 35 m (70 km/h)</td></tr>
+        <tr><td>Cyclist taper</td><td>No steeper than 1:6; 1:8 when merging with traffic</td></tr>
+        <tr><td>Cone spacing</td><td>5 m beside the path &middot; 2.5 m at bends &middot; 1 m in tapers</td></tr>
+      </tbody>
+    </table>
+    <div class="callout CASESTUDY"><span class="callout-label">THE SITE</span><p>A painted cycle lane on a 50&nbsp;km/h arterial is closed for 40&nbsp;m for a kerb repair. Tap the three points where a rider would be confused or squeezed.</p></div>
+    <div id="hz16" data-total="3">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz16', 0)"><span class="hb-icon">&#9888;</span>Sign at the cones</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz16', 1)"><span class="hb-icon">&#8599;</span>Sharp shift</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz16', 2)"><span class="hb-icon">&#128663;</span>3.8 m shared lane</button>
+    </div>
+    <div class="hotspot-progress">0 of 3 explored</div>
+    <div class="hotspot-card" id="hz16-card0"><h4>Sign at the cones</h4><p>The only warning sign is at the start of the closure. A rider at 30&nbsp;km/h has no time to look back and merge. <strong>Fix:</strong> put the warning about 25&nbsp;m before the hazard, visible from at least 32&nbsp;m.</p></div>
+    <div class="hotspot-card" id="hz16-card1"><h4>Sharp shift</h4><p>Cones swing riders 1.5&nbsp;m sideways over 3&nbsp;m &ndash; a 1:2 taper. <strong>Fix:</strong> lengthen it to 1:8 because riders are merging with traffic (12&nbsp;m for a 1.5&nbsp;m shift), with cones at 1&nbsp;m.</p></div>
+    <div class="hotspot-card" id="hz16-card2"><h4>3.8 m shared lane</h4><p>Too narrow to pass a cyclist safely, but wide enough that drivers try. <strong>Fix:</strong> narrow it to 3.25&nbsp;m or less so riders take the lane, or keep 4.25&nbsp;m; add &ldquo;cyclists in lane&rdquo; signs and slow the traffic.</p></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/16.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Because cyclists travel fast, they need warning in good time. Signs should be visible to cyclists from twenty metres away at thirty kilometres an hour, rising to sixty metres at seventy. Warning signs should sit roughly half the speed in metres before the hazard: fifteen metres at thirty, thirty-five metres at seventy. When you shift cyclists sideways, use a taper no steeper than one in six, or one in eight if they&#x27;re merging with traffic. Cones beside a cycle path can be five metres apart, two point five at bends to slow riders, and one metre through tapers. Now ride the site. A cycle lane is closed for a kerb repair. Tap the three points where a rider would be confused or squeezed.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide15.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 16 of 25</span>
+    <a class="btn amber" href="slide17.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(16);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

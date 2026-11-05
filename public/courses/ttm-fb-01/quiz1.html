@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 Knowledge Check &mdash; Force &amp; the Body: Why Road Workers Are Vulnerable</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Module 1 Knowledge Check</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <h2 style="color:var(--navy);">Module 1 Knowledge Check</h2>
+  <p style="color:#666;">Answer all questions, then select <strong>Submit</strong>. You need 80% or higher to pass. You can retry if needed.</p>
+  <div style="margin-bottom:10px;"><a class="btn" href="slide5.html">&larr; Back</a></div>
+  <form id="quizForm">
+    <div class="quiz-question" data-qindex="0" data-answer="0">
+      <p class="qtext">1. A ute brakes hard and an unsecured sign slides off the deck. Which law explains this?</p>
+      <label><input type="radio" name="q0" value="0"> Newton’s First Law – the sign keeps moving until a force stops it</label>
+      <label><input type="radio" name="q0" value="1"> Newton’s Third Law – the sign pushes back on the ute</label>
+      <label><input type="radio" name="q0" value="2"> Kinetic energy – the sign gains energy from the brakes</label>
+      <label><input type="radio" name="q0" value="3"> Gravity pulls the sign forward</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="1" data-answer="1">
+      <p class="qtext">2. In a crash, why does an unbelted occupant suffer far worse injuries than a belted one?</p>
+      <label><input type="radio" name="q1" value="0"> They are heavier</label>
+      <label><input type="radio" name="q1" value="1"> They hit the interior at full speed after the car has stopped, so they stop over a much shorter time</label>
+      <label><input type="radio" name="q1" value="2"> The airbag doesn’t work without a belt</label>
+      <label><input type="radio" name="q1" value="3"> They are further from the crumple zone</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="2" data-answer="1">
+      <p class="qtext">3. A 2,200 kg ute hits an 80 kg worker. Compared with the force on the ute, the force on the worker is:</p>
+      <label><input type="radio" name="q2" value="0"> About 27 times bigger</label>
+      <label><input type="radio" name="q2" value="1"> The same – but the worker’s much smaller mass gets a much bigger change in speed</label>
+      <label><input type="radio" name="q2" value="2"> About 27 times smaller</label>
+      <label><input type="radio" name="q2" value="3"> Zero</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+  </form>
+  <div id="quizResult"></div>
+  <div class="nav-row">
+    <button class="btn" id="submitBtn" type="button">Submit Answers</button>
+    <a class="btn amber" id="continueBtn" href="slide6.html" style="display:none;">Continue to Module 2 &rarr;</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script>
+  var QUIZ_ID = "quiz1";
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    var questions = document.querySelectorAll('.quiz-question');
+    var score = 0;
+    var allAnswered = true;
+    questions.forEach(function(qEl){
+      var qi = qEl.getAttribute('data-qindex');
+      var correct = Number(qEl.getAttribute('data-answer'));
+      var selected = qEl.querySelector('input[name="q'+qi+'"]:checked');
+      var fb = qEl.querySelector('.qfeedback');
+      if (!selected) { allAnswered = false; return; }
+      var chosen = Number(selected.value);
+      fb.style.display = 'block';
+      if (chosen === correct) {
+        score++;
+        fb.innerHTML = '<span class="correct-answer">Correct.</span>';
+      } else {
+        var correctText = qEl.querySelectorAll('label')[correct].textContent.trim();
+        fb.innerHTML = '<span class="incorrect-answer">Not quite &mdash; correct answer: ' + correctText + '</span>';
+      }
+    });
+    if (!allAnswered) {
+      alert('Please answer every question before submitting.');
+      return;
+    }
+    var total = questions.length;
+    var pct = Math.round((score / total) * 100);
+    var passed = (score / total) >= 0.8;
+    Course.recordQuiz(QUIZ_ID, score, total);
+    var resultEl = document.getElementById('quizResult');
+    resultEl.innerHTML = '<div class="quiz-result ' + (passed ? 'pass' : 'fail') + '">' +
+      'You scored ' + score + ' / ' + total + ' (' + pct + '%) &mdash; ' + (passed ? 'Passed!' : 'Not yet a pass &mdash; review the module and try again.') +
+      '</div>';
+    if (passed) {
+      document.getElementById('continueBtn').style.display = 'inline-block';
+      document.getElementById('submitBtn').style.display = 'none';
+    }
+  });
+</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

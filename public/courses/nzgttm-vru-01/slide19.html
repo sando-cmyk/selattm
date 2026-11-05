@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setting Up a Temporary Stop &mdash; Protecting Vulnerable Road Users in TTM</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-vru-01-narrated">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Setting Up a Temporary Stop</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Setting Up a Temporary Stop</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide19.svg" alt="A temporary bus stop set up within 100 metres of the original, with cones along the stop"></div>
+    <table class="simple-table">
+      <thead><tr><th>Check</th><th>Guidance</th></tr></thead>
+      <tbody>
+        <tr><td>Location</td><td>Same route; within 100 m or in clear sight of the original; not within about 150 m of the next stop</td></tr>
+        <tr><td>Getting there</td><td>A safe crossing nearby matters more than the distance rules</td></tr>
+        <tr><td>The bus</td><td>Room to pull in and out; clearance for tail swing, signs, trees and street furniture (and double-decker height); no multiple lane changes to reach it</td></tr>
+        <tr><td>Legal</td><td>Not in a no-stopping zone (unless changed by resolution); clear of side-road sight lines; boarding clear of driveways</td></tr>
+        <tr><td>Passengers</td><td>Step-free boarding, even with temporary ramps; consider lighting, seating and shelter for longer jobs</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/19.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">If you&#x27;re moving the stop, the temporary stop should be on the same route, within a hundred metres of the original or in clear sight of it, and not within about a hundred and fifty metres of the next stop along. But a safe crossing point near the temporary stop matters more than those distances. People shouldn&#x27;t have to cross a busy road with no safe crossing to reach it. The bus needs room to pull in and out, and clearance for tail swing, signs, trees and street furniture, including height for double-deckers. On a multi-lane road, buses shouldn&#x27;t have to make several lane changes to reach the stop. The stop can&#x27;t sit in a no-stopping zone unless that&#x27;s changed legally, can&#x27;t block sight lines from side roads, and passengers shouldn&#x27;t board across a driveway. Boarding must be step-free, even if that means a temporary ramp. Consider lighting, seating and shelter for longer jobs.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide18.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 19 of 25</span>
+    <a class="btn amber" href="slide20.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(19);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

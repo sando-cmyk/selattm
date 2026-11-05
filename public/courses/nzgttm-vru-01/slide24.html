@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Rate This Site &mdash; Protecting Vulnerable Road Users in TTM</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-vru-01-narrated">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Rate This Site</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Rate This Site</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide24.svg" alt="Site check through the eyes of a wheelchair user and a child on a bike: safe, obvious, smooth and stable"></div>
+    <p>Walk or ride every route as these two people, asking: <strong>Is it safe? Is it obvious? Is it smooth and stable?</strong> Then score it 1&ndash;10 and list three fixes that would make it a 10.</p>
+    <div class="two-col">
+      <div class="col-card"><h4>Footpath check</h4><p>An older person in a wheelchair who can&rsquo;t see well.</p></div>
+      <div class="col-card"><h4>Cycle check</h4><p>A child on a bike wearing headphones.</p></div>
+    </div>
+    <div class="callout CASESTUDY"><span class="callout-label">THE SITE</span><p>A footpath diversion into a coned space at the road edge, outside a dairy, for a two-week service connection. Tap each issue you&rsquo;d find on your walk-through.</p></div>
+    <div id="hz24" data-total="4">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz24', 0)"><span class="hb-icon">&#11014;</span>Ramp off the kerb</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz24', 1)"><span class="hb-icon">&#128679;</span>Cones, no fence</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz24', 2)"><span class="hb-icon">&#128161;</span>Dark at night</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz24', 3)"><span class="hb-icon">&#128666;</span>Truck access</button>
+    </div>
+    <div class="hotspot-progress">0 of 4 explored</div>
+    <div class="hotspot-card" id="hz24-card0"><h4>Ramp off the kerb</h4><p>A steep, narrow asphalt ramp with a crumbling edge. <strong>Fix:</strong> 1.2&nbsp;m wide at 1:12, keyed in, with level landings.</p></div>
+    <div class="hotspot-card" id="hz24-card1"><h4>Cones, no fence</h4><p>The walkway beside live traffic is marked only by cones. A person with low vision can drift into the lane. <strong>Fix:</strong> continuous fencing or barrier, set back from traffic.</p></div>
+    <div class="hotspot-card" id="hz24-card2"><h4>Dark at night</h4><p>The diversion is unlit and the site runs for two weeks. <strong>Fix:</strong> temporary lighting at the transitions and along the walkway.</p></div>
+    <div class="hotspot-card" id="hz24-card3"><h4>Truck access</h4><p>Trucks reverse across the diversion with no one holding pedestrians. <strong>Fix:</strong> a spotter, and cone bars to hold people during every movement.</p></div>
+    </div>
+    <div class="callout NOTE"><span class="callout-label">OFFERING HELP</span><p>Ask &ldquo;Would you like some help?&rdquo; If a blind person asks to be guided, offer your arm.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m6/24.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Once the site is set up, check it the way the public will use it. The practice note gives two simple on-site tools. For the footpath, imagine an older person in a wheelchair who can&#x27;t see well. For the cycle route, imagine a child on a bike wearing headphones. Walk or ride every route yourself, asking three questions. Is it safe: do they come close to plant, traffic or anything they could hit? Is it obvious: would they know where to go? Is it smooth and stable: any trip hazards thicker than a pencil, soft ground, edges or drops? Then score the site out of ten and write down three things that would make it a ten. Watch how people actually move through, and ask them. If someone looks like they need help, ask: would you like some help? If a blind person asks to be guided, offer them your arm. Now rate this site. Tap each issue.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide23.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 24 of 25</span>
+    <a class="btn amber" href="slide25.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(24);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

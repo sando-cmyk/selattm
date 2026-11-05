@@ -8,5 +8,5 @@ Waiting for Josephs Issues
 
 02/10/2026 Craig needs to run his deploy so the version in his computer matches online
 
-02/11/2026 Craig will need to add the new course to Stripe for $175+GST.so the course can go live. New Course code nzgttm-ra-01
+02/11/2026 Craig will need to add the new course to Stripe for $175+GST.so the course can go live. New Course code nzgttm-ra-01. 
 

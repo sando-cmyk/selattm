@@ -1,18 +1,16 @@
-Certificates signed by Joseph and emailed; first-visit learner details
+Add NZGTTM-VRU-01 and TTM-FB-01 courses with Stripe prices
 
-- Certificate signatory is now Joseph Rosendaal, Training Manager, with his
-  signature (public/img/signature-joseph.png) above the dotted line.
-- Issuing a certificate in admin.html now also emails the PDF to the learner:
-  it queues a doc in the "mail" collection for the Trigger Email extension
-  (firebase/firestore-send-email) to send. The admin gets a confirmation, or a
-  prompt to send it manually if queueing fails. Submission records
-  certificateEmailedTo / certificateEmailQueuedAt.
-- First visit to Your Courses (learner.html) now asks for first name, last
-  name, date of birth and 4-digit postcode (public/js/learner-profile.js),
-  saved on users/{uid} and set as the account display name. The admin
-  certificate prompt pre-fills from this.
-- firestore.rules: admins can read users/{uid}; new admin-only "mail"
-  collection.
+- New course: Protecting Vulnerable Road Users in TTM (NZGTTM-VRU-01),
+  $85 + GST, price_1UYGis0flJvw3UeN8Y693TcN. 25 narrated slides + welcome
+  video, 6 module checks, rotating 15-question final, Next/sequence locks.
+- New course: Force & the Body: Why Road Workers Are Vulnerable (TTM-FB-01),
+  $39 + GST, price_1UYGjw0flJvw3UeN4Ogouwav.
+- Both added to courses-import.json, Courses.txt, course manifests,
+  store.html (static card + TTM group) and js/course-map.js;
+  public/data/courses.json regenerated with build-all.js.
+- Store outline for NZGTTM-VRU-01 in js/course-summaries.js.
+- NZGTTM-RA-01: each course page now carries its own Next-lock record
+  (data-course-id), so courses opened from a folder can't share progress.
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_0157UNeFSDjQUcHDNi9tJzjQ
+Claude-Session: https://claude.ai/code/session_018nnUp5R9tpPMiooxjjkWct

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinetic Energy &mdash; Force &amp; the Body: Why Road Workers Are Vulnerable</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Kinetic Energy</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Speed Squared: Kinetic Energy</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide6.svg" alt="Bar chart of equivalent fall heights for 30, 50, 70 and 100 km/h"></div>
+
+<p data-cue="0.0" data-cue-sec="0.0">Every moving vehicle carries kinetic energy. In a crash all of it is released in a fraction of a second, into bending steel, breaking glass and breaking bodies.</p>
+<div class="callout NOTE" data-cue="0.144" data-cue-sec="5.2"><span class="callout-label">THE FORMULA</span><p style="font-size:17px;font-family:Consolas,monospace;">Kinetic energy = ½ × mass × speed²</p></div>
+<p data-cue="0.226" data-cue-sec="8.2">Because speed is <strong>squared</strong>, double the speed means four times the energy. A good way to feel the numbers is to compare being hit with falling from a height.</p>
+<table class="simple-table">
+<tr data-cue="0.405" data-cue-sec="14.7"><th>Impact speed</th><th>Energy compared with 30 km/h</th><th>Like falling from</th></tr>
+<tr data-cue="0.502" data-cue-sec="19.4"><td>30 km/h</td><td>1×</td><td>3.5 m – a single-storey roof</td></tr>
+<tr data-cue="0.6" data-cue-sec="23.0"><td>50 km/h</td><td>2.8×</td><td>9.8 m – a 3-storey building</td></tr>
+<tr data-cue="0.681" data-cue-sec="26.7"><td>70 km/h</td><td>5.4×</td><td>19.3 m – a 6-storey building</td></tr>
+<tr data-cue="0.681" data-cue-sec="26.7"><td>100 km/h</td><td>11×</td><td>39.3 m – a 13-storey building</td></tr>
+</table>
+<div class="callout KEYIDEA" data-cue="0.746" data-cue-sec="28.9"><span class="callout-label">ON SITE</span><p>Bringing traffic down from 100 to 50 km/h past a work area removes about three-quarters of the energy that could reach your crew.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/6.mp3" preload="auto" data-est-dur="49"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Every moving vehicle carries kinetic energy, and in a crash it&#x27;s all released in a fraction of a second. Kinetic energy equals half the mass times the speed squared. Because speed is squared, small changes in speed make a big difference. Double the speed, and you get four times the energy. One way to feel this is to compare being hit with falling. Being hit at thirty is like falling off a single-storey roof. At fifty, it&#x27;s like falling from a three-storey building. At a hundred, it&#x27;s a thirteen-storey fall. So when a temporary speed limit brings traffic down from a hundred to fifty past your site, it removes about three-quarters of the energy that could reach your crew.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz1.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 6 of 11</span>
+    <a class="btn amber" href="slide7.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/narration-sync.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(6);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

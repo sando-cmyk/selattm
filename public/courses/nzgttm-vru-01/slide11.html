@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temporary Crossings &mdash; Protecting Vulnerable Road Users in TTM</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-vru-01-narrated">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Temporary Crossings</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Temporary Crossings</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide11.svg" alt="A temporary crossing with drivers needing stopping sight distance"></div>
+    <div class="stat-row">
+      <div class="stat"><span class="num">1.8 m</span><span class="lbl">Crossing width</span></div>
+      <div class="stat"><span class="num">10 m</span><span class="lbl">Longest crossing without a refuge</span></div>
+      <div class="stat"><span class="num">&le;70</span><span class="lbl">Target km/h near people walking and cycling</span></div>
+    </div>
+    <p>Drivers need <strong>stopping sight distance</strong> to see people on the crossing and stop &ndash; in every approach direction:</p>
+    <table class="simple-table">
+      <thead><tr><th>Approach speed</th><th>Stopping sight distance</th></tr></thead>
+      <tbody>
+        <tr><td>30 km/h</td><td>40 m</td></tr>
+        <tr><td>40 km/h</td><td>55 m</td></tr>
+        <tr><td>50 km/h</td><td>75 m</td></tr>
+        <tr><td>60 km/h</td><td>95 m</td></tr>
+        <tr><td>70 km/h</td><td>115 m</td></tr>
+      </tbody>
+    </table>
+    <div class="callout CAUTION"><span class="callout-label">BEST AVOIDED</span><p>Temporary crossings over roads wider than 10 m aren&rsquo;t advised. Look for another solution first; if you must, add a refuge so people cross in two stages.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/11.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Sometimes you need to move people across the road on a temporary crossing. Make it one point eight metres wide so wheelchairs and pedestrians can pass. Drivers approaching from every direction need enough stopping sight distance to see people crossing and stop in time. That&#x27;s forty metres at thirty kilometres an hour, seventy-five metres at fifty, and over a hundred metres at seventy. Try to get speeds down to seventy or less near people walking and cycling. A crossing longer than ten metres should have a refuge so people can cross in two stages. But the practice note is clear: temporary crossings over roads wider than ten metres are best avoided. Look for another solution first. And remember lowest total risk. A crossing moves people away from your work, but it also puts them in front of traffic.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide10.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 11 of 25</span>
+    <a class="btn amber" href="slide12.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(11);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

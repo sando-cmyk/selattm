@@ -123,5 +123,29 @@
     "status": "active",
     "stripePriceId": "price_1ULtXX0flJvw3UeNFdw8QvXx",
     "launchPath": "/courses/40233-ttm-road-reserve/index.html"
+  },
+  {
+    "id": "nzgttm-vru-01",
+    "code": "NZGTTM-VRU-01",
+    "title": "Protecting Vulnerable Road Users in TTM",
+    "description": "Keep people walking, cycling, using mobility devices or catching the bus safe around TTM sites: footpaths, cycle routes, crossings, bus stops, level crossings and on-site checks.",
+    "category": "TTM Training",
+    "price": 85,
+    "currency": "NZD",
+    "status": "active",
+    "stripePriceId": "price_1UYGis0flJvw3UeN8Y693TcN",
+    "launchPath": "/courses/nzgttm-vru-01/index.html"
+  },
+  {
+    "id": "ttm-fb-01",
+    "code": "TTM-FB-01",
+    "title": "Force & the Body: Why Road Workers Are Vulnerable",
+    "description": "Why road workers are so vulnerable to traffic: Newton's laws and the body, speed, energy and human limits, and applying the physics on site.",
+    "category": "TTM Training",
+    "price": 39,
+    "currency": "NZD",
+    "status": "active",
+    "stripePriceId": "price_1UYGjw0flJvw3UeN4Ogouwav",
+    "launchPath": "/courses/ttm-fb-01/index.html"
   }
 ]

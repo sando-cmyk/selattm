@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Occupant Injury Potential &mdash; Force &amp; the Body: Why Road Workers Are Vulnerable</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Occupant Injury Potential</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Occupant Injury Potential</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide3.svg" alt="A car crumpled against a signpost, showing the three collisions"></div>
+
+<p data-cue="0.075" data-cue-sec="3.5">When a vehicle hits a fixed object there is an energy transfer: the vehicle slows or stops. Modern vehicles push some of that energy into deformation through <strong>crumple zones</strong>. But the occupant keeps going at the same velocity until something stops them. So do the body’s organs.</p>
+<div class="step-card-row">
+<div class="step-card open" data-cue="0.269" data-cue-sec="11.6"><h4><span class="step-letter">1</span>Vehicle collision</h4><div class="step-detail">The vehicle hits the signpost and crushes. The crumple zone slows it over about half a metre.</div></div>
+<div class="step-card open" data-cue="0.285" data-cue-sec="12.7"><h4><span class="step-letter">2</span>Human collision</h4><div class="step-detail">The occupant keeps moving until the seatbelt stops them, or, without a belt, the steering wheel, dash or windscreen.</div></div>
+<div class="step-card open" data-cue="0.463" data-cue-sec="19.9"><h4><span class="step-letter">3</span>Internal collision</h4><div class="step-detail">The brain, heart, liver and aorta keep moving and strike the inside of the skull, rib cage and abdomen.</div></div>
+</div>
+<h4 data-cue="0.618" data-cue-sec="27.7" style="color:var(--navy);margin:18px 0 6px;">Consider hitting a signpost at 100 km/h</h4>
+<div class="stat-row">
+<div class="stat" data-cue="0.618" data-cue-sec="27.7"><span class="num">≈ 65 g</span><span class="lbl">Car’s average deceleration (0.6 m crush)</span></div>
+<div class="stat" data-cue="0.695" data-cue-sec="31.4"><span class="num">≈ 45 g</span><span class="lbl">Belted occupant: rides down with the car</span></div>
+<div class="stat" data-cue="0.796" data-cue-sec="36.1"><span class="num">700+ g</span><span class="lbl">Unbelted occupant: hits the interior after the car has stopped</span></div>
+</div>
+<div class="callout KEYIDEA" data-cue="0.943" data-cue-sec="42.3"><span class="callout-label">WHY SEATBELTS WORK</span><p>The belt starts slowing you early, so you use the car’s crumple zone too. Without it, you hit the interior at the full 100 km/h and stop in centimetres. Wear a belt in every site vehicle, every time.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/3.mp3" preload="auto" data-est-dur="52"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Let&#x27;s look at what happens to the people inside a vehicle. When a vehicle hits a fixed object, there&#x27;s an energy transfer and the vehicle slows or stops. Modern vehicles push some of that energy into crumple zones. But the occupant keeps going at the same speed until something stops them: the seatbelt, or without one, the steering wheel or windscreen. Then the organs keep moving too, until they hit the inside of the body. That&#x27;s three collisions in one crash. Consider hitting a signpost at a hundred kilometres an hour. A belted occupant slows down with the car, at roughly forty-five g. An unbelted occupant hits the interior at full speed after the car has already stopped, at hundreds of g. That&#x27;s the difference a seatbelt makes.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide2.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 3 of 11</span>
+    <a class="btn amber" href="slide4.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/narration-sync.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(3);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

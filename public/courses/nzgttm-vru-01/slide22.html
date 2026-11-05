@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Why It Happens and the Rules &mdash; Protecting Vulnerable Road Users in TTM</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-vru-01-narrated">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Why It Happens and the Rules</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Why It Happens, and the Rules</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide22.svg" alt="A stop/go just past a level crossing lets the queue stack back over the tracks"></div>
+    <div class="two-col">
+      <div class="col-card"><h4>Why it happens</h4><ul>
+        <li>Wrong side: drivers can&rsquo;t see the barrier arm or lights</li>
+        <li>Stop/go near a crossing confuses people</li>
+        <li>Queues stack back over the tracks</li>
+        <li>Plant, fencing and sign clutter block sight lines</li>
+        <li>Most STMSs and TCs have no rail experience</li></ul></div>
+      <div class="col-card col-new"><h4>The rules</h4><ul>
+        <li><strong>Within 100 m</strong> of a crossing: TMP (and changes) approved by KiwiRail</li>
+        <li><strong>Within 10 m</strong> of the track: notify KiwiRail</li>
+        <li><strong>Within 5 m</strong> of the crossing or track: KiwiRail Permit to Enter</li>
+        <li>Prefer a road closure over changing how people use the crossing</li></ul></div>
+    </div>
+    <div class="callout CASESTUDY"><span class="callout-label">WHERE&rsquo;S THE QUEUE?</span><p>A stop/go is needed for a lane closure 60&nbsp;m past a level crossing. Tap each option.</p></div>
+    <div id="hz22" data-total="3">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz22', 0)"><span class="hb-icon">&#128678;</span>Stop just past the tracks</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz22', 1)"><span class="hb-icon">&#11013;</span>Stop before the crossing</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz22', 2)"><span class="hb-icon">&#128679;</span>Close the road</button>
+    </div>
+    <div class="hotspot-progress">0 of 3 explored</div>
+    <div class="hotspot-card" id="hz22-card0"><h4>Stop just past the tracks</h4><p><strong>Unsafe.</strong> The queue stacks back over the crossing. A held car can end up stopped on the tracks.</p></div>
+    <div class="hotspot-card" id="hz22-card1"><h4>Stop before the crossing</h4><p><strong>Better</strong>, but a driver given &ldquo;go&rdquo; can still meet the alarms starting &ndash; the Waikato near miss. Needs KiwiRail approval (within 100&nbsp;m), coordination with crossing signals, and possibly rail protection.</p></div>
+    <div class="hotspot-card" id="hz22-card2"><h4>Close the road (if practicable)</h4><p><strong>Often the safest.</strong> Nobody uses the crossing in a new way. It still needs KiwiRail approval and a planned detour.</p></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/22.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Why does this happen? On the wrong side of a crossing, drivers can&#x27;t see the barrier arm or the flashing lights. Stop/go near a crossing confuses people. Queues from your site can stack back over the tracks. Plant, fencing and sign clutter block sight lines to trains and signals. And most STMSs and traffic controllers have no rail experience. So here are the rules. Within a hundred metres of a level crossing, your TMP, and any change to it, must be approved by KiwiRail. If your TTM comes within five metres of the crossing or the track, you need a KiwiRail Permit to Enter. Work or TTM within ten metres of the track must be notified to KiwiRail. When a crossing is directly affected, consider closing the road rather than changing how people use the crossing, and keep pedestrians using the crossing as designed. Tap each card to see where the queue goes.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide21.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 22 of 25</span>
+    <a class="btn amber" href="quiz5.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(22);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How People Really Behave &mdash; Protecting Vulnerable Road Users in TTM</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-vru-01-narrated">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">How People Really Behave</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>How People Really Behave</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide5.svg" alt="People take the shortest path, not the long signed detour"></div>
+    <p>Your controls only work if people follow them. Plan for real behaviour, not ideal behaviour.</p>
+    <div class="step-card-row">
+      <div class="step-card open"><h4><span class="step-letter">1</span>Least resistance</h4><div class="step-detail">People choose the shortest, most comfortable route. A long or rough route won&rsquo;t be used.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">2</span>Shortcuts</h4><div class="step-detail">Confident people cut through &ndash; cyclists ride the footpath, walkers cross mid-block.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">3</span>Detours are hard</h4><div class="step-detail">Less mobile people may avoid a detour altogether and cross somewhere unsafe.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">4</span>Distraction</h4><div class="step-detail">Phones and headphones mean signs and sounds get missed.</div></div>
+    </div>
+    <div class="callout KEYIDEA"><span class="callout-label">WHAT IT MEANS FOR TTM</span><p>Make the safe route the easiest route, keep it simple, and give the same message more than one way &ndash; fencing, signs, markings and people.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/5.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Your controls only work if people follow them, so you have to plan for how people actually behave. People take the path of least resistance and most comfort. If your route is long, bumpy or confusing, people won&#x27;t use it. Confident people take shortcuts: a cyclist rides the footpath to get past the site, or a pedestrian crosses mid-block instead of walking to your temporary crossing. Less mobile people find detours hard: a wheelchair user faced with a rough, complicated detour may simply cross the road where it isn&#x27;t safe. People judge risk differently, and many are distracted, on their phones or wearing headphones. So keep it simple. Make the safe route the easiest route, and repeat the same message in more than one way: fencing, signs, markings, and people where needed.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide4.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 5 of 25</span>
+    <a class="btn amber" href="slide6.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(5);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open, Move or Close? &mdash; Protecting Vulnerable Road Users in TTM</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-vru-01-narrated">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Open, Move or Close</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Open, Move or Close?</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide18.svg" alt="A bus stop with passengers: keep open, move nearby, or close as a last resort"></div>
+    <div class="step-card-row">
+      <div class="step-card open"><h4><span class="step-letter">1</span>Keep it open</h4><div class="step-detail">Best: intuitive, better for disabled people, usually cheaper.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">2</span>Move it nearby</h4><div class="step-detail">A temporary stop when the permanent one can&rsquo;t be used safely.</div></div>
+      <div class="step-card open"><h4><span class="step-letter">3</span>Close it</h4><div class="step-detail">Last resort &ndash; it hits people with mobility impairments hardest.</div></div>
+    </div>
+    <p>A stop can stay open only if these all stay safe: <strong>boarding and alighting</strong>, <strong>the walk to and from the stop</strong> (including crossings), and <strong>people and traffic moving past</strong>. Involve the road controlling authority (RCA) and public transport authority (PTA) early.</p>
+    <div id="hz18" data-total="3">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz18', 0)"><span class="hb-icon">&#127968;</span>Suburban stop</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz18', 1)"><span class="hb-icon">&#127973;</span>Hospital stop</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz18', 2)"><span class="hb-icon">&#9940;</span>Road closure</button>
+    </div>
+    <div class="hotspot-progress">0 of 3 explored</div>
+    <div class="hotspot-card" id="hz18-card0"><h4>Suburban stop &ndash; berm trench beside it</h4><p><strong>Keep it open.</strong> Fence the trench, keep a 1.8&nbsp;m path past the shelter and a clear boarding area. Buses still use the stop, so 5 working days&rsquo; notice to the RCA/PTA.</p></div>
+    <div class="hotspot-card" id="hz18-card1"><h4>Hospital stop &ndash; kerb rebuild in front</h4><p><strong>Move it nearby.</strong> Same route, within 100&nbsp;m or in clear sight, with step-free boarding and a safe crossing &ndash; vital for patients and visitors. Moved with no bus diversion: 10 working days&rsquo; notice.</p></div>
+    <div class="hotspot-card" id="hz18-card2"><h4>Stop inside a full road closure</h4><p><strong>Close it</strong> (buses detour). Agree alternatives with the RCA/PTA. Closure with a diversion: 6 weeks&rsquo; notice. Post a notice and map at the stop 2 working days before.</p></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/18.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module four: bus stops affected by TTM. When your site affects a bus stop, there are three options, in this order. Keep the stop open where it is, move it to a temporary stop nearby, or, as a last resort, close it. Keeping it open is best. It&#x27;s more intuitive for passengers, better for disabled people and usually cheaper. But a stop can only stay open if three things stay safe: getting on and off the bus, the walk to and from the stop including any road crossings, and people and traffic moving past it. Talk to the road controlling authority and the public transport authority early. Is the stop a terminus, a transfer point or a school stop? How busy is it? Does it have a shelter? A stop that looks minor to you may matter a lot to the people who use it. Try the activity: three stops, three decisions.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz3.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 18 of 25</span>
+    <a class="btn amber" href="slide19.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(18);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

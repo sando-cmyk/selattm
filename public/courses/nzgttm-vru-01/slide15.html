@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sharing the Lane with Vehicles &mdash; Protecting Vulnerable Road Users in TTM</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-vru-01-narrated">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Sharing the Lane</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Sharing the Lane with Vehicles</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide15.svg" alt="In a narrow lane the cyclist takes the lane and the car follows behind"></div>
+    <p>Lane width decides how cyclists and vehicles share safely.</p>
+    <table class="simple-table">
+      <thead><tr><th>Lane width</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><strong>4.25 m or more</strong></td><td>Room for vehicles to pass a cyclist safely</td></tr>
+        <tr><td><strong>Between 3.25 m and 4.25 m</strong></td><td>Danger zone &ndash; drivers squeeze past. Narrow it further</td></tr>
+        <tr><td><strong>3.25 m or less</strong></td><td>Cyclist takes the lane; vehicles follow behind</td></tr>
+      </tbody>
+    </table>
+    <div class="callout NOTE"><span class="callout-label">SUPPORT IT</span><p>Warn drivers that cyclists may be in the lane, slow the traffic, and manage parking so it doesn&rsquo;t eat into the shared lane.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/15.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Sometimes cyclists have to share the traffic lane. Lane width decides how that works. If the lane is four point two five metres or wider, there&#x27;s room for vehicles to pass a cyclist safely. Below that, cyclists and vehicles shouldn&#x27;t ride side by side, because drivers will try to squeeze past. At three point two five metres or less, make the lane narrow enough that the cyclist rides in the middle, takes the lane, and vehicles follow behind. The in-between widths are the dangerous ones, where a driver thinks they can just fit. Use signs to tell drivers cyclists may be in the lane, slow the traffic down, and manage parking so it doesn&#x27;t eat into the shared lane.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide14.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 15 of 25</span>
+    <a class="btn amber" href="slide16.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(15);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

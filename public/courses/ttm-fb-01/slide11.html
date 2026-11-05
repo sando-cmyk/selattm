@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Name the Physics &mdash; Force &amp; the Body: Why Road Workers Are Vulnerable</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Name the Physics</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Name the Physics</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide11.svg" alt="Four site scenes: loose gear on a ute, a shadow truck with a TMA, a worker by a live lane and a speed sign"></div>
+
+<div class="callout CASESTUDY" data-cue="0.03" data-cue-sec="1.6"><span class="callout-label">THE SITE</span><p>A crew is resealing a lane on a 100 km/h rural state highway. A temporary speed limit of 50 km/h is in place, a shadow truck fitted with a TMA is parked behind the crew as a blocker, and the crew’s ute is parked inside the work area with signs and cones on the deck.</p></div>
+<p class="activity-instructions" data-cue="0.063" data-cue-sec="1.6" style="margin-top:14px;">Tap each item. Before you open it, decide which law or idea explains the risk, and which control deals with it.</p>
+<div data-cue="0.24" data-cue-sec="9.2" data-total="4" id="hz11">
+<div class="hotspot-grid">
+<button class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz11', 0)" type="button"><span class="hb-icon">🚧</span>Loose signs on the ute</button>
+<button class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz11', 1)" type="button"><span class="hb-icon">🚚</span>Shadow truck &amp; TMA</button>
+<button class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz11', 2)" type="button"><span class="hb-icon">👷</span>Worker by the live lane</button>
+<button class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz11', 3)" type="button"><span class="hb-icon">🚦</span>50 km/h speed limit</button>
+</div>
+<div class="hotspot-progress">0 of 4 explored</div>
+<div class="hotspot-card" id="hz11-card0"><h4>Loose signs on the ute</h4><p><span class="field-label">Physics:</span> First Law (inertia). If the ute brakes hard, unsecured gear keeps moving.</p><p><span class="field-label">Control:</span> Tie down or rack every load. Nobody rides on the deck.</p></div>
+<div class="hotspot-card" id="hz11-card1"><h4>Shadow truck &amp; TMA</h4><p><span class="field-label">Physics:</span> Mass and the Third Law: the heavy truck is a blocker that takes the errant vehicle’s momentum before it reaches the crew. Second Law: the attenuator crushes progressively, stretching the errant vehicle’s stop so the people inside it survive the impact.</p><p><span class="field-label">Control:</span> Park the shadow truck where the TMP says, with the roll-ahead gap to the crew kept clear, and its driver belted in with the head restraint set.</p></div>
+<div class="hotspot-card" id="hz11-card2"><h4>Worker by the live lane</h4><p><span class="field-label">Physics:</span> Mass mismatch and the Safe System limit. Even at 50 km/h, an impact is well above the ~30 km/h survivable speed.</p><p><span class="field-label">Control:</span> Keep the safety zone clear, work facing traffic where possible, keep an escape route, and stay inside the protected area.</p></div>
+<div class="hotspot-card" id="hz11-card3"><h4>50 km/h speed limit</h4><p><span class="field-label">Physics:</span> Energy rises with speed². Dropping from 100 to 50 km/h removes about 75% of the energy and cuts stopping distance from about 98 m to 35 m.</p><p><span class="field-label">Control:</span> Sign it correctly, check drivers are actually slowing, and report it if they’re not.</p></div>
+</div>
+<div class="objectives-box" data-cue="0.95" data-cue-sec="41.2"><p>Next: the Module 3 knowledge check, then the final assessment.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/11.mp3" preload="auto" data-est-dur="50"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Time to put it together. Read the site description, then tap each item. Before you open it, decide which law or idea explains the risk, and which control deals with it. Loose gear on the ute is about inertia. The shadow truck is a heavy blocker that takes the hit before it reaches the crew, and its attenuator stretches out the stop to protect the driver who hits it. A worker near the live lane is up against the mass mismatch and the thirty kilometre an hour survival limit. And the temporary speed limit uses speed squared to remove most of the energy. When you&#x27;re on site, ask yourself the same questions: how fast, how much time, and what&#x27;s between the traffic and me.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide10.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 11 of 11</span>
+    <a class="btn amber" href="quiz3.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/narration-sync.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(11);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

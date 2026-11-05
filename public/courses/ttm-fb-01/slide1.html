@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome &mdash; Force &amp; the Body: Why Road Workers Are Vulnerable</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Welcome</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <div class="hero">
+      <span class="badge-large">A Sela Civil course</span>
+      <h2>Force &amp; the Body: Why Road Workers Are Vulnerable</h2>
+      <div class="read-time">~1 min &middot; narrated</div>
+      <div class="scene-banner"><img src="img/scenes/slide1.svg" alt="A road worker beside a live lane, with a car approaching"></div>
+    </div>
+
+<div class="objectives-box" data-cue="0.567" data-cue-sec="19.6"><p>In about 15 minutes you will be able to:</p>
+<ul>
+<li>Explain Newton’s three laws of motion in plain terms, using road and worksite examples.</li>
+<li>Describe what happens to a vehicle occupant, and to a worker on foot, in a collision.</li>
+<li>Explain why speed matters so much: impact energy rises with the <em>square</em> of speed.</li>
+<li>Link each TTM control to the physics it uses: speed, distance, time and separation.</li>
+</ul>
+</div>
+<div class="callout KEYIDEA" data-cue="0.625" data-cue-sec="21.3"><span class="callout-label">THE BIG IDEA</span><p>The human body can survive being hit at about 30 km/h. Live traffic past most worksites is moving much faster. Physics, not luck, decides what happens next.</p></div>
+<div class="callout NOTE" data-cue="0.884" data-cue-sec="29.7"><span class="callout-label">HOW TO USE THIS COURSE</span><p>Use the <strong>Next</strong> and <strong>Back</strong> buttons to move through. Next unlocks once the narration on each slide has finished. Each module ends with a short knowledge check, and there’s a final assessment. You need 80% or higher to pass.</p></div>
+<p class="fine-print">© 2026 Sela Civil Advisory Limited. All rights reserved. This training material is produced and authorised by Sela Civil Advisory Limited. Figures are rounded teaching values based on standard physics. They are not engineering design values. Site controls must follow the approved TMP and the <em>New Zealand guide to temporary traffic management</em> (NZGTTM) © Waka Kotahi NZ Transport Agency, CC BY 4.0.</p>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/1.mp3" preload="auto" data-est-dur="42"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Welcome to Force and the Body. This short course explains why people on a worksite are so vulnerable to moving vehicles. We&#x27;ll use Newton&#x27;s three laws of motion, which describe how every object moves, including cars, trucks and people. You don&#x27;t need to be good at maths. Every idea is explained with examples you see on the road every day. Over three short modules, you&#x27;ll learn what happens to the body in a collision, why speed matters so much, and how temporary traffic management controls use the same physics to keep crews alive. Each module ends with a quick knowledge check. Let&#x27;s get started.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="index.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 1 of 11</span>
+    <a class="btn amber" href="slide2.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/narration-sync.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(1);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

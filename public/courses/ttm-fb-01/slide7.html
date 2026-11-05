@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the Body Fails &mdash; Force &amp; the Body: Why Road Workers Are Vulnerable</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">How the Body Fails</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>How the Body Fails</h2>
+    <div class="read-time">~1 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide7.svg" alt="Outline of the human body highlighting brain, aorta, liver and legs"></div>
+
+<p data-cue="0.0" data-cue-sec="0.0">The human body is built for impacts at walking and running speed. The fastest people run at about 37 km/h, and only for seconds. Above that, our tolerance runs out quickly. Tap each body part.</p>
+<div data-cue="0.288" data-cue-sec="11.6" data-total="4" id="hz7">
+<div class="hotspot-grid">
+<button class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz7', 0)" type="button"><span class="hb-icon">🧠</span>Brain</button>
+<button class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz7', 1)" type="button"><span class="hb-icon">❤️</span>Aorta</button>
+<button class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz7', 2)" type="button"><span class="hb-icon">🩸</span>Liver &amp; spleen</button>
+<button class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz7', 3)" type="button"><span class="hb-icon">🦵</span>Legs, pelvis &amp; neck</button>
+</div>
+<div class="hotspot-progress">0 of 4 explored</div>
+<div class="hotspot-card" id="hz7-card0"><h4>Brain</h4><p>The brain floats in fluid inside the skull. Sudden deceleration slams it into the front of the skull, then the back. Rotation tears the nerve fibres. A fatal brain injury can happen with no skull fracture at all.</p></div>
+<div class="hotspot-card" id="hz7-card1"><h4>Aorta</h4><p>The body’s main artery is anchored at some points and free at others. When the heart keeps moving and the anchored section doesn’t, the vessel can tear. This is a leading cause of death in high-speed crashes.</p></div>
+<div class="hotspot-card" id="hz7-card2"><h4>Liver &amp; spleen</h4><p>Heavy, blood-rich organs that keep moving and tear against their attachments. Bleeding is internal and may not be obvious at first.</p></div>
+<div class="hotspot-card" id="hz7-card3"><h4>Legs, pelvis &amp; neck</h4><p>For a worker on foot, the bumper hits at knee height first, breaking the lower legs and tipping the body onto the bonnet. The head lags, then whips into the bonnet or windscreen.</p></div>
+</div>
+<div class="callout KEYIDEA" data-cue="0.775" data-cue-sec="32.4"><span class="callout-label">REMEMBER</span><p>Many fatal injuries are inside the body. Anyone involved in an impact needs medical assessment, even if they say they feel fine.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/7.mp3" preload="auto" data-est-dur="48"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Our bodies evolved to survive impacts at walking and running speed. The fastest humans run at about thirty-seven kilometres an hour, and only for a few seconds. Beyond that, the body&#x27;s tolerance runs out fast. Tap each body part to see how it fails. The brain floats inside the skull and slams into it. The aorta, the main artery, can tear where it&#x27;s anchored. The liver and spleen tear against their attachments and bleed internally. And for a worker on foot, the legs are hit first, then the head strikes the bonnet or windscreen. Many of these injuries are hidden. Anyone involved in an impact needs to be checked by a medical professional, even if they say they feel fine.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide6.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 7 of 11</span>
+    <a class="btn amber" href="slide8.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/narration-sync.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(7);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

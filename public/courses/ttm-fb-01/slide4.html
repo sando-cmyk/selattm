@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Second Law: F = ma &mdash; Force &amp; the Body: Why Road Workers Are Vulnerable</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Second Law: F = ma</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Newton’s Second Law: F = ma</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide4.svg" alt="Three stopping times compared: rigid wall, car bonnet, crumple zone"></div>
+
+<p data-cue="0.0" data-cue-sec="0.0">Force equals mass times acceleration. In a crash, the acceleration depends on how much the speed changes and <strong>how long the stop takes</strong>:</p>
+<div class="callout NOTE" data-cue="0.053" data-cue-sec="2.2" style="font-family:Consolas,monospace;font-size:17px;"><span class="callout-label">THE FORMULA</span><p style="font-size:17px;">Force = mass × change in speed ÷ stopping time</p></div>
+<p data-cue="0.194" data-cue-sec="8.9">You can’t change a person’s mass, and once a crash starts you can’t change the speed. The only thing left is the stopping time. Halve the time and you double the force.</p>
+<table class="simple-table">
+<tr data-cue="0.42" data-cue-sec="19.8"><th>80 kg person stopping from 50 km/h</th><th>Stopping time</th><th>Average force</th></tr>
+<tr data-cue="0.448" data-cue-sec="20.7"><td>Against a rigid object or the road</td><td>≈ 5 ms</td><td>≈ 220 kN (about 280 g)</td></tr>
+<tr data-cue="0.624" data-cue-sec="28.9"><td>Onto a vehicle bonnet</td><td>≈ 30 ms</td><td>≈ 37 kN (about 47 g)</td></tr>
+<tr data-cue="0.624" data-cue-sec="28.9"><td>Belt + airbag + crumple zone</td><td>≈ 100 ms</td><td>≈ 11 kN (about 14 g)</td></tr>
+</table>
+<div class="callout KEYIDEA" data-cue="0.786" data-cue-sec="36.8"><span class="callout-label">ON SITE</span><p>Crumple zones, seatbelts, airbags and the truck-mounted attenuator (TMA) on the back of a shadow vehicle all protect the people inside a crashing vehicle the same way: they stretch the stop over more time and distance. A worker on foot has none of these.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/4.mp3" preload="auto" data-est-dur="57"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Newton&#x27;s second law says force equals mass times acceleration. In a crash, that acceleration depends on two things: how much the speed changes, and how long the stop takes. You can&#x27;t change a person&#x27;s mass, and once a crash has started you can&#x27;t change the speed. The only thing left is time. Halve the stopping time and you double the force. Look at the table. A person stopping from fifty against something rigid stops in about five thousandths of a second, and takes a force of over two hundred kilonewtons. Spread the same stop over a tenth of a second with a belt and crumple zone, and the force drops to about eleven. That&#x27;s why crumple zones, seatbelts, and the attenuator on the back of a shadow truck all work by stretching out the stop for the people inside a crashing vehicle.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide3.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 4 of 11</span>
+    <a class="btn amber" href="slide5.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/narration-sync.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(4);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

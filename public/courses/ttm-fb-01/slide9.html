@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stopping Distance &mdash; Force &amp; the Body: Why Road Workers Are Vulnerable</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Stopping Distance</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Stopping Distance: Can They Stop in Time?</h2>
+    <div class="read-time">~1 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide9.svg" alt="A car braking towards a work site with reaction and braking distances marked"></div>
+
+<p data-cue="0.0" data-cue-sec="0.0">A driver who sees your crew can’t stop instantly. First they react, then the brakes remove the vehicle’s kinetic energy. <strong>Total stopping distance = reaction distance + braking distance.</strong> Braking distance grows with the square of speed.</p>
+<table class="simple-table">
+<tr data-cue="0.521" data-cue-sec="20.1"><th>Speed</th><th>Reaction (1.5 s)</th><th>Braking (dry road)</th><th>Total</th></tr>
+<tr data-cue="0.521" data-cue-sec="20.1"><td>30 km/h</td><td>13 m</td><td>5 m</td><td><strong>18 m</strong></td></tr>
+<tr data-cue="0.521" data-cue-sec="20.1"><td>50 km/h</td><td>21 m</td><td>14 m</td><td><strong>35 m</strong></td></tr>
+<tr data-cue="0.521" data-cue-sec="20.1"><td>70 km/h</td><td>29 m</td><td>28 m</td><td><strong>57 m</strong></td></tr>
+<tr data-cue="0.618" data-cue-sec="23.8"><td>100 km/h</td><td>42 m</td><td>56 m</td><td><strong>98 m</strong></td></tr>
+</table>
+<div class="fb-calc" data-cue="0.769" data-cue-sec="29.7" id="calc9">
+<h4>Try it: can the driver stop before reaching the crew?</h4>
+<div class="fb-ctrls">
+<label for="c9v">Approach speed <output id="c9vo">70 km/h</output><input id="c9v" max="110" min="20" step="5" type="range" value="70"/></label>
+<label for="c9mu">Road surface<select id="c9mu"><option value="0.7">Dry sealed road</option><option value="0.5">Wet sealed road</option><option value="0.4">Loose chip or gravel</option></select></label>
+<label for="c9d">Crew is this far ahead <output id="c9do">50 m</output><input id="c9d" max="150" min="10" step="5" type="range" value="50"/></label>
+</div>
+<div class="fb-out" id="c9out" role="status"></div>
+</div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/9.mp3" preload="auto" data-est-dur="45"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">A driver who sees your crew can&#x27;t stop instantly. First they have to react, and in a second and a half at seventy kilometres an hour, they&#x27;ve already travelled almost thirty metres without even touching the brakes. Then the brakes have to remove the vehicle&#x27;s kinetic energy, and because that energy depends on speed squared, the braking distance does too. At fifty, a car needs about thirty-five metres to stop. At a hundred, almost a hundred metres. On a wet road or loose chip it&#x27;s longer again. Use the calculator to try different speeds, surfaces and distances, and see how fast the vehicle would still be going when it reached the crew.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz2.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 9 of 11</span>
+    <a class="btn amber" href="slide10.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/narration-sync.js"></script>
+<script>
+// Slide 9 stopping-distance calculator (teaching values: 1.5 s reaction, g = 9.81).
+(function () {
+  var v = document.getElementById('c9v'), mu = document.getElementById('c9mu'), dist = document.getElementById('c9d');
+  var vo = document.getElementById('c9vo'), dout = document.getElementById('c9do'), out = document.getElementById('c9out');
+  function r1(x) { return Math.round(x); }
+  function run() {
+    var kmh = Number(v.value), ms = kmh / 3.6, m = Number(mu.value), D = Number(dist.value), tr = 1.5;
+    var react = ms * tr, brake = ms * ms / (2 * m * 9.81), total = react + brake, hit = 0;
+    if (D <= react) hit = kmh; else if (D < total) hit = Math.sqrt(Math.max(0, ms * ms - 2 * m * 9.81 * (D - react))) * 3.6;
+    vo.textContent = kmh + ' km/h'; dout.textContent = D + ' m';
+    var cls, msg;
+    if (hit === 0) { cls = 'ok'; msg = 'Stops ' + r1(D - total) + ' m short of the crew.'; }
+    else if (hit <= 30) { cls = 'warn'; msg = 'Reaches the crew at about ' + r1(hit) + ' km/h. Serious injury likely; survival possible.'; }
+    else { cls = 'bad'; msg = 'Reaches the crew at about ' + r1(hit) + ' km/h – above the ~30 km/h survivable limit.' + (D <= react ? ' The driver hasn’t even started braking.' : ''); }
+    out.className = 'fb-out ' + cls;
+    out.innerHTML = '<span>Reaction <strong>' + r1(react) + ' m</strong></span><span>Braking <strong>' + r1(brake) + ' m</strong></span><span>Total <strong>' + r1(total) + ' m</strong></span><p>' + msg + '</p>';
+  }
+  [v, mu, dist].forEach(function (el) { el.addEventListener('input', run); el.addEventListener('change', run); });
+  run();
+})();
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(9);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

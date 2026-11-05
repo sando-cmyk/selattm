@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temporary Footpaths &mdash; Protecting Vulnerable Road Users in TTM</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-vru-01-narrated">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Temporary Footpaths</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Temporary Footpaths</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide9.svg" alt="A 1.8 metre footpath lets two wheelchairs pass; narrower sections need passing bays"></div>
+    <p>Keep the permanent width if you can. If not, use these:</p>
+    <div class="stat-row">
+      <div class="stat"><span class="num">1.8 m</span><span class="lbl">Preferred width &ndash; two wheelchairs can pass</span></div>
+      <div class="stat"><span class="num">1.2 m</span><span class="lbl">Minimum &ndash; shortest length possible</span></div>
+      <div class="stat"><span class="num">1:50</span><span class="lbl">Steepest crossfall</span></div>
+    </div>
+    <table class="simple-table">
+      <thead><tr><th>Situation</th><th>Requirement</th></tr></thead>
+      <tbody>
+        <tr><td>Narrower than 1.8 m for more than 60 m</td><td>Add passing bays</td></tr>
+        <tr><td>Passing bays</td><td>At least 1.5 m long, widening to 1.8 m, no more than 60 m apart</td></tr>
+        <tr><td>Where to divert people</td><td>1st: property side of the path &middot; 2nd: the berm &middot; 3rd: a separated space at the road edge (move any cycle lane too). Document why if you drop down</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/9.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">When you narrow a footpath or build a temporary one, keep the permanent width if you can. If you can&#x27;t, the preferred width for any temporary pedestrian route is one point eight metres. That lets two wheelchairs pass. You can go down to one point two metres, but only for the shortest possible length. If a stretch narrower than one point eight metres runs for more than sixty metres, add passing bays. Each bay should be at least one point five metres long and widen the path to one point eight metres, and they should be no more than sixty metres apart. Keep the crossfall no steeper than one in fifty, enough to drain water but not enough to tip a wheelchair. When you divert people off the footpath, the order is: first the property side of the path, then the berm, and only then a separated space at the edge of the road, moving any cycle lane over too.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide8.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 9 of 25</span>
+    <a class="btn amber" href="slide10.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(9);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>
