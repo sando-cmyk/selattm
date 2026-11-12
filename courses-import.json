@@ -123,7 +123,8 @@
     "currency": "NZD",
     "status": "active",
     "stripePriceId": "price_1ULtXX0flJvw3UeNFdw8QvXx",
-    "launchPath": "/courses/40233-ttm-road-reserve/index.html"
+    "launchPath": "/courses/40233-ttm-road-reserve/index.html",
+    "visibility": "private"
   },
   {
     "id": "nzgttm-vru-01",

@@ -1,17 +1,17 @@
-Admin: reply to inquiries, fix pre-paid course adding; make TMW course private
+Hide US-40233 (Assist with TTM within the Road Reserve) from the store
 
-- Corporate Inquiries: newest first with date, email, company and full
-  message; reply from the admin page (sent via the Trigger Email extension
-  from joseph@selacivil.co.nz) or open in email app; mark handled/reopen;
-  KPI shows open / total. Public form content is HTML-escaped.
-- Learners: fix "Add a pre-paid course" doing nothing and profiles showing
-  "No courses yet" -- course docs have no id field, so the catalog now
-  takes the id from the document name.
-- TTM-TMW-01 (Staging & Vehicles on Side Roads) is now private:
-  "visibility": "private" in courses-import.json and its manifest; the
-  store skips private courses and its static fallback card is removed.
-  Admins can still grant it; learners who have it keep it. Admin catalog
-  shows a Private badge.
+Hidden until an NZQA assessment provider is in place for the practical
+sign-off.
+
+- "visibility": "private" added to the course in courses-import.json,
+  its course-manifest.json and public/data/courses.json; the store
+  already skips private courses.
+- Its static fallback card in store.html is commented out (not deleted)
+  so it can be restored later.
+- Admins can still grant the course; anyone who already has it keeps it.
+
+To bring it back: remove "visibility": "private" from those files,
+uncomment the card, run node scripts/sync-courses.js and redeploy.
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_018nnUp5R9tpPMiooxjjkWct
+Claude-Session: https://claude.ai/code/session_018nnUp2vrk9DRx6G5VWtNsj
