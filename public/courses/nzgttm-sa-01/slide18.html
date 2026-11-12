@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Before You Go &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Before You Go</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Before You Go</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide18.svg" alt="Preparing for the visit: TMP, crash history, contacts and kit"></div>
+    <div style="overflow-x:auto;"><table class="simple-table"><thead><tr><th>Prepare</th><th style="white-space:nowrap;">Why</th></tr></thead><tbody><tr><td>TMP, approval, TMDs and variations</td><td>You can only check G5, G7 and G8 against what was approved</td></tr><tr><td>Site risk rating and TSL approval</td><td>Sets your expectations for G1 and G2</td></tr><tr><td>Previous reports and open corrective action plans</td><td>Did earlier fixes stick?</td></tr><tr><td>Local crash history (TSL crashes)</td><td>Tells you which priority checks matter here</td></tr><tr><td>Conflict-of-interest check</td><td>Protects your independence</td></tr><tr><td>PPE, beacon, camera or dashcam, assessment form</td><td>You are a road user and a worker on this site</td></tr><tr><td>STMS and after-hours on-call numbers</td><td>You may need to act fast</td></tr></tbody></table></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/18.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module four: conducting the site assessment. Good assessments start before you leave the office. Get the traffic management plan, the approval and the diagrams, because you can only check G5, G7 and G8 against what was approved. Check the site risk rating and speed limit approval. Look at previous reports and any open corrective actions. Check local crash history, using temporary speed limit crashes. Confirm you have no conflict of interest. Pack your PPE, beacon, camera or dashcam, and the assessment form. And make sure you have the STMS&#x27;s number and the after-hours on-call number.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz3.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 18 of 34</span>
+    <a class="btn amber" href="slide19.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(18);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

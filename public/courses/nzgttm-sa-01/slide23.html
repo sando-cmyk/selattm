@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Night and Unattended Sites &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Night and Unattended Sites</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Night and Unattended Sites</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide23.svg" alt="An unattended site at night with a speed sign knocked down"></div>
+    <p>40% of worksite deaths happen in the dark &ndash; nearly all on the open road. After-hours checks are core assurance, not an optional extra.</p><ul><li>Check P2 (visibility) and G2 (TSL integrity) in depth</li><li>Is everything left out complete, standing, lit and visible?</li><li>Are taper devices in place after the wind and traffic of the evening?</li></ul><div class="callout CAUTION"><span class="callout-label">IF YOU FIND A HAZARD ON AN UNATTENDED SITE</span><p>Phone the TTM contractor&rsquo;s on-call contact to fix it now. Record it with time-stamped photos. If there is no prompt response, escalate to the client and the RCA. Do not leave a dangerous site without raising it.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/23.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Forty per cent of worksite deaths happen in the dark, nearly all on open roads. So after-hours checks are core assurance, not an optional extra. At night, check visibility and speed limit integrity in depth. Is everything that was left out still complete, standing, lit and visible? If you find a hazard on an unattended site, phone the traffic management contractor&#x27;s on-call contact to fix it straight away. Record it with time-stamped photos. If you don&#x27;t get a prompt response, escalate to the client and the road controlling authority. Don&#x27;t leave a dangerous site without raising it.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide22.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 23 of 34</span>
+    <a class="btn amber" href="slide24.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(23);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

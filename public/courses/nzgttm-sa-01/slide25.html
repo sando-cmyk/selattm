@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Outcomes &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Site Outcomes</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Three Site Outcomes</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide25.svg" alt="Three site outcomes: acceptable, unacceptable and dangerous"></div>
+    <div style="overflow-x:auto;"><table class="simple-table"><thead><tr><th>Outcome</th><th style="white-space:nowrap;">Means</th><th>Your response</th></tr></thead><tbody><tr><td><strong style="color:#2E7D32">High standard / acceptable</strong></td><td>TTM matches the approved TMP and controls the risk</td><td>Give feedback. Record good practice.</td></tr><tr><td><strong style="color:#B07A00">Unacceptable</strong></td><td>Deficiencies reduce protection, but no immediate danger</td><td>Supervise immediate improvements on site and confirm the fix.</td></tr><tr><td><strong style="color:#C8102E">Dangerous</strong></td><td>Immediate risk of serious harm to workers or road users</td><td>Supervised immediate improvements or a Stop Work Order. A corrective action plan (CAP) is required. A follow-up review may be needed before work restarts.</td></tr></tbody></table></div><p style="font-size:13px;color:#666;">Outcome levels from the NZGTTM quality, assurance and control guidance.</p>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/25.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module five: outcomes and immediate action. The NZGTTM guidance gives three site outcomes. High standard or acceptable means the site matches the approved plan and controls the risk. You give feedback and record good practice. Unacceptable means there are deficiencies that reduce protection, but no immediate danger. You supervise improvements on the spot and confirm the fix. Dangerous means there&#x27;s an immediate risk of serious harm. You supervise immediate improvements or issue a stop work order, and a corrective action plan is required.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz4.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 25 of 34</span>
+    <a class="btn amber" href="slide26.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(25);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

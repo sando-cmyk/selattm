@@ -13,6 +13,7 @@ export const COURSES = {
   "nzgttm-ra-01": { courseId: "nzgttm-ra-01", courseCode: "NZGTTM-RA-01", courseTitle: "NZGTTM Risk Assessment & TMP Fundamentals" },
   "nzgttm-vru-01": { courseId: "nzgttm-vru-01", courseCode: "NZGTTM-VRU-01", courseTitle: "Protecting Vulnerable Road Users in TTM" },
   "ttm-fb-01": { courseId: "ttm-fb-01", courseCode: "TTM-FB-01", courseTitle: "Force & the Body: Why Road Workers Are Vulnerable" },
+  "nzgttm-sa-01": { courseId: "nzgttm-sa-01", courseCode: "NZGTTM-SA-01", courseTitle: "TTM Site Assurance Assessor" },
   "nzgttm-roles-responsibilities": { courseId: "ttm-roles-01", courseCode: "TTM-ROLES-01", courseTitle: "Roles & Responsibilities for TTM in New Zealand" },
   "ttm-engineering-essentials": { courseId: "ttm-eng-01", courseCode: "TTM-ENG-01", courseTitle: "Core Engineering Concepts of TTM in New Zealand" },
   "ashtas-01": { courseId: "ashtas-01", courseCode: "ASHTAS-01", courseTitle: "ASHTAS Operative" },

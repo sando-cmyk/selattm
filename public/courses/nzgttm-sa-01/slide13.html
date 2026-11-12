@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Where to Focus &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Where to Focus</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Where Would You Focus?</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide13.svg" alt="Activity: three sites, where would you focus?"></div>
+    <p class="activity-instructions">For each site, decide which two priority checks you would spend most time on, then tap to compare.</p><div id="hz13" data-total="3"><div class="hotspot-grid"><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz13', 0)"><span class="hb-icon">&#127769;</span>SH1, night resurfacing</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz13', 1)"><span class="hb-icon">&#128694;</span>Urban footpath closure</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz13', 2)"><span class="hb-icon">&#128667;</span>Rural stop/go, logging trucks</button></div><div class="hotspot-progress">0 of 3 explored</div><div class="hotspot-card" id="hz13-card0"><h4>SH1, night resurfacing</h4><p><strong>P1 and P2</strong> (and P3 if heavy traffic). Posted 100 km/h, TSL 30, lane closure, at night: open road and darkness are the two strongest risk factors in the data.</p></div><div class="hotspot-card" id="hz13-card1"><h4>Urban footpath closure</h4><p><strong>P4 and P5.</strong> Outside a supermarket in daytime: the people at risk are on foot and on bikes. Check the route is continuous and accessible, and look for lips and loose material.</p></div><div class="hotspot-card" id="hz13-card2"><h4>Rural stop/go, logging trucks</h4><p><strong>P3 and P1.</strong> Heavy vehicles every few minutes on an open road: where does the queue reach, can approaching drivers see it, and can a loaded truck stop in time?</p></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/13.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Let&#x27;s practise. For each of these three sites, decide which two priority checks you&#x27;d spend the most time on, and why. Then tap each one to compare your answer.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide12.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 13 of 34</span>
+    <a class="btn amber" href="quiz2.html">Module Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/interactive.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(13);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

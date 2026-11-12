@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Conversation &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">The Conversation</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>The Conversation with the STMS</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide28.svg" alt="The assessor and the STMS talk through the findings"></div>
+    <div class="step-card-row"><div class="step-card open"><h4><span class="step-letter">1</span>Start with what works</h4><div class="step-detail">There usually is something. It sets the tone.</div></div><div class="step-card open"><h4><span class="step-letter">2</span>Be specific</h4><div class="step-detail">Location, what you saw, why it matters.</div></div><div class="step-card open"><h4><span class="step-letter">3</span>Agree the fix</h4><div class="step-detail">And who will do it. Watch it done where you can.</div></div><div class="step-card open"><h4><span class="step-letter">4</span>Calm and factual</h4><div class="step-detail">You are not there to win an argument &ndash; you are there to make the site safe.</div></div><div class="step-card open"><h4><span class="step-letter">5</span>Explain the appeal route</h4><div class="step-detail">The STMS&rsquo;s PCBU can appeal the outcome to Sela operations.</div></div></div><div class="callout CAUTION"><span class="callout-label">IF IT ESCALATES</span><p>If you are threatened or the situation gets heated, step away, stay safe and phone Sela operations.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/28.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">The conversation with the STMS matters as much as the checklist. Start with what&#x27;s working well. There&#x27;s usually something. Be specific about where, what, and why it matters. Agree the fix and who&#x27;ll do it, and watch it done where you can. Stay calm and factual. You&#x27;re not there to win an argument. You&#x27;re there to make the site safe. Explain how they can appeal if they disagree. And if things get heated or you feel threatened, step away, stay safe, and call Sela operations.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide27.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 28 of 34</span>
+    <a class="btn amber" href="slide29.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(28);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

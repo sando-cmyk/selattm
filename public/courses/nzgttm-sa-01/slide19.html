@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>On Arrival &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">On Arrival</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>On Arrival</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide19.svg" alt="On arrival: drive through, park clear, announce to the STMS, get approval"></div>
+    <div class="step-card-row"><div class="step-card open"><h4><span class="step-letter">1</span>Drive through first</h4><div class="step-detail">Approach and pass through in both directions where safe, as a road user would &ndash; ideally on dashcam. Note the first sign, the TSL at each change, the taper and the exit.</div></div><div class="step-card open"><h4><span class="step-letter">2</span>Park safely</h4><div class="step-detail">Clear of the traffic path and the working space &ndash; never inside the taper.</div></div><div class="step-card open"><h4><span class="step-letter">3</span>Announce yourself</h4><div class="step-detail">If the site is active, find the STMS, explain the visit and receive the site safety briefing.</div></div><div class="step-card open"><h4><span class="step-letter">4</span>Get approval</h4><div class="step-detail">From the person supervising the working space, before you enter it.</div></div><div class="step-card open"><h4><span class="step-letter">5</span>Check the papers</h4><div class="step-detail">TMP on site (G6), approval (G5), on-site record (G4), STMS qualification (G1).</div></div></div><div class="callout KEYIDEA"><span class="callout-label">WHY DRIVE FIRST</span><p>The drive-through shows you the site as a driver sees it &ndash; before anyone knows you are there.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/19.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">When you arrive, follow five steps. First, drive through the site in both directions where it&#x27;s safe, just as a road user would, ideally recording on dashcam. Second, park safely, clear of the traffic path and the working space, and never inside the taper. Third, if the site&#x27;s active, find the STMS, introduce yourself and get the site safety briefing. Fourth, get approval from the person supervising the working space before you enter it. And fifth, check the paperwork: the plan on site, the approval, the on-site record, and the STMS&#x27;s qualification. The drive-through matters, because it shows you the site as a driver sees it, before anyone knows you&#x27;re there.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide18.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 19 of 34</span>
+    <a class="btn amber" href="slide20.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(19);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

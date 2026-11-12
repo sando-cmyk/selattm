@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Roads &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Open Roads</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Nine in Ten Worksite Deaths Are on the Open Road</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide8.svg" alt="Bar chart: 89 percent of worksite deaths are at open-road sites"></div>
+    <div style="overflow-x:auto;"><table class="simple-table"><thead><tr><th>Setting</th><th>Crashes</th><th>% fatal or serious</th><th style="white-space:nowrap;">Deaths</th></tr></thead><tbody><tr><td>Open road, state highway</td><td>6,993</td><td>6.5%</td><td>99</td></tr><tr><td>Open road, local road</td><td>2,501</td><td>8.9%</td><td>42</td></tr><tr><td>Urban, local road</td><td>5,212</td><td>5.9%</td><td>10</td></tr><tr><td>Urban, state highway</td><td>843</td><td>5.2%</td><td>7</td></tr></tbody></table></div><p>141 of the 158 deaths (89%) happened at open-road worksites. Open-road local roads have the highest severity of all.</p><div class="callout KEYIDEA"><span class="callout-label">FOR THE ASSESSOR</span><p>On an open-road site, spend your time on approach speeds, lead-in distance, TSL compliance and separation from live traffic.</p></div><p class="fine-print">Source: Sela Civil Advisory, SELA-RPT-2026-006 <em>Who Gets Hurt at Our Worksites</em> (12 Nov 2026), from NZTA Crash Analysis System open data, Jan 2006 &ndash; Nov 2026.</p>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/8.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Here&#x27;s the first big finding. Nine in ten worksite deaths happen at open-road sites. One hundred and forty-one of the one hundred and fifty-eight deaths were on open roads, and open-road local roads have the highest severity of any setting. Urban sites have plenty of crashes, but far fewer deaths. So when you assess an open-road site, spend your time on approach speeds, lead-in distances, whether drivers are actually slowing to the temporary speed limit, and how well workers are separated from live traffic.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide7.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 8 of 34</span>
+    <a class="btn amber" href="slide9.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(8);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

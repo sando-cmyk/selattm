@@ -1,0 +1,12 @@
+{
+  "id": "nzgttm-sa-01",
+  "code": "NZGTTM-SA-01",
+  "title": "TTM Site Assurance Assessor",
+  "description": "Six-module online course for experienced TTM practitioners moving into independent site assurance: the NZGTTM assurance processes, what national crash data says about who gets hurt, G1–G8 and Sela priority checks, site outcomes and Stop Work Orders, and writing findings that stand up. Includes 12 months’ access to the Sela assessment tools. Supervised field assessments for Sela endorsement are available on request.",
+  "category": "TTM Training",
+  "price": 295,
+  "currency": "NZD",
+  "status": "draft",
+  "stripePriceId": "price_TBD_set_before_going_live",
+  "launchPath": "/courses/nzgttm-sa-01/index.html"
+}

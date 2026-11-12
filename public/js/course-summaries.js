@@ -160,6 +160,27 @@ export const COURSE_SUMMARIES = {
     ],
     assessment: "A 3-question knowledge check at the end of each of the 3 modules, then a 10-question final assessment drawn from a bank of 15. 80% required to pass each.",
   },
+  "nzgttm-sa-01": {
+    format: "Online, self-paced · 6 modules, 34 narrated slides with a welcome video and 6 activities · approx. 1–1.5 hours · includes 12 months of Sela assessment tools",
+    audience: "Experienced TTM practitioners (typically STMS level or equivalent) moving into independent site assurance, and client-side staff who want to understand how Sela assesses sites.",
+    overview: "How to stand back from a site you did not build, judge whether it protects workers and road users, act on what you find, and report it so it stands up — using the NZGTTM assurance framework and 20 years of NZ worksite crash data.",
+    covers: [
+      "Where site assurance sits in the NZGTTM quality, assurance and control framework (A1–A6), and the assessor's duties",
+      "Who gets hurt at NZ worksites: open roads, darkness, heavy vehicles, and cyclists and pedestrians (SELA-RPT-2026-006)",
+      "Compliance versus risk, the hierarchy of controls, and testing whether the TMP fits the site (G7)",
+      "Preparing for and carrying out a site assessment: G1–G8, Sela priority checks P1–P5, and evidence",
+      "Site outcomes, rating findings, Stop Work Order triggers and the conversation with the STMS",
+      "Writing findings, submitting reports, corrective action plans and verifying close-out",
+    ],
+    demonstrates: [
+      "Identifies which NZGTTM assurance process applies and what it does not cover",
+      "Uses crash evidence to focus assessment effort on the highest-risk features of a site",
+      "Recognises Stop Work Order triggers and chooses safe, proportionate immediate actions",
+      "Rates findings and site outcomes consistently with the NZGTTM outcome levels",
+      "Writes findings with location, observation, risk, requirement, action and rating",
+    ],
+    assessment: "A knowledge check at the end of each of the 6 modules, then a 20-question final assessment drawn from a bank of 40. 80% required to pass each. Every slide must be completed in order. Supervised field assessments for Sela endorsement are available on request.",
+  },
   "ttm-roles-01": {
     format: "Online, self-paced · approx. 20 minutes",
     audience: "TTM workers, supervisors, planners and client representatives who need to know who is responsible for what.",

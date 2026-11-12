@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Higher Controls &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Higher Controls</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Could a Higher Control Work?</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide17.svg" alt="Activity: what higher-order control could be used?"></div>
+    <p class="activity-instructions">Each site relies on lower-order controls. Think of a higher-order option, then tap to compare.</p><div id="hz17" data-total="3"><div class="hotspot-grid"><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz17', 0)"><span class="hb-icon">&#127769;</span>Night patching, 100 km/h</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz17', 1)"><span class="hb-icon">&#128678;</span>Traffic controller on a crest</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz17', 2)"><span class="hb-icon">&#128119;</span>Footpath crew beside a live lane</button></div><div class="hotspot-progress">0 of 3 explored</div><div class="hotspot-card" id="hz17-card0"><h4>Night patching, 100 km/h</h4><p><span class="field-label">Relying on:</span> TSL, signs and cones.</p><p><span class="field-label">Higher option:</span> A short full closure with a detour (eliminate), or a TMA behind the crew (engineer). Was either considered and why was it rejected?</p></div><div class="hotspot-card" id="hz17-card1"><h4>Traffic controller on a crest</h4><p><span class="field-label">Relying on:</span> A person with a stop/go paddle in sight of traffic.</p><p><span class="field-label">Higher option:</span> Portable traffic signals (substitute), with advance warning beyond the crest.</p></div><div class="hotspot-card" id="hz17-card2"><h4>Footpath crew beside a live lane</h4><p><span class="field-label">Relying on:</span> Cones and hi-vis.</p><p><span class="field-label">Higher option:</span> Rated barrier or a lane closure to create a buffer (isolate).</p></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/17.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Activity time. Each of these sites relies on lower-order controls. For each one, think of a higher-order option that might work, and why it might not have been used. Then tap to compare.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide16.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 17 of 34</span>
+    <a class="btn amber" href="quiz3.html">Module Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/interactive.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(17);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compliance vs Risk &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Compliance vs Risk</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Two Questions on Every Site</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide14.svg" alt="Compliance compares the site with the plan; risk asks whether people are protected"></div>
+    <div class="two-col"><div class="col-card"><h4>Compliance</h4><ul><li>Is the site built the way the TMP says?</li><li>G1&ndash;G6 and G8</li><li>Checked against the approval</li><li>Clear pass or fail</li></ul></div><div class="col-card col-new"><h4>Risk</h4><ul><li>Does what is built protect people here, today?</li><li>G7 and the priority checks P1&ndash;P5</li><li>Conditions change: queues, light, weather, schools</li><li>Needs judgement &ndash; record your reasons</li></ul></div></div><div class="callout KEYIDEA"><span class="callout-label">G7 IS THE BRIDGE</span><p>A site can match its TMP and still be unsafe because the plan missed something or conditions changed. G7 asks whether the TMP suits the actual environment, workspace, activity and hazards.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/14.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module three: risk-based thinking. On every site, there are two questions. The first is compliance: is the site built the way the traffic management plan says? The second is risk: does what&#x27;s built actually protect people, here and today? A site can match its plan exactly and still be unsafe, because the plan missed something, or because conditions have changed. That&#x27;s where G7 comes in. It asks whether the plan suits the actual environment, workspace, activity and hazards. It&#x27;s the bridge between compliance and risk.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz2.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 14 of 34</span>
+    <a class="btn amber" href="slide15.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(14);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

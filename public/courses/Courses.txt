@@ -3,3 +3,4 @@ tmw-side-road-safety	45	Staging & Vehicles on Side Roads	price_1ULtZj0flJvw3UeNm
 basic-barrier-safety-course	45	Working Safely Near Barrier Systems	price_1ULtbB0flJvw3UeNw6bYPp69
 nzgttm-vru-01	85	Protecting Vulnerable Road Users in TTM	price_1UYGis0flJvw3UeN8Y693TcN
 ttm-fb-01	39	Force & the Body: Why Road Workers Are Vulnerable	price_1UYGjw0flJvw3UeN4Ogouwav
+nzgttm-sa-01	295	TTM Site Assurance Assessor	price_1Ub7E50flJvw3UeNZZuNJb3O

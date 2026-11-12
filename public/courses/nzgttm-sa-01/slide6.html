@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Which Process? &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Which Process?</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Which Process?</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide6.svg" alt="Activity: three requests, which assurance process applies?"></div>
+    <p class="activity-instructions">Decide which NZGTTM process fits each request, then tap to check.</p><div id="hz6" data-total="3"><div class="hotspot-grid"><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz6', 0)"><span class="hb-icon">&#128202;</span>40 sites in a month</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz6', 1)"><span class="hb-icon">&#128221;</span>A six-month motorway TMP</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz6', 2)"><span class="hb-icon">&#128690;</span>A cyclist seriously injured</button></div><div class="hotspot-progress">0 of 3 explored</div><div class="hotspot-card" id="hz6-card0"><h4>40 sites in a month</h4><p><span class="field-label">Process:</span> Partial site condition review (A5) &ndash; G1&ndash;G8 on a large sample.</p><p><span class="field-label">It won&rsquo;t tell you:</span> whether each TMP is right for its site, or the detail of every device.</p></div><div class="hotspot-card" id="hz6-card1"><h4>A six-month motorway TMP</h4><p><span class="field-label">Process:</span> TMP review (A2), and for a high-risk long-term site a full risk-based review (A3) before deployment.</p><p><span class="field-label">It won&rsquo;t tell you:</span> what is actually built on site &ndash; that needs site reviews once it is running.</p></div><div class="hotspot-card" id="hz6-card2"><h4>A cyclist seriously injured</h4><p><span class="field-label">Process:</span> Full risk-based review (A3) &ndash; post-incident, across the whole operation.</p><p><span class="field-label">It won&rsquo;t tell you:</span> whether the contractor&rsquo;s wider management system is working &ndash; that is a systems audit (A1).</p></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/6.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Time for an activity. You&#x27;ll see three requests from clients and road controlling authorities. For each one, decide which NZGTTM assurance process fits best, and think about what that process wouldn&#x27;t tell you. Then tap each card to check your thinking.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide5.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 6 of 34</span>
+    <a class="btn amber" href="quiz1.html">Module Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/interactive.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(6);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

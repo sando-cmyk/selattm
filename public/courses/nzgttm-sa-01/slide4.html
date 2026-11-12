@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where You Fit &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Where You Fit</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Where the Sela Assessor Fits</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide4.svg" alt="The assessor role: what you do, may do and do not do"></div>
+    <div class="two-col"><div class="col-card"><h4>You do</h4><ul><li>Partial reviews (A5): G1&ndash;G8</li><li>Site condition reviews (A6) where the client or RCA accepts you</li><li>Sela H&amp;S assurance visits: G1&ndash;G8, priority checks P1&ndash;P5 and worker safety</li></ul></div><div class="col-card col-new"><h4>You may</h4><ul><li>Support an STMS / contractor review (A4)</li><li>Join a full risk-based review team (A3) under a lead reviewer</li></ul></div></div><div class="callout CAUTION"><span class="callout-label">YOU DO NOT</span><p>Approve TMPs, redesign the site, or assess where you have a conflict of interest. You assess what is in front of you, act on immediate danger, and report.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/4.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">So where does a Sela assessor fit? Most of the time you&#x27;ll carry out partial reviews using the G checks, site condition reviews where the client or road controlling authority has accepted you as a reviewer, and Sela health and safety assurance visits, which add our priority checks and worker safety. You may also support an STMS review, or join a full risk-based review team under a lead reviewer. What you don&#x27;t do is approve traffic management plans, redesign the site, or assess a site where you have a conflict of interest. You assess what&#x27;s in front of you, act on immediate danger, and report.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide3.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 4 of 34</span>
+    <a class="btn amber" href="slide5.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(4);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSL, Not the Tick &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">TSL, Not the Tick</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Use the TSL, Not the &ldquo;Road Works&rdquo; Tick</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide11.svg" alt="Police road works tick box found in only 6.7 percent of worksite crashes"></div>
+    <p>Police tick &ldquo;road works&rdquo; in only <strong>6.7%</strong> of worksite crashes (1,038 of 15,561). The tick rate doubles at night, which fits it mostly recording road works struck as an object. Analysis that relies on that box finds 13 of the 158 deaths &ndash; it misses about <strong>92%</strong>.</p><div class="callout KEYIDEA"><span class="callout-label">ON EVERY ASSESSMENT</span><p>When you check local crash history, or read a client safety case, make sure worksite crashes were identified by temporary speed limit &ndash; not the road works tick alone.</p></div><p class="fine-print">Source: Sela Civil Advisory, SELA-RPT-2026-006 <em>Who Gets Hurt at Our Worksites</em> (12 Nov 2026), from NZTA Crash Analysis System open data, Jan 2006 &ndash; Nov 2026.</p>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/11.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Here&#x27;s something every assessor should know. Police tick the road works box in only six point seven per cent of worksite crashes. If you rely on that box alone, you&#x27;ll miss about ninety-two per cent of worksite deaths. The most reliable marker is the temporary speed limit recorded in the crash. So whenever you look up crash history for a site, or read a client&#x27;s safety case, check that worksite crashes were identified by temporary speed limit, not just the road works tick.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide10.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 11 of 34</span>
+    <a class="btn amber" href="slide12.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(11);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

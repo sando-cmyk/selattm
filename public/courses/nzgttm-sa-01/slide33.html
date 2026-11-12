@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Fix the Finding &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Fix the Finding</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Fix the Finding</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide33.svg" alt="Activity: turn a poor finding into a good one"></div>
+    <p class="activity-instructions">Each finding below is too vague to act on. Think how you would rewrite it, then tap to see a stronger version.</p><div id="hz33" data-total="3"><div class="hotspot-grid"><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz33', 0)"><span class="hb-icon">&#128679;</span>&ldquo;Cones a bit messy at the start.&rdquo;</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz33', 1)"><span class="hb-icon">&#128694;</span>&ldquo;No footpath.&rdquo;</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz33', 2)"><span class="hb-icon">&#128196;</span>&ldquo;STMS didn&rsquo;t have the plan.&rdquo;</button></div><div class="hotspot-progress">0 of 3 explored</div><div class="hotspot-card" id="hz33-card0"><h4>&ldquo;Cones a bit messy at the start.&rdquo;</h4><p>&ldquo;Southbound taper, 10:05. Three of twelve taper cones displaced into the shoulder (photos 02&ndash;03). Taper is shortened, giving drivers less time to merge at 100 km/h. TMD requires the full taper. STMS reinstated at 10:12; verified. Rating: Non-conformance.&rdquo;</p></div><div class="hotspot-card" id="hz33-card1"><h4>&ldquo;No footpath.&rdquo;</h4><p>&ldquo;Main St east side, outside No. 14, 15:10. Footpath closed with no alternative route for 300 m; pedestrian with pram seen walking in the live lane (photo 11). TMP requires a protected pedestrian route (P4, G7). Temporary path agreed with STMS and in place 15:40. Rating: Critical (resolved).&rdquo;</p></div><div class="hotspot-card" id="hz33-card2"><h4>&ldquo;STMS didn&rsquo;t have the plan.&rdquo;</h4><p>&ldquo;Site office, 09:30. Approved TMP not present on attended worksite (G6). STMS confirmed approval exists (G5 pass) and had a copy delivered by 10:15. Rating: Non-conformance.&rdquo;</p></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m6/33.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Last activity. Each of these findings is too vague to act on. Think about how you&#x27;d rewrite it using the six elements: where and when, what you saw, why it matters, the requirement, the action, and the rating. Then tap to see a stronger version.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide32.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 33 of 34</span>
+    <a class="btn amber" href="slide34.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/interactive.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(33);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Duties &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Your Duties</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Your Duties on Someone Else&rsquo;s Site</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide5.svg" alt="Four duties: shared duties, own safety, independence and consistency"></div>
+    <div class="step-card-row"><div class="step-card open"><h4><span class="step-letter">1</span>Shared duties</h4><div class="step-detail">Under the Health and Safety at Work Act 2015, every PCBU on site must consult, cooperate and coordinate so far as is reasonably practicable. &ldquo;Not my site&rdquo; is not an option.</div></div><div class="step-card open"><h4><span class="step-letter">2</span>Your own safety first</h4><div class="step-detail">Follow the STMS briefing and Sela&rsquo;s safe work method. An assessor hit by a vehicle has made the site less safe.</div></div><div class="step-card open"><h4><span class="step-letter">3</span>Independence</h4><div class="step-detail">Declare any conflict &ndash; financial, family, former employer, your own TMP &ndash; before the visit, and step aside if needed.</div></div><div class="step-card open"><h4><span class="step-letter">4</span>Consistency</h4><div class="step-detail">Two assessors on the same site should reach the same outcome. Use the form and definitions every time.</div></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/5.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">When you walk onto someone else&#x27;s site, you carry real duties. Under the Health and Safety at Work Act, every business on that site shares overlapping duties, and they must consult, cooperate and coordinate with each other. Not my site is never an option. Your own safety comes first. Follow the STMS&#x27;s briefing and Sela&#x27;s safe work method, because an assessor who gets hurt makes the site less safe. Stay independent. Declare any conflict of interest before the visit, and step aside if you need to. And be consistent. Two assessors looking at the same site should reach the same outcome, so use the form and the definitions every time.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide4.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 5 of 34</span>
+    <a class="btn amber" href="slide6.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(5);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

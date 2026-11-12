@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darkness and Trucks &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Darkness and Trucks</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Darkness and Heavy Vehicles</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide9.svg" alt="Night-time worksite with a truck approaching: darkness and heavy vehicles"></div>
+    <div class="stat-row"><div class="stat"><span class="num">33% &rarr; 40%</span><span class="lbl">of crashes in the dark &rarr; of deaths</span></div><div class="stat"><span class="num">10% &rarr; 28%</span><span class="lbl">of crashes with a truck &rarr; of fatal crashes</span></div><div class="stat"><span class="num">57 of 63</span><span class="lbl">night deaths were on the open road</span></div></div><p>Darkness has the highest fatal rate of any light condition (1.13%). Weather plays little part &ndash; crashes in rain are actually less severe, as drivers slow down.</p><div class="callout KEYIDEA"><span class="callout-label">FOR THE ASSESSOR</span><p>Night and after-hours visibility, queue-end protection and heavy-vehicle stopping distances deserve real attention &ndash; not a glance.</p></div><p class="fine-print">Source: Sela Civil Advisory, SELA-RPT-2026-006 <em>Who Gets Hurt at Our Worksites</em> (12 Nov 2026), from NZTA Crash Analysis System open data, Jan 2006 &ndash; Nov 2026.</p>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/9.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Two more things stand out: darkness and heavy vehicles. A third of worksite crashes happen in the dark, but they account for forty per cent of the deaths, and almost all of those night-time deaths were on open roads. Trucks are involved in about ten per cent of worksite crashes, but twenty-eight per cent of the fatal ones. Weather, interestingly, plays very little part. So night and after-hours visibility, queue-end protection, and heavy-vehicle stopping distances all deserve a proper look, not just a glance.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide8.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 9 of 34</span>
+    <a class="btn amber" href="slide10.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(9);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

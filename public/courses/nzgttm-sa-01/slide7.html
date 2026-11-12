@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Twenty Years of Data &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Twenty Years of Data</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Twenty Years of Worksite Crashes</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide7.svg" alt="Twenty years of worksite crash data: 15,561 crashes, 158 deaths"></div>
+    <p>Sela analysed every reported NZ crash from January 2006 to November 2026 &ndash; 708,641 crashes &ndash; to answer one question: who gets hurt at our worksites? A worksite crash is one where police recorded a temporary speed limit (TSL) or ticked &ldquo;road works&rdquo;.</p><div class="stat-row"><div class="stat"><span class="num">15,561</span><span class="lbl">worksite crashes</span></div><div class="stat"><span class="num">158</span><span class="lbl">people killed</span></div><div class="stat"><span class="num">1,051</span><span class="lbl">seriously injured</span></div></div><p>Worksite crashes are about as severe as crashes generally &ndash; 0.89% fatal against 0.88%. What has changed is the volume: about 1.3% of all crashes before 2016, and 3&ndash;4% since 2017.</p><p class="fine-print">Source: Sela Civil Advisory, SELA-RPT-2026-006 <em>Who Gets Hurt at Our Worksites</em> (12 Nov 2026), from NZTA Crash Analysis System open data, Jan 2006 &ndash; Nov 2026.</p>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/7.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module two: who gets hurt at our worksites. Sela analysed every crash reported in New Zealand from January two thousand and six to November twenty twenty-six. That&#x27;s more than seven hundred thousand crashes. Fifteen thousand, five hundred and sixty-one of them were at worksites. They killed one hundred and fifty-eight people and seriously injured more than a thousand. Worksite crashes turn out to be about as severe as crashes in general. What has changed is how many there are. Before twenty sixteen, worksites made up about one point three per cent of all crashes. Since twenty seventeen, that&#x27;s been three to four per cent.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz1.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 7 of 34</span>
+    <a class="btn amber" href="slide8.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(7);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

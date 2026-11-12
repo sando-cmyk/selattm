@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The G Checks &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">The G Checks</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>The G Checks: G1&ndash;G8</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide20.svg" alt="Eight G checks, four of them Stop Work Order triggers"></div>
+    <p>Complete all eight on every assessment. Four are Stop Work Order (SWO) triggers on an active site if they fail.</p><div style="overflow-x:auto;"><table class="simple-table"><thead><tr><th style="white-space:nowrap;">Check</th><th>Question</th><th style="white-space:nowrap;">SWO?</th></tr></thead><tbody><tr><td style="white-space:nowrap;">G1</td><td>Is the STMS (or delegated responsible person) qualified for this worksite?</td><td><strong style="color:#C8102E">Yes</strong></td></tr><tr><td style="white-space:nowrap;">G2</td><td>Is the TSL appropriate, with integrity &ndash; at least one sign at any change?</td><td><strong style="color:#C8102E">Yes</strong></td></tr><tr><td style="white-space:nowrap;">G3</td><td>Is traffic reasonably unencumbered and within its own dedicated path?</td><td><strong style="color:#C8102E">Yes</strong></td></tr><tr><td style="white-space:nowrap;">G4</td><td>Is the on-site record (OSR) completed and a fair reflection of the site?</td><td>&ndash;</td></tr><tr><td style="white-space:nowrap;">G5</td><td>Does an approved TMP exist (and it is not an emergency)?</td><td><strong style="color:#C8102E">Yes</strong></td></tr><tr><td style="white-space:nowrap;">G6</td><td>Is the TMP present on an attended worksite?</td><td>&ndash;</td></tr><tr><td style="white-space:nowrap;">G7</td><td>Is the TMP suitable for the actual environment, workspace, activity and hazards?</td><td>&ndash;</td></tr><tr><td style="white-space:nowrap;">G8</td><td>Do the closure type and broad layout match the approval?</td><td>&ndash;</td></tr></tbody></table></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/20.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Complete all eight G checks on every assessment. G1 checks the STMS is qualified for the site. G2 checks the temporary speed limit is appropriate and has integrity, with a sign at every change. G3 checks traffic has its own clear path. G4 checks the on-site record is complete and accurate. G5 checks an approved plan exists. G6 checks the plan is on site. G7 checks the plan suits the real conditions. And G8 checks the layout matches the approval. On an active site, a failed G1, G2, G3 or G5 means a stop work order until it&#x27;s fixed.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide19.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 20 of 34</span>
+    <a class="btn amber" href="slide21.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(20);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

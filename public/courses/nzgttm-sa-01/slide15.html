@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hierarchy of Controls &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Hierarchy of Controls</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>The Hierarchy of Controls in TTM</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide15.svg" alt="Hierarchy of controls from elimination to PPE"></div>
+    <div style="overflow-x:auto;"><table class="simple-table"><thead><tr><th style="white-space:nowrap;">Level</th><th>Control</th><th>TTM examples</th></tr></thead><tbody><tr><td>1 &ndash; most effective</td><td>Eliminate</td><td>Detour traffic away; full closure; work when there is no traffic</td></tr><tr><td style="white-space:nowrap;">2</td><td>Substitute</td><td>Portable traffic signals instead of a controller at the roadside</td></tr><tr><td style="white-space:nowrap;">3</td><td>Isolate</td><td>Rated barriers between traffic and workers; separated pedestrian corridor</td></tr><tr><td style="white-space:nowrap;">4</td><td>Engineer</td><td>Truck-mounted attenuator; lane alignment; speed management devices</td></tr><tr><td style="white-space:nowrap;">5</td><td>Administrative</td><td>TSL, signs, safe work methods, briefings, supervision</td></tr><tr><td>6 &ndash; least effective</td><td>PPE</td><td>High-visibility clothing, footwear &ndash; the last line of defence</td></tr></tbody></table></div><p>Where a higher control was judged not practicable, the reason should be recorded. On site, ask the STMS why. If the reason no longer holds &ndash; traffic is lower than planned, or a detour is available &ndash; note it.</p>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/15.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">The hierarchy of controls ranks how effective a control is. At the top is elimination, like detouring traffic away from the work altogether. Then substitution, like portable traffic signals instead of a person at the roadside. Then isolation, such as rated barriers. Then engineering controls, such as a truck-mounted attenuator. Below those are administrative controls, like signs, speed limits and safe work methods. And at the bottom is personal protective equipment, the last line of defence. If a higher control wasn&#x27;t used, the reason should be recorded. On site, ask the STMS why, and note it if that reason no longer holds.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide14.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 15 of 34</span>
+    <a class="btn amber" href="slide16.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(15);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

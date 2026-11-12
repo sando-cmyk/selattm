@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Spot the Issues &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Spot the Issues</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Spot the Issues</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide24.svg" alt="Activity: spot the issues on a rural state highway site"></div>
+    <div class="callout CASESTUDY"><span class="callout-label">THE SITE</span><p>Rural state highway, posted 100&nbsp;km/h. Lane closure for shoulder repairs with a TSL 30. It is 2&nbsp;pm on a weekday with steady truck traffic. On your drive-through you notice three things.</p></div><p class="activity-instructions" style="margin-top:14px;">Tap each issue. Name the check it affects before you open it.</p><div id="hz24" data-total="3"><div class="hotspot-grid"><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz24', 0)"><span class="hb-icon">&#128721;</span>TSL on one approach only</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz24', 1)"><span class="hb-icon">&#9888;&#65039;</span>Cone down in the taper</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz24', 2)"><span class="hb-icon">&#128119;</span>Worker outside the workspace</button></div><div class="hotspot-progress">0 of 3 explored</div><div class="hotspot-card" id="hz24-card0"><h4>TSL on one approach only</h4><p><span class="field-label">Check:</span> G2 &ndash; TSL integrity. Southbound drivers have no valid temporary limit.</p><p><span class="field-label">Action:</span> On an active site this is a Stop Work Order trigger until the sign is reinstated.</p></div><div class="hotspot-card" id="hz24-card1"><h4>Cone down in the taper</h4><p><span class="field-label">Check:</span> Transition area; P1 open-road approach.</p><p><span class="field-label">Action:</span> Have it reinstated now and watch it done. Record as a Non-conformance if it reflects poor monitoring.</p></div><div class="hotspot-card" id="hz24-card2"><h4>Worker outside the workspace</h4><p><span class="field-label">Check:</span> Worker safety; G7 &ndash; does the workspace in the TMP suit the task?</p><p><span class="field-label">Action:</span> Stop that worker&rsquo;s exposure immediately; discuss with the STMS whether the layout needs to change.</p></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/24.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Let&#x27;s put it together. Read the site description. On your drive-through, you notice three things. Before you open each one, name the check it affects and what you&#x27;d do. Then tap to compare.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide23.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 24 of 34</span>
+    <a class="btn amber" href="quiz4.html">Module Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/interactive.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(24);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

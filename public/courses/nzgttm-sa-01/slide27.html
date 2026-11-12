@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stop Work Orders &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Stop Work Orders</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Stop Work Order Triggers</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide27.svg" alt="Stop Work Order triggers: G1, G2, G3 and G5"></div>
+    <div class="callout CAUTION"><span class="callout-label">ON AN ACTIVE SITE, A FAILED G1, G2, G3 OR G5 MEANS A STOP WORK ORDER UNTIL RESOLVED</span><p><strong>G1</strong> person responsible not qualified &middot; <strong>G2</strong> TSL not appropriate or lost integrity &middot; <strong>G3</strong> traffic not in its own path &middot; <strong>G5</strong> no approved TMP</p></div><p style="margin-top:14px;">Other failures go to the STMS or PCBU for prompt remedy. If they are not fixed, escalate &ndash; an SWO may follow. If the site appears unsafe, escalate to a full compliance-based review.</p><p><strong>When you issue an SWO:</strong></p><ul><li>Tell the STMS calmly which check failed and what needs to happen</li><li>Record the time issued</li><li>Notify the client and Sela operations</li><li>Confirm the fix and record when work restarts</li></ul>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/27.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">On an active site, a failed G1, G2, G3 or G5 means a stop work order until it&#x27;s resolved. That&#x27;s an unqualified person in charge, a speed limit that&#x27;s wrong or missing, traffic without its own clear path, or no approved plan. Other failures go to the STMS or their company for a prompt fix, and if they&#x27;re not fixed, you escalate. When you issue a stop work order, tell the STMS calmly which check failed and what needs to happen. Record the time. Notify the client and Sela operations. Then confirm the fix, and record when work restarts.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide26.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 27 of 34</span>
+    <a class="btn amber" href="slide28.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(27);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

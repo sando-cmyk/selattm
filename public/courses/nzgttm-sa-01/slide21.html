@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Walking the Site &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Walking the Site</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Walking the Site, Approach to Exit</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide21.svg" alt="Site zones from advance warning to termination"></div>
+    <div style="overflow-x:auto;"><table class="simple-table"><thead><tr><th style="white-space:nowrap;">Area</th><th>Look for</th></tr></thead><tbody><tr><td>Advance warning</td><td>First sign in time for the approach speed; sight lines over crests and bends; signs upright and correct</td></tr><tr><td>Transition (taper)</td><td>Taper length and device spacing suit the speed; arrow board working; TSL at the change</td></tr><tr><td>Buffer and work area</td><td>Safety zone clear; workers and plant inside the workspace; TMA or barrier where the TMP needs it</td></tr><tr><td>Traffic path</td><td>Width, surface, delineation; no lips, edge drops or loose material</td></tr><tr><td>Pedestrian and cyclist route</td><td>Continuous, signed, accessible; not into a live lane without protection</td></tr><tr><td>Termination</td><td>End-of-works and speed signs; drivers safely returned to normal conditions</td></tr><tr><td>Worker safety</td><td>Positioning, plant movements, escape routes, PPE</td></tr></tbody></table></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/21.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Walk the site from approach to exit, looking at it from both the road user&#x27;s view and the worker&#x27;s view. In the advance warning area, can drivers see the first sign in time for their speed? In the transition, are the taper and arrow board right, and is the speed limit at the change? In the buffer and work area, is the safety zone clear, and are workers and plant inside the workspace? Is the traffic path wide, smooth and well marked? Is the pedestrian and cyclist route continuous and safe? And at termination, are drivers returned safely to normal conditions?</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide20.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 21 of 34</span>
+    <a class="btn amber" href="slide22.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(21);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

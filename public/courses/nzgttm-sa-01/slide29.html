@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Make the Call &mdash; TTM Site Assurance Assessor</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-sa-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: Make the Call</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Make the Call</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide29.svg" alt="Activity: make the call on two sites"></div>
+    <p class="activity-instructions">Decide the outcome and your immediate action for each site, then tap to compare.</p><div id="hz29" data-total="2"><div class="hotspot-grid"><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz29', 0)"><span class="hb-icon">&#127769;</span>S1 &middot; State highway at night</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz29', 1)"><span class="hb-icon">&#128667;</span>S3 &middot; Rural stop/go, quarry trucks</button></div><div class="hotspot-progress">0 of 2 explored</div><div class="hotspot-card" id="hz29-card0"><h4>S1 &middot; State highway at night</h4><p><span class="field-label">Situation:</span> 100&nbsp;km/h, lane closure with TSL 50, unattended at 21:30. The northbound TSL sign has been knocked flat.</p><p><span class="field-label">Outcome:</span> Dangerous &ndash; G2 fails at night on the open road.</p><p><span class="field-label">Action:</span> Phone the contractor&rsquo;s on-call contact to reinstate it now; photograph it; escalate to the client and RCA if there is no response; verify; CAP required.</p></div><div class="hotspot-card" id="hz29-card1"><h4>S3 &middot; Rural stop/go, quarry trucks</h4><p><span class="field-label">Situation:</span> 100&nbsp;km/h rolling road. At peak, the queue reaches back over a crest beyond the first advance warning sign.</p><p><span class="field-label">Outcome:</span> Dangerous while the queue is hidden over the crest &ndash; rear-end crash risk with heavy vehicles.</p><p><span class="field-label">Action:</span> Supervise immediate changes (extend warning beyond the crest, queue-end warning, shorter cycles) or stop the operation; CAP and TMP update required.</p></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/29.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Now make the call. You&#x27;ll see two of the course scenarios. For each one, decide the site outcome and what you&#x27;d do immediately. Then tap to compare your answer.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide28.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 29 of 34</span>
+    <a class="btn amber" href="quiz5.html">Module Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/interactive.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(29);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>
