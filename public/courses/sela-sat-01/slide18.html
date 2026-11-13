@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Report &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Your Report</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Your Completed Report</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="media-split"><div class="phone-col"><div class="phone"><img src="img/shots/13_completed.jpg" alt="Completed assessment showing Dangerous – Stop Work Order (G2)" loading="lazy"></div></div><div><ul><li>The top of the completed assessment shows the outcome and every finding</li><li>With signal, it gets a report number like <strong>SELA-SA-2026-00042</strong> and a verify link, printed on the PDF</li><li>Tap <strong>Email / share PDF</strong> to send the report from site, or <strong>Download PDF</strong> to save it</li></ul><div class="callout NOTE"><span class="callout-label">WHO THE REPORT IS FROM</span><p>Reports you complete say <em>&ldquo;Completed by [your name], [your company] using the Sela TTM Assurance platform&rdquo;</em>. It is your company&rsquo;s own assessment, not an independent Sela report.</p></div><div class="web-shot"><img src="img/shots/report_p1.jpg" alt="First page of the PDF report"></div></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/18.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Your completed assessment shows the outcome and every finding at the top. With signal, it gets a report number and a verify link, printed on the PDF. Tap email or share PDF to send the report from site. Remember, reports you complete say they were completed by you, for your company, using the Sela platform. It&#x27;s your company&#x27;s own assessment, not an independent Sela report.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz3.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 18 of 23</span>
+    <a class="btn amber" href="slide19.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(18);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

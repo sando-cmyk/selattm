@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify a Report &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Verify a Report</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Verifying a Report</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <p>Anyone &ndash; a council, principal or auditor &ndash; can check a report is genuine and current at <strong>tmp.selacivil.co.nz/verify</strong> by entering the report number printed on the PDF.</p><div class="web-shot"><img src="img/shots/web_verify_result.jpg" alt="Verify a report showing Genuine and current"></div><div class="callout NOTE"><span class="callout-label">TELL YOUR CLIENT</span><p>When you send a report, tell the client they can check it on the verify page.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/22.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Anyone, including a council, a principal or an auditor, can check that a report is genuine and current on the verify page, by entering the report number printed on the PDF. When you send a report, let your client know they can check it there.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide21.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 22 of 23</span>
+    <a class="btn amber" href="slide23.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(22);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

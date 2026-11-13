@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: What Will the App Do? &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Activity: What Will the App Do?</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: What Will the App Do?</h2>
+    <div class="read-time">~2 min (interactive) &middot; narrated</div>
+    <p class="activity-instructions">Decide what the app will ask for in each case, then tap to check.</p><div id="hz12" data-total="4"><div class="hotspot-grid"><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz12', 0)"><span class="hb-icon">&#128721;</span>G2 Fail on an attended site</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz12', 1)"><span class="hb-icon">&#9888;&#65039;</span>P5 Not OK</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz12', 2)"><span class="hb-icon">&#127769;</span>G2 Fail on an unattended site</button><button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz12', 3)"><span class="hb-icon">&#128221;</span>G6 marked N/A</button></div><div class="hotspot-progress">0 of 4 explored</div><div class="hotspot-card" id="hz12-card0"><h4>G2 Fail on an attended site</h4><p>A comment is required at G2. G checks show <strong>STOP WORK</strong>. A finding is created, rated <strong>Critical</strong>, so the outcome becomes <strong>Dangerous</strong>. You must record the Stop Work Order (time issued, STMS told, client and Sela notified) and confirm you phoned it through today.</p></div><div class="hotspot-card" id="hz12-card1"><h4>P5 Not OK</h4><p>A comment is required at P5. A finding is created, rated <strong>Non-conformance</strong>. With no Critical finding the outcome is <strong>Unacceptable</strong>. Complete the six elements; tick Resolved on site if you watched the fix.</p></div><div class="hotspot-card" id="hz12-card2"><h4>G2 Fail on an unattended site</h4><p>There is no Stop Work Order on an unattended site. Instead the app asks for the <strong>time you phoned the on-call contact</strong>, and whether you had to escalate to the client and RCA.</p></div><div class="hotspot-card" id="hz12-card3"><h4>G6 marked N/A</h4><p>Any N/A in the G checks needs a comment saying why &ndash; for example &ldquo;Site unattended &ndash; TMP not required on site&rdquo;.</p></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/12.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Let&#x27;s check your understanding. For each situation, decide what the app will ask you for, then tap to compare.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide11.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 12 of 23</span>
+    <a class="btn amber" href="quiz2.html">Module Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/interactive.js"></script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(12);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

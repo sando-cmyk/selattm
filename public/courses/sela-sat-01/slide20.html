@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Register &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">The Register</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>The Assurance Register</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <p>Sign in at <strong>tmp.selacivil.co.nz/assurance</strong> on a computer to see every report your company has completed: report number, type, TMP, site, result, open actions and date. Tap a report to see its PDF. Withdrawn reports stay on the register, marked withdrawn.</p><div class="web-shot"><img src="img/shots/web_register.jpg" alt="Assurance register list of reports"></div><p style="font-size:13px;color:#666;">Sample data shown.</p>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/20.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">On a computer, sign in to the assurance register to see every report your company has completed, with the report number, type, TMP, site, result, open actions and date. Tap a report to see its PDF. Withdrawn reports stay on the register, marked as withdrawn.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide19.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 20 of 23</span>
+    <a class="btn amber" href="slide21.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(20);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

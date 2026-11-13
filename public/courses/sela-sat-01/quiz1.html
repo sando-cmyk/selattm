@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 Knowledge Check &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Module 1 Knowledge Check</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <h2 style="color:var(--navy);">Module 1 Knowledge Check</h2>
+  <p style="color:#666;">Answer all questions, then select <strong>Submit</strong>. You need 80% or higher to pass. You can retry if needed.</p>
+  <div style="margin-bottom:10px;"><a class="btn" href="slide4.html">&larr; Back</a></div>
+  <form id="quizForm">
+    <div class="quiz-question" data-qindex="0" data-answer="2">
+      <p class="qtext">1. Where do you carry out the assessment on site?</p>
+      <label><input type="radio" name="q0" value="0"> In the assurance register on a computer</label>
+      <label><input type="radio" name="q0" value="1"> On the verify page</label>
+      <label><input type="radio" name="q0" value="2"> In the Site Check app on your phone</label>
+      <label><input type="radio" name="q0" value="3"> On a paper form only</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="1" data-answer="1">
+      <p class="qtext">2. How do you set a password for the phone app the first time?</p>
+      <label><input type="radio" name="q1" value="0"> Ask the STMS</label>
+      <label><input type="radio" name="q1" value="1"> Tap Forgot password? on the app sign-in screen and use the emailed link</label>
+      <label><input type="radio" name="q1" value="2"> Use your course password</label>
+      <label><input type="radio" name="q1" value="3"> You don’t need one</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="2" data-answer="0">
+      <p class="qtext">3. You have no signal on site. What happens to your work?</p>
+      <label><input type="radio" name="q2" value="0"> It saves on your phone and is added to the register when you are back online</label>
+      <label><input type="radio" name="q2" value="1"> It is lost</label>
+      <label><input type="radio" name="q2" value="2"> You must wait for signal before starting</label>
+      <label><input type="radio" name="q2" value="3"> It is emailed automatically</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="3" data-answer="3">
+      <p class="qtext">4. Which form were you trained to use?</p>
+      <label><input type="radio" name="q3" value="0"> Short TTM Site Health Check</label>
+      <label><input type="radio" name="q3" value="1"> Short-Term TTM Onsite Record</label>
+      <label><input type="radio" name="q3" value="2"> NZGTTM Risk Awareness & Assurance</label>
+      <label><input type="radio" name="q3" value="3"> Sela Site Assurance Assessment (SELA-FRM-2026-001)</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="4" data-answer="2">
+      <p class="qtext">5. What should you avoid before an assessment has reached the register?</p>
+      <label><input type="radio" name="q4" value="0"> Taking photos</label>
+      <label><input type="radio" name="q4" value="1"> Opening another section</label>
+      <label><input type="radio" name="q4" value="2"> Clearing browser data, signing out or uninstalling the app</label>
+      <label><input type="radio" name="q4" value="3"> Reading the PDF</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+  </form>
+  <div id="quizResult"></div>
+  <div class="nav-row">
+    <button class="btn" id="submitBtn" type="button">Submit Answers</button>
+    <a class="btn amber" id="continueBtn" href="slide5.html" style="display:none;">Continue to Module 2 &rarr;</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script>
+  var QUIZ_ID = "quiz1";
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    var questions = document.querySelectorAll('.quiz-question');
+    var score = 0;
+    var allAnswered = true;
+    questions.forEach(function(qEl){
+      var qi = qEl.getAttribute('data-qindex');
+      var correct = Number(qEl.getAttribute('data-answer'));
+      var selected = qEl.querySelector('input[name="q'+qi+'"]:checked');
+      var fb = qEl.querySelector('.qfeedback');
+      if (!selected) { allAnswered = false; return; }
+      var chosen = Number(selected.value);
+      fb.style.display = 'block';
+      if (chosen === correct) {
+        score++;
+        fb.innerHTML = '<span class="correct-answer">Correct.</span>';
+      } else {
+        var correctText = qEl.querySelectorAll('label')[correct].textContent.trim();
+        fb.innerHTML = '<span class="incorrect-answer">Not quite &mdash; correct answer: ' + correctText + '</span>';
+      }
+    });
+    if (!allAnswered) {
+      alert('Please answer every question before submitting.');
+      return;
+    }
+    var total = questions.length;
+    var pct = Math.round((score / total) * 100);
+    var passed = (score / total) >= 0.8;
+    Course.recordQuiz(QUIZ_ID, score, total);
+    var resultEl = document.getElementById('quizResult');
+    resultEl.innerHTML = '<div class="quiz-result ' + (passed ? 'pass' : 'fail') + '">' +
+      'You scored ' + score + ' / ' + total + ' (' + pct + '%) &mdash; ' + (passed ? 'Passed!' : 'Not yet a pass &mdash; review the module and try again.') +
+      '</div>';
+    if (passed) {
+      document.getElementById('continueBtn').style.display = 'inline-block';
+      document.getElementById('submitBtn').style.display = 'none';
+    }
+  });
+</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -37,7 +37,7 @@
   var allQuizzes = Course.allQuizzesPassed();
   var msg = document.getElementById('statusMsg');
   if (allSlides && allQuizzes) {
-    msg.textContent = 'All slides viewed, every knowledge check and the final assessment passed. You are ready to mark this course complete. Once you mark it complete, Sela will set up your 12 months of access to the Sela assessment tools. Want to become Sela-endorsed? Request a quote for supervised field assessments.';
+    msg.textContent = 'All slides viewed, every knowledge check and the final assessment passed. You are ready to mark this course complete. Once you mark it complete you can enrol in SELA-SAT-01 Using the Sela Site Assurance Tool: the app training plus 12 months of the Sela site assurance app, $150 + GST for the first year. Want to become Sela-endorsed? Request a quote for supervised field assessments.';
   } else {
     var missing = [];
     if (!allSlides) missing.push('view all slides');

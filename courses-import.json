@@ -154,12 +154,25 @@
     "id": "nzgttm-sa-01",
     "code": "NZGTTM-SA-01",
     "title": "TTM Site Assurance Assessor",
-    "description": "Six-module online course for experienced TTM practitioners moving into independent site assurance: the NZGTTM assurance processes, who gets hurt at worksites, G1\u2013G8 and Sela priority checks, site outcomes and Stop Work Orders, and writing findings that stand up. Includes 12 months' access to the Sela assessment tools. Supervised field assessments for Sela endorsement are available on request.",
+    "description": "Six-module online course for experienced TTM practitioners moving into independent site assurance: the NZGTTM assurance processes, who gets hurt at worksites, G1\u2013G8 and Sela priority checks, site outcomes and Stop Work Orders, and writing findings that stand up. Completing it unlocks SELA-SAT-01 Using the Sela Site Assurance Tool (the Sela site assurance app with training, $150 + GST first year). Supervised field assessments for Sela endorsement are available on request.",
     "category": "TTM Training",
     "price": 295,
     "currency": "NZD",
     "status": "active",
     "stripePriceId": "price_1Ub7E50flJvw3UeNZZuNJb3O",
     "launchPath": "/courses/nzgttm-sa-01/index.html"
+  },
+  {
+    "id": "sela-sat-01",
+    "code": "SELA-SAT-01",
+    "title": "Using the Sela Site Assurance Tool",
+    "description": "Short online course on using the Sela site assurance tool: signing in, installing the Site Check app, completing a Sela Site Assurance Assessment (SELA-FRM-2026-001) on site, and following up reports and corrective actions in the assurance register. Includes 12 months of the Sela site assurance app (Full licence): $150 + GST for the first year, then $250 + GST a year. Prerequisite: completion of NZGTTM-SA-01 TTM Site Assurance Assessor.",
+    "category": "TTM Training",
+    "price": 150,
+    "currency": "NZD",
+    "status": "active",
+    "prerequisite": "nzgttm-sa-01",
+    "stripePriceId": "price_1UbAu10flJvw3UeNqTJzHU4B",
+    "launchPath": "/courses/sela-sat-01/index.html"
   }
 ]

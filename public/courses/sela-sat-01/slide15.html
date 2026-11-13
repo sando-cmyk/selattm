@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photos &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Photos</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Adding Photos</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="media-split"><div class="phone-col"><div class="phone"><img src="img/shots/10_photos.jpg" alt="Two site photos with captions" loading="lazy"></div></div><div><ul><li>Open <strong>Photos of site</strong> and tap <strong>&#128247; Add photos</strong> &ndash; take a photo or choose from your phone</li><li>Add a <strong>caption</strong> to each, starting with the photo number you used in your findings (&ldquo;Photo 1 &ndash; northbound approach&rdquo;)</li><li>Photos are stamped with the time and GPS location and go into the PDF report</li><li>Tap &times; to remove a photo before you complete</li></ul><div class="callout CAUTION"><span class="callout-label">SAFETY FIRST</span><p>Never stand in the traffic path to get a photo. Use a dashcam or a longer lens.</p></div></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/15.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Open photos of site and tap add photos to take a photo or choose one from your phone. Give each photo a caption, starting with the photo number you used in your findings. Photos are stamped with the time and location, and they go into the PDF report. And never stand in the traffic path to get a photo.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide14.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 15 of 23</span>
+    <a class="btn amber" href="slide16.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(15);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

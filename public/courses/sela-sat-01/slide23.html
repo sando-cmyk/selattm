@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help and Next Steps &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Help and Next Steps</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Help and Next Steps</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="step-card-row"><div class="step-card open"><h4><span class="step-letter">1</span>Practise</h4><div class="step-detail">Do a practice assessment on a site you know before your first real one.</div></div><div class="step-card open"><h4><span class="step-letter">2</span>Keep it current</h4><div class="step-detail">Your access runs for 12 months from when Sela sets it up. After the first year it renews at $250 + GST a year (Full licence).</div></div><div class="step-card open"><h4><span class="step-letter">3</span>Get endorsed</h4><div class="step-detail">Supervised field assessments with a Sela lead assessor are available on request.</div></div></div><div class="contact-box"><strong>Help with the tool or your account:</strong> Joseph Rosendaal, Technical Advisor &amp; Operations Manager &middot; joseph@selacivil.co.nz &middot; 027 267 7264</div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/23.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">That&#x27;s it. Before your first real assessment, do a practice one on a site you know. Your access runs for twelve months from when Sela sets it up. And if you&#x27;d like to become a Sela-endorsed assessor, supervised field assessments are available on request. For help with the tool or your account, contact Joseph Rosendaal at Sela.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide22.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 23 of 23</span>
+    <a class="btn amber" href="quiz4.html">Module Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(23);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

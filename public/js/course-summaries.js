@@ -160,8 +160,26 @@ export const COURSE_SUMMARIES = {
     ],
     assessment: "A 3-question knowledge check at the end of each of the 3 modules, then a 10-question final assessment drawn from a bank of 15. 80% required to pass each.",
   },
+  "sela-sat-01": {
+    format: "Online, self-paced · 4 modules, 23 narrated slides with app screenshots · approx. 30–40 minutes · includes 12 months of the Sela site assurance app (Full licence)",
+    audience: "People who have completed NZGTTM-SA-01 TTM Site Assurance Assessor and will carry out assessments with the Sela site assurance app. Prerequisite: NZGTTM-SA-01.",
+    overview: "How to use the Sela site assurance tool on real sites: the Site Check app on your phone for the assessment and report, and the assurance register for numbered reports and corrective actions. First year $150 + GST including the app; renews at $250 + GST a year.",
+    covers: [
+      "Signing in at the assurance register and installing the Site Check app on your phone",
+      "Completing a Sela Site Assurance Assessment (SELA-FRM-2026-001): G1–G8, P1–P5 and the walk-through",
+      "Recording findings, the site outcome, any Stop Work Order, photos and signatures",
+      "Working with no signal, completing, and sharing the PDF report",
+      "Following up reports and corrective actions in the assurance register",
+    ],
+    demonstrates: [
+      "Sets up the app and completes an assessment from start to finish",
+      "Records findings and Stop Work Orders so the report stands up",
+      "Shares the report and closes out corrective actions",
+    ],
+    assessment: "A knowledge check at the end of each of the 4 modules, then a 15-question final assessment drawn from a bank of 25. 80% required to pass each.",
+  },
   "nzgttm-sa-01": {
-    format: "Online, self-paced · 6 modules, 34 narrated slides with a welcome video and 6 activities · approx. 1–1.5 hours · includes 12 months of Sela assessment tools",
+    format: "Online, self-paced · 6 modules, 34 narrated slides with a welcome video and 6 activities · approx. 1–1.5 hours · prerequisite for the Sela site assurance app (SELA-SAT-01)",
     audience: "Experienced TTM practitioners (typically STMS level or equivalent) moving into independent site assurance, and client-side staff who want to understand how Sela assesses sites.",
     overview: "How to stand back from a site you did not build, judge whether it protects workers and road users, act on what you find, and report it so it stands up — using the NZGTTM assurance framework and 20 years of NZ worksite crash data.",
     covers: [

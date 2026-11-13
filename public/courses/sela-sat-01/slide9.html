@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priority Checks and the Site Walk &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Priority Checks and the Site Walk</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>P1&ndash;P5 and Walking the Site</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="media-split"><div class="phone-col"><div class="phone"><img src="img/shots/06_pchecks.jpg" alt="Sela priority checks with OK and N/A answers" loading="lazy"></div></div><div><ul><li><strong>P1&ndash;P5</strong> and <strong>W1&ndash;W7</strong> (advance warning to worker safety) are answered <strong>OK</strong>, <strong>Not OK</strong> or <strong>N/A</strong></li><li>Use N/A where a check doesn&rsquo;t apply &ndash; for example P2 night visibility on a day visit</li><li>A <strong>Not OK</strong> needs a comment and becomes a finding, just like a Fail</li></ul><div class="callout KEYIDEA"><span class="callout-label">SPEND YOUR TIME WHERE IT MATTERS</span><p>The note at the top of the section reminds you: open road &rarr; P1, night &rarr; P2, heavy vehicles &rarr; P3, people on foot or bikes &rarr; P4 and P5.</p></div></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/9.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">The priority checks, P1 to P5, and walking the site, W1 to W7, are answered OK, not OK, or not applicable. Use not applicable where a check doesn&#x27;t apply, such as night visibility on a day visit. A not OK needs a comment, and it becomes a finding, just like a fail. The note at the top reminds you where to spend your time for the type of site you&#x27;re on.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide8.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 9 of 23</span>
+    <a class="btn amber" href="slide10.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(9);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

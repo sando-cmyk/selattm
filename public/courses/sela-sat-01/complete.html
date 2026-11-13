@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Complete &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Course Completion</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="complete-wrap">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <h1>Using the Sela Site Assurance Tool</h1>
+    <p id="statusMsg" style="font-size:16px;"></p>
+    <button class="btn amber" id="completeBtn">Mark Course Complete</button>
+    <p id="doneMsg" style="display:none;color:#2E7D32;font-weight:bold;margin-top:16px;"></p>
+  </div>
+
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script>
+  var allSlides = Course.allSlidesVisited();
+  var allQuizzes = Course.allQuizzesPassed();
+  var msg = document.getElementById('statusMsg');
+  if (allSlides && allQuizzes) {
+    msg.textContent = 'All slides viewed, every knowledge check and the final assessment passed. You are ready to mark this course complete.';
+  } else {
+    var missing = [];
+    if (!allSlides) missing.push('view all slides');
+    if (!allQuizzes) missing.push('pass every knowledge check and the final assessment (80%+)');
+    msg.innerHTML = 'Before marking complete, please ' + missing.join(' and ') + '. <a href="menu.html">Return to the menu</a>.';
+  }
+
+  var completeBtn = document.getElementById('completeBtn');
+  var doneMsg = document.getElementById('doneMsg');
+  var FLAG_KEY = 'sela_result_recorded::sela-sat-01::v1';
+
+  // Local/SCORM progress is always saved first. The Firebase step on top of
+  // that is what writes to the 'submissions' collection, so head office can
+  // see the result in admin.html and issue a certificate. Same pattern as
+  // ttm-portable-traffic-signals/complete.html.
+  completeBtn.addEventListener('click', function () {
+    Course.markCourseComplete();
+    doneMsg.style.display = 'block';
+
+    if (!Course.isComplete()) {
+      doneMsg.textContent = "Progress saved in this browser. Come back once you have viewed every slide and passed every knowledge check and the final assessment, then click this button again to send your result to head office.";
+      return;
+    }
+
+    var alreadySent = false;
+    try { alreadySent = !!window.localStorage.getItem(FLAG_KEY); } catch (e) {}
+    if (alreadySent) {
+      doneMsg.textContent = 'Recorded. You may close this window.';
+      return;
+    }
+
+    completeBtn.disabled = true;
+    doneMsg.textContent = 'Recording your result...';
+
+    import('../../js/firebase-init.js').then(function (fb) {
+      var unsubscribe = fb.onAuthStateChanged(fb.auth, function (user) {
+        unsubscribe();
+        if (!user || user.isAnonymous) {
+          completeBtn.disabled = false;
+          doneMsg.textContent = "Your result is saved in this browser, but you weren't signed in, so it hasn't reached head office. Sign in at selattm.com and revisit this page to fix that.";
+          return;
+        }
+        fb.addDoc(fb.collection(fb.db, 'submissions'), {
+          userId: user.uid,
+          email: (user.email || '').toLowerCase(),
+          courseId: "sela-sat-01",
+          courseCode: "SELA-SAT-01",
+          courseTitle: "Using the Sela Site Assurance Tool",
+          scorePercent: Course.overallPercent(),
+          passed: true,
+          completedAt: new Date().toISOString(),
+          certificateIssued: false
+        }).then(function () {
+          try { window.localStorage.setItem(FLAG_KEY, '1'); } catch (e) {}
+          doneMsg.textContent = 'Recorded -- head office can now see this result. You may close this window.';
+        }).catch(function (err) {
+          completeBtn.disabled = false;
+          console.error("Failed to record SELA-SAT-01 result:", err);
+          doneMsg.textContent = 'Your result is saved in this browser, but sending it to head office failed. Please let head office know.';
+        });
+      });
+    }).catch(function (err) {
+      completeBtn.disabled = false;
+      console.error("Failed to load firebase-init for SELA-SAT-01 completion:", err);
+      doneMsg.textContent = 'Progress saved in this browser, but sending it to head office failed to load. Please let head office know.';
+    });
+  });
+</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

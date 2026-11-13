@@ -384,11 +384,22 @@
         <div>
           <span class="course-code">NZGTTM-SA-01</span>
           <h3 class="course-title">TTM Site Assurance Assessor</h3>
-          <p class="course-desc">Six-module online course for experienced TTM practitioners moving into independent site assurance: the NZGTTM assurance processes, who gets hurt at worksites, G1&ndash;G8 and Sela priority checks, site outcomes and Stop Work Orders, and writing findings that stand up. Includes 12 months&rsquo; access to the Sela assessment tools. Supervised field assessments for Sela endorsement are available on request.</p>
+          <p class="course-desc">Six-module online course for experienced TTM practitioners moving into independent site assurance: the NZGTTM assurance processes, who gets hurt at worksites, G1&ndash;G8 and Sela priority checks, site outcomes and Stop Work Orders, and writing findings that stand up. Completing it unlocks SELA-SAT-01 Using the Sela Site Assurance Tool (the Sela site assurance app with training, $150 + GST first year). Supervised field assessments for Sela endorsement are available on request.</p>
         </div>
         <div>
           <div class="course-price">NZD $295.00</div>
           <button class="btn-enroll" data-id="nzgttm-sa-01" data-price-id="price_1Ub7E50flJvw3UeNZZuNJb3O" data-title="TTM Site Assurance Assessor">Enroll &amp; Launch</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <div>
+          <span class="course-code">SELA-SAT-01</span>
+          <h3 class="course-title">Using the Sela Site Assurance Tool</h3>
+          <p class="course-desc">Short online course on using the Sela site assurance tool: signing in, installing the Site Check app, completing a Sela Site Assurance Assessment (SELA-FRM-2026-001) on site, and following up reports and corrective actions in the assurance register. Includes 12 months of the Sela site assurance app (Full licence): $150 + GST for the first year, then $250 + GST a year. Prerequisite: completion of NZGTTM-SA-01 TTM Site Assurance Assessor.</p>
+        </div>
+        <div>
+          <div class="course-price">NZD $150.00</div>
+          <button class="btn-enroll" data-id="sela-sat-01" data-price-id="price_1UbAu10flJvw3UeNqTJzHU4B" data-title="Using the Sela Site Assurance Tool" data-requires="nzgttm-sa-01">Enroll &amp; Launch</button>
         </div>
       </div>
       <div class="course-card">
@@ -452,7 +463,7 @@
 
   <!-- Dynamic Firestore Catalog Refresh (Enhances the static HTML with live Firestore data if available) -->
   <script type="module">
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
     import { courseOutlineHtml } from "./js/course-summaries.js";
 
     // ---- Course Library sub-menus: Barrier / TTM / Other ------------------
@@ -470,6 +481,7 @@
       "nzgttm-vru-01": "ttm",
       "ttm-fb-01": "ttm",
       "nzgttm-sa-01": "ttm",
+      "sela-sat-01": "ttm",
       "ttm-roles-01": "ttm",
       "ttm-eng-01": "ttm",
       "pts-01": "ttm",
@@ -538,11 +550,39 @@
 
     const db = getFirestore();
 
+    const PREREQ_NAMES = { "nzgttm-sa-01": "NZGTTM-SA-01 TTM Site Assurance Assessor" };
+    async function hasCompleted(courseId) {
+      const { auth } = await import("./js/firebase-init.js");
+      if (auth.authStateReady) await auth.authStateReady();
+      const user = auth.currentUser;
+      if (!user) return "signed_out";
+      try {
+        const snap = await getDocs(query(collection(db, "submissions"), where("userId", "==", user.uid)));
+        return snap.docs.some((d) => d.data().courseId === courseId);
+      } catch (err) {
+        console.warn("Prerequisite check failed:", err.message);
+        return false;
+      }
+    }
+
     function attachButtonListeners() {
       document.querySelectorAll("button.btn-enroll").forEach(button => {
         button.onclick = async (e) => {
           const priceId = e.currentTarget.dataset.priceId;
           const courseTitle = e.currentTarget.dataset.title;
+          const requires = e.currentTarget.dataset.requires;
+
+          // Prerequisite: the learner must have completed the required course
+          // (a 'submissions' record from that course's completion page).
+          if (requires && priceId) {
+            const ok = await hasCompleted(requires);
+            if (ok !== true) {
+              alert(ok === "signed_out"
+                ? "Please sign in first. " + courseTitle + " is only available once you have completed " + (PREREQ_NAMES[requires] || requires) + "."
+                : courseTitle + " is only available once you have completed " + (PREREQ_NAMES[requires] || requires) + ". Complete that course first, then come back here to enrol.");
+              return;
+            }
+          }
 
           if (!priceId) {
             alert(courseTitle + " isn't available for purchase yet (no Stripe price configured).");
@@ -597,7 +637,7 @@
 
             const buyControl = course.externalUrl
               ? `<a class="btn-enroll" href="${course.externalUrl}" style="display:block; text-align:center; text-decoration:none; box-sizing:border-box;">View &amp; Buy</a>`
-              : `<button class="btn-enroll" data-id="${docSnap.id}" data-price-id="${course.stripePriceId || ''}" data-title="${title}">
+              : `<button class="btn-enroll" data-id="${docSnap.id}" data-price-id="${course.stripePriceId || ''}" data-title="${title}" data-requires="${course.prerequisite || ''}">
                     Enroll &amp; Launch
                   </button>`;
 

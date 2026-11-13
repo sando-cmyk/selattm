@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testing G7 &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Testing G7</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Testing G7 and the Hierarchy of Controls</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="media-split"><div class="phone-col"><div class="phone"><img src="img/shots/06b_g7.jpg" alt="Testing G7 answers and the highest control in use" loading="lazy"></div></div><div><p>This section holds the six &ldquo;is the plan right for today?&rdquo; questions from the course. Write a short answer to each, then choose the <strong>highest control in use</strong> and record whether a higher control could work &ndash; and why it was judged not practicable.</p><div class="callout NOTE"><span class="callout-label">WHY IT MATTERS</span><p>Your answers here are printed in the report. They show the reader you judged the plan, not just ticked the layout.</p></div></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/10.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Testing G7 holds the six questions from the course about whether the plan is right for today. Write a short answer to each. Then choose the highest control in use, and record whether a higher control could work, and why it was judged not practicable. These answers are printed in the report, and they show you judged the plan, not just the layout.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide9.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 10 of 23</span>
+    <a class="btn amber" href="slide11.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(10);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

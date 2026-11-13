@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start a New Form &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Start a New Form</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Start a New Assessment</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="media-split"><div class="phone-col"><div class="phone"><img src="img/shots/02b_picker.jpg" alt="Choose a form: Sela Site Assurance Assessment" loading="lazy"></div></div><div><ul><li>Tap <strong>+ New site assurance form</strong></li><li>Choose <strong>Sela Site Assurance Assessment</strong> (the first option)</li><li>The app gives it a job reference, like <strong>JR1601999</strong>, and saves as you go</li><li>The form is a list of sections. Tap a section to open it; the line underneath shows your progress (for example <strong>5/7</strong>)</li><li>Use <strong>In progress</strong> and <strong>Completed</strong> on the home screen to find your assessments, and the search box to find a site, TMP or CAR number</li></ul></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/5.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">To start, tap new site assurance form, and choose Sela Site Assurance Assessment. The app gives it a job reference and saves as you go. The form is a list of sections. Tap a section to open it, and the line underneath shows your progress. Back on the home screen, use in progress and completed to find your assessments, and the search box to find a site or a TMP number.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz1.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 5 of 23</span>
+    <a class="btn amber" href="slide6.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(5);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

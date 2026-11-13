@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Welcome</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <div class="hero"><span class="badge-large">A Sela Civil course</span><h2>Using the Sela Site Assurance Tool</h2></div>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="phone-row"><div class="phone"><img src="img/shots/01_signin.jpg" alt="The Site Check app sign-in screen" loading="lazy"></div><div class="phone"><img src="img/shots/13_completed.jpg" alt="A completed Sela Site Assurance Assessment" loading="lazy"></div></div><p>This course comes with <strong>12 months&rsquo; access to the Sela site assurance tool</strong> (Full licence). It is the same assessment you learned in the TTM Site Assurance Assessor course (NZGTTM-SA-01), on your phone: the G1&ndash;G8 checks, the P1&ndash;P5 priority checks, findings, the site outcome and the Stop Work Order record.</p><div class="objectives-box"><p>By the end of this short course you will be able to:</p><ul><li>Sign in, install the app on your phone and use it with no signal</li><li>Complete a Sela Site Assurance Assessment (SELA-FRM-2026-001) on site</li><li>Record findings, the outcome, any Stop Work Order, photos and signatures</li><li>Complete the assessment, share the PDF report, and follow up corrective actions in the register</li></ul></div><div class="callout NOTE"><span class="callout-label">HOW THIS COURSE WORKS</span><p>Four short modules, each with a quick knowledge check, then a final check. You need 80% on each. The screens in this course use a made-up site and made-up people.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/1.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Welcome to Using the Sela Site Assurance Tool. This course comes with twelve months of access to the Sela site assurance tool. It&#x27;s the same assessment you learned in the Site Assurance Assessor course, on your phone. In this short course, you&#x27;ll learn how to sign in and install the app, complete an assessment on site, record findings, the outcome, any stop work order, photos and signatures, and then share your report and follow up corrective actions.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="index.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 1 of 23</span>
+    <a class="btn amber" href="slide2.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(1);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

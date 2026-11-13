@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Install and Work Offline &mdash; Using the Sela Site Assurance Tool</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="sela-sat-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Install and Work Offline</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Install the App and Work Offline</h2>
+    <div class="read-time">~1 min &middot; narrated</div>
+    <div class="media-split"><div class="phone-col"><div class="phone"><img src="img/shots/02_home_empty.jpg" alt="The app home screen with the New site assurance form button" loading="lazy"></div></div><div><div class="two-col"><div class="col-card"><h4>Install on your phone</h4><ul><li><strong>Android (Chrome):</strong> tap <strong>Install</strong> on the banner, or &#8942; menu &rarr; Install app</li><li><strong>iPhone (Safari):</strong> tap Share &#11014; &rarr; <strong>Add to Home Screen</strong></li><li>It then opens like an app, called Site Check</li></ul></div><div class="col-card col-new"><h4>No signal on site?</h4><ul><li>Keep working &ndash; everything saves on your phone as you go (&ldquo;Draft &middot; autosaved&rdquo;)</li><li>An orange bar shows when you are offline</li><li>Completed assessments are added to the register automatically when you are back in signal</li></ul></div></div><div class="callout CAUTION"><span class="callout-label">DON&rsquo;T CLEAR YOUR BROWSER DATA</span><p>Until an assessment has reached the register, it lives only on your phone. Don&rsquo;t sign out, clear browser data or uninstall the app before it has synced.</p></div></div></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/4.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Install the app on your phone so it opens like any other app. On Android, tap install on the banner, or use the Chrome menu. On an iPhone, use Safari, tap share, then add to home screen. With no signal on site, keep working. Everything saves on your phone, and completed assessments go to the register when you&#x27;re back in signal. Until then, don&#x27;t sign out, clear your browser data, or uninstall the app.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide3.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 4 of 23</span>
+    <a class="btn amber" href="quiz1.html">Module Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(4);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>
