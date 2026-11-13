@@ -17,6 +17,7 @@
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import "./last-seen.js"; // records "last active" for the admin Learners panel
+import "./site-analytics.js"; // Google Analytics visitor counts (see that file)
 
 const auth = getAuth();
 const db = getFirestore();
@@ -104,7 +105,8 @@ function renderHeader() {
 function renderFooter() {
   const footer = document.getElementById("global-footer");
   if (!footer) return;
-  footer.innerHTML = `<p>&copy; ${new Date().getFullYear()} Sela Civil Advisory Ltd. All rights reserved.</p>`;
+  footer.innerHTML = `<p>&copy; ${new Date().getFullYear()} Sela Civil Advisory Ltd. All rights reserved.</p>
+    <p style="font-size: 0.8rem; opacity: 0.75; margin-top: 0.25rem;">This site uses Google Analytics to count visits and see which pages are useful. We don&#39;t send your name, email or course results to Google.</p>`;
 }
 
 function bindAuthState() {
