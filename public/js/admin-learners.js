@@ -18,6 +18,7 @@
 import { auth, db, doc, getDoc, setDoc, collection, getDocs, onAuthStateChanged } from "./firebase-init.js";
 import { arrayUnion, arrayRemove, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { showModal } from "./modal.js";
+import { downloadRecordOfLearning } from "./record-of-learning.js";
 
 const state = { catalog: [], learners: [], byEmail: new Map(), grants: new Map(), plans: new Map(), attempts: [], submissions: [] };
 
@@ -224,6 +225,10 @@ function renderProfile(ctx) {
   <div class="panel-card" style="max-width:980px;margin:0 auto;position:relative;">
     <button type="button" id="lp-close" class="btn-action" style="position:absolute;top:16px;right:16px;">Close</button>
     <h2 style="margin-right:90px;">${esc(displayName(l) || l.email)}</h2>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0 12px;">
+      <button type="button" id="lp-record" class="btn-action btn-primary-action" ${l.uid ? "" : "disabled"}>&#11015; Download Record of Learning (PDF)</button>
+      ${l.uid ? "" : `<span style="font-size:0.8rem;color:var(--text-muted);">Available once the learner has signed up.</span>`}
+    </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 24px;margin:8px 0 20px;font-size:0.9rem;">
       <div><span style="color:var(--text-muted);">Email</span><br>${esc(l.email)}</div>
       <div><span style="color:var(--text-muted);">Last active</span><br>${esc(ago(p.lastSeenAt))}<div style="font-size:0.75rem;color:var(--text-muted);">${esc(fmtDate(p.lastSeenAt))}</div></div>
@@ -261,6 +266,29 @@ function renderProfile(ctx) {
 
   const close = () => { overlay.remove(); document.body.style.overflow = ""; };
   overlay.querySelector("#lp-close").addEventListener("click", close);
+
+  // Same Record of Learning PDF the learner downloads from Your Courses
+  // (js/record-of-learning.js), built for this learner by an admin.
+  overlay.querySelector("#lp-record")?.addEventListener("click", async (e) => {
+    const btn = e.currentTarget;
+    if (!l.uid) return;
+    const label = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = "Preparing PDF...";
+    try {
+      const learner = { uid: l.uid, email: l.email, displayName: displayName(l) || l.email, metadata: {} };
+      const courses = ctx.order.map(id => {
+        const c = state.catalog.find(x => x.id === id) || {};
+        return { id, title: c.title || courseTitle(id), code: c.code || "" };
+      });
+      await downloadRecordOfLearning({ user: learner, courses });
+    } catch (err) {
+      showModal({ title: "Could not create the Record of Learning", message: err.message, type: "error" });
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = label;
+    }
+  });
   overlay.addEventListener("click", e => { if (e.target === overlay) close(); });
 
   const move = (i, dir) => {
