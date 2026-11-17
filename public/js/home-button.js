@@ -106,6 +106,8 @@
 
   // Course pages don't load navigation.js, so record "last active" from here.
   try { import("/js/last-seen.js"); } catch (e) {}
+  // Save where the learner is up to in this course, for the admin Learners panel.
+  try { import("/js/progress-sync.js"); } catch (e) {}
   // Lock the course if the learner's plan says an earlier course comes first.
   try { import("/js/sequence-guard.js"); } catch (e) {}
 })();

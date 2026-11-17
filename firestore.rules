@@ -108,6 +108,19 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
+    // -- where each learner is up to in a course (js/progress-sync.js) --
+    // Doc ID is "{uid}__{courseId}". A learner can create/update only their
+    // own record; admins read them all for the Learners panel. The ID check
+    // in read lets a learner check whether their own record exists yet.
+    match /course_progress/{docId} {
+      allow read: if isAdmin() ||
+        (isSignedIn() && docId.matches(request.auth.uid + '__.+'));
+      allow create, update: if isSignedIn() &&
+        request.resource.data.userId == request.auth.uid &&
+        docId == request.auth.uid + '__' + request.resource.data.courseId;
+      allow delete: if isAdmin();
+    }
+
     // -- learner course order, set by admins (admin-learners.js) ------
     // Keyed by lowercased email so it can be set before first sign-in.
     // The learner can read their own plan but never change it.

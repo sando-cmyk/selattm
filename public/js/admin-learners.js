@@ -11,8 +11,10 @@
 //         "complete in order" rule on/off, add pre-paid courses or remove one
 //       * full history of every quiz/test attempt (pass and fail), course
 //         completions and certificates.
+//   - Shows where each learner is up to in each course (slide/step, % done)
+//     from course_progress, written by js/progress-sync.js.
 // Data: users/{uid}, grants/{email}, learner_plans/{email}, attempts,
-//       submissions, customers/{uid}/payments, courses.
+//       submissions, course_progress, customers/{uid}/payments, courses.
 // ============================================================================
 
 import { auth, db, doc, getDoc, setDoc, collection, getDocs, onAuthStateChanged } from "./firebase-init.js";
@@ -20,7 +22,7 @@ import { arrayUnion, arrayRemove, query, where } from "https://www.gstatic.com/f
 import { showModal } from "./modal.js";
 import { downloadRecordOfLearning } from "./record-of-learning.js";
 
-const state = { catalog: [], learners: [], byEmail: new Map(), grants: new Map(), plans: new Map(), attempts: [], submissions: [] };
+const state = { catalog: [], learners: [], byEmail: new Map(), grants: new Map(), plans: new Map(), attempts: [], submissions: [], progress: [] };
 
 const esc = v => String(v ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const lower = v => String(v || "").trim().toLowerCase();
@@ -47,7 +49,13 @@ function ago(iso) {
 // code, because older pages record their own folder name as courseId.
 function catalogCourseFor(rec) {
   const id = lower(rec.courseId), code = lower(rec.courseCode);
-  return state.catalog.find(c => lower(c.id) === id || (code && lower(c.code) === code)) || null;
+  const hit = state.catalog.find(c => lower(c.id) === id || (code && lower(c.code) === code));
+  if (hit) return hit;
+  // Fallback: match the course folder of the page the record came from
+  // against the catalog launchPath (e.g. PTS-01 records "pts-01" but the
+  // catalog lists it as "ttm-portable-traffic-signals").
+  const folder = (String(rec.positionPage || rec.page || "").match(/\/courses\/([^\/]+)\//) || [])[1];
+  return (folder && state.catalog.find(c => String(c.launchPath || "").includes(`/courses/${folder}/`))) || null;
 }
 function courseTitle(id) {
   const c = state.catalog.find(x => x.id === id);
@@ -69,11 +77,12 @@ async function safeGetAll(name) {
 // ---------------------------------------------------------------- load
 async function loadAll() {
   const tbody = document.getElementById("learners-tbody");
-  if (tbody) tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">Loading learners...</td></tr>`;
+  if (tbody) tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:20px;">Loading learners...</td></tr>`;
 
-  const [catalog, users, grants, plans, attempts, submissions] = await Promise.all([
+  const [catalog, users, grants, plans, attempts, submissions, progress] = await Promise.all([
     safeGetAll("courses"), safeGetAll("users"), safeGetAll("grants"),
     safeGetAll("learner_plans"), safeGetAll("attempts"), safeGetAll("submissions"),
+    safeGetAll("course_progress"),
   ]);
   // Course docs keep their id as the document name, not a field -- copy it in.
   state.catalog = catalog.map(c => ({ ...c, id: c.id || c._id })).filter(c => c.launchPath || c.status === "active").sort((a, b) => String(a.title).localeCompare(String(b.title)));
@@ -81,12 +90,13 @@ async function loadAll() {
   state.plans = new Map(plans.map(p => [lower(p._id), p]));
   state.attempts = attempts;
   state.submissions = submissions;
+  state.progress = progress;
 
   const map = new Map();
   const get = (email) => {
     const e = lower(email);
     if (!e) return null;
-    if (!map.has(e)) map.set(e, { email: e, uid: "", profile: {}, attempts: [], submissions: [] });
+    if (!map.has(e)) map.set(e, { email: e, uid: "", profile: {}, attempts: [], submissions: [], progress: [] });
     return map.get(e);
   };
   users.forEach(u => { const l = get(u.email); if (l) { l.uid = u._id; l.profile = u; } });
@@ -94,6 +104,7 @@ async function loadAll() {
   plans.forEach(p => get(p._id));
   submissions.forEach(s => { const l = get(s.email); if (l) { l.submissions.push(s); if (!l.uid && s.userId) l.uid = s.userId; } });
   attempts.forEach(a => { const l = get(a.email); if (l) { l.attempts.push(a); if (!l.uid && a.userId) l.uid = a.userId; } });
+  progress.forEach(p => { const l = get(p.email); if (l) { l.progress.push(p); if (!l.uid && p.userId) l.uid = p.userId; } });
 
   state.learners = [...map.values()].sort((a, b) =>
     String(b.profile.lastSeenAt || "").localeCompare(String(a.profile.lastSeenAt || "")) || a.email.localeCompare(b.email));
@@ -111,6 +122,22 @@ function grantedIds(l) {
   if (g.allCourses) return state.catalog.map(c => c.id);
   return Array.isArray(g.courseIds) ? g.courseIds : [];
 }
+// Where a learner is up to in one course (course_progress, newest record).
+function progressFor(l, courseId) {
+  return (l.progress || []).filter(p => catalogCourseFor(p)?.id === courseId)
+    .sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")))[0] || null;
+}
+function progressBar(pct) {
+  const v = Math.max(0, Math.min(100, Number(pct) || 0));
+  return `<span style="display:inline-block;width:70px;height:6px;border-radius:3px;background:rgba(148,163,184,.25);vertical-align:middle;margin-right:6px;overflow:hidden;"><span style="display:block;height:100%;width:${v}%;background:#38bdf8;"></span></span>`;
+}
+function progressHtml(p) {
+  const counts = p.total ? `${p.done || 0} of ${p.total} screens` : "";
+  const quiz = p.quizzesTotal ? ` · quizzes ${p.quizzesPassed || 0}/${p.quizzesTotal}` : "";
+  return `${progressBar(p.percent)}<strong>${esc(p.percent || 0)}%</strong>
+    <div style="font-size:0.78rem;color:var(--text-muted);">${esc(counts)}${esc(quiz)}${p.position ? ` · at ${esc(p.position)}` : ""} · ${esc(ago(p.updatedAt))}</div>`;
+}
+
 function passedIds(l) {
   const ids = new Set();
   [...l.submissions.filter(s => s.passed !== false), ...l.attempts.filter(a => a.passed && a.quizId && /final/i.test(a.quizId))]
@@ -125,18 +152,27 @@ function renderTable() {
   const q = lower(document.getElementById("learners-search")?.value);
   const rows = state.learners.filter(l => !q || l.email.includes(q) || lower(displayName(l)).includes(q));
   if (!rows.length) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">${q ? "No learners match that search." : "No learners yet."}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:20px;">${q ? "No learners match that search." : "No learners yet."}</td></tr>`;
     return;
   }
   tbody.innerHTML = rows.map(l => {
     const name = displayName(l);
     const passes = passedIds(l).size;
     const fails = l.attempts.filter(a => !a.passed).length;
+    const passedSet = passedIds(l);
+    const current = [...(l.progress || [])]
+      .map(p => ({ p, c: catalogCourseFor(p) }))
+      .filter(x => !(x.c && passedSet.has(x.c.id)))
+      .sort((a, b) => String(b.p.updatedAt || "").localeCompare(String(a.p.updatedAt || "")))[0];
+    const currentHtml = current
+      ? `<div style="font-size:0.85rem;">${esc(current.c?.title || current.p.courseTitle || current.p.courseId)}</div>${progressBar(current.p.percent)}<span style="font-size:0.8rem;">${esc(current.p.percent || 0)}%${current.p.position ? ` · ${esc(current.p.position)}` : ""}</span>`
+      : `<span style="color:var(--text-muted);font-size:0.85rem;">--</span>`;
     return `<tr>
       <td><strong>${esc(name || "(name not entered)")}</strong><div style="font-size:0.8rem;color:var(--text-muted);">${esc(l.email)}</div></td>
       <td title="${esc(fmtDate(l.profile.lastSeenAt))}">${esc(ago(l.profile.lastSeenAt))}</td>
       <td>${grantedIds(l).length ? `${grantedIds(l).length} pre-paid` : "--"}</td>
       <td>${l.attempts.length}${fails ? ` <span style="color:#f87171;font-size:0.8rem;">(${fails} failed)</span>` : ""}</td>
+      <td>${currentHtml}</td>
       <td>${passes}</td>
       <td><button class="btn-action btn-view-learner" data-email="${esc(l.email)}" style="padding:6px 10px;font-size:0.8rem;">View</button></td>
     </tr>`;
@@ -177,8 +213,14 @@ function courseStatus(l, courseId) {
   const atts = l.attempts.filter(a => catalogCourseFor(a)?.id === courseId);
   const pass = subs.find(s => s.passed !== false);
   if (pass) return { html: `<span class="badge badge-active">Passed</span> <span style="font-size:0.78rem;color:var(--text-muted);">${esc(fmtDate(pass.completedAt, false))}${typeof pass.scorePercent === "number" ? ` · ${pass.scorePercent}%` : ""}</span>`, passed: true };
-  if (atts.some(a => a.passed)) return { html: `<span class="badge badge-pending" style="text-transform:none;">Quiz passed, not finished</span>`, passed: false };
-  if (atts.length) return { html: `<span class="badge badge-fail">${atts.length} attempt${atts.length === 1 ? "" : "s"}, not passed</span>`, passed: false };
+  const prog = progressFor(l, courseId);
+  const progLine = prog ? `<div style="margin-top:4px;">${progressHtml(prog)}</div>` : "";
+  if (prog && prog.contentComplete) {
+    return { html: `<span class="badge badge-pending" style="text-transform:none;">Content complete${prog.contentCompletedAt ? ` ${esc(fmtDate(prog.contentCompletedAt, false))}` : ""}</span>${progLine}`, passed: false };
+  }
+  if (atts.some(a => a.passed)) return { html: `<span class="badge badge-pending" style="text-transform:none;">Quiz passed, not finished</span>${progLine}`, passed: false };
+  if (atts.length) return { html: `<span class="badge badge-fail">${atts.length} attempt${atts.length === 1 ? "" : "s"}, not passed</span>${progLine}`, passed: false };
+  if (prog) return { html: `<span class="badge badge-pending" style="text-transform:none;">In progress</span>${progLine}`, passed: false };
   return { html: `<span style="color:var(--text-muted);font-size:0.85rem;">Not started</span>`, passed: false };
 }
 

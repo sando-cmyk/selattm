@@ -1,17 +1,29 @@
-Hide US-40233 (Assist with TTM within the Road Reserve) from the store
+Admin: show where each learner is up to in every course
 
-Hidden until an NZQA assessment provider is in place for the practical
-sign-off.
+The Learners panel could only show quiz attempts and completions, so a
+learner looked "Not started" until they reached a quiz -- and ASHTAS-01
+(Operative) never recorded anything at all. Slide progress only lived in
+the learner's own browser.
 
-- "visibility": "private" added to the course in courses-import.json,
-  its course-manifest.json and public/data/courses.json; the store
-  already skips private courses.
-- Its static fallback card in store.html is commented out (not deleted)
-  so it can be restored later.
-- Admins can still grant the course; anyone who already has it keeps it.
+- New public/js/progress-sync.js: reads each course engine's existing
+  saved progress (never changes it) and copies a summary to
+  course_progress/{uid}__{courseId}: screens done/total, %, current
+  slide/step, quizzes passed, content complete, started/updated.
+  Writes only when something changes; done/% only ever go up so a
+  second device can't wipe real progress. Handles all five engines
+  (Course decks, CourseProgress/PTS-01, ASHTAS CourseNav, NZGTTM/Roles
+  screens, Engineering Essentials slides).
+- home-button.js (on every course page) loads it -- no course pages edited.
+- firestore.rules: course_progress -- learner writes own doc only,
+  admins read all.
+- admin-learners.js / admin.html: new "Currently working on" column,
+  and per-course progress bar + position in the learner profile
+  ("In progress" / "Content complete"). Course matching now also falls
+  back to the page's course folder, so PTS-01 records (courseId
+  "pts-01") match the catalog entry.
 
-To bring it back: remove "visibility": "private" from those files,
-uncomment the card, run node scripts/sync-courses.js and redeploy.
+Deploy needs rules as well as hosting:
+  firebase deploy --only firestore:rules,hosting
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_018nnUp2vrk9DRx6G5VWtNsj
+Claude-Session: https://claude.ai/code/session_018nnUp5AFxioWBCTPtD6TDf
