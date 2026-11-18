@@ -292,12 +292,13 @@
          Firestore-driven catalog or the static fallback below -- prevents the
          page rendering the course list twice with two different orderings. -->
     <!-- Course Library sub-menus (also linked from the site nav dropdown as
-         store.html#barrier / #ttm / #tmp / #other) -->
+         store.html#barrier / #ttm / #tmp / #assurance / #other) -->
     <nav class="library-tabs" id="library-tabs" aria-label="Course categories" style="display:none;">
       <a href="#all" data-group="all">All courses <span class="tab-count"></span></a>
       <a href="#barrier" data-group="barrier">Barrier Training <span class="tab-count"></span></a>
       <a href="#ttm" data-group="ttm">TTM Training <span class="tab-count"></span></a>
       <a href="#tmp" data-group="tmp">TMP Planners &amp; Designers <span class="tab-count"></span></a>
+      <a href="#assurance" data-group="assurance">TTM Site Assurance <span class="tab-count"></span></a>
       <a href="#other" data-group="other">Other Training <span class="tab-count"></span></a>
     </nav>
 
@@ -505,36 +506,63 @@
     import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
     import { courseOutlineHtml } from "./js/course-summaries.js";
 
-    // ---- Course Library sub-menus: Barrier / TTM / Other ------------------
+    // ---- Course Library sub-menus ------------------------------------------
+    // Barrier / TTM / Other are categories: every live course sits in one.
+    // TMP Planners and TTM Site Assurance are pathways: copies of the relevant
+    // course cards in order (the course keeps its own category too), any extra
+    // cards, then "Coming soon" placeholders with a "Register interest" link.
     const LIBRARY_GROUPS = [
       { key: "barrier", label: "Barrier Training" },
       { key: "ttm", label: "TTM Training" },
       { key: "tmp", label: "TMP Planners & Designers" },
+      { key: "assurance", label: "TTM Site Assurance" },
       { key: "other", label: "Other Training" },
     ];
-    // TMP Planners & Designers: a pathway, not a category. Each course keeps its
-    // own place (e.g. TTM Training) and a copy of its card is shown here, in order.
-    const PLANNER_PATHWAY = [
-      { id: "nzgttm-01", step: "Step 1 · Foundation" },
-      { id: "nzgttm-ra-01", step: "Step 2 · Risk assessment" },
-      { id: "nzgttm-vru-01", step: "Step 3 · Recommended", optional: true },
-      { id: "nzgttm-tld-01", step: "Step 4 · Layouts and dimensions" },
-      { id: "nzgttm-tmp-ps", step: "Step 5 · Practical sign-off" },
-    ];
-    // Placeholders for planner courses in development: shown at the end of the
-    // TMP Planners section only, with a "Register interest" link (contact.html).
-    // When one is built, delete it here and add it to PLANNER_PATHWAY instead.
-    const PLANNER_COMING_SOON = [
-      { code: "NZGTTM-TSL-01", title: "Temporary Speed Limits",
-        desc: "When a temporary speed limit is justified and how to set one under the Land Transport Rule: Setting of Speed Limits 2024: active and unattended limits, sign placement, and the measures that actually bring traffic down to the limit." },
-      { code: "NZGTTM-DND-01", title: "Delays, Detours and Network Impact",
-        desc: "Estimate queues and delays, plan around peak times, choose and sign a detour that suits over-height, heavy and over-dimension vehicles, and complete the delay and notification sections of the TMP." },
-      { code: "NZGTTM-REV-01", title: "Reviewing and Approving TMPs (Workshop)",
-        desc: "A half-day live workshop for experienced planners stepping up to risk reviewer or approver: what to check, how to return a TMP for correction, and reviewing real TMPs together against the NZGTTM." },
-      { code: "NZGTTM-EVT-01", title: "TTM for Planned Events",
-        desc: "Plan TTM for concerts, sports days, markets and parades: large crowds on foot, road closures, marshals, emergency access and working with councils, based on the NZEA practice note for planned events." },
-    ];
-    const PLANNER_INTRO = "For people who write TMPs and draw TMDs. Work through these in order: <strong>NZGTTM Essentials</strong>, then <strong>Risk Assessment</strong> to choose the controls, <strong>Vulnerable Road Users</strong> (recommended), then <strong>Layouts and Dimensions</strong> to turn them into a layout. Finish with the <strong>Practical Sign-off</strong>: submit a real TMP for assessment by a Sela assessor. More planner courses are on the way &ndash; register your interest below.";
+    const PATHWAYS = {
+      tmp: {
+        intro: "For people who write TMPs and draw TMDs. Work through these in order: <strong>NZGTTM Essentials</strong>, then <strong>Risk Assessment</strong> to choose the controls, <strong>Vulnerable Road Users</strong> (recommended), then <strong>Layouts and Dimensions</strong> to turn them into a layout. Finish with the <strong>Practical Sign-off</strong>: submit a real TMP for assessment by a Sela assessor. More planner courses are on the way &ndash; register your interest below.",
+        steps: [
+          { id: "nzgttm-01", step: "Step 1 · Foundation" },
+          { id: "nzgttm-ra-01", step: "Step 2 · Risk assessment" },
+          { id: "nzgttm-vru-01", step: "Step 3 · Recommended", optional: true },
+          { id: "nzgttm-tld-01", step: "Step 4 · Layouts and dimensions" },
+          { id: "nzgttm-tmp-ps", step: "Step 5 · Practical sign-off" },
+        ],
+        // When one is built, delete it here and add it to steps instead.
+        soon: [
+          { code: "NZGTTM-TSL-01", title: "Temporary Speed Limits",
+            desc: "When a temporary speed limit is justified and how to set one under the Land Transport Rule: Setting of Speed Limits 2024: active and unattended limits, sign placement, and the measures that actually bring traffic down to the limit." },
+          { code: "NZGTTM-DND-01", title: "Delays, Detours and Network Impact",
+            desc: "Estimate queues and delays, plan around peak times, choose and sign a detour that suits over-height, heavy and over-dimension vehicles, and complete the delay and notification sections of the TMP." },
+          { code: "NZGTTM-REV-01", title: "Reviewing and Approving TMPs (Workshop)",
+            desc: "A half-day live workshop for experienced planners stepping up to risk reviewer or approver: what to check, how to return a TMP for correction, and reviewing real TMPs together against the NZGTTM." },
+          { code: "NZGTTM-EVT-01", title: "TTM for Planned Events",
+            desc: "Plan TTM for concerts, sports days, markets and parades: large crowds on foot, road closures, marshals, emergency access and working with councils, based on the NZEA practice note for planned events." },
+        ],
+      },
+      assurance: {
+        intro: "For people who check TTM sites they didn&rsquo;t build: independent assessors, client and RCA representatives, and senior STMSs. Start with the <strong>Site Assurance Assessor</strong> course, add the <strong>Sela site assurance app</strong> to assess and report on site, then complete <strong>supervised field assessments</strong> to become a Sela-endorsed assessor. More assurance courses are on the way &ndash; register your interest below.",
+        steps: [
+          { id: "nzgttm-sa-01", step: "Step 1 · Assessor course" },
+          { id: "sela-sat-01", step: "Step 2 · The Sela app" },
+        ],
+        extras: [
+          { step: "Step 3 · Endorsement", code: "NZGTTM-SA-FA", title: "Supervised Field Assessments",
+            desc: "Two live site assessments with a Sela lead assessor, with coaching on site and a review of your reports. Meet the standard on both and you are endorsed as a Sela TTM Site Assurance Assessor for two years. Complete NZGTTM-SA-01 first.",
+            price: "Price on request", href: "/courses/nzgttm-sa-fa/index.html", cta: "Find out more" },
+        ],
+        soon: [
+          { code: "NZGTTM-SC-01", title: "STMS Site Self-Checks",
+            desc: "For STMSs and TCs checking their own short-term sites: what to check at set-up, during the shift and at pack-down using the NZGTTM short-term site check, how to record it, and fixing problems on the spot." },
+          { code: "NZGTTM-SA-02", title: "Long-Term and Unattended Site Assurance",
+            desc: "Assuring sites that stay in place for days or weeks: daily checks, night and weekend unattended layouts, inactive speed limits, device and barrier condition, and keeping the records that show the site was maintained." },
+          { code: "NZGTTM-INV-01", title: "TTM Incident and Near-Miss Investigation",
+            desc: "What to do after a crash, strike or near miss at a TTM site: securing the scene, gathering evidence, finding the contributing factors in the plan, the set-up and the people, and writing corrective actions that stick." },
+          { code: "NZGTTM-APM-01", title: "Running a TTM Assurance Programme",
+            desc: "For clients, RCAs and principals: setting up assurance under the NZGTTM quality assurance and control guidance, who does what, choosing which sites to check by risk, reporting trends and closing out corrective actions." },
+        ],
+      },
+    };
     // Explicit placement by course id; anything new falls back to its category.
     const GROUP_BY_ID = {
       "ashtas-01": "barrier",
@@ -566,35 +594,40 @@
       const grid = document.getElementById("store-catalog-grid");
       const tabs = document.getElementById("library-tabs");
       if (!grid || !tabs) return;
-      grid.querySelectorAll(".library-group-heading, .library-group-intro, .planner-copy").forEach(h => h.remove());
+      grid.querySelectorAll(".library-group-heading, .library-group-intro, .pathway-copy").forEach(h => h.remove());
       const cards = [...grid.querySelectorAll(".course-card")];
       cards.forEach(c => { c.dataset.group = groupForCard(c); });
-      // Copies of the pathway courses for the TMP Planners section.
       const idOf = c => c.querySelector("[data-id]")?.dataset.id || c.dataset.courseId || "";
-      const plannerCards = PLANNER_PATHWAY.map(p => {
-        const src = cards.find(c => idOf(c) === p.id);
-        if (!src) return null;
-        const copy = src.cloneNode(true);
-        copy.classList.add("planner-copy");
-        copy.dataset.group = "tmp";
-        const top = copy.firstElementChild;
-        if (top) top.insertAdjacentHTML("afterbegin", `<span class="pathway-step${p.optional ? " optional" : ""}">${p.step}</span><br>`);
-        return copy;
-      }).filter(Boolean);
       const esc = v => String(v).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
-      PLANNER_COMING_SOON.forEach(c => {
+      const stepBadge = (text, cls) => `<span class="pathway-step${cls ? " " + cls : ""}">${esc(text)}</span><br>`;
+      const card = (group, cls, badge, c, priceHtml, ctaHtml) => {
         const el = document.createElement("div");
-        el.className = "course-card coming-soon planner-copy";
-        el.dataset.group = "tmp";
-        el.innerHTML = `<div><span class="pathway-step soon">Coming soon</span><br>
-            <span class="course-code">${esc(c.code)}</span>
+        el.className = `course-card pathway-copy ${cls}`;
+        el.dataset.group = group;
+        el.innerHTML = `<div>${badge}<span class="course-code">${esc(c.code)}</span>
             <h3 class="course-title">${esc(c.title)}</h3>
             <p class="course-desc">${esc(c.desc)}</p></div>
-          <div><div class="course-price">In development</div>
-            <a class="btn-interest" href="contact.html?interest=${encodeURIComponent(c.title)}">Register interest</a></div>`;
-        plannerCards.push(el);
+          <div><div class="course-price">${priceHtml}</div>${ctaHtml}</div>`;
+        return el;
+      };
+      const pathwayCards = [];
+      Object.entries(PATHWAYS).forEach(([group, p]) => {
+        (p.steps || []).forEach(s => {
+          const src = cards.find(c => idOf(c) === s.id);
+          if (!src) return;
+          const copy = src.cloneNode(true);
+          copy.classList.add("pathway-copy");
+          copy.dataset.group = group;
+          const top = copy.firstElementChild;
+          if (top) top.insertAdjacentHTML("afterbegin", stepBadge(s.step, s.optional ? "optional" : ""));
+          pathwayCards.push(copy);
+        });
+        (p.extras || []).forEach(x => pathwayCards.push(card(group, "", stepBadge(x.step), x, esc(x.price),
+          `<a class="btn-interest" href="${x.href}">${esc(x.cta)}</a>`)));
+        (p.soon || []).forEach(x => pathwayCards.push(card(group, "coming-soon", stepBadge("Coming soon", "soon"), x, "In development",
+          `<a class="btn-interest" href="contact.html?interest=${encodeURIComponent(x.title)}">Register interest</a>`)));
       });
-      const allCards = cards.concat(plannerCards);
+      const allCards = cards.concat(pathwayCards);
       // Group the cards in menu order, each group under its own heading.
       LIBRARY_GROUPS.forEach(g => {
         const inGroup = allCards.filter(c => c.dataset.group === g.key);
@@ -604,17 +637,22 @@
         h.dataset.groupHeading = g.key;
         h.textContent = g.label;
         grid.appendChild(h);
-        if (g.key === "tmp") {
+        if (PATHWAYS[g.key] && PATHWAYS[g.key].intro) {
           const intro = document.createElement("p");
           intro.className = "library-group-intro";
-          intro.innerHTML = PLANNER_INTRO;
+          intro.dataset.group = g.key;
+          intro.innerHTML = PATHWAYS[g.key].intro;
           grid.appendChild(intro);
         }
         inGroup.forEach(c => grid.appendChild(c));
       });
+      // Tab totals include "Coming soon" courses. "All courses" counts each
+      // course once (live courses plus coming soon; pathway copies of live
+      // courses aren't counted twice).
+      const soonCount = pathwayCards.filter(c => c.classList.contains("coming-soon")).length;
       tabs.querySelectorAll("a").forEach(a => {
         const g = a.dataset.group;
-        const n = g === "all" ? cards.length : allCards.filter(c => c.dataset.group === g && !c.classList.contains("coming-soon")).length;
+        const n = g === "all" ? cards.length + soonCount : allCards.filter(c => c.dataset.group === g).length;
         a.querySelector(".tab-count").textContent = `(${n})`;
         if (g !== "all" && !n) a.style.display = "none";
       });
@@ -626,12 +664,12 @@
       const tabs = document.getElementById("library-tabs");
       if (!grid || !tabs) return;
       const want = (location.hash || "#all").slice(1);
-      const key = ["barrier", "ttm", "tmp", "other"].includes(want) ? want : "all";
+      const key = LIBRARY_GROUPS.some(g => g.key === want) ? want : "all";
       tabs.querySelectorAll("a").forEach(a => a.classList.toggle("active", a.dataset.group === key));
       grid.querySelectorAll(".course-card").forEach(c => { c.style.display = key === "all" || c.dataset.group === key ? "" : "none"; });
       grid.querySelectorAll(".library-group-heading").forEach(h => { h.style.display = key === "all" ? "" : "none"; });
-      // The planner intro shows on its own tab too, and in "All courses" with its heading.
-      grid.querySelectorAll(".library-group-intro").forEach(p => { p.style.display = key === "all" || key === "tmp" ? "" : "none"; });
+      // A pathway's intro shows on its own tab, and in "All courses" under its heading.
+      grid.querySelectorAll(".library-group-intro").forEach(p => { p.style.display = key === "all" || key === p.dataset.group ? "" : "none"; });
     }
     window.addEventListener("hashchange", applyLibraryFilter);
 
@@ -762,7 +800,7 @@
         attachButtonListeners();
         addCourseOutlines();
         setupLibraryTabs();
-        attachButtonListeners(); // again, so the TMP Planners copies' buttons work too
+        attachButtonListeners(); // again, so the pathway copies' buttons work too
         // Reveal the catalog now that we know which content it holds --
         // either the freshly-rendered Firestore list, or (on error/empty
         // result) the untouched static fallback cards. Never show one

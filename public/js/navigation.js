@@ -30,6 +30,7 @@ const NAV_LINKS = [
       { href: "store.html#barrier", label: "Barrier Training" },
       { href: "store.html#ttm", label: "TTM Training" },
       { href: "store.html#tmp", label: "TMP Planners & Designers" },
+      { href: "store.html#assurance", label: "TTM Site Assurance" },
       { href: "store.html#other", label: "Other Training" },
     ],
   },

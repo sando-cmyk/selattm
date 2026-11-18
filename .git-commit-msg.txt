@@ -1,12 +1,15 @@
-Course Library: four "Coming soon" planner courses
+Course Library: TTM Site Assurance tab, coming-soon courses in totals
 
-- store.html: Temporary Speed Limits; Delays, Detours and Network Impact;
-  Reviewing and Approving TMPs (workshop); TTM for Planned Events shown
-  at the end of the TMP Planners & Designers section, with a short
-  description and a "Register interest" link. Not counted in the tab
-  totals; not in the Firestore catalog.
-- contact.html: new "Register interest in an upcoming course" inquiry
-  type, pre-selected (with a starter message) from those links.
+- store.html: new "TTM Site Assurance" pathway tab: SA-01 Site Assurance
+  Assessor, SELA-SAT-01 the Sela app, Supervised Field Assessments (price
+  on request, links to the info page), then four coming-soon courses:
+  STMS Site Self-Checks; Long-Term and Unattended Site Assurance; TTM
+  Incident and Near-Miss Investigation; Running a TTM Assurance Programme.
+- Pathway tabs (TMP Planners, Site Assurance) now share one config
+  (PATHWAYS) and code path.
+- Tab totals now include coming-soon courses; "All courses" counts each
+  course once.
+- navigation.js: TTM Site Assurance link in the library sub-menu.
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_018nnUp5R9tpPMiooxjjkWct
