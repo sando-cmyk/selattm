@@ -1,37 +1,12 @@
-Add TMP Design Practical Sign-off (NZGTTM-TMP-PS) and TLD-01 TMP Layouts and Dimensions course
+Course Library: four "Coming soon" planner courses
 
-- courses/nzgttm-tmp-ps/: learner page. Shows the 18 marking criteria
-  (with what the assessor looks for) before submitting; upload TMP files
-  (Firebase Storage) or a share link; 3 attempts; shows marks and feedback
-  on every criterion after assessment.
-- js/tmp-rubric.js: the criteria and pass rule, shared by both pages.
-- js/admin-tmp-signoff.js + admin.html "TMP Sign-off" tab: assessor marks
-  each criterion (Met / Not yet met / N/A) with feedback, sees the last
-  attempt's marks, live outcome check, drafts, void attempt. Recording a
-  result emails the learner; a sign-off adds a "submissions" record so the
-  certificate is issued from Results & Certificates.
-- firestore.rules: tmp_signoff_submissions; admins can create submissions.
-- storage.rules (new) + firebase.json storage entry: tmp-signoff/{uid}/
-  readable by the owner and admins only, 25 MB limit.
-- functions: notifyOnTmpSignoff emails Joseph on each new submission.
-- Catalog: nzgttm-tmp-ps ($200, price_1Ud1mr0flJvw3UeNbNiThS5S), store card,
-  Courses.txt, course-map, course summary.
-
-Also: NZGTTM-TLD-01 TMP Layouts and Dimensions course ($175, on sale)
-
-- public/courses/nzgttm-tld-01/: 28 slides in 6 modules with animated
-  plan-view diagrams, 6 knowledge checks, rotating final (15 of 30),
-  sequence lock and Next gate, results to admin. Joseph's welcome video
-  (720p, captions) and narration on slides 2-28.
-- Catalog entry nzgttm-tld-01 ($175, price_1Ud1kN0flJvw3UeN0CAq7DXR), store
-  card, Courses.txt, course-map and store outline. Narration scripts in Claude outputs/NZGTTM-TLD-01/.
-
-Also: Course Library "TMP Planners & Designers" section
-
-- store.html: new tab/section showing the planner pathway in order
-  (Essentials, RA-01, VRU recommended, TLD-01, Practical Sign-off) as
-  copies of those course cards, with step badges and a short intro.
-- navigation.js: TMP Planners & Designers link in the library sub-menu.
+- store.html: Temporary Speed Limits; Delays, Detours and Network Impact;
+  Reviewing and Approving TMPs (workshop); TTM for Planned Events shown
+  at the end of the TMP Planners & Designers section, with a short
+  description and a "Register interest" link. Not counted in the tab
+  totals; not in the Firestore catalog.
+- contact.html: new "Register interest in an upcoming course" inquiry
+  type, pre-selected (with a starter message) from those links.
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_018nnUp5R9tpPMiooxjjkWct

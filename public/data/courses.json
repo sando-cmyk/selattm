@@ -107,9 +107,8 @@
     "price": 175,
     "currency": "NZD",
     "status": "active",
-    "stripePriceId": "",
-    "launchPath": "/courses/nzgttm-tld-01/index.html",
-    "visibility": "private"
+    "stripePriceId": "price_1Ud1kN0flJvw3UeN0CAq7DXR",
+    "launchPath": "/courses/nzgttm-tld-01/index.html"
   },
   {
     "id": "nzgttm-tmp-ps",
@@ -120,9 +119,8 @@
     "price": 200,
     "currency": "NZD",
     "status": "active",
-    "stripePriceId": "",
-    "launchPath": "/courses/nzgttm-tmp-ps/index.html",
-    "visibility": "private"
+    "stripePriceId": "price_1Ud1mr0flJvw3UeNbNiThS5S",
+    "launchPath": "/courses/nzgttm-tmp-ps/index.html"
   },
   {
     "id": "nzgttm-vru-01",
@@ -196,6 +194,6 @@
     "currency": "NZD",
     "status": "active",
     "launchPath": "/courses/ttm-portable-traffic-signals/index.html",
-    "lastUpdated": "2026-11-17T22:49:17.654Z"
+    "lastUpdated": "2026-11-18T05:59:39.038Z"
   }
 ]

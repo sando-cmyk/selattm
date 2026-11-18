@@ -189,6 +189,7 @@
             <option value="Enterprise / Corporate Training Account">Enterprise / Corporate Training Account</option>
             <option value="Course Content / Certification Question">Course Content / Certification Question</option>
             <option value="Barrier Safety Advisory">Barrier Safety Advisory</option>
+            <option value="Register interest in an upcoming course">Register interest in an upcoming course</option>
             <option value="Other">Other</option>
           </select>
         </div>
@@ -210,6 +211,18 @@
   <script type="module" src="./js/firebase-init.js"></script>
   <script type="module" src="./js/navigation.js"></script>
 
+  <!-- "Register interest" links from the Course Library (?interest=Course name)
+       pre-select the inquiry type and start the message. -->
+  <script>
+    (function () {
+      var t = new URLSearchParams(location.search).get("interest");
+      if (!t) return;
+      t = t.slice(0, 120);
+      var sel = document.getElementById("contact-type"), msg = document.getElementById("contact-message");
+      if (sel) sel.value = "Register interest in an upcoming course";
+      if (msg && !msg.value) msg.value = "Please let me know when " + t + " is available.\n\nNumber of people: ";
+    })();
+  </script>
   <!-- Form Submission Logic -->
   <script type="module">
     import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
