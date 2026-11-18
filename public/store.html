@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/site-header.css" />
-  <title>SELA TTM | Sela Course Library</title>
+  <link rel="stylesheet" href="css/hero-backdrop.css" />
+  <title>SELA TTM | Public Course Library</title>
 
   <style>
     :root {
@@ -133,6 +134,12 @@
       color: var(--text-main); border-bottom: 1px solid var(--card-border); padding-bottom: 8px;
     }
     .library-group-heading:first-child { margin-top: 0; }
+    /* TMP Planners & Designers pathway (copies of the relevant course cards, in order) */
+    .library-group-intro { grid-column: 1 / -1; margin: 0; color: var(--text-muted); font-size: 0.95rem; line-height: 1.55; }
+    .library-group-intro strong { color: var(--text-main); }
+    .pathway-step { display: inline-block; margin-bottom: 8px; padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: .3px; background: rgba(242, 169, 0, 0.15); color: #F2A900; border: 1px solid rgba(242, 169, 0, 0.35); }
+    .pathway-step.optional { background: rgba(56, 189, 248, 0.10); color: var(--accent-blue, #38bdf8); border-color: rgba(56, 189, 248, 0.3); }
     @media (max-width: 600px) {
       .library-tabs { gap: 8px; }
       .library-tabs a { white-space: nowrap; font-size: 0.88rem; padding: 8px 13px; }
@@ -259,28 +266,32 @@
     .checkout-overlay-promo a:hover {
       text-decoration: underline;
     }
+    .store-header p.private-training-note { margin-top: 12px; font-size: 0.92rem; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 8px; padding: 10px 14px; display: inline-block; }
+    .private-training-note a { color: var(--accent-blue, #38bdf8); font-weight: 600; }
   </style>
 </head>
-<body>
+<body class="has-hero-bg">
 
   <header class="site-header" id="global-header"></header>
 
   <!-- Store Container -->
   <main class="store-container">
     <header class="store-header">
-      <h1>Sela Course Library</h1>
+      <h1>Public Course Library</h1>
       <p>Browse SELA certified courses in temporary traffic management, barrier systems and high-speed corridor work.</p>
+      <p class="private-training-note">&#128274; <strong>Company training?</strong> If your company has private training for your team, you won't see it here. Once your company allocates the course to you, it will appear under <a href="learner.html">Your Courses</a>.</p>
     </header>
 
     <!-- Loading placeholder shown only until we know whether to reveal the
          Firestore-driven catalog or the static fallback below -- prevents the
          page rendering the course list twice with two different orderings. -->
     <!-- Course Library sub-menus (also linked from the site nav dropdown as
-         store.html#barrier / #ttm / #other) -->
+         store.html#barrier / #ttm / #tmp / #other) -->
     <nav class="library-tabs" id="library-tabs" aria-label="Course categories" style="display:none;">
       <a href="#all" data-group="all">All courses <span class="tab-count"></span></a>
       <a href="#barrier" data-group="barrier">Barrier Training <span class="tab-count"></span></a>
       <a href="#ttm" data-group="ttm">TTM Training <span class="tab-count"></span></a>
+      <a href="#tmp" data-group="tmp">TMP Planners &amp; Designers <span class="tab-count"></span></a>
       <a href="#other" data-group="other">Other Training <span class="tab-count"></span></a>
     </nav>
 
@@ -356,6 +367,28 @@
         <div>
           <div class="course-price">NZD $175.00</div>
           <button class="btn-enroll" data-id="nzgttm-ra-01" data-price-id="price_1UXH5I0flJvw3UeNMNfj1Igr" data-title="NZGTTM Risk Assessment &amp; TMP Fundamentals">Enroll &amp; Launch</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <div>
+          <span class="course-code">NZGTTM-TLD-01</span>
+          <h3 class="course-title">TMP Layouts and Dimensions</h3>
+          <p class="course-desc">For TTM planners and designers: where every NZGTTM set-out dimension comes from and how to apply it - design speed, sign visibility and spacing, warning distance, exclusion zones, tapers, lane widths, delineation, curves, sight distance and mobile operations - then draw and check a TMD an STMS can set out. Prerequisite: NZGTTM-RA-01.</p>
+        </div>
+        <div>
+          <div class="course-price">NZD $175.00</div>
+          <button class="btn-enroll" data-id="nzgttm-tld-01" data-price-id="price_1Ud1kN0flJvw3UeN0CAq7DXR" data-title="TMP Layouts and Dimensions">Enroll &amp; Launch</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <div>
+          <span class="course-code">NZGTTM-TMP-PS</span>
+          <h3 class="course-title">TMP Design Practical Sign-off</h3>
+          <p class="course-desc">Submit a TMP you have designed (NZGTTM TMP Planning, General and TMD forms) for assessment by a Sela assessor against published criteria covering risk and controls, design speed, sign and exclusion-zone dimensions, tapers and delineation, and the TMD itself. Written feedback on every criterion; up to 3 attempts. Recommended first: NZGTTM-RA-01.</p>
+        </div>
+        <div>
+          <div class="course-price">NZD $200.00</div>
+          <button class="btn-enroll" data-id="nzgttm-tmp-ps" data-price-id="price_1Ud1mr0flJvw3UeNbNiThS5S" data-title="TMP Design Practical Sign-off">Enroll &amp; Launch</button>
         </div>
       </div>
       <div class="course-card">
@@ -470,14 +503,27 @@
     const LIBRARY_GROUPS = [
       { key: "barrier", label: "Barrier Training" },
       { key: "ttm", label: "TTM Training" },
+      { key: "tmp", label: "TMP Planners & Designers" },
       { key: "other", label: "Other Training" },
     ];
+    // TMP Planners & Designers: a pathway, not a category. Each course keeps its
+    // own place (e.g. TTM Training) and a copy of its card is shown here, in order.
+    const PLANNER_PATHWAY = [
+      { id: "nzgttm-01", step: "Step 1 · Foundation" },
+      { id: "nzgttm-ra-01", step: "Step 2 · Risk assessment" },
+      { id: "nzgttm-vru-01", step: "Step 3 · Recommended", optional: true },
+      { id: "nzgttm-tld-01", step: "Step 4 · Layouts and dimensions" },
+      { id: "nzgttm-tmp-ps", step: "Step 5 · Practical sign-off" },
+    ];
+    const PLANNER_INTRO = "For people who write TMPs and draw TMDs. Work through these in order: <strong>NZGTTM Essentials</strong>, then <strong>Risk Assessment</strong> to choose the controls, <strong>Vulnerable Road Users</strong> (recommended), then <strong>Layouts and Dimensions</strong> to turn them into a layout. Finish with the <strong>Practical Sign-off</strong>: submit a real TMP for assessment by a Sela assessor.";
     // Explicit placement by course id; anything new falls back to its category.
     const GROUP_BY_ID = {
       "ashtas-01": "barrier",
       "basic-barrier-safety": "barrier",
       "nzgttm-01": "ttm",
       "nzgttm-ra-01": "ttm",
+      "nzgttm-tld-01": "ttm",
+      "nzgttm-tmp-ps": "ttm",
       "nzgttm-vru-01": "ttm",
       "ttm-fb-01": "ttm",
       "nzgttm-sa-01": "ttm",
@@ -501,23 +547,42 @@
       const grid = document.getElementById("store-catalog-grid");
       const tabs = document.getElementById("library-tabs");
       if (!grid || !tabs) return;
-      grid.querySelectorAll(".library-group-heading").forEach(h => h.remove());
+      grid.querySelectorAll(".library-group-heading, .library-group-intro, .planner-copy").forEach(h => h.remove());
       const cards = [...grid.querySelectorAll(".course-card")];
       cards.forEach(c => { c.dataset.group = groupForCard(c); });
+      // Copies of the pathway courses for the TMP Planners section.
+      const idOf = c => c.querySelector("[data-id]")?.dataset.id || c.dataset.courseId || "";
+      const plannerCards = PLANNER_PATHWAY.map(p => {
+        const src = cards.find(c => idOf(c) === p.id);
+        if (!src) return null;
+        const copy = src.cloneNode(true);
+        copy.classList.add("planner-copy");
+        copy.dataset.group = "tmp";
+        const top = copy.firstElementChild;
+        if (top) top.insertAdjacentHTML("afterbegin", `<span class="pathway-step${p.optional ? " optional" : ""}">${p.step}</span><br>`);
+        return copy;
+      }).filter(Boolean);
+      const allCards = cards.concat(plannerCards);
       // Group the cards in menu order, each group under its own heading.
       LIBRARY_GROUPS.forEach(g => {
-        const inGroup = cards.filter(c => c.dataset.group === g.key);
+        const inGroup = allCards.filter(c => c.dataset.group === g.key);
         if (!inGroup.length) return;
         const h = document.createElement("h2");
         h.className = "library-group-heading";
         h.dataset.groupHeading = g.key;
         h.textContent = g.label;
         grid.appendChild(h);
+        if (g.key === "tmp") {
+          const intro = document.createElement("p");
+          intro.className = "library-group-intro";
+          intro.innerHTML = PLANNER_INTRO;
+          grid.appendChild(intro);
+        }
         inGroup.forEach(c => grid.appendChild(c));
       });
       tabs.querySelectorAll("a").forEach(a => {
         const g = a.dataset.group;
-        const n = g === "all" ? cards.length : cards.filter(c => c.dataset.group === g).length;
+        const n = g === "all" ? cards.length : allCards.filter(c => c.dataset.group === g).length;
         a.querySelector(".tab-count").textContent = `(${n})`;
         if (g !== "all" && !n) a.style.display = "none";
       });
@@ -529,10 +594,12 @@
       const tabs = document.getElementById("library-tabs");
       if (!grid || !tabs) return;
       const want = (location.hash || "#all").slice(1);
-      const key = ["barrier", "ttm", "other"].includes(want) ? want : "all";
+      const key = ["barrier", "ttm", "tmp", "other"].includes(want) ? want : "all";
       tabs.querySelectorAll("a").forEach(a => a.classList.toggle("active", a.dataset.group === key));
       grid.querySelectorAll(".course-card").forEach(c => { c.style.display = key === "all" || c.dataset.group === key ? "" : "none"; });
       grid.querySelectorAll(".library-group-heading").forEach(h => { h.style.display = key === "all" ? "" : "none"; });
+      // The planner intro shows on its own tab too, and in "All courses" with its heading.
+      grid.querySelectorAll(".library-group-intro").forEach(p => { p.style.display = key === "all" || key === "tmp" ? "" : "none"; });
     }
     window.addEventListener("hashchange", applyLibraryFilter);
 
@@ -663,6 +730,7 @@
         attachButtonListeners();
         addCourseOutlines();
         setupLibraryTabs();
+        attachButtonListeners(); // again, so the TMP Planners copies' buttons work too
         // Reveal the catalog now that we know which content it holds --
         // either the freshly-rendered Firestore list, or (on error/empty
         // result) the untouched static fallback cards. Never show one

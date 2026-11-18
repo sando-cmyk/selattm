@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Longitudinal Exclusion Zone &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Longitudinal Exclusion Zone</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Longitudinal Exclusion Zone</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide10.svg" alt="An empty exclusion zone between the end of the taper and the work area"></div>
+    <p>The empty space <strong>between the end of the taper and the work area</strong>, there to absorb a driver&rsquo;s mistake.</p>
+    <div class="two-col">
+      <div class="col-card"><h4>Based on stopping sight distance</h4><ul>
+        <li>Reaction time <strong>1.5 s</strong> (2.0 s at 100/110 km/h): drivers are alert by now</li>
+        <li>Sealed deceleration <strong>d = 0.36</strong> (Austroads desirable; allows a little for trucks)</li>
+        <li>Low object height (0.2 m)</li></ul></div>
+      <div class="col-card col-new"><h4>Keep it empty</h4><ul>
+        <li>No parked vehicles or plant</li>
+        <li>No stockpiles or materials</li>
+        <li>No workers standing in it</li></ul></div>
+    </div>
+    <div class="callout KEYIDEA"><span class="callout-label">THE FORMULA</span><p>SSD = V &times; t &divide; 3.6 + V&sup2; &divide; (254 &times; d)</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/10.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module three: exclusion zones. The longitudinal exclusion zone is the empty space between the end of the taper and the start of the work area. It&#x27;s there to absorb mistakes. If a driver misses the taper and runs into the closed lane, this is the room they have to stop before they reach people or plant. The NZGTTM bases it on stopping sight distance, the distance to see a low object and brake to a stop. It uses a shorter reaction time here, 1.5 seconds for most speeds and 2 seconds at a hundred and a hundred and ten, because by now drivers have passed the signs and should be alert. The deceleration rate for sealed roads is 0.36, the desirable rate from Austroads, which is a little conservative to allow for trucks. Keep this zone empty: no parked vehicles, no materials, no workers.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz2.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 10 of 28</span>
+    <a class="btn amber" href="slide11.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(10);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

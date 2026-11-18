@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Design Guide Diagrams &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">The Design Guides</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>The Design Guide Diagrams</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide23.svg" alt="Four ways to manage traffic around a site, matched to the eight NZGTTM design guides"></div>
+    <table class="simple-table">
+      <thead><tr><th>Method</th><th>Example</th><th>Design guides</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Go round</strong> the site</td><td>Closure and detour</td><td>1, 2</td></tr>
+        <tr><td><strong>Go through</strong> the site</td><td>Contraflow, signals</td><td>3</td></tr>
+        <tr><td><strong>Go past</strong> the site</td><td>Lane or shoulder closure</td><td>4, 5, 6, 8</td></tr>
+        <tr><td><strong>In the gaps</strong></td><td>Short stops between traffic</td><td>7</td></tr>
+      </tbody>
+    </table>
+    <p>Each guide lists NZGTTM notes, <strong>risk</strong>, <strong>designer</strong> and <strong>STMS</strong> considerations: detour limits, site access, signal timings, reopening before the peak, contingencies.</p>
+    <div class="callout CAUTION"><span class="callout-label">PROMPTS, NOT PLANS</span><p>The design guides are not TMPs and must not be used for operational work.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/23.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">The NZGTTM includes eight design guide diagrams, adapted from Austroads. They show the four basic ways to manage traffic around a site. Go round the site: a closure and detour, design guides one and two. Go through the site: contraflow or signals, design guide three. Go past the site: lane closures and shoulder work, design guides four, five, six and eight. And in the gaps: short stops between traffic, design guide seven. Each one comes with NZGTTM notes, risk considerations, designer considerations and STMS considerations. For example: will over-height vehicles fit the detour? How will construction vehicles get in and out without traffic following them? What happens if the road can&#x27;t reopen before the peak? The guides are prompts for your thinking. They are not traffic management plans and must not be used for operational work.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide22.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 23 of 28</span>
+    <a class="btn amber" href="slide24.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(23);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

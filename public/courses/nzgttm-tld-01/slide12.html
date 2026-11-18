@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lateral Exclusion Zone &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Lateral Exclusion Zone</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Lateral Exclusion Zone</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide12.svg" alt="A drifting car crosses into the lateral exclusion zone between the cones and the work area"></div>
+    <p>The sideways buffer between the <strong>delineation</strong> and the <strong>work area</strong>, for a driver who drifts out of lane.</p>
+    <div class="stat-row">
+      <div class="stat"><span class="num">&asymp; 0.9 m</span><span class="lbl">30&ndash;50 km/h</span></div>
+      <div class="stat"><span class="num">&asymp; 1.2 m</span><span class="lbl">60&ndash;80 km/h</span></div>
+      <div class="stat"><span class="num">&asymp; 1.5 m</span><span class="lbl">90&ndash;110 km/h</span></div>
+    </div>
+    <p style="font-size:13px;color:#666;">0.6 m/s drift &times; reaction time. Check the NZGTTM table for the values to use.</p>
+    <div class="callout CAUTION"><span class="callout-label">WHAT&rsquo;S BEYOND THE ZONE?</span><p>A swerving driver crosses it faster and won&rsquo;t stop at the edge. The bigger the hazard beyond &ndash; workers, plant, a drop-off &ndash; the wider the zone.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/12.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">The lateral exclusion zone is the sideways buffer between the line of cones and the work area. It allows for a driver who drifts out of their lane. The NZGTTM assumes a gentle drift of 0.6 metres per second over the reaction time, which gives about 0.9 metres in the 30 to 50 group, 1.2 metres at 60 to 80, and 1.5 metres at 90 to 110. But a driver who swerves will cross that zone much faster, and won&#x27;t necessarily stop at the edge of your work area. So ask: what&#x27;s on the other side? Fresh seal at the same level is one thing. Workers on foot, a trench, or a parked excavator is another. The greater the hazard beyond the zone, the wider it should be.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide11.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 12 of 28</span>
+    <a class="btn amber" href="slide13.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(12);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

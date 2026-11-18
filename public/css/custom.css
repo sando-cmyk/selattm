@@ -22,8 +22,23 @@ html, body {
     font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: var(--text-color);
     line-height: 1.6;
-    background: url('../img/sela_header.jpg') no-repeat center center fixed;
-    background-size: cover;
+    background-color: #1a2a3a;
+}
+/* body must stay transparent, or its colour paints over the backdrop below */
+body { background-color: transparent; }
+
+/* Hero backdrop (road & rock at sunset). A fixed ::before layer rather than
+   background-attachment:fixed, which iPhones/iPads don't support. */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url('../img/sela_hero.jpg') center center / cover no-repeat;
+}
+@media (max-width: 800px) {
+    body::before { background-image: url('../img/sela_hero_mobile.jpg'); }
 }
 
 .page-container {

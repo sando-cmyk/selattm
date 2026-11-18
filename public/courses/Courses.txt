@@ -5,3 +5,5 @@ nzgttm-vru-01	85	Protecting Vulnerable Road Users in TTM	price_1UYGis0flJvw3UeN8
 ttm-fb-01	39	Force & the Body: Why Road Workers Are Vulnerable	price_1UYGjw0flJvw3UeN4Ogouwav
 nzgttm-sa-01	295	TTM Site Assurance Assessor	price_1Ub7E50flJvw3UeNZZuNJb3O
 sela-sat-01	150	Using the Sela Site Assurance Tool	price_1UbAu10flJvw3UeNqTJzHU4B
+nzgttm-tld-01	175	TMP Layouts and Dimensions	price_1Ud1kN0flJvw3UeN0CAq7DXR
+nzgttm-tmp-ps	200	TMP Design Practical Sign-off	price_1Ud1mr0flJvw3UeNbNiThS5S

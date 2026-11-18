@@ -1,0 +1,15 @@
+Turn on Google Analytics for selattm.com
+
+Counts visitors, where they're from and which pages they view, using the
+Firebase project's existing Analytics ID (G-Z7DJL0S72S).
+
+- New public/js/site-analytics.js starts Firebase Analytics (skipped on
+  localhost).
+- js/navigation.js imports it, so every page with the global header is
+  counted (home, store, about, contact, login, learner).
+- Footer gains a one-line note that the site uses Google Analytics.
+
+Course pages that don't load navigation.js are not tracked yet.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_018nnUp4JZFNVJYFfodq3pjF

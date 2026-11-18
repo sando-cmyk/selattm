@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Which Method? &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Which Method?</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Which Method?</h2>
+    <div class="read-time">~3 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide24.svg" alt="Four jobs to match to a traffic management method"></div>
+    <p>Pick a method for each job, then tap to compare.</p>
+    <div id="hz24" data-total="4">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz24', 0)"><span class="hb-icon">&#127753;</span>Bridge joint, motorway, 2 weeks at night</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz24', 1)"><span class="hb-icon">&#128167;</span>Water main under one lane, 60 km/h</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz24', 2)"><span class="hb-icon">&#128207;</span>Quick survey shots, quiet rural road</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz24', 3)"><span class="hb-icon">&#129707;</span>Gantry sign replacement over a motorway</button>
+    </div>
+    <div class="hotspot-progress">0 of 4 explored</div>
+    <div class="hotspot-card" id="hz24-card0"><h4>Bridge joint</h4><p><strong>Go through</strong>: contraflow using crossovers (design guide 2-style). Plan for reopening before the peak and barrier exposure.</p></div>
+    <div class="hotspot-card" id="hz24-card1"><h4>Water main</h4><p><strong>Go past</strong>: lane closure with stop/go or signals. Excavation widens the lateral zone &ndash; consider a barrier.</p></div>
+    <div class="hotspot-card" id="hz24-card2"><h4>Survey shots</h4><p><strong>In the gaps</strong> may suit, if clear sight distance (12 s) is available. If not, step up to a static site.</p></div>
+    <div class="hotspot-card" id="hz24-card3"><h4>Gantry sign</h4><p><strong>Go round</strong>: full closure and detour (design guide 1). Check detour height and load limits.</p></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/24.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Which method fits each job? Think about the risk, the duration, the traffic and the space. Then tap each card. There&#x27;s often more than one reasonable answer. What matters is that you&#x27;ve considered the higher-order options first, and can explain your choice.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide23.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 24 of 28</span>
+    <a class="btn amber" href="quiz5.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(24);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clear Sight Distance for Workers on Foot &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Clear Sight Distance</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Clear Sight Distance for Workers on Foot</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide21.svg" alt="A worker needs 12 seconds of clear sight to walk off the road before a car arrives"></div>
+    <div class="two-col">
+      <div class="col-card"><h4>Getting out of a vehicle</h4><p>Mirror check, seatbelt, out, door shut, walk to safety: <strong>10.5&ndash;12 s</strong></p></div>
+      <div class="col-card col-new"><h4>Walking off the road</h4><p>React 2 s + pick up a tool 3.5 s + walk up to 8 m at 1.2 m/s &asymp; 6.5 s: <strong>&asymp; 12 s</strong></p></div>
+    </div>
+    <table class="simple-table">
+      <thead><tr><th>Speed (km/h)</th><th>50</th><th>80</th><th>100</th></tr></thead>
+      <tbody><tr><td>12 s clear sight distance</td><td>&asymp; 165 m</td><td>&asymp; 265 m</td><td>&asymp; 335 m</td></tr></tbody>
+    </table>
+    <div class="callout CAUTION"><span class="callout-label">NOT 3 &times; THE SPEED LIMIT</span><p>The old rule gave only about 11 s. Allow more for trucks, less agile people or longer tasks.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/21.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module five. When workers are on foot on a live road, they need enough warning to get off it before a vehicle arrives. That&#x27;s clear sight distance. The NZGTTM measured it two ways. First, getting out of a parked vehicle: checking the mirror, unbuckling, getting out, closing the door, and walking to a safe spot took ten and a half to twelve seconds. Second, walking off the road: two seconds to react, three and a half seconds to pick up a tool like a measuring wheel, and about six and a half seconds to walk up to eight metres across two lanes at 1.2 metres per second. That&#x27;s about twelve seconds again. So clear sight distance is twelve seconds of travel. At eighty kilometres an hour that&#x27;s about two hundred and sixty-five metres. The old three times the speed limit rule only gave about eleven seconds, so it&#x27;s no longer used. Bigger vehicles, slower people, or longer tasks need more.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz4.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 21 of 28</span>
+    <a class="btn amber" href="slide22.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(21);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

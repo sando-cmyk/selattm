@@ -1,0 +1,92 @@
+LINKEDIN ARTICLE – SELA TTM SITE ASSURANCE
+Cover image: sela-linkedin-article-cover.png (1920 x 1080)
+Suggested author: Joseph Rosendaal, Operations Manager, Sela Civil Advisory
+Paste the headline into the article title, then the body below it. Lines starting "##" are subheadings.
+
+==============================================================================
+
+HEADLINE
+Are we looking where people get hurt? What 20 years of crash data says about TTM site assurance
+
+------------------------------------------------------------------------------
+
+Every week, someone stands at the edge of a temporary traffic management site and decides whether it is safe. Sometimes that's an STMS checking their own work. Sometimes it's a client representative, an auditor or an independent assessor. Whoever it is, the question is the same: will this site protect the people working in it and the people driving through it?
+
+At Sela, we wanted to be sure our answer to that question was pointed at the right risks. So we went to the data.
+
+## What the crash data shows
+
+We analysed every reported crash in New Zealand from January 2006 to November 2026 – 708,641 crashes – and picked out the ones at road worksites. That gave us 15,561 worksite crashes. In them, 158 people were killed and 1,051 were seriously injured.
+
+Three findings stood out:
+
+• Nine in ten worksite deaths are on the open road. 141 of the 158 deaths (89%) happened at open-road worksites, not in town.
+
+• Darkness and heavy vehicles carry far more of the harm than their share of crashes. A third of worksite crashes happen in the dark, but they account for 40% of the deaths. Crashes involving a truck are 10% of worksite crashes but 28% of fatal ones. And 57 of the 63 night-time deaths were on the open road.
+
+• How you count matters. Police tick "road works" in only 6.7% of worksite crashes. Analysis that relies on that box finds 13 of the 158 deaths – it misses about 92%. If you're reading a safety case or checking local crash history, make sure worksite crashes were identified by the temporary speed limit, not the tick alone.
+
+None of this makes urban sites, pedestrians or cyclists less important. Provision for people walking and cycling stays non-negotiable. But if we want to reduce deaths, our attention has to go where the deaths are: open roads, at night, with heavy vehicles in the mix.
+
+## Compliance isn't the same as safe
+
+A site can match its TMP and still not protect people. The sign is there, but a truck coming over the crest can't stop before the queue. The taper is the right length, but the speed through it at night is nowhere near the temporary limit.
+
+Good site assurance asks two questions: does the site match the approved plan, and does the plan actually fit the site in front of you? Answering the second one well is what separates a tick-box check from an assessment that changes outcomes.
+
+## How we assess a site
+
+Our approach follows the NZ Guide to Temporary Traffic Management (NZGTTM) and its assurance processes. On site, an assessor works through:
+
+• G1–G8 – the core checks. Is the STMS qualified for this worksite? Is the temporary speed limit appropriate? Does traffic have its own clear path? Is there an approved TMP? Some of these are Stop Work Order triggers if they fail.
+
+• P1–P5 – Sela's priority checks, built from the crash data: the open-road approach, night and after-hours visibility, heavy vehicles and queues, cyclist and pedestrian routes, and surface hazards.
+
+• Findings that stand up – each one records where it is, what was seen, why it matters, what the requirement is, what action was taken, and how serious it is.
+
+Then comes the part that matters most: a calm, clear conversation with the STMS about what's working well, what needs fixing and when, and what happens if it doesn't.
+
+## Training: TTM Site Assurance Assessor
+
+We've turned this into an online course for experienced TTM people, typically STMS level or equivalent, moving into independent site assurance. Client-side staff who want to understand how sites are assessed will also get a lot from it.
+
+TTM Site Assurance Assessor (NZGTTM-SA-01) covers:
+
+• the NZGTTM assurance processes and the assessor's duties
+• who gets hurt at worksites, using the data above
+• compliance versus risk, and testing whether the TMP fits the site
+• G1–G8, the P1–P5 priority checks and gathering evidence
+• site outcomes, Stop Work Orders and the conversation with the STMS
+• writing findings, reports and corrective action plans, and verifying close-out
+
+It's six narrated modules, about 1–1.5 hours, with knowledge checks and a final assessment. Pass, and you receive a Sela certificate of completion. $295 + GST.
+
+## The app: assess it, report it on the spot
+
+Training only helps if it's used on site. So we've built the Sela site assurance app to run exactly the assessment taught in the course, on your phone:
+
+• works with no signal and syncs later
+• G1–G8 and P1–P5, with Stop Work Order triggers flagged
+• GPS-stamped photos and signatures
+• a numbered PDF report on the spot, verifiable online
+• corrective actions tracked to close-out, with due dates set by how serious each finding is
+
+Once you've completed the assessor course, "Using the Sela Site Assurance Tool" (SELA-SAT-01) shows you how to use the app and includes 12 months of access – $150 + GST for the first year, then $250 + GST a year.
+
+For those who want to go further, we offer supervised field assessments: two live-site assessments with a Sela lead assessor, at least one on an open road or at night. Meet the standard and you're endorsed as a Sela TTM Site Assurance Assessor for two years. These are priced on request, depending on travel and numbers.
+
+## For teams
+
+If you're a contractor, council or principal, we can enrol your people, set them up with app licences, and run field assessments on your own sites. Licences are per person, per year: $100 + GST for the Short TTM Site Health Check, or $250 + GST for the full assessment.
+
+## The bottom line
+
+The data is clear about where people are getting hurt. The question for all of us who check TTM sites is whether we're looking there – and whether what we find gets fixed.
+
+If you'd like to talk about training for yourself or your team, get in touch:
+Joseph Rosendaal – 027 267 7264 – joseph@selacivil.co.nz
+Or enrol online: https://www.selattm.com/assurance-training.html
+
+Source: Sela analysis of NZ reported crash data, January 2006 – November 2026 (SELA-RPT-2026-006, "Who Gets Hurt at Our Worksites"). Prices in NZD excluding GST.
+
+#TemporaryTrafficManagement #TTM #NZGTTM #RoadSafety #HealthAndSafety #SiteAssurance #NewZealand

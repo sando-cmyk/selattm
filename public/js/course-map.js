@@ -18,6 +18,8 @@ export const COURSES = {
   "nzgttm-roles-responsibilities": { courseId: "ttm-roles-01", courseCode: "TTM-ROLES-01", courseTitle: "Roles & Responsibilities for TTM in New Zealand" },
   "ttm-engineering-essentials": { courseId: "ttm-eng-01", courseCode: "TTM-ENG-01", courseTitle: "Core Engineering Concepts of TTM in New Zealand" },
   "ashtas-01": { courseId: "ashtas-01", courseCode: "ASHTAS-01", courseTitle: "ASHTAS Operative" },
+  "nzgttm-tld-01": { courseId: "nzgttm-tld-01", courseCode: "NZGTTM-TLD-01", courseTitle: "TMP Layouts and Dimensions" },
+  "nzgttm-tmp-ps": { courseId: "nzgttm-tmp-ps", courseCode: "NZGTTM-TMP-PS", courseTitle: "TMP Design Practical Sign-off" },
 };
 
 export function courseForPath(pathname = location.pathname) {

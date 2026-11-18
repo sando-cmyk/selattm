@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warning Distance &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Warning Distance</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Warning Distance</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide7.svg" alt="Warning distance runs from the first sign to the start of the taper"></div>
+    <p>From the <strong>first advance warning sign</strong> to the <strong>start of the taper</strong> (or closure). It&rsquo;s the road a driver has to react in &ndash; for stop/go, to stop in.</p>
+    <div class="callout KEYIDEA"><span class="callout-label">THE FORMULA</span><p><strong>Warning distance = SISD &minus; sign visibility distance</strong><br>Rule of thumb: at least <strong>2 &times; sign spacing</strong> (the calculated value is 1.7&ndash;2.3 &times;, so twice is the safe check).</p></div>
+    <table class="simple-table">
+      <thead><tr><th>Speed (km/h)</th><th>50</th><th>80</th><th>100</th></tr></thead>
+      <tbody>
+        <tr><td>SISD</td><td>90 m</td><td>181 m</td><td>262 m</td></tr>
+        <tr><td>&minus; sign visibility</td><td>31 m</td><td>67 m</td><td>104 m</td></tr>
+        <tr><td><strong>Warning distance</strong></td><td><strong>&asymp; 59 m</strong></td><td><strong>&asymp; 114 m</strong></td><td><strong>&asymp; 158 m</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/7.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Warning distance is the total distance from the first advance warning sign to the start of the taper, or the start of the closure. It&#x27;s the length of road a driver has to react in. For a stop/go, it&#x27;s the distance in which they have to stop. The NZGTTM works it out from safe intersection sight distance, or SISD: the distance a driver needs to see a hazard and stop before it. Because the driver is warned from the moment they see the first sign, warning distance is SISD minus the sign visibility distance. At eighty kilometres an hour SISD is about a hundred and eighty-one metres, so warning distance is about a hundred and fourteen. The calculated value works out between 1.7 and 2.3 times the sign spacing, so the NZGTTM&#x27;s rule of thumb is to allow at least twice the sign spacing. If your diagram has less than that, look again.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide6.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 7 of 28</span>
+    <a class="btn amber" href="slide8.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(7);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -291,6 +291,16 @@
     .btn-primary-action:hover {
       background: #0369a1;
     }
+    /* Section menu (tabs) */
+    .admin-tabs { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:24px; border-bottom:1px solid var(--card-border); position:sticky; top:0; z-index:5; background:var(--bg-dark); padding-top:8px; }
+    .admin-tab { background:none; border:none; border-bottom:3px solid transparent; color:var(--text-muted); padding:10px 16px; font-size:0.95rem; font-weight:600; cursor:pointer; margin-bottom:-1px; }
+    .admin-tab:hover { color:var(--text-main); }
+    .admin-tab.active { color:var(--accent-blue); border-bottom-color:var(--accent-blue); }
+    .tab-count { display:inline-block; min-width:1.4em; padding:0 6px; border-radius:9999px; background:rgba(245,158,11,.2); color:var(--accent-amber); font-size:.75rem; margin-left:4px; }
+    .tab-count:empty { display:none; }
+    .tab-panel > .panel-card + .panel-card { margin-top:24px; }
+    .tab-panel .dashboard-grid { grid-template-columns: minmax(280px, 1fr) 2fr; }
+    @media (max-width: 900px) { .tab-panel .dashboard-grid { grid-template-columns: 1fr; } .admin-tab { padding:8px 10px; font-size:.85rem; } }
   </style>
 </head>
 <body>
@@ -326,8 +336,76 @@
       </div>
     </section>
 
-    <div class="dashboard-grid">
 
+    <!-- Section menu -->
+    <nav class="admin-tabs" role="tablist" aria-label="Admin sections">
+      <button class="admin-tab" role="tab" data-tab="learners">Learners</button>
+      <button class="admin-tab" role="tab" data-tab="results">Results &amp; Certificates</button>
+      <button class="admin-tab" role="tab" data-tab="access">Course Access</button>
+      <button class="admin-tab" role="tab" data-tab="inquiries">Inquiries <span class="tab-count" id="tab-count-inquiries"></span></button>
+      <button class="admin-tab" role="tab" data-tab="tmpps">TMP Sign-off <span class="tab-count" id="tab-count-tmpps"></span></button>
+      <button class="admin-tab" role="tab" data-tab="courses">Courses</button>
+    </nav>
+    <div class="tab-panel" id="tab-learners" data-tab="learners" hidden>
+    <!-- Learners -->
+    <section class="panel-card">
+      <h2>Learners</h2>
+      <p class="subtitle">Everyone with an account, a pre-paid course or a result. Click View for their full profile: last login, every attempt and outcome, pre-paid courses and the order they must complete them in.</p>
+      <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+        <input id="learners-search" type="search" placeholder="Search name or email..." style="flex:1 1 260px;padding:10px;border-radius:6px;" />
+        <button id="btn-refresh-learners" class="btn-action">Refresh</button>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Learner</th>
+              <th>Last active</th>
+              <th>Pre-paid</th>
+              <th>Attempts</th>
+              <th>Currently working on</th>
+              <th>Courses passed</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="learners-tbody">
+            <tr>
+              <td colspan="7" style="text-align: center; color: var(--text-muted);">Loading...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    </div>
+    <div class="tab-panel" id="tab-results" data-tab="results" hidden>
+    <!-- Course Results & Certificates -->
+    <section class="panel-card">
+      <h2>Course Results &amp; Certificates</h2>
+      <p class="subtitle">Every quiz/course completion recorded from the live site. Issue a certificate once you've personally checked a pass.</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Learner</th>
+              <th>Course</th>
+              <th>Score</th>
+              <th>Result</th>
+              <th>Completed</th>
+              <th>Certificate</th>
+            </tr>
+          </thead>
+          <tbody id="results-tbody">
+            <tr>
+              <td colspan="6" style="text-align: center; color: var(--text-muted);">Loading results...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    </div>
+    <div class="tab-panel" id="tab-access" data-tab="access" hidden>
+      <div class="dashboard-grid">
       <!-- Manual Course Access Grant -->
       <section class="panel-card">
         <h2>Grant Course Access</h2>
@@ -364,33 +442,33 @@
           <p id="grant-status-msg" style="font-size:0.85rem; min-height:1.2em; margin:0;"></p>
         </div>
       </section>
-
-      <!-- Bulk Ingestion Module -->
+    <!-- Manually Granted Access -->
       <section class="panel-card">
-        <h2>Bulk Course Ingestion Engine</h2>
-        <p class="subtitle">Drag &amp; drop CSV or JSON files to batch upload or update courses in Firestore.</p>
-
-        <div class="drop-zone" id="drop-zone">
-          <svg viewBox="0 0 24 24">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="17 8 12 3 7 8"></polyline>
-            <line x1="12" y1="3" x2="12" y2="15"></line>
-          </svg>
-          <p>Drag catalog CSV/JSON here, or <span class="browse">browse file</span></p>
-          <input type="file" id="file-input" accept=".csv,.json" style="display: none;" />
-        </div>
-
-        <div class="progress-wrapper" id="progress-container">
-          <div class="progress-meta">
-            <span id="progress-status">Syncing batches...</span>
-            <span id="progress-pct">0%</span>
-          </div>
-          <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="progress-fill"></div>
-          </div>
+        <h2>Manually Granted Access</h2>
+        <p class="subtitle">Everyone given a course directly rather than through checkout -- use this list to collate who to invoice.</p>
+  
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Access</th>
+                <th>Billing Note</th>
+                <th>Granted By</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="grants-tbody">
+              <tr>
+                <td colspan="5" style="text-align: center; color: var(--text-muted);">Loading...</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
-
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-inquiries" data-tab="inquiries" hidden>
       <!-- Inquiries Log -->
       <section class="panel-card">
         <h2>Corporate Inquiries</h2>
@@ -415,90 +493,41 @@
           </table>
         </div>
       </section>
-
     </div>
-
-    <!-- Manually Granted Access -->
-    <section class="panel-card">
-      <h2>Manually Granted Access</h2>
-      <p class="subtitle">Everyone given a course directly rather than through checkout -- use this list to collate who to invoice.</p>
-
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>Access</th>
-              <th>Billing Note</th>
-              <th>Granted By</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="grants-tbody">
-            <tr>
-              <td colspan="5" style="text-align: center; color: var(--text-muted);">Loading...</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Course Results & Certificates -->
-    <section class="panel-card">
-      <h2>Course Results &amp; Certificates</h2>
-      <p class="subtitle">Every quiz/course completion recorded from the live site. Issue a certificate once you've personally checked a pass.</p>
-
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Learner</th>
-              <th>Course</th>
-              <th>Score</th>
-              <th>Result</th>
-              <th>Completed</th>
-              <th>Certificate</th>
-            </tr>
-          </thead>
-          <tbody id="results-tbody">
-            <tr>
-              <td colspan="6" style="text-align: center; color: var(--text-muted);">Loading results...</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Learners -->
-    <section class="panel-card">
-      <h2>Learners</h2>
-      <p class="subtitle">Everyone with an account, a pre-paid course or a result. Click View for their full profile: last login, every attempt and outcome, pre-paid courses and the order they must complete them in.</p>
-      <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
-        <input id="learners-search" type="search" placeholder="Search name or email..." style="flex:1 1 260px;padding:10px;border-radius:6px;" />
-        <button id="btn-refresh-learners" class="btn-action">Refresh</button>
-      </div>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Learner</th>
-              <th>Last active</th>
-              <th>Pre-paid</th>
-              <th>Attempts</th>
-              <th>Currently working on</th>
-              <th>Courses passed</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="learners-tbody">
-            <tr>
-              <td colspan="7" style="text-align: center; color: var(--text-muted);">Loading...</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
+    <div class="tab-panel" id="tab-tmpps" data-tab="tmpps" hidden>
+      <!-- TMP Design Practical Sign-off (js/admin-tmp-signoff.js, criteria in js/tmp-rubric.js) -->
+      <section class="panel-card">
+        <h2>TMP Design Practical Sign-off</h2>
+        <p class="subtitle">TMPs submitted for assessment (NZGTTM-TMP-PS, $200, 3 attempts). Select <strong>Mark</strong> to open the files and mark each criterion. Learners see the same criteria, and your marks and feedback once you record a result.</p>
+        <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+          <select id="tmpps-filter" style="padding:10px;border-radius:6px;">
+            <option value="open">Waiting to be marked</option>
+            <option value="all">All submissions</option>
+          </select>
+          <button id="btn-refresh-tmpps" class="btn-action">Refresh</button>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Learner</th>
+                <th>TMP</th>
+                <th>Attempt</th>
+                <th>Submitted</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tmpps-tbody">
+              <tr>
+                <td colspan="6" style="text-align: center; color: var(--text-muted);">Loading...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    <div class="tab-panel" id="tab-courses" data-tab="courses" hidden>
     <!-- Active Course Catalog -->
     <section class="panel-card">
       <h2>Live Course Catalog</h2>
@@ -524,6 +553,32 @@
         </table>
       </div>
     </section>
+      <!-- Bulk Ingestion Module -->
+      <section class="panel-card">
+        <h2>Bulk Course Ingestion Engine</h2>
+        <p class="subtitle">Drag &amp; drop CSV or JSON files to batch upload or update courses in Firestore.</p>
+
+        <div class="drop-zone" id="drop-zone">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <p>Drag catalog CSV/JSON here, or <span class="browse">browse file</span></p>
+          <input type="file" id="file-input" accept=".csv,.json" style="display: none;" />
+        </div>
+
+        <div class="progress-wrapper" id="progress-container">
+          <div class="progress-meta">
+            <span id="progress-status">Syncing batches...</span>
+            <span id="progress-pct">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+        </div>
+      </section>
+    </div>
 
   </main>
 
@@ -535,6 +590,7 @@
   <script type="module" src="./js/navigation.js"></script>
   <script type="module" src="./js/admin-app.js"></script>
   <script type="module" src="./js/admin-learners.js"></script>
+  <script type="module" src="./js/admin-tmp-signoff.js"></script>
 
   <!-- Ingestion Script Wiring -->
   <script type="module">
@@ -626,6 +682,29 @@
 
       reader.readAsText(file);
     }
+  </script>
+  <!-- Section menu: show one section at a time, remember it in the URL (#results etc.) -->
+  <script>
+    (function () {
+      var tabs = document.querySelectorAll('.admin-tab');
+      var panels = document.querySelectorAll('.tab-panel');
+      var ids = Array.prototype.map.call(tabs, function (t) { return t.dataset.tab; });
+      function show(id, push) {
+        if (ids.indexOf(id) === -1) id = ids[0];
+        tabs.forEach(function (t) { var on = t.dataset.tab === id; t.classList.toggle('active', on); t.setAttribute('aria-selected', on); });
+        panels.forEach(function (p) { p.hidden = p.dataset.tab !== id; });
+        if (push) history.replaceState(null, '', '#' + id);
+      }
+      tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab, true); }); });
+      window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
+      show(location.hash.slice(1), false);
+      // Mirror the open-inquiries KPI ("3 / 12") onto the Inquiries tab as a badge.
+      var kpi = document.getElementById('kpi-inquiries-count'), badge = document.getElementById('tab-count-inquiries');
+      if (kpi && badge) {
+        var sync = function () { var n = parseInt((kpi.textContent || '').split('/')[0], 10); badge.textContent = n > 0 ? n : ''; };
+        new MutationObserver(sync).observe(kpi, { childList: true, characterData: true, subtree: true }); sync();
+      }
+    })();
   </script>
 </body>
 </html>

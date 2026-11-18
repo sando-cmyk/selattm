@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queues and the Approach &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Queues and the Approach</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Queues and the Approach</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide8.svg" alt="A queue stretches past the first sign, so the advance signs are moved further back"></div>
+    <div class="two-col">
+      <div class="col-card"><h4>Queues</h4><ul>
+        <li>Estimate queue length: traffic volume, hold time, how often</li>
+        <li>If the queue can reach the first sign, <strong>move the signs back</strong> or add queue warning</li>
+        <li>The back of a queue is a hazard in its own right</li></ul></div>
+      <div class="col-card col-new"><h4>The real approach</h4><ul>
+        <li>Crests and curves can hide a sign that &ldquo;fits&rdquo; on paper</li>
+        <li>Check side roads and accesses between signs</li>
+        <li>Walk, drive or use street imagery before you finalise</li></ul></div>
+    </div>
+    <div class="callout CAUTION"><span class="callout-label">ON PAPER VS ON THE ROAD</span><p>A diagram can meet every spacing and still fail if the driver can&rsquo;t see the sign or meets a queue first.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/8.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Your warning distance only works if drivers meet the signs before they meet the back of a queue. If traffic can queue past your first sign, drivers will come round a corner at full speed and find stationary cars, with no warning at all. So think about queue length. How much traffic, how long will you hold it, and how often? If the queue could reach the advance warning, move the signs further back, or add a queue warning sign. The NZGTTM design guides call this out directly: increase sign spacing to allow for queue lengths. Also check the approach itself. A sign placed just past a crest or on the inside of a curve may meet the spacing on paper, but fail the visibility test on the road. Drive or walk the approach, or use street imagery, before you finalise the diagram.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide7.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 8 of 28</span>
+    <a class="btn amber" href="slide9.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(8);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

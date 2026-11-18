@@ -24,11 +24,12 @@ const db = getFirestore();
 
 const NAV_LINKS = [
   {
-    href: "store.html", label: "Sela Course Library",
+    href: "store.html", label: "Public Course Library",
     // Sub-menu: opens the library on that category's tab (store.html#...).
     children: [
       { href: "store.html#barrier", label: "Barrier Training" },
       { href: "store.html#ttm", label: "TTM Training" },
+      { href: "store.html#tmp", label: "TMP Planners & Designers" },
       { href: "store.html#other", label: "Other Training" },
     ],
   },

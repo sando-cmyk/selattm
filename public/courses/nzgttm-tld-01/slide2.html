@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where the Numbers Come From &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Where the Numbers Come From</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Where the Numbers Come From</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide2.svg" alt="Time multiplied by speed gives distance: the basis of every TTM dimension"></div>
+    <p>Every set-out dimension is <strong>time &times; speed = distance</strong>. The time is how long people need to see, decide and act; the speed is how fast traffic is travelling.</p>
+    <table class="simple-table">
+      <thead><tr><th>Lineal (metres)</th><th>Temporal (seconds)</th></tr></thead>
+      <tbody>
+        <tr><td>Used to draw the TMD and set out the site</td><td>Used on site to check it: count the seconds a fast vehicle takes between two points</td></tr>
+        <tr><td>Rounded in the NZGTTM table</td><td>Works at any operating speed</td></tr>
+      </tbody>
+    </table>
+    <div class="callout KEYIDEA"><span class="callout-label">A STARTING POINT</span><p>The table is where you start. Risk-assess every site: dimensions may go up (or down). Because each number has a technical basis, you can justify the change &ndash; and you should record it.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/2.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Where do the numbers come from? Every dimension in the NZGTTM table is a time multiplied by a speed. A driver needs time to see a sign, understand it and act on it. A worker needs time to get out of the way. A vehicle needs time and distance to stop. Multiply that time by the speed of the traffic and you get a distance. That&#x27;s why the NZGTTM table gives both: a distance in metres, and a time in seconds. The time lets someone on site check a set-out without a measuring wheel. Watch a fast vehicle travel between two points and count the seconds. The table values are a starting point, not a rule. You&#x27;re expected to risk-assess every site and activity. That might mean making a distance longer, or sometimes shorter. Either way, you now have a technical reason for the change, and you should write it down.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide1.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 2 of 28</span>
+    <a class="btn amber" href="slide3.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(2);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

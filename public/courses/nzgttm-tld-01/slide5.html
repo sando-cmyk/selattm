@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Visibility Distance &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Sign Visibility</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Sign Visibility Distance</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide5.svg" alt="A driver must see a sign for at least sign visibility distance before reaching it"></div>
+    <p>The distance a driver must be able to see a sign before reaching it: <strong>1.5 &times; reaction time</strong> at the design speed.</p>
+    <table class="simple-table">
+      <thead><tr><th>Speed (km/h)</th><th>30&ndash;50</th><th>60&ndash;80</th><th>90&ndash;110</th></tr></thead>
+      <tbody>
+        <tr><td>Time</td><td>2.3 s</td><td>3.0 s</td><td>3.8 s</td></tr>
+        <tr><td>Distance</td><td>18.8 / 25.0 / 31.3 m</td><td>50.0 / 58.3 / 66.7 m</td><td>93.8 / 104.2 / 114.6 m</td></tr>
+      </tbody>
+    </table>
+    <div class="callout NOTE"><span class="callout-label">ANY SIGN</span><p>Applies to signs on stands and on vehicles. A tail pilot clear of the live lane is a sign on wheels. Check crests, curves, parked plant and vegetation don&rsquo;t block the view.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/5.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module two: signs. A sign only works if drivers can see it in time. Sign visibility distance is the distance over which a driver must be able to see the sign before reaching it. The NZGTTM sets it at one and a half times reaction time. That fifty percent margin gives the driver time to read the sign and decide what to do. At fifty kilometres an hour that&#x27;s about thirty-one metres. At eighty it&#x27;s about sixty-seven metres. At a hundred, about a hundred and four. This applies to every sign, whether it&#x27;s on a stand or on a vehicle. A tail pilot vehicle parked clear of the live lane is really just a sign on wheels. On your diagram, check that nothing blocks that view: a crest, a curve, parked trucks or vegetation.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz1.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 5 of 28</span>
+    <a class="btn amber" href="slide6.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(5);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

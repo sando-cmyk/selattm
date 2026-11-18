@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delineation on Straights &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Delineation on Straights</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Delineation on Straights</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide18.svg" alt="Cones along a straight at 5, 10 and 15 metre spacing"></div>
+    <div class="stat-row">
+      <div class="stat"><span class="num">5 m</span><span class="lbl">30&ndash;50 km/h</span></div>
+      <div class="stat"><span class="num">10 m</span><span class="lbl">60&ndash;80 km/h</span></div>
+      <div class="stat"><span class="num">15 m</span><span class="lbl">90&ndash;110 km/h</span></div>
+    </div>
+    <div class="callout KEYIDEA"><span class="callout-label">SLOWER TRAFFIC, CLOSER CONES</span><p>Slower drivers can steer between devices more easily. 100 km/h road, traffic through the site doing 70 &rarr; use <strong>10 m</strong>, not 15 m.</p></div>
+    <div class="callout NOTE"><span class="callout-label">KEEP IT SIMPLE ON SITE</span><p>If the crew will struggle to judge 15 m, specify 10 m. Never stretch it to 20 m.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/18.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Delineation along the work area has one job: make it obvious that drivers mustn&#x27;t pass through the line. Two things matter: how many devices drivers pass each second, and whether the gaps look too small to drive through. The NZGTTM groups the spacing with the reaction times: five metres for 30 to 50, ten metres for 60 to 80, and fifteen metres for 90 to 110. Here&#x27;s the key point. The slower the traffic, the easier it is to steer between cones. So if traffic is actually slower than the limit, close the spacing up. On a hundred kilometre road where traffic through the site is doing seventy, use ten metres, not fifteen. And keep it simple for the crew. If fifteen metres will be hard to judge on site, specify ten. Don&#x27;t specify twenty.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide17.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 18 of 28</span>
+    <a class="btn amber" href="slide19.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(18);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

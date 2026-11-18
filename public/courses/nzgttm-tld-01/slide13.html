@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excavations and Barriers &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Excavations</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Excavations and Barriers</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide13.svg" alt="Cross-section showing the lateral zone widened by twice the trench depth, and a barrier option"></div>
+    <div class="callout KEYIDEA"><span class="callout-label">THE 2 : 1 RULE</span><p>Widen the lateral exclusion zone by <strong>2 &times; the excavation depth</strong>.<br>500 mm deep &rarr; +1.0 m &nbsp;&middot;&nbsp; 800 mm deep &rarr; +1.6 m</p></div>
+    <div class="two-col">
+      <div class="col-card"><h4>Why</h4><ul>
+        <li>Trench edges can collapse under a wheel</li>
+        <li>A drifting vehicle needs somewhere to go</li></ul></div>
+      <div class="col-card col-new"><h4>Consider a barrier when</h4><ul>
+        <li>You can&rsquo;t fit the width</li>
+        <li>The excavation is deep or open for a long time</li>
+        <li>Remember barrier deflection, end treatments and an installation designer</li></ul></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/13.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Excavations need extra width. The NZGTTM uses an angle of repose approach: widen the lateral exclusion zone by two units for every unit of depth. So a trench five hundred millimetres deep adds one metre. A trench eight hundred millimetres deep adds 1.6 metres. That keeps the edge of the trench from collapsing under a vehicle and gives a drifting wheel somewhere to go. If you can&#x27;t fit that width, or the excavation is deep, the risk is high and a temporary road safety barrier should be on the table. Remember from the risk assessment course: barriers sit high in the hierarchy of controls, because they physically stop the vehicle. But a barrier needs its own deflection space, the right end treatments and an installation designer. So it&#x27;s a design decision, not just a swap.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide12.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 13 of 28</span>
+    <a class="btn amber" href="slide14.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(13);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -174,5 +174,29 @@
     "prerequisite": "nzgttm-sa-01",
     "stripePriceId": "price_1UbAu10flJvw3UeNqTJzHU4B",
     "launchPath": "/courses/sela-sat-01/index.html"
+  },
+  {
+    "id": "nzgttm-tmp-ps",
+    "code": "NZGTTM-TMP-PS",
+    "title": "TMP Design Practical Sign-off",
+    "description": "Submit a TMP you have designed (NZGTTM TMP Planning, General and TMD forms) for assessment by a Sela assessor against published criteria covering risk and controls, design speed, sign and exclusion-zone dimensions, tapers and delineation, and the TMD itself. Written feedback on every criterion; up to 3 attempts. Recommended first: NZGTTM-RA-01.",
+    "category": "TTM Training",
+    "price": 200,
+    "currency": "NZD",
+    "status": "active",
+    "stripePriceId": "price_1Ud1mr0flJvw3UeNbNiThS5S",
+    "launchPath": "/courses/nzgttm-tmp-ps/index.html"
+  },
+  {
+    "id": "nzgttm-tld-01",
+    "code": "NZGTTM-TLD-01",
+    "title": "TMP Layouts and Dimensions",
+    "description": "For TTM planners and designers: where every NZGTTM set-out dimension comes from and how to apply it - design speed, sign visibility and spacing, warning distance, exclusion zones, tapers, lane widths, delineation, curves, sight distance and mobile operations - then draw and check a TMD an STMS can set out. Prerequisite: NZGTTM-RA-01.",
+    "category": "TTM Training",
+    "price": 175,
+    "currency": "NZD",
+    "status": "active",
+    "stripePriceId": "price_1Ud1kN0flJvw3UeN0CAq7DXR",
+    "launchPath": "/courses/nzgttm-tld-01/index.html"
   }
 ]

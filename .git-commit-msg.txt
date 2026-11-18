@@ -1,29 +1,37 @@
-Admin: show where each learner is up to in every course
+Add TMP Design Practical Sign-off (NZGTTM-TMP-PS) and TLD-01 TMP Layouts and Dimensions course
 
-The Learners panel could only show quiz attempts and completions, so a
-learner looked "Not started" until they reached a quiz -- and ASHTAS-01
-(Operative) never recorded anything at all. Slide progress only lived in
-the learner's own browser.
+- courses/nzgttm-tmp-ps/: learner page. Shows the 18 marking criteria
+  (with what the assessor looks for) before submitting; upload TMP files
+  (Firebase Storage) or a share link; 3 attempts; shows marks and feedback
+  on every criterion after assessment.
+- js/tmp-rubric.js: the criteria and pass rule, shared by both pages.
+- js/admin-tmp-signoff.js + admin.html "TMP Sign-off" tab: assessor marks
+  each criterion (Met / Not yet met / N/A) with feedback, sees the last
+  attempt's marks, live outcome check, drafts, void attempt. Recording a
+  result emails the learner; a sign-off adds a "submissions" record so the
+  certificate is issued from Results & Certificates.
+- firestore.rules: tmp_signoff_submissions; admins can create submissions.
+- storage.rules (new) + firebase.json storage entry: tmp-signoff/{uid}/
+  readable by the owner and admins only, 25 MB limit.
+- functions: notifyOnTmpSignoff emails Joseph on each new submission.
+- Catalog: nzgttm-tmp-ps ($200, price_1Ud1mr0flJvw3UeNbNiThS5S), store card,
+  Courses.txt, course-map, course summary.
 
-- New public/js/progress-sync.js: reads each course engine's existing
-  saved progress (never changes it) and copies a summary to
-  course_progress/{uid}__{courseId}: screens done/total, %, current
-  slide/step, quizzes passed, content complete, started/updated.
-  Writes only when something changes; done/% only ever go up so a
-  second device can't wipe real progress. Handles all five engines
-  (Course decks, CourseProgress/PTS-01, ASHTAS CourseNav, NZGTTM/Roles
-  screens, Engineering Essentials slides).
-- home-button.js (on every course page) loads it -- no course pages edited.
-- firestore.rules: course_progress -- learner writes own doc only,
-  admins read all.
-- admin-learners.js / admin.html: new "Currently working on" column,
-  and per-course progress bar + position in the learner profile
-  ("In progress" / "Content complete"). Course matching now also falls
-  back to the page's course folder, so PTS-01 records (courseId
-  "pts-01") match the catalog entry.
+Also: NZGTTM-TLD-01 TMP Layouts and Dimensions course ($175, on sale)
 
-Deploy needs rules as well as hosting:
-  firebase deploy --only firestore:rules,hosting
+- public/courses/nzgttm-tld-01/: 28 slides in 6 modules with animated
+  plan-view diagrams, 6 knowledge checks, rotating final (15 of 30),
+  sequence lock and Next gate, results to admin. Joseph's welcome video
+  (720p, captions) and narration on slides 2-28.
+- Catalog entry nzgttm-tld-01 ($175, price_1Ud1kN0flJvw3UeN0CAq7DXR), store
+  card, Courses.txt, course-map and store outline. Narration scripts in Claude outputs/NZGTTM-TLD-01/.
+
+Also: Course Library "TMP Planners & Designers" section
+
+- store.html: new tab/section showing the planner pathway in order
+  (Essentials, RA-01, VRU recommended, TLD-01, Practical Sign-off) as
+  copies of those course cards, with step badges and a short intro.
+- navigation.js: TMP Planners & Designers link in the library sub-menu.
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_018nnUp5AFxioWBCTPtD6TDf
+Claude-Session: https://claude.ai/code/session_018nnUp5R9tpPMiooxjjkWct

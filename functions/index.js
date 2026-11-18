@@ -79,3 +79,50 @@ exports.notifyOnCompletion = onDocumentCreated(
     logger.info("Completion notice queued", { id, course, email: sub.email });
   }
 );
+
+// notifyOnTmpSignoff: a learner has submitted a TMP for the TMP Design
+// Practical Sign-off (courses/nzgttm-tmp-ps). Email the assessor so it can
+// be marked from admin.html -> TMP Sign-off.
+exports.notifyOnTmpSignoff = onDocumentCreated(
+  { document: "tmp_signoff_submissions/{submissionId}", region: "australia-southeast1", database: "(default)" },
+  async (event) => {
+    const sub = event.data && event.data.data();
+    if (!sub) return;
+    const id = event.params.submissionId;
+
+    let name = "";
+    if (sub.userId) {
+      try {
+        const u = await db.collection("users").doc(sub.userId).get();
+        if (u.exists) name = [u.data().firstName, u.data().lastName].filter(Boolean).join(" ");
+      } catch (e) {
+        logger.warn("Learner profile lookup failed", { id, error: e.message });
+      }
+    }
+    const who = name || sub.email || "A learner";
+    const url = `${ADMIN_URL}#tmpps`;
+    const lines = [
+      ["Learner", name || "(name not entered yet)"],
+      ["Email", sub.email || "--"],
+      ["TMP", sub.title || "--"],
+      ["Location", sub.location || "--"],
+      ["Speed", sub.speed || "--"],
+      ["Attempt", `${sub.attempt || "?"} of 3`],
+      ["Files", String((sub.files || []).length) + (sub.link ? " + share link" : "")],
+    ];
+    await db.collection("mail").add({
+      to: NOTIFY_TO,
+      message: {
+        subject: `TMP submitted for sign-off: ${who} (attempt ${sub.attempt || "?"})`,
+        text: `${who} has submitted a TMP for the TMP Design Practical Sign-off.\n\n` +
+          lines.map(([k, v]) => `${k}: ${v}`).join("\n") + `\n\nMark it: ${url}`,
+        html: `<p><strong>${esc(who)}</strong> has submitted a TMP for the TMP Design Practical Sign-off.</p>` +
+          `<table cellpadding="4" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px;">` +
+          lines.map(([k, v]) => `<tr><td style="color:#666;padding-right:14px;">${esc(k)}</td><td>${esc(v)}</td></tr>`).join("") +
+          `</table><p><a href="${url}">Open Admin to mark it</a></p>`,
+      },
+      meta: { type: "tmp-signoff-submitted", submissionId: id, queuedAt: new Date().toISOString() },
+    });
+    logger.info("TMP sign-off notice queued", { id, email: sub.email });
+  }
+);

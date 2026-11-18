@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Find the Five Errors &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Find the Errors</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Find the Five Errors</h2>
+    <div class="read-time">~3 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide26.svg" alt="A draft traffic management diagram with five numbered problems"></div>
+    <p>A draft TMD for a lane closure on a 60 km/h road. Find the five problems in the diagram above, then tap each number.</p>
+    <div id="hz26" data-total="5">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz26', 0)"><span class="hb-icon">1</span>The advance signs</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz26', 1)"><span class="hb-icon">2</span>The taper</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz26', 2)"><span class="hb-icon">3</span>The end of the taper</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz26', 3)"><span class="hb-icon">4</span>Alongside the work area</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz26', 4)"><span class="hb-icon">5</span>The drawing itself</button>
+    </div>
+    <div class="hotspot-progress">0 of 5 explored</div>
+    <div class="hotspot-card" id="hz26-card0"><h4>1. Signs too close together</h4><p>Only about 30 m apart. At 60 km/h sign spacing is about 42 m, and the warning distance is far too short.</p></div>
+    <div class="hotspot-card" id="hz26-card1"><h4>2. Only 4 cones in the taper</h4><p>About 10 devices are needed to look like a wall (5 m spacing at 60 km/h). It is also too short for a 58 m taper.</p></div>
+    <div class="hotspot-card" id="hz26-card2"><h4>3. No longitudinal exclusion zone</h4><p>The work area starts where the taper ends. Leave about 64 m (sealed, 60 km/h) empty.</p></div>
+    <div class="hotspot-card" id="hz26-card3"><h4>4. Cones touching the work area</h4><p>No lateral exclusion zone (about 1.2 m at 60 km/h) and the cones are too far apart for the straight (10 m).</p></div>
+    <div class="hotspot-card" id="hz26-card4"><h4>5. No north point, road names or dimensions</h4><p>An STMS can&rsquo;t set it out or check it. Label the key distances in metres and seconds.</p></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m6/26.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Here&#x27;s a draft diagram for a 60 kilometre an hour lane closure. It has five problems. Look at the banner and find them, then tap each number to check. These are the mistakes assessors see most often.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide25.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 26 of 28</span>
+    <a class="btn amber" href="slide27.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(26);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

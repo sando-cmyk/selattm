@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tapers, Curves and Thresholds &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Tapers and Thresholds</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Tapers, Curves and Thresholds</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide19.svg" alt="A taper of about ten cones that reads as a wall, and a threshold of cones on the approach"></div>
+    <p>In a taper the devices should look like a <strong>wall</strong>: about <strong>10 devices</strong> for a 3.5 m lane.</p>
+    <table class="simple-table">
+      <thead><tr><th>Speed</th><th>Taper / curve spacing</th><th>Using dashed markings</th></tr></thead>
+      <tbody>
+        <tr><td>30&ndash;50 km/h</td><td>2.5 m</td><td>5 devices from one dash start to the next</td></tr>
+        <tr><td>60&ndash;80 km/h</td><td>5 m</td><td>3 devices from one dash start to the next</td></tr>
+        <tr><td>90&ndash;110 km/h</td><td>10 m</td><td>1 device at the start of each dash</td></tr>
+      </tbody>
+    </table>
+    <div class="two-col">
+      <div class="col-card"><h4>Thresholds</h4><p>5 devices, spaced as in a taper, either side of the approach. Increase the number or length if your risk assessment says so.</p></div>
+      <div class="col-card col-new"><h4>Flexible delineators</h4><p>Narrower than cones: reduce the spacing so drivers don&rsquo;t try to pass between them.</p></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/19.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">In a taper, or on a tight curve, the line of devices appears across the driver&#x27;s path. It needs to look like a wall. With 400 millimetre cones and a 3.5 metre lane, that takes about ten devices. The NZGTTM sets taper spacing so crews can use the road markings instead of a tape measure. At 30 to 50 kilometres an hour, 2.5 metres: five devices from the start of one dashed line to the start of the next. At 60 to 80, five metres: three devices. At 90 to 110, ten metres: one at the start of each dash. If you&#x27;re using flexible delineators, which are narrower than cones, close the spacing up. Thresholds are five devices at the same spacing as the taper, either side of the approach, to make the site feel narrower and slow drivers down. Your risk assessment may call for more devices or a longer threshold.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide18.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 19 of 28</span>
+    <a class="btn amber" href="slide20.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(19);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

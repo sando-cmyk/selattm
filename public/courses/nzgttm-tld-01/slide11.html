@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sealed, Unsealed and Low Friction &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Sealed or Unsealed</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Sealed, Unsealed and Low Friction</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide11.svg" alt="Stopping on an unsealed surface takes much longer than on a sealed road"></div>
+    <table class="simple-table">
+      <thead><tr><th>Speed (km/h)</th><th>50</th><th>80</th><th>100</th></tr></thead>
+      <tbody>
+        <tr><td>Sealed (d = 0.36)</td><td>&asymp; 48 m</td><td>&asymp; 103 m</td><td>&asymp; 165 m</td></tr>
+        <tr><td>Unsealed (d = 0.25)</td><td>&asymp; 60 m</td><td>&asymp; 134 m</td><td>&asymp; 213 m</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:#666;">Calculated values. Use the rounded NZGTTM table values on your TMP.</p>
+    <div class="callout CAUTION"><span class="callout-label">EXTEND THE ZONE FOR</span><p>Loose chip, oil, soil, steel plates, ice or snow, and a high share of heavy vehicles.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/11.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Not every site has a good sealed surface. Gravel, a road under construction, oil, loose chip, soil, steel plates over a trench, or ice all make stopping longer. For unsealed surfaces the NZGTTM uses a deceleration rate of 0.25. At eighty kilometres an hour that turns about a hundred and three metres on a good seal into about a hundred and thirty-four metres on gravel. The table can&#x27;t cover every surface, so you&#x27;re expected to judge the friction and extend the zone when you need to. The same goes for traffic with lots of heavy vehicles. Trucks take longer to stop than cars, so on a freight route consider a longer zone than the table gives.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide10.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 11 of 28</span>
+    <a class="btn amber" href="slide12.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(11);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

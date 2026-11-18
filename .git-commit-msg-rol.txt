@@ -1,0 +1,10 @@
+Admins can download a learner's Record of Learning
+
+The Learners panel's learner profile now has a "Download Record of
+Learning (PDF)" button. It builds the same PDF the learner gets from
+Your Courses (js/record-of-learning.js), for that learner, using the
+courses shown in their profile. Disabled until the learner has signed up
+(no account = no results to report).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_018nnUp4JZFNVJYFfodq3pjF

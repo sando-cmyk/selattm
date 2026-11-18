@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Size the Zone &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Size the Zone</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Size the Zone</h2>
+    <div class="read-time">~3 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide14.svg" alt="Three sites to size exclusion zones for"></div>
+    <p>For each site, decide the longitudinal and lateral zones and anything that changes them.</p>
+    <div id="hz14" data-total="3">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz14', 0)"><span class="hb-icon">&#128679;</span>Trench 0.8 m deep, sealed, 80 km/h</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz14', 1)"><span class="hb-icon">&#128739;</span>Line marking, sealed, 50 km/h</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz14', 2)"><span class="hb-icon">&#129704;</span>Unsealed, logging trucks, 100 km/h</button>
+    </div>
+    <div class="hotspot-progress">0 of 3 explored</div>
+    <div class="hotspot-card" id="hz14-card0"><h4>Trench, 80 km/h</h4><p>Longitudinal &asymp; <strong>103 m</strong> (sealed). Lateral &asymp; 1.2 m <strong>+ 1.6 m</strong> for the trench = about 2.8 m. If that won&rsquo;t fit, consider a barrier.</p></div>
+    <div class="hotspot-card" id="hz14-card1"><h4>Line marking, 50 km/h</h4><p>Longitudinal &asymp; <strong>48 m</strong>; lateral &asymp; <strong>0.9 m</strong>. Workers on foot beside the lane are the hazard &ndash; keep the zone clear of people and the truck.</p></div>
+    <div class="hotspot-card" id="hz14-card2"><h4>Unsealed, logging trucks, 100 km/h</h4><p>Longitudinal &asymp; <strong>213 m</strong> on gravel &ndash; and longer again for heavy trucks. Lateral &asymp; <strong>1.5 m</strong>. A lower operating speed (if achieved) shrinks every number.</p></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m3/14.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Time to size some zones. For each site, think about the longitudinal zone, the lateral zone, and anything that should make them bigger. Then tap to check your thinking. Remember to use the NZGTTM table values on a real TMP. These calculations show you where those values come from, and why you&#x27;d change them.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide13.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 14 of 28</span>
+    <a class="btn amber" href="quiz3.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(14);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

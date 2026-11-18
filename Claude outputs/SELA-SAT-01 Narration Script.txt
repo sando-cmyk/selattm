@@ -1,0 +1,145 @@
+SELA-SAT-01  Using the Sela Site Assurance Tool  -  Narration script
+Sela Civil Advisory Limited  -  13 November 2026
+
+One mp3 per slide, saved as the file name shown inside public/courses/sela-sat-01/ (or send me the clips and I will add them).
+Pronunciation: say acronyms as letters (S-T-M-S, T-M-P, C-A-R, P-D-F); "G1" = "G one".
+Total: 23 clips, 1462 words.
+
+==========================================================================================
+SLIDE 1  |  Module 1  |  Welcome
+File: audio/m1/1.mp3   (~77 words, about 31 s)
+------------------------------------------------------------------------------------------
+Welcome to Using the Sela Site Assurance Tool. This course comes with twelve months of access to the Sela site assurance tool. It's the same assessment you learned in the Site Assurance Assessor course, on your phone. In this short course, you'll learn how to sign in and install the app, complete an assessment on site, record findings, the outcome, any stop work order, photos and signatures, and then share your report and follow up corrective actions.
+
+==========================================================================================
+SLIDE 2  |  Module 1  |  What the Tool Is
+File: audio/m1/2.mp3   (~71 words, about 28 s)
+------------------------------------------------------------------------------------------
+The tool has two parts. The Site Check app runs on your phone. It's where you do the assessment on site, it works with no signal, and it builds the PDF report. The assurance register runs on a computer. It holds every completed assessment, numbered, and the corrective actions from your findings. The app has several forms. The one you were trained for is the Sela Site Assurance Assessment, listed first.
+
+==========================================================================================
+SLIDE 3  |  Module 1  |  Signing In
+File: audio/m1/3.mp3   (~77 words, about 31 s)
+------------------------------------------------------------------------------------------
+When you finish the online course, Sela registers your email under your company and lets you know when your access is ready. On a computer, go to the assurance page, enter your email, and Sela emails you a sign-in link. For the phone app, open the site check page, enter your email, and tap forgot password to set a password. Then sign in with your email and that password. You only need signal for the first sign-in.
+
+==========================================================================================
+SLIDE 4  |  Module 1  |  Install and Work Offline
+File: audio/m1/4.mp3   (~74 words, about 30 s)
+------------------------------------------------------------------------------------------
+Install the app on your phone so it opens like any other app. On Android, tap install on the banner, or use the Chrome menu. On an iPhone, use Safari, tap share, then add to home screen. With no signal on site, keep working. Everything saves on your phone, and completed assessments go to the register when you're back in signal. Until then, don't sign out, clear your browser data, or uninstall the app.
+
+==========================================================================================
+SLIDE 5  |  Module 2  |  Start a New Form
+File: audio/m2/5.mp3   (~71 words, about 28 s)
+------------------------------------------------------------------------------------------
+To start, tap new site assurance form, and choose Sela Site Assurance Assessment. The app gives it a job reference and saves as you go. The form is a list of sections. Tap a section to open it, and the line underneath shows your progress. Back on the home screen, use in progress and completed to find your assessments, and the search box to find a site or a TMP number.
+
+==========================================================================================
+SLIDE 6  |  Module 2  |  Assessment Details
+File: audio/m2/6.mp3   (~77 words, about 31 s)
+------------------------------------------------------------------------------------------
+Fill in the assessment details before you start the checks. Record the date and time, and tap set current location to capture GPS. Choose the assessment process, then enter the site location, the TMP or CAR number, the TTM contractor, and the road and posted speed. Add the STMS and the after-hours on-call number. Choose attended or unattended, and day or night, because these change what the app asks for. Then tick the conflict of interest declaration.
+
+==========================================================================================
+SLIDE 7  |  Module 2  |  Before You Go and On Arrival
+File: audio/m2/7.mp3   (~71 words, about 28 s)
+------------------------------------------------------------------------------------------
+Before you go, and on arrival, are the preparation and arrival steps from the course. Before you go covers the TMP and approval, the speed limit approval, previous reports, crash history, conflict of interest, your kit and contact numbers. On arrival covers the drive-through, parking safely, announcing yourself to the STMS, and getting approval to enter the working space. Tap the answer for each, and add a comment where it helps.
+
+==========================================================================================
+SLIDE 8  |  Module 2  |  G Checks
+File: audio/m2/8.mp3   (~75 words, about 30 s)
+------------------------------------------------------------------------------------------
+Answer every G check pass, fail or not applicable. A fail, or a not applicable, needs a comment, so say what you saw and the photo numbers. G1, G2, G3 and G5 are marked as stop work order triggers. On an attended site, a failed trigger shows stop work on the section, and the app asks for the stop work order record later. Remember, the app records it. Stopping the work is still your job.
+
+==========================================================================================
+SLIDE 9  |  Module 2  |  Priority Checks and the Site Walk
+File: audio/m2/9.mp3   (~71 words, about 28 s)
+------------------------------------------------------------------------------------------
+The priority checks, P1 to P5, and walking the site, W1 to W7, are answered OK, not OK, or not applicable. Use not applicable where a check doesn't apply, such as night visibility on a day visit. A not OK needs a comment, and it becomes a finding, just like a fail. The note at the top reminds you where to spend your time for the type of site you're on.
+
+==========================================================================================
+SLIDE 10  |  Module 2  |  Testing G7
+File: audio/m2/10.mp3   (~63 words, about 25 s)
+------------------------------------------------------------------------------------------
+Testing G7 holds the six questions from the course about whether the plan is right for today. Write a short answer to each. Then choose the highest control in use, and record whether a higher control could work, and why it was judged not practicable. These answers are printed in the report, and they show you judged the plan, not just the layout.
+
+==========================================================================================
+SLIDE 11  |  Module 2  |  Findings
+File: audio/m2/11.mp3   (~67 words, about 27 s)
+------------------------------------------------------------------------------------------
+Open findings. There's one card for each fail or not OK, already showing your comment. Complete the six elements: where and when, what you saw, why it matters, the requirement, the action, and the rating. Stop work order triggers start as critical, and other fails start as non-conformance. Tick resolved on site if you watched it fixed, and use add finding for anything else, including good practice.
+
+==========================================================================================
+SLIDE 12  |  Module 2  |  Activity: What Will the App Do?
+File: audio/m2/12.mp3   (~19 words, about 8 s)
+------------------------------------------------------------------------------------------
+Let's check your understanding. For each situation, decide what the app will ask you for, then tap to compare.
+
+==========================================================================================
+SLIDE 13  |  Module 3  |  The Outcome
+File: audio/m3/13.mp3   (~65 words, about 26 s)
+------------------------------------------------------------------------------------------
+The app works out the outcome from your findings. Any critical makes the site dangerous. Any non-conformance, without a critical, makes it unacceptable. Otherwise, it's high standard or acceptable. You can override the outcome if your judgement differs, but you must record why. A dangerous outcome also needs the immediate action, and confirmation that you've phoned it through to Sela operations and the client today.
+
+==========================================================================================
+SLIDE 14  |  Module 3  |  Stop Work Order and the Conversation
+File: audio/m3/14.mp3   (~76 words, about 30 s)
+------------------------------------------------------------------------------------------
+If you issued a stop work order, record the time issued, confirm you told the STMS which check failed and what needs to happen, and that the client and Sela operations were notified. Add the times the fix was confirmed and work restarted. Then record the conversation with the STMS: what's working well, the fixes agreed, and that you explained the appeal route. On an unattended site, you'll record the call to the on-call contact instead.
+
+==========================================================================================
+SLIDE 15  |  Module 3  |  Photos
+File: audio/m3/15.mp3   (~59 words, about 24 s)
+------------------------------------------------------------------------------------------
+Open photos of site and tap add photos to take a photo or choose one from your phone. Give each photo a caption, starting with the photo number you used in your findings. Photos are stamped with the time and location, and they go into the PDF report. And never stand in the traffic path to get a photo.
+
+==========================================================================================
+SLIDE 16  |  Module 3  |  Signatures
+File: audio/m3/16.mp3   (~48 words, about 19 s)
+------------------------------------------------------------------------------------------
+Open sign-off and read the declaration. Tap assessor signature, sign with your finger, and save. On an attended site, hand the phone to the STMS for their signature. Their signature acknowledges the findings. It doesn't mean they agree. If you need to, tap re-sign to replace a signature.
+
+==========================================================================================
+SLIDE 17  |  Module 3  |  Complete the Assessment
+File: audio/m3/17.mp3   (~62 words, about 25 s)
+------------------------------------------------------------------------------------------
+Tap preview PDF to check the report, then tap complete data sheet. If anything is missing, the app lists it under before completing. Fix each item, and try again. Once completed, the assessment is locked, and only Sela can reopen it, so check it carefully first. And as in the course, complete it on site, or within twenty-four hours of the visit.
+
+==========================================================================================
+SLIDE 18  |  Module 4  |  Your Report
+File: audio/m4/18.mp3   (~65 words, about 26 s)
+------------------------------------------------------------------------------------------
+Your completed assessment shows the outcome and every finding at the top. With signal, it gets a report number and a verify link, printed on the PDF. Tap email or share PDF to send the report from site. Remember, reports you complete say they were completed by you, for your company, using the Sela platform. It's your company's own assessment, not an independent Sela report.
+
+==========================================================================================
+SLIDE 19  |  Module 4  |  No Signal?
+File: audio/m4/19.mp3   (~59 words, about 24 s)
+------------------------------------------------------------------------------------------
+You can complete an assessment with no signal. When your phone is back online, open the app, and it adds the assessment to the register automatically. If it hasn't, open the assessment and tap add now. But never wait for signal for a dangerous outcome or a stop work order. Phone Sela operations and the client on the day.
+
+==========================================================================================
+SLIDE 20  |  Module 4  |  The Register
+File: audio/m4/20.mp3   (~45 words, about 18 s)
+------------------------------------------------------------------------------------------
+On a computer, sign in to the assurance register to see every report your company has completed, with the report number, type, TMP, site, result, open actions and date. Tap a report to see its PDF. Withdrawn reports stay on the register, marked as withdrawn.
+
+==========================================================================================
+SLIDE 21  |  Module 4  |  Corrective Actions
+File: audio/m4/21.mp3   (~68 words, about 27 s)
+------------------------------------------------------------------------------------------
+Each critical finding becomes a critical action, due the same day. Each non-conformance becomes a major action, due in seven days. To close an action, open it, and record what was done to fix it, the person responsible, the date and time it was fixed, and an evidence reference if you have one. Every change is kept in the action's history, and the original finding can't be edited.
+
+==========================================================================================
+SLIDE 22  |  Module 4  |  Verify a Report
+File: audio/m4/22.mp3   (~45 words, about 18 s)
+------------------------------------------------------------------------------------------
+Anyone, including a council, a principal or an auditor, can check that a report is genuine and current on the verify page, by entering the report number printed on the PDF. When you send a report, let your client know they can check it there.
+
+==========================================================================================
+SLIDE 23  |  Module 4  |  Help and Next Steps
+File: audio/m4/23.mp3   (~57 words, about 23 s)
+------------------------------------------------------------------------------------------
+That's it. Before your first real assessment, do a practice one on a site you know. Your access runs for twelve months from when Sela sets it up. And if you'd like to become a Sela-endorsed assessor, supervised field assessments are available on request. For help with the tool or your account, contact Joseph Rosendaal at Sela.
+

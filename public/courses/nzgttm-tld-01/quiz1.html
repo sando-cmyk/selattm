@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 Knowledge Check &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Module 1 Knowledge Check</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <h2 style="color:var(--navy);">Module 1 Knowledge Check</h2>
+  <p style="color:#666;">Answer all questions, then select <strong>Submit</strong>. You need 80% or higher to pass. You can retry if needed.</p>
+  <div style="margin-bottom:10px;"><a class="btn" href="slide4.html">&larr; Back</a></div>
+  <form id="quizForm">
+    <div class="quiz-question" data-qindex="0" data-answer="0">
+      <p class="qtext">1. Every dimension in the NZGTTM table is based on&hellip;</p>
+      <label><input type="radio" name="q0" value="0"> Time multiplied by speed</label>
+      <label><input type="radio" name="q0" value="1"> The width of the road</label>
+      <label><input type="radio" name="q0" value="2"> The number of signs available</label>
+      <label><input type="radio" name="q0" value="3"> The client&rsquo;s preference</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="1" data-answer="1">
+      <p class="qtext">2. You design the site to a 70 km/h operating speed on a 100 km/h road. What must you also do?</p>
+      <label><input type="radio" name="q1" value="0"> Nothing &ndash; the TSL sign does it</label>
+      <label><input type="radio" name="q1" value="1"> Make sure 70 km/h is actually achieved</label>
+      <label><input type="radio" name="q1" value="2"> Double every distance</label>
+      <label><input type="radio" name="q1" value="3"> Use the 100 km/h values inside the site</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="2" data-answer="2">
+      <p class="qtext">3. What reaction time does the NZGTTM assume for 60&ndash;80 km/h?</p>
+      <label><input type="radio" name="q2" value="0"> 1.0 s</label>
+      <label><input type="radio" name="q2" value="1"> 1.5 s</label>
+      <label><input type="radio" name="q2" value="2"> 2.0 s</label>
+      <label><input type="radio" name="q2" value="3"> 2.5 s</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+    <div class="quiz-question" data-qindex="3" data-answer="1">
+      <p class="qtext">4. Why does the NZGTTM table give dimensions in seconds as well as metres?</p>
+      <label><input type="radio" name="q3" value="0"> Because metres are hard to draw</label>
+      <label><input type="radio" name="q3" value="1"> So set-out can be checked on site by timing a fast vehicle</label>
+      <label><input type="radio" name="q3" value="2"> It is a legal requirement</label>
+      <label><input type="radio" name="q3" value="3"> To make the table shorter</label>
+      <div class="qfeedback" style="display:none;font-size:13px;margin-top:6px;"></div>
+    </div>
+  </form>
+  <div id="quizResult"></div>
+  <div class="nav-row">
+    <button class="btn" id="submitBtn" type="button">Submit Answers</button>
+    <a class="btn amber" id="continueBtn" href="slide5.html" style="display:none;">Continue to Module 2 &rarr;</a>
+  </div>
+</div>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script>
+  var QUIZ_ID = "quiz1";
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    var questions = document.querySelectorAll('.quiz-question');
+    var score = 0;
+    var allAnswered = true;
+    questions.forEach(function(qEl){
+      var qi = qEl.getAttribute('data-qindex');
+      var correct = Number(qEl.getAttribute('data-answer'));
+      var selected = qEl.querySelector('input[name="q'+qi+'"]:checked');
+      var fb = qEl.querySelector('.qfeedback');
+      if (!selected) { allAnswered = false; return; }
+      var chosen = Number(selected.value);
+      fb.style.display = 'block';
+      if (chosen === correct) {
+        score++;
+        fb.innerHTML = '<span class="correct-answer">Correct.</span>';
+      } else {
+        var correctText = qEl.querySelectorAll('label')[correct].textContent.trim();
+        fb.innerHTML = '<span class="incorrect-answer">Not quite &mdash; correct answer: ' + correctText + '</span>';
+      }
+    });
+    if (!allAnswered) {
+      alert('Please answer every question before submitting.');
+      return;
+    }
+    var total = questions.length;
+    var pct = Math.round((score / total) * 100);
+    var passed = (score / total) >= 0.8;
+    Course.recordQuiz(QUIZ_ID, score, total);
+    var resultEl = document.getElementById('quizResult');
+    resultEl.innerHTML = '<div class="quiz-result ' + (passed ? 'pass' : 'fail') + '">' +
+      'You scored ' + score + ' / ' + total + ' (' + pct + '%) &mdash; ' + (passed ? 'Passed!' : 'Not yet a pass &mdash; review the module and try again.') +
+      '</div>';
+    if (passed) {
+      document.getElementById('continueBtn').style.display = 'inline-block';
+      document.getElementById('submitBtn').style.display = 'none';
+    }
+  });
+</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

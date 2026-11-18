@@ -1,0 +1,25 @@
+/* Sela hero backdrop (road & rock at sunset) for the dark app pages:
+   Public Course Library, Your Courses, Contact.
+   Uses a fixed ::before layer instead of background-attachment:fixed,
+   which iPhones/iPads ignore (they show a blown-up or blank image).
+   A dark overlay keeps the white text on these pages readable. */
+body.has-hero-bg {
+  background-color: #0f172a;
+}
+body.has-hero-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.90)),
+    url("../img/sela_hero.jpg") center center / cover no-repeat;
+}
+@media (max-width: 800px) {
+  body.has-hero-bg::before {
+    background:
+      linear-gradient(rgba(15, 23, 42, 0.74), rgba(15, 23, 42, 0.90)),
+      url("../img/sela_hero_mobile.jpg") center center / cover no-repeat;
+  }
+}

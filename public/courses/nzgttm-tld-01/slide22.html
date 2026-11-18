@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Operations &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Mobile Operations</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Mobile Operations</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide22.svg" alt="A mobile operation: tail pilot, shadow vehicle with TMA and work vehicle with separations"></div>
+    <table class="simple-table">
+      <thead><tr><th>Speed</th><th>Tail pilot to work vehicle</th></tr></thead>
+      <tbody>
+        <tr><td>30&ndash;50 km/h</td><td>3&ndash;6 seconds</td></tr>
+        <tr><td>60&ndash;80 km/h</td><td>4&ndash;8 seconds</td></tr>
+        <tr><td>90&ndash;110 km/h</td><td>5&ndash;10 seconds</td></tr>
+      </tbody>
+    </table>
+    <div class="two-col">
+      <div class="col-card"><h4>Tail pilot</h4><ul>
+        <li>A sign on a vehicle: needs sign visibility distance</li>
+        <li>Always clear of the edge line</li>
+        <li>Move it up whenever you can</li></ul></div>
+      <div class="col-card col-new"><h4>Shadow to work vehicle</h4><ul>
+        <li>No fixed 10 m: a truck can push a TMA 50 m or more</li>
+        <li>Consider traffic mix, TMA, both speeds</li>
+        <li>Should anyone be on foot in the gap?</li></ul></div>
+    </div>
+    <div class="callout CAUTION"><span class="callout-label">POOR SIGHT DISTANCE?</span><p>Ask whether a mobile operation is right at all, or whether a static site would be lower risk.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m5/22.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Mobile operations move, so their dimensions are in seconds. The tail pilot, parked clear of the live lane, is really a sign on a vehicle, so it needs sign visibility distance, not clear sight distance. That gives you more freedom to position it. But if it&#x27;s too far behind the work vehicle, drivers react, see nothing, and go back to normal. So the gap from tail pilot to work vehicle should be at least the warning distance and no more than safe intersection sight distance. In time, that&#x27;s three to six seconds at 30 to 50 kilometres an hour, four to eight seconds at 60 to 80, and five to ten seconds at 90 to 110. Move the tail pilot up whenever you can. The gap between the shadow vehicle and the work vehicle has no single answer. The old ten metres doesn&#x27;t account for a truck hitting a TMA, which can push it fifty metres or more. Consider the traffic mix, the TMA, both speeds, and whether anyone should be on foot in that gap at all. Where sight distance is poor, ask whether a mobile operation is the right method.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide21.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 22 of 28</span>
+    <a class="btn amber" href="slide23.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(22);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

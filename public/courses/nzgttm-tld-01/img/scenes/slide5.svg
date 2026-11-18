@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" role="img" aria-label="A driver must see a sign for at least sign visibility distance before reaching it"><title>A driver must see a sign for at least sign visibility distance before reaching it</title>
+<style>
+text{font-family:Arial,Helvetica,sans-serif;}
+.a{animation-duration:.7s;animation-timing-function:cubic-bezier(.2,.8,.2,1);animation-fill-mode:both;transform-box:fill-box;transform-origin:center;}
+.fade{animation-name:fade}.up{animation-name:up}.pop{animation-name:pop}.left{animation-name:left}.right{animation-name:right}
+.drive{animation-name:drive;animation-duration:1.6s}.drop{animation-name:drop}.grow{animation-name:grow;transform-origin:left center}
+.growup{animation-name:growup;transform-origin:center bottom}.draw{stroke-dasharray:900;animation-name:draw;animation-duration:1.4s}
+.spin{animation:spin 14s linear infinite;transform-origin:400px 170px;transform-box:view-box}
+.pulse{animation:pulse 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.needle{animation-name:needle;animation-duration:1.4s;transform-box:view-box}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(.4)}70%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+@keyframes left{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+@keyframes right{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}
+@keyframes drive{from{transform:translateX(-420px)}to{transform:none}}
+@keyframes drop{0%{opacity:0;transform:translateY(-40px)}60%{transform:translateY(6px)}100%{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes growup{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes draw{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes needle{from{transform:rotate(-120deg)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.a,.spin,.pulse,.needle{animation:none!important}}
+</style><rect width='800' height='340' fill='#DCEBCF'/><defs><pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="#FFE7A8"/><line x1="0" y1="0" x2="0" y2="12" stroke="#F2A900" stroke-width="6"/></pattern></defs><rect x="0" y="170" width="800" height="96" fill="#5B6270"/><line x1="0" y1="173" x2="800" y2="173" stroke="#fff" stroke-width="3"/><line x1="0" y1="263" x2="800" y2="263" stroke="#fff" stroke-width="3"/><line x1="0" y1="218" x2="800" y2="218" stroke="#fff" stroke-width="3" stroke-dasharray="24 20"/><g class="a drop" style="animation-delay:0.20s" ><g><line x1="560" y1="138" x2="560" y2="161.0" stroke="#555" stroke-width="3"/><rect x="545.0" y="123.0" width="30.0" height="30.0" fill="#F26B1D" stroke="#222" stroke-width="2" transform="rotate(45 560 138)"/><text x="560" y="143.0" font-size="14.0" font-weight="bold" text-anchor="middle" fill="#222" font-family="Arial">!</text></g></g><g class="a drive" style="animation-delay:0.10s" ><g><rect x="97.0" y="231.0" width="46" height="22" rx="6" fill="#1E3A5F"/><rect x="121.0" y="234.0" width="8" height="16" rx="2" fill="#BFD6EA"/></g></g><g class="a fade" style="animation-delay:0.80s" ><path d="M140,236 L548,150 L572,150 L140,248Z" fill="#F2A900" opacity=".25"/></g><g class="a grow" style="animation-delay:1.00s" ><line x1="140" y1="112" x2="560" y2="112" stroke="#C8102E" stroke-width="2.5"/><line x1="140" y1="104" x2="140" y2="120" stroke="#C8102E" stroke-width="2.5"/><line x1="560" y1="104" x2="560" y2="120" stroke="#C8102E" stroke-width="2.5"/><path d="M140,112 l9,-5 v10z M560,112 l-9,-5 v10z" fill="#C8102E"/><rect x="190.375" y="89" width="319.25" height="21" rx="4" fill="#fff" opacity=".92"/><text x="350.0" y="104" font-size="15" fill="#C8102E" text-anchor="middle" font-weight="bold">sign visibility = 1.5 × reaction time</text></g><g class="a fade" style="animation-delay:1.30s" ><text x="400" y="320" font-size="17" fill="#13223D" text-anchor="middle" font-weight="bold">50 km/h: 31 m  ·  80 km/h: 67 m  ·  100 km/h: 104 m</text></g><rect x="0" y="0" width="800" height="46" fill="#13223D"/><text x="24" y="31" font-size="21" fill="#FFFFFF" text-anchor="start" font-weight="bold">Sign visibility distance</text></svg>

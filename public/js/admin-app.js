@@ -796,6 +796,13 @@ function showCertificateEmailDialog({ email, fullName, courseTitle, certificateN
   overlay.querySelector("#sela-cert-email-open").addEventListener("click", () => setTimeout(() => overlay.remove(), 400));
 }
 
+// Courses Sela never issues its own certificate for. ASHTAS Operative is a
+// Lantra/Austroads scheme: the online course only prepares the learner for
+// the assessment booked with the trainer, and the ASHTAS status comes from
+// Lantra, not Sela. ASHTAS-01 doesn't write to "submissions" today, so it
+// shouldn't appear in Results at all -- this is a guard in case it ever does.
+const NO_SELA_CERTIFICATE = new Set(["ashtas-01"]);
+
 function renderResultsTable(rows) {
   const tbody = document.getElementById("results-tbody");
   if (!tbody) return;
@@ -821,6 +828,8 @@ function renderResultsTable(rows) {
         : draftedAt ? `<div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Outlook draft ${new Date(draftedAt).toLocaleDateString("en-NZ")}</div>` : "";
       certCell = `<span class="badge badge-pending" style="text-transform:none;">${r.certificateNumber || "Issued"}</span>
         <button class="btn-action btn-resend-cert" data-id="${r._id}" style="padding:4px 8px; font-size:0.75rem; margin-left:6px;">${r.certificateEmailedAt ? "Resend email" : "Email certificate"}</button>${emailedNote}`;
+    } else if (NO_SELA_CERTIFICATE.has(r.courseId)) {
+      certCell = `<span style="font-size:0.78rem;color:var(--text-muted);">No Sela certificate (Lantra-issued)</span>`;
     } else if (r.passed) {
       certCell = `<button class="btn-action btn-issue-cert" data-id="${r._id}" style="padding:6px 10px; font-size:0.8rem;">Issue Certificate</button>`;
     } else {

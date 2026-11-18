@@ -1,0 +1,26 @@
+rules_version = '2';
+// Firebase Storage rules for selattm.com.
+// Only used for the TMP Design Practical Sign-off: learners upload their TMP
+// files to tmp-signoff/{uid}/{submissionId}/ and only they and admins can
+// read them. Everything else is closed.
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null &&
+        firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid));
+    }
+
+    match /tmp-signoff/{uid}/{submissionId}/{fileName} {
+      allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
+      // New files only (no overwrite), 25 MB max, from the owner.
+      allow create: if request.auth != null && request.auth.uid == uid &&
+        request.resource.size < 25 * 1024 * 1024;
+      allow update: if false;
+      allow delete: if isAdmin();
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

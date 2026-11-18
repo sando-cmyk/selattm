@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Tapers on Curves &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Tapers on Curves</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Tapers on Curves</h2>
+    <div class="read-time">~3 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide20.svg" alt="A taper placed on a curve, with the minimum curve radius formula"></div>
+    <div class="callout KEYIDEA"><span class="callout-label">MINIMUM RADIUS</span><p><strong>R &asymp; V&sup2; &divide; 26</strong> &nbsp; 50 km/h &asymp; 100 m &middot; 80 km/h &asymp; 250 m &middot; 100 km/h &asymp; 390 m</p></div>
+    <p>Below that radius, a taper that <strong>tightens</strong> the curve needs specific geometric design (Austroads AGRD Part 3). Desirably, keep tapers off curves.</p>
+    <div id="hz20" data-total="3">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz20', 0)"><span class="hb-icon">&#8631;</span>Taper right on a right-hand curve</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz20', 1)"><span class="hb-icon">&#8630;</span>Taper right on a left-hand curve</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz20', 2)"><span class="hb-icon">&#128506;</span>Generic TMP, unknown radius</button>
+    </div>
+    <div class="hotspot-progress">0 of 3 explored</div>
+    <div class="hotspot-card" id="hz20-card0"><h4>Right taper, right-hand curve</h4><p>The shifts <strong>add together</strong> &ndash; close to 2 m/s. Check the radius against V&sup2;/26; below it, design the curve or move the taper.</p></div>
+    <div class="hotspot-card" id="hz20-card1"><h4>Right taper, left-hand curve</h4><p>The shifts <strong>cancel out</strong> &ndash; drivers effectively travel straight. Less of a problem, but check sight lines to the taper.</p></div>
+    <div class="hotspot-card" id="hz20-card2"><h4>Generic TMP, unknown radius</h4><p>The STMS can&rsquo;t safely measure a radius on site. Measure it in the office from aerial imagery, or limit the generic TMP to sites you&rsquo;ve checked.</p></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/20.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Curves change everything. Driving round a curve is already a sideways movement. The NZGTTM shows that the radius at which a curve gives about a one metre shift is roughly V squared divided by twenty-six. That&#x27;s about a hundred metres at fifty, two hundred and fifty at eighty, and three hundred and ninety at a hundred. If you put a taper to the right on a right-hand curve, the two add together, and drivers get close to two metres per second. Desirably, don&#x27;t put tapers on curves. If you must, don&#x27;t put a taper that tightens the curve on any curve below that radius, unless the curve taper has specific geometric design. You can estimate a radius from aerial imagery in the office. On site it&#x27;s hard to measure safely, so generic TMPs need care. Tap each case.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide19.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 20 of 28</span>
+    <a class="btn amber" href="quiz4.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(20);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

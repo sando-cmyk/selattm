@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Pick a Speed &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Pick a Speed</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Activity: Pick a Speed</h2>
+    <div class="read-time">~3 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide9.svg" alt="Three speed signs, 50, 80 and 100 km/h, to tap"></div>
+    <p>Work it out first, then tap to check. <strong>m/s = km/h &divide; 3.6</strong>.</p>
+    <div id="hz9" data-total="3">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz9', 0)"><span class="hb-icon">50</span>50 km/h</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz9', 1)"><span class="hb-icon">80</span>80 km/h</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz9', 2)"><span class="hb-icon">100</span>100 km/h</button>
+    </div>
+    <div class="hotspot-progress">0 of 3 explored</div>
+    <div class="hotspot-card" id="hz9-card0"><h4>50 km/h (13.9 m/s)</h4><p>Reaction <strong>1.5 s</strong> &middot; visibility <strong>31 m</strong> &middot; spacing <strong>26 m</strong> &middot; warning <strong>&asymp; 59 m</strong></p></div>
+    <div class="hotspot-card" id="hz9-card1"><h4>80 km/h (22.2 m/s)</h4><p>Reaction <strong>2.0 s</strong> &middot; visibility <strong>67 m</strong> &middot; spacing <strong>56 m</strong> &middot; warning <strong>&asymp; 114 m</strong></p></div>
+    <div class="hotspot-card" id="hz9-card2"><h4>100 km/h (27.8 m/s)</h4><p>Reaction <strong>2.5 s</strong> &middot; visibility <strong>104 m</strong> &middot; spacing <strong>87 m</strong> &middot; warning <strong>&asymp; 158 m</strong></p></div>
+    </div>
+    <div class="callout NOTE"><span class="callout-label">ON YOUR TMP</span><p>Use the rounded values from the NZGTTM table, then adjust for queues, sign complexity and what you find on the approach.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m2/9.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Let&#x27;s put module two together. Tap each speed to see its reaction time, sign visibility, sign spacing and warning distance. Notice how the numbers jump between the groups. Going from fifty to eighty kilometres an hour roughly doubles the warning distance, because both the speed and the reaction time go up. Try working each one out yourself before you tap: reaction time times speed in metres per second, then times one and a half for visibility, and times one and a quarter for spacing. To convert kilometres an hour to metres per second, divide by three point six.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide8.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 9 of 28</span>
+    <a class="btn amber" href="quiz2.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(9);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

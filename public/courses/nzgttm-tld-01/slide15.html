@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taper Length &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Taper Length</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Taper Length</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide15.svg" alt="A taper of cones moves traffic one lane width at one metre per second"></div>
+    <p>Based on a <strong>lateral shift of 1 m/s</strong>: a 3.5 m lane takes 3.5 s of travel to shift.</p>
+    <table class="simple-table">
+      <thead><tr><th>Speed (km/h)</th><th>30</th><th>50</th><th>60</th><th>80</th><th>100</th><th>110</th></tr></thead>
+      <tbody><tr><td>Taper (m)</td><td>29.2</td><td>48.6</td><td>58.3</td><td>77.8</td><td>97.2</td><td>106.9</td></tr></tbody>
+    </table>
+    <div class="callout NOTE"><span class="callout-label">WHY 1 M/S?</span><p>TTM tapers have advance warning and tall devices. A gentler taper makes the site longer and encourages drivers to hold their speed.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m4/15.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Module four: tapers, lanes and delineation. A taper moves traffic sideways out of a closed lane. What matters to the driver is how fast they&#x27;re being moved sideways, the lateral shift rate. The NZGTTM uses one metre per second. So to shift a 3.5 metre lane, the driver needs 3.5 seconds of travel. At eighty kilometres an hour that&#x27;s about seventy-eight metres. At fifty, about forty-nine. At a hundred, about ninety-seven. Why one metre per second, when right-turn bays use 0.6? Because a TTM taper comes with advance warning and tall devices, and a gentler taper just makes the site longer and encourages people to keep their speed. These lengths can be used on gentle curves too, as long as the curve is above the minimum radius. We&#x27;ll get to that.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="quiz3.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 15 of 28</span>
+    <a class="btn amber" href="slide16.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(15);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

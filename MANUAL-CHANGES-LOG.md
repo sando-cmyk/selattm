@@ -22,6 +22,21 @@ Why: the problem it was fixing, or the reason for the change
 
 ---
 
+## 2026-11-18 — Firebase — Stripe webhook secret updated (paid learners not getting access)
+Who: Joseph, in Firebase Console → Extensions → Run Payments with Stripe → Reconfigure
+What: Copied the signing secret (`whsec_…`) from Stripe → Workbench → Webhooks →
+endpoint `we_1UAIPh0flJvw3UeNcS7oNlV3` (…/ext-firestore-stripe-payments-handleWebhookEvents)
+and pasted it into the extension's "Stripe webhook secret" setting.
+Why: Every webhook delivery was failing with HTTP 401 "Webhook Error: Invalid Secret",
+so a payment succeeded in Stripe but no payment record was written to Firestore and the
+learner got no course access. Found when Kaleb paid for ASHTAS Operative on 17 Nov
+(access had been granted manually from admin.html the night before). Confirmed fixed:
+a resent checkout.session.completed returned 200 OK on 18 Nov 10:02.
+Follow-up: Firebase Extensions shut down 31 Mar 2027 (existing extensions keep running
+but can't be reconfigured after that). Move Stripe payments (to invertase/firestore-stripe-payments
+or a self-managed function kit) and Trigger Email before then. The webhook URL will likely
+change and the Stripe endpoint must be updated to match.
+
 ## 2026-08-27 — Firebase — Custom domain gap identified, not yet fixed
 Who: Claude (investigation only, no change made)
 What: Confirmed `https://www.selattm.com` and `http://www.selattm.com` do not

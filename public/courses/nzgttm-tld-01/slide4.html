@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity: Reaction Time &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Reaction Time</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Reaction Time: PIEV</h2>
+    <div class="read-time">~3 min (interactive) &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide4.svg" alt="Perception, Identification, Emotion and Volition make up reaction time: 1.5, 2.0 and 2.5 seconds"></div>
+    <p><strong>P</strong>erception &rarr; <strong>I</strong>dentification &rarr; <strong>E</strong>motion &rarr; <strong>V</strong>olition. Only after all four does the driver brake or steer.</p>
+    <div class="stat-row">
+      <div class="stat"><span class="num">1.5 s</span><span class="lbl">30&ndash;50 km/h</span></div>
+      <div class="stat"><span class="num">2.0 s</span><span class="lbl">60&ndash;80 km/h</span></div>
+      <div class="stat"><span class="num">2.5 s</span><span class="lbl">90&ndash;110 km/h</span></div>
+    </div>
+    <p>Walking speed for workers and pedestrians: <strong>1.2 m/s</strong> (conservative).</p>
+    <div class="callout CASESTUDY"><span class="callout-label">WHICH SPEED DO I DESIGN TO?</span><p>Tap each site.</p></div>
+    <div id="hz4" data-total="3">
+    <div class="hotspot-grid">
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz4', 0)"><span class="hb-icon">&#128678;</span>Rural 100 km/h, approach</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz4', 1)"><span class="hb-icon">&#128679;</span>Inside a stop/go site</button>
+      <button type="button" class="hotspot-btn" onclick="Interactive.hotspot(this, 'hz4', 2)"><span class="hb-icon">&#9888;</span>TSL sign only, no other measures</button>
+    </div>
+    <div class="hotspot-progress">0 of 3 explored</div>
+    <div class="hotspot-card" id="hz4-card0"><h4>Rural 100 km/h, approach</h4><p>Design the advance warning to <strong>100 km/h</strong> (2.5 s group). Drivers haven&rsquo;t slowed yet.</p></div>
+    <div class="hotspot-card" id="hz4-card1"><h4>Inside a stop/go site</h4><p>Traffic released from the stop/go is slow, so a <strong>lower operating speed</strong> can be used past the work area &ndash; if you can show it&rsquo;s achieved.</p></div>
+    <div class="hotspot-card" id="hz4-card2"><h4>TSL sign only</h4><p>Don&rsquo;t assume the temporary limit. A sign alone often doesn&rsquo;t slow traffic. Design to the speed you <strong>expect</strong> (survey it), or add measures that achieve the lower speed.</p></div>
+    </div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/4.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Reaction time is really four steps, called PIEV. Perception: you notice something ahead. Identification: you work out it&#x27;s a cone, a sign or a worker. Emotion: how you feel about it. Volition: you decide to act. Only then do you brake or steer. The NZGTTM assumes reaction time grows with speed, because lower-speed roads tend to be busier and more complex, which keeps drivers more alert. So there are three groups: 1.5 seconds for 30 to 50 kilometres an hour, 2 seconds for 60 to 80, and 2.5 seconds for 90 to 110. These three groups come up again and again in this course. For people on foot, the NZGTTM uses a conservative walking speed of 1.2 metres per second. Now try the activity. Tap each site to see which speed you&#x27;d design to.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide3.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 4 of 28</span>
+    <a class="btn amber" href="quiz1.html">Knowledge Check &rarr;</a>
+  </div>
+</div>
+<script src="js/interactive.js"></script>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(4);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" role="img" aria-label="Cross-section showing the lateral zone widened by twice the trench depth, and a barrier option"><title>Cross-section showing the lateral zone widened by twice the trench depth, and a barrier option</title>
+<style>
+text{font-family:Arial,Helvetica,sans-serif;}
+.a{animation-duration:.7s;animation-timing-function:cubic-bezier(.2,.8,.2,1);animation-fill-mode:both;transform-box:fill-box;transform-origin:center;}
+.fade{animation-name:fade}.up{animation-name:up}.pop{animation-name:pop}.left{animation-name:left}.right{animation-name:right}
+.drive{animation-name:drive;animation-duration:1.6s}.drop{animation-name:drop}.grow{animation-name:grow;transform-origin:left center}
+.growup{animation-name:growup;transform-origin:center bottom}.draw{stroke-dasharray:900;animation-name:draw;animation-duration:1.4s}
+.spin{animation:spin 14s linear infinite;transform-origin:400px 170px;transform-box:view-box}
+.pulse{animation:pulse 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.needle{animation-name:needle;animation-duration:1.4s;transform-box:view-box}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(.4)}70%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+@keyframes left{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+@keyframes right{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}
+@keyframes drive{from{transform:translateX(-420px)}to{transform:none}}
+@keyframes drop{0%{opacity:0;transform:translateY(-40px)}60%{transform:translateY(6px)}100%{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes growup{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes draw{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes needle{from{transform:rotate(-120deg)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.a,.spin,.pulse,.needle{animation:none!important}}
+</style><rect width='800' height='340' fill='#E3ECF5'/><rect x="0" y="0" width="800" height="340" fill="#E3ECF5"/><rect x="0" y="200" width="800" height="140" fill="#B89A6A"/><rect x="0" y="186" width="380" height="14" fill="#5B6270"/><g class="a fade" style="animation-delay:0.20s" ><path d="M560,200 L600,280 L700,280 L740,200Z" fill="#6B4E2E"/></g><g class="a fade" style="animation-delay:0.40s" ><text x="650" y="250" font-size="15" fill="#FFFFFF" text-anchor="middle" font-weight="bold">trench 0.8 m deep</text></g><g class="a pop" style="animation-delay:0.40s" ><circle cx="380" cy="180" r="9" fill="#F26B1D"/><circle cx="380" cy="180" r="3.6" fill="#fff"/></g><g class="a fade" style="animation-delay:0.50s" ><rect x="380" y="140" width="60" height="46" fill="#C8102E" opacity=".18" stroke="#C8102E" stroke-dasharray="6 4" stroke-width="2"/></g><g class="a fade" style="animation-delay:0.90s" ><rect x="440" y="140" width="120" height="46" fill="#F2A900" opacity=".18" stroke="#F2A900" stroke-dasharray="6 4" stroke-width="2"/></g><g class="a grow" style="animation-delay:0.70s" ><line x1="380" y1="128" x2="440" y2="128" stroke="#C8102E" stroke-width="2.5"/><line x1="380" y1="120" x2="380" y2="136" stroke="#C8102E" stroke-width="2.5"/><line x1="440" y1="120" x2="440" y2="136" stroke="#C8102E" stroke-width="2.5"/><path d="M380,128 l9,-5 v10z M440,128 l-9,-5 v10z" fill="#C8102E"/><rect x="386.5" y="105" width="47.0" height="21" rx="4" fill="#fff" opacity=".92"/><text x="410.0" y="120" font-size="15" fill="#C8102E" text-anchor="middle" font-weight="bold">base</text></g><g class="a grow" style="animation-delay:1.10s" ><line x1="440" y1="98" x2="560" y2="98" stroke="#F2A900" stroke-width="2.5"/><line x1="440" y1="90" x2="440" y2="106" stroke="#F2A900" stroke-width="2.5"/><line x1="560" y1="90" x2="560" y2="106" stroke="#F2A900" stroke-width="2.5"/><path d="M440,98 l9,-5 v10z M560,98 l-9,-5 v10z" fill="#F2A900"/><rect x="410.5" y="75" width="179.0" height="21" rx="4" fill="#fff" opacity=".92"/><text x="500.0" y="90" font-size="15" fill="#F2A900" text-anchor="middle" font-weight="bold">+ 2 × depth = +1.6 m</text></g><g class="a pop" style="animation-delay:1.50s" ><rect x="300" y="150" width="70" height="36" rx="4" fill="#C9CED6" stroke="#3C4A5E" stroke-width="3"/><text x="335" y="174" font-size="13" fill="#13223D" text-anchor="middle" font-weight="bold">barrier?</text></g><rect x="0" y="0" width="800" height="46" fill="#13223D"/><text x="24" y="31" font-size="21" fill="#FFFFFF" text-anchor="start" font-weight="bold">Excavations</text><text x="776" y="30" font-size="15" fill="#F2A900" text-anchor="end" font-weight="bold">cross-section</text></svg>

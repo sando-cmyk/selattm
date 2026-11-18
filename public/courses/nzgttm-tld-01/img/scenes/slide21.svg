@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" role="img" aria-label="A worker needs 12 seconds of clear sight to walk off the road before a car arrives"><title>A worker needs 12 seconds of clear sight to walk off the road before a car arrives</title>
+<style>
+text{font-family:Arial,Helvetica,sans-serif;}
+.a{animation-duration:.7s;animation-timing-function:cubic-bezier(.2,.8,.2,1);animation-fill-mode:both;transform-box:fill-box;transform-origin:center;}
+.fade{animation-name:fade}.up{animation-name:up}.pop{animation-name:pop}.left{animation-name:left}.right{animation-name:right}
+.drive{animation-name:drive;animation-duration:1.6s}.drop{animation-name:drop}.grow{animation-name:grow;transform-origin:left center}
+.growup{animation-name:growup;transform-origin:center bottom}.draw{stroke-dasharray:900;animation-name:draw;animation-duration:1.4s}
+.spin{animation:spin 14s linear infinite;transform-origin:400px 170px;transform-box:view-box}
+.pulse{animation:pulse 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.needle{animation-name:needle;animation-duration:1.4s;transform-box:view-box}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(.4)}70%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+@keyframes left{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+@keyframes right{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}
+@keyframes drive{from{transform:translateX(-420px)}to{transform:none}}
+@keyframes drop{0%{opacity:0;transform:translateY(-40px)}60%{transform:translateY(6px)}100%{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes growup{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes draw{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes needle{from{transform:rotate(-120deg)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.a,.spin,.pulse,.needle{animation:none!important}}
+</style><rect width='800' height='340' fill='#DCEBCF'/><defs><pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="#FFE7A8"/><line x1="0" y1="0" x2="0" y2="12" stroke="#F2A900" stroke-width="6"/></pattern></defs><rect x="0" y="150" width="800" height="96" fill="#5B6270"/><line x1="0" y1="153" x2="800" y2="153" stroke="#fff" stroke-width="3"/><line x1="0" y1="243" x2="800" y2="243" stroke="#fff" stroke-width="3"/><line x1="0" y1="198" x2="800" y2="198" stroke="#fff" stroke-width="3" stroke-dasharray="24 20"/><g class="a fade" style="animation-delay:0.10s" ><rect x="520.0" y="208.0" width="80" height="28" rx="3" fill="#fff"/><rect x="580.0" y="208.0" width="20" height="28" rx="3" fill="#3C4A5E"/></g><g class="a pop" style="animation-delay:0.30s" ><circle cx="330" cy="174" r="9" fill="#F26B1D" stroke="#13223D" stroke-width="3"/></g><g class="a fade" style="animation-delay:0.60s" ><path d="M330,174 L330,276" stroke="#2E7D32" stroke-width="4" stroke-dasharray="8 6" fill="none"/></g><g class="a fade" style="animation-delay:0.80s" ><rect x="200" y="262" width="120" height="26" rx="4" fill="#fff" opacity=".95"/><text x="260" y="281" font-size="14" fill="#2E7D32" text-anchor="middle" font-weight="bold">walk up to 8 m</text></g><g class="a pop" style="animation-delay:0.50s" ><circle cx="640" cy="92" r="26" fill="#fff" stroke="#13223D" stroke-width="5"/><rect x="634" y="54" width="12" height="10" fill="#13223D"/><line x1="640" y1="92" x2="640" y2="74" stroke="#C8102E" stroke-width="4" class="a needle" style="transform-origin:640px 92px"/></g><g class="a fade" style="animation-delay:0.90s" ><text x="680" y="100" font-size="20" fill="#C8102E" text-anchor="start" font-weight="bold">12 seconds</text></g><g class="a drive" style="animation-delay:1.00s;animation-duration:2.0s" ><g><rect x="17.0" y="163.0" width="46" height="22" rx="6" fill="#1E3A5F"/><rect x="41.0" y="166.0" width="8" height="16" rx="2" fill="#BFD6EA"/></g></g><g class="a grow" style="animation-delay:1.40s" ><line x1="40" y1="112" x2="330" y2="112" stroke="#C8102E" stroke-width="2.5"/><line x1="40" y1="104" x2="40" y2="120" stroke="#C8102E" stroke-width="2.5"/><line x1="330" y1="104" x2="330" y2="120" stroke="#C8102E" stroke-width="2.5"/><path d="M40,112 l9,-5 v10z M330,112 l-9,-5 v10z" fill="#C8102E"/><rect x="25.375" y="89" width="319.25" height="21" rx="4" fill="#fff" opacity=".92"/><text x="185.0" y="104" font-size="15" fill="#C8102E" text-anchor="middle" font-weight="bold">clear sight distance: 80 km/h ≈ 265 m</text></g><rect x="0" y="0" width="800" height="46" fill="#13223D"/><text x="24" y="31" font-size="21" fill="#FFFFFF" text-anchor="start" font-weight="bold">Clear sight distance for workers on foot</text></svg>

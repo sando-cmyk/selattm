@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Speed &mdash; TMP Layouts and Dimensions</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/extra.css">
+</head>
+<body data-course-id="nzgttm-tld-01">
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <span class="brand-badge"><img class="brand-logo" src="img/sela-logo.png" alt="Sela Civil Advisory"></span>
+    <span class="brand">SELA CIVIL ADVISORY</span>
+  </div>
+  <div class="title">Design Speed</div>
+  <div><a href="menu.html">Menu</a></div>
+</div>
+<div class="container">
+  <div class="slide-content">
+    <h2>Design Speed</h2>
+    <div class="read-time">~2 min &middot; narrated</div>
+    <div class="scene-banner"><img src="img/scenes/slide3.svg" alt="Permanent speed limit sign beside a measured 85th percentile operating speed"></div>
+    <div class="two-col">
+      <div class="col-card"><h4>Permanent speed limit</h4><ul>
+        <li>From the National Speed Limit Register (NSLR)</li>
+        <li>Use it for the <strong>approach</strong>, before drivers have slowed</li></ul></div>
+      <div class="col-card col-new"><h4>Operating speed (85th percentile)</h4><ul>
+        <li>The speed 85% of drivers travel at or below</li>
+        <li>Better measure of risk; needs a speed survey (can be short)</li>
+        <li>Can be used inside the site once traffic has slowed</li></ul></div>
+    </div>
+    <div class="callout CAUTION"><span class="callout-label">THE CATCH</span><p>If you design to an operating speed lower than the limit, you must make sure that speed is <strong>achieved</strong> &ndash; with lane width, thresholds, manual control or pilot vehicles, not just a sign.</p></div>
+  </div>
+  <div class="narration-panel">
+    <audio id="narrationAudio" src="audio/m1/3.mp3" preload="auto"></audio>
+    <div class="narration-controls">
+      <button id="playBtn">&#9654; Play narration</button>
+      <button id="pauseBtn">&#9208; Pause/Resume</button>
+      <button id="restartBtn">&#8630; Restart</button>
+    </div>
+    <button class="transcript-toggle" id="transcriptToggle">Show / hide transcript</button>
+    <div class="transcript" id="transcriptBox">Which speed should you design to? You have two options. The permanent speed limit is easy to find on the National Speed Limit Register. The operating speed is the 85th percentile speed, the speed that 85 percent of drivers travel at or below. That is the better measure of risk, but you have to survey enough vehicles to get it. Use the permanent limit for the approach to the site, where drivers haven&#x27;t yet slowed down. Once traffic has slowed, for example inside a static site, you can design to a lower operating speed. But there&#x27;s a catch. If you design to a lower speed, you must make sure that speed is actually achieved. A temporary speed limit sign on its own often isn&#x27;t enough. Narrower lanes, thresholds, manual control or a pilot vehicle might be what makes the speed real. On site, the time values in the table let you adjust set-out to the speed traffic is really doing.</div>
+  </div>
+  <div class="nav-row">
+    <a class="btn" href="slide2.html">&larr; Back</a>
+    <span style="color:#888;font-size:13px;">Slide 3 of 28</span>
+    <a class="btn amber" href="slide4.html">Next &rarr;</a>
+  </div>
+</div>
+<script src="js/audio_narration.js"></script>
+<script>
+  var narrationAudioEl = document.getElementById('narrationAudio');
+  if (narrationAudioEl) {
+    Narration.init({
+      audio: narrationAudioEl,
+      playBtn: document.getElementById('playBtn'),
+      pauseBtn: document.getElementById('pauseBtn'),
+      restartBtn: document.getElementById('restartBtn'),
+      transcriptToggle: document.getElementById('transcriptToggle'),
+      transcriptBox: document.getElementById('transcriptBox'),
+      autoplay: true
+    });
+  }
+</script>
+<script src="js/scorm_api.js"></script>
+<script src="js/course.js"></script>
+<script src="js/course-lock.js"></script>
+<script src="js/course-gate.js"></script>
+<script>Course.markVisited(3);</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>

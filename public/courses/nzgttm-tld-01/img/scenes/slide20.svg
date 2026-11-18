@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" role="img" aria-label="A taper placed on a curve, with the minimum curve radius formula"><title>A taper placed on a curve, with the minimum curve radius formula</title>
+<style>
+text{font-family:Arial,Helvetica,sans-serif;}
+.a{animation-duration:.7s;animation-timing-function:cubic-bezier(.2,.8,.2,1);animation-fill-mode:both;transform-box:fill-box;transform-origin:center;}
+.fade{animation-name:fade}.up{animation-name:up}.pop{animation-name:pop}.left{animation-name:left}.right{animation-name:right}
+.drive{animation-name:drive;animation-duration:1.6s}.drop{animation-name:drop}.grow{animation-name:grow;transform-origin:left center}
+.growup{animation-name:growup;transform-origin:center bottom}.draw{stroke-dasharray:900;animation-name:draw;animation-duration:1.4s}
+.spin{animation:spin 14s linear infinite;transform-origin:400px 170px;transform-box:view-box}
+.pulse{animation:pulse 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.needle{animation-name:needle;animation-duration:1.4s;transform-box:view-box}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(.4)}70%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+@keyframes left{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+@keyframes right{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}
+@keyframes drive{from{transform:translateX(-420px)}to{transform:none}}
+@keyframes drop{0%{opacity:0;transform:translateY(-40px)}60%{transform:translateY(6px)}100%{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes growup{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes draw{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes needle{from{transform:rotate(-120deg)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.a,.spin,.pulse,.needle{animation:none!important}}
+</style><rect width='800' height='340' fill='#DCEBCF'/><defs><pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="#FFE7A8"/><line x1="0" y1="0" x2="0" y2="12" stroke="#F2A900" stroke-width="6"/></pattern></defs><path d="M-20,320 Q380,320 520,170 T820,40" fill="none" stroke="#5B6270" stroke-width="96"/><path d="M-20,320 Q380,320 520,170 T820,40" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="24 20"/><g class="a fade" style="animation-delay:0.60s" ><circle cx="230" cy="-40" r="380" fill="none" stroke="#C8102E" stroke-width="2" stroke-dasharray="8 6" opacity=".7"/></g><g class="a pop" style="animation-delay:0.30s" ><circle cx="330" cy="334.0" r="6" fill="#F26B1D"/><circle cx="330" cy="334.0" r="2.4000000000000004" fill="#fff"/></g><g class="a pop" style="animation-delay:0.36s" ><circle cx="352" cy="318.8" r="6" fill="#F26B1D"/><circle cx="352" cy="318.8" r="2.4000000000000004" fill="#fff"/></g><g class="a pop" style="animation-delay:0.42s" ><circle cx="374" cy="301.2" r="6" fill="#F26B1D"/><circle cx="374" cy="301.2" r="2.4000000000000004" fill="#fff"/></g><g class="a pop" style="animation-delay:0.48s" ><circle cx="396" cy="281.2" r="6" fill="#F26B1D"/><circle cx="396" cy="281.2" r="2.4000000000000004" fill="#fff"/></g><g class="a pop" style="animation-delay:0.54s" ><circle cx="418" cy="258.8" r="6" fill="#F26B1D"/><circle cx="418" cy="258.8" r="2.4000000000000004" fill="#fff"/></g><g class="a pop" style="animation-delay:0.60s" ><circle cx="440" cy="234.0" r="6" fill="#F26B1D"/><circle cx="440" cy="234.0" r="2.4000000000000004" fill="#fff"/></g><g class="a pop" style="animation-delay:0.66s" ><circle cx="462" cy="206.8" r="6" fill="#F26B1D"/><circle cx="462" cy="206.8" r="2.4000000000000004" fill="#fff"/></g><g class="a pop" style="animation-delay:0.72s" ><circle cx="484" cy="177.2" r="6" fill="#F26B1D"/><circle cx="484" cy="177.2" r="2.4000000000000004" fill="#fff"/></g><g class="a pop" style="animation-delay:0.78s" ><circle cx="506" cy="145.2" r="6" fill="#F26B1D"/><circle cx="506" cy="145.2" r="2.4000000000000004" fill="#fff"/></g><g class="a right" style="animation-delay:0.90s" ><rect x="30" y="70" width="290" height="104" rx="14" fill="#FFFFFF" stroke="#D8D4CA" stroke-width="2"/><text x="175" y="104" font-size="26" fill="#C8102E" text-anchor="middle" font-weight="bold">R ≈ V² / 26</text><text x="175" y="134" font-size="16" fill="#13223D" text-anchor="middle" font-weight="bold">80 km/h: about 250 m</text><text x="175" y="158" font-size="13" fill="#3C4A5E" text-anchor="middle" font-weight="bold">tighter? specific geometric design</text></g><rect x="0" y="0" width="800" height="46" fill="#13223D"/><text x="24" y="31" font-size="21" fill="#FFFFFF" text-anchor="start" font-weight="bold">Tapers on curves</text></svg>

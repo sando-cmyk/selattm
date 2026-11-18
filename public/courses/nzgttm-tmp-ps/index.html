@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TMP Design Practical Sign-off &mdash; Sela Civil</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<style>
+  :root { --navy:#13223D; --navy-light:#1E3A5F; --amber:#F2A900; --red:#C8102E; --green:#2E7D32; --cream:#F5F3EE; --slate:#3C4A5E; --line:#d9d5cc; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--cream); color:#1b2433; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.5; }
+  .topbar { background:var(--navy); color:#fff; display:flex; align-items:center; gap:12px; padding:10px 16px; }
+  .topbar img { height:34px; background:#fff; border-radius:6px; padding:3px; }
+  .topbar .brand { font-weight:700; letter-spacing:.06em; font-size:.9rem; }
+  .topbar a { margin-left:auto; color:#fff; font-size:.9rem; }
+  .wrap { max-width:960px; margin:0 auto; padding:20px 16px 60px; }
+  .hero { background:linear-gradient(135deg,var(--navy),var(--navy-light)); color:#fff; border-radius:12px; padding:24px; margin-bottom:20px; }
+  .hero h1 { margin:0 0 6px; font-size:1.6rem; }
+  .hero p { margin:4px 0; color:#dbe4f0; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:20px; margin-bottom:18px; }
+  .card h2 { margin:0 0 10px; font-size:1.2rem; color:var(--navy); }
+  .steps { margin:0; padding-left:20px; } .steps li { margin:4px 0; }
+  .status { border-left:5px solid var(--amber); }
+  .status.ok { border-left-color:var(--green); } .status.bad { border-left-color:var(--red); }
+  .pill { display:inline-block; padding:2px 10px; border-radius:999px; font-size:.78rem; font-weight:700; }
+  .pill.crit { background:#fde8eb; color:var(--red); }
+  .pill.met { background:#e5f4e4; color:var(--green); } .pill.not_yet { background:#fde8eb; color:var(--red); } .pill.na { background:#eee; color:#555; }
+  .pill.wait { background:#fdf3d8; color:#8a6100; }
+  details.sec { border:1px solid var(--line); border-radius:8px; margin:10px 0; background:#fcfbf8; }
+  details.sec summary { cursor:pointer; padding:12px 14px; font-weight:700; color:var(--navy); }
+  .crit-row { padding:10px 14px; border-top:1px solid var(--line); }
+  .crit-row .id { font-weight:700; color:var(--navy); margin-right:6px; }
+  .crit-row .ev { color:var(--slate); font-size:.88rem; margin-top:4px; }
+  .crit-row .fb { margin-top:6px; background:#f6f6f2; border-radius:6px; padding:8px 10px; font-size:.9rem; }
+  label { display:block; font-weight:600; margin:14px 0 4px; }
+  input[type=text], input[type=url], textarea, select { width:100%; padding:10px; border:1px solid #bbb; border-radius:6px; font:inherit; }
+  textarea { min-height:90px; }
+  .hint { color:var(--slate); font-size:.85rem; margin-top:3px; }
+  .btn { display:inline-block; background:var(--amber); color:var(--navy); border:none; border-radius:8px; padding:12px 20px; font-weight:700; font-size:1rem; cursor:pointer; text-decoration:none; }
+  .btn[disabled] { opacity:.5; cursor:not-allowed; }
+  .btn.ghost { background:none; border:1px solid var(--navy); }
+  .files li { font-size:.9rem; }
+  .err { color:var(--red); font-weight:600; margin-top:10px; }
+  .muted { color:var(--slate); }
+  .att { border:1px solid var(--line); border-radius:8px; padding:14px; margin:10px 0; }
+  .att h3 { margin:0 0 6px; font-size:1rem; }
+  .bar { height:8px; background:#eee; border-radius:4px; overflow:hidden; margin-top:8px; display:none; } .bar > div { height:100%; width:0; background:var(--green); transition:width .2s; }
+  @media (max-width:600px){ .hero h1{font-size:1.3rem;} .card{padding:16px;} }
+</style>
+</head>
+<body data-course-id="nzgttm-tmp-ps">
+<div class="topbar">
+  <img src="img/sela-logo.png" alt="Sela Civil Advisory"><span class="brand">SELA CIVIL ADVISORY</span>
+  <a href="/learner.html">&larr; Your Courses</a>
+</div>
+<div class="wrap">
+  <div class="hero">
+    <h1>TMP Design Practical Sign-off</h1>
+    <p>NZGTTM-TMP-PS &middot; Submit a TMP you have designed for assessment by a Sela assessor</p>
+    <p>$200 + GST &middot; Up to 3 attempts &middot; Assessed against the criteria below</p>
+  </div>
+
+  <div class="card status" id="status-card"><p class="muted">Checking your sign-off&hellip;</p></div>
+
+  <div class="card">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li>Prepare a TMP for a real site, or a realistic one, using the NZGTTM TMP forms: Planning Form, General Form and a TMD Form with a diagram for each layout.</li>
+      <li>Check it against the criteria below. These are exactly what the assessor marks.</li>
+      <li>Upload it here (PDF preferred, up to 6 files of 25&nbsp;MB each) and submit.</li>
+      <li>A Sela assessor marks each criterion and gives written feedback, usually within 10 working days. You'll get an email when it's done.</li>
+      <li>If anything is &ldquo;not yet met&rdquo;, fix it and resubmit. Your fee covers 3 attempts.</li>
+    </ol>
+    <p class="hint">Remove client-confidential or personal information you don't have permission to share. Recommended before submitting: NZGTTM-RA-01 Risk Assessment and the TMP Layouts and Dimensions course.</p>
+  </div>
+
+  <div class="card">
+    <h2>Assessment criteria</h2>
+    <p id="pass-rule"></p>
+    <div id="rubric"></div>
+  </div>
+
+  <div class="card" id="form-card" hidden>
+    <h2 id="form-title">Submit your TMP</h2>
+    <form id="tmp-form">
+      <label for="f-title">TMP name or reference</label>
+      <input type="text" id="f-title" required maxlength="160" placeholder="e.g. SH25 Whangamatā culvert renewal, lane closure">
+      <label for="f-location">Location and road</label>
+      <input type="text" id="f-location" required maxlength="200" placeholder="Road name, town, RCA">
+      <label for="f-speed">Permanent speed limit and design speed</label>
+      <input type="text" id="f-speed" required maxlength="120" placeholder="e.g. 100 km/h permanent, designed to 80 km/h operating">
+      <label for="f-files">TMP files</label>
+      <input type="file" id="f-files" multiple accept=".pdf,.docx,.doc,.xlsx,.png,.jpg,.jpeg,.dwg,.dxf">
+      <div class="hint">PDF preferred. Up to 6 files, 25 MB each.</div>
+      <ul class="files" id="file-list"></ul>
+      <label for="f-link">Or a share link (optional)</label>
+      <input type="url" id="f-link" maxlength="500" placeholder="https:// (OneDrive, Google Drive or Dropbox link the assessor can open)">
+      <label for="f-notes">Notes for the assessor (optional)</label>
+      <textarea id="f-notes" maxlength="3000" placeholder="Anything the assessor should know. On a resubmission, say what you changed."></textarea>
+      <label style="font-weight:400;"><input type="checkbox" id="f-declare" required> I declare this TMP is my own work, and I have permission to share any site or client information in it.</label>
+      <div class="bar" id="bar"><div></div></div>
+      <div class="err" id="form-err"></div>
+      <p><button class="btn" type="submit" id="btn-submit">Submit for assessment</button></p>
+    </form>
+  </div>
+
+  <div class="card" id="history-card" hidden>
+    <h2>Your submissions</h2>
+    <div id="history"></div>
+  </div>
+</div>
+
+<script type="module">
+import { app, auth, db, onAuthStateChanged, doc, getDoc, setDoc, collection, getDocs } from "/js/firebase-init.js";
+import { query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+import { SIGNOFF, RUBRIC, PASS_RULE } from "/js/tmp-rubric.js";
+
+const $ = id => document.getElementById(id);
+const esc = v => String(v ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const fmt = iso => iso ? new Date(iso).toLocaleString("en-NZ", { dateStyle:"medium", timeStyle:"short" }) : "--";
+const MARK_LABEL = { met:"Met", not_yet:"Not yet met", na:"Not applicable" };
+
+$("pass-rule").textContent = PASS_RULE;
+
+// Criteria, optionally with the assessor's marks for one attempt.
+function rubricHtml(marks, open) {
+  // Sections with a "not yet met" open automatically so the feedback is seen.
+  return RUBRIC.map(s => `<details class="sec" ${open || (marks && s.criteria.some(c => marks[c.id] && marks[c.id].mark === "not_yet")) ? "open" : ""}><summary>${esc(s.id)}. ${esc(s.title)}</summary>` +
+    s.criteria.map(c => {
+      const m = marks && marks[c.id];
+      return `<div class="crit-row"><span class="id">${c.id}</span>${c.critical ? '<span class="pill crit">Critical</span> ' : ""}` +
+        (m ? `<span class="pill ${esc(m.mark)}">${MARK_LABEL[m.mark] || ""}</span>` : "") +
+        `<div>${esc(c.text)}</div><div class="ev">What the assessor looks for: ${esc(c.evidence)}</div>` +
+        (m && m.comment ? `<div class="fb"><strong>Assessor:</strong> ${esc(m.comment)}</div>` : "") + `</div>`;
+    }).join("") + `</details>`).join("");
+}
+$("rubric").innerHTML = rubricHtml(null, false);
+
+function setStatus(cls, html) { const c = $("status-card"); c.className = "card status " + cls; c.innerHTML = html; }
+
+async function hasAccess(user) {
+  try { if ((await getDoc(doc(db, "admins", user.uid))).exists()) return true; } catch (e) {}
+  const email = (user.email || "").trim().toLowerCase();
+  try {
+    const g = await getDoc(doc(db, "grants", email));
+    if (g.exists()) { const d = g.data(); if (d.allCourses || (d.courseIds || []).includes(SIGNOFF.courseId)) return true; }
+  } catch (e) {}
+  try {
+    const c = await getDoc(doc(db, "courses", SIGNOFF.courseId));
+    const ids = c.exists() ? [c.data().stripePriceId, ...(c.data().legacyStripePriceIds || [])].filter(Boolean) : [];
+    if (ids.length) {
+      const pays = await getDocs(query(collection(db, "customers", user.uid, "payments"), where("status", "==", "succeeded")));
+      let ok = false;
+      pays.forEach(p => (p.data().items || []).forEach(i => { if (i && i.price && ids.includes(i.price.id)) ok = true; }));
+      if (ok) return true;
+    }
+  } catch (e) {}
+  return false;
+}
+
+let selected = [];
+$("f-files").addEventListener("change", e => {
+  selected = Array.from(e.target.files || []);
+  $("file-list").innerHTML = selected.map(f => `<li>${esc(f.name)} (${(f.size/1048576).toFixed(1)} MB)</li>`).join("");
+});
+
+function renderHistory(subs) {
+  if (!subs.length) return;
+  $("history-card").hidden = false;
+  $("history").innerHTML = subs.slice().reverse().map(s => {
+    const res = s.status === "assessed"
+      ? (s.result === "competent" ? '<span class="pill met">Signed off</span>' : '<span class="pill not_yet">Not yet competent</span>')
+      : '<span class="pill wait">Awaiting assessment</span>';
+    return `<div class="att"><h3>Attempt ${s.attempt} &middot; ${esc(s.title || "")} ${res}</h3>
+      <div class="muted">Submitted ${fmt(s.submittedAt)}${s.assessedAt ? ` &middot; Assessed ${fmt(s.assessedAt)}` : ""}</div>
+      ${s.status === "assessed" && s.overallComment ? `<div class="fb" style="margin-top:8px;background:#f6f6f2;border-radius:6px;padding:10px;"><strong>Assessor's summary:</strong> ${esc(s.overallComment)}</div>` : ""}
+      ${s.status === "assessed" ? rubricHtml(s.marks || {}, false) : ""}</div>`;
+  }).join("");
+}
+
+onAuthStateChanged(auth, async user => {
+  if (!user || user.isAnonymous) { location.replace("/login.html"); return; }
+  const access = await hasAccess(user);
+  let subs = [];
+  try {
+    const snap = await getDocs(query(collection(db, "tmp_signoff_submissions"), where("userId", "==", user.uid)));
+    snap.forEach(d => subs.push({ _id: d.id, ...d.data() }));
+  } catch (e) { console.warn("[TMP-PS] history load failed", e); }
+  subs = subs.filter(s => !s.voided).sort((a, b) => (a.attempt || 0) - (b.attempt || 0));
+  renderHistory(subs);
+
+  const passed = subs.find(s => s.result === "competent");
+  const pending = subs.find(s => s.status !== "assessed");
+  const failed = subs.filter(s => s.result === "not_yet").length;
+
+  if (passed) return setStatus("ok", `<h2>Signed off</h2><p>Your TMP was assessed as competent on ${fmt(passed.assessedAt)}. Your certificate will be emailed to you.</p>`);
+  if (pending) return setStatus("", `<h2>Awaiting assessment</h2><p>Attempt ${pending.attempt} was submitted on ${fmt(pending.submittedAt)}. You'll get an email when it has been marked.</p>`);
+  if (!access) return setStatus("bad", `<h2>Sign-off not purchased yet</h2><p>You can read the criteria below. To submit a TMP for assessment, purchase the sign-off ($200 + GST) from the course library.</p><p><a class="btn" href="/store.html">Go to the course library</a></p>`);
+  if (failed >= SIGNOFF.attemptsAllowed) return setStatus("bad", `<h2>All ${SIGNOFF.attemptsAllowed} attempts used</h2><p>Please contact Sela to talk through your feedback and arrange a new sign-off.</p><p><a class="btn" href="/contact.html">Contact Sela</a></p>`);
+
+  const attempt = subs.length + 1;
+  const left = SIGNOFF.attemptsAllowed - failed;
+  setStatus("", `<h2>${attempt === 1 ? "Ready to submit" : "Ready to resubmit"}</h2><p>You have ${left} attempt${left === 1 ? "" : "s"} left.${attempt > 1 ? " Fix the criteria marked not yet met (see your feedback below), then resubmit." : ""}</p>`);
+  $("form-title").textContent = `Submit your TMP (attempt ${attempt} of ${SIGNOFF.attemptsAllowed})`;
+  $("form-card").hidden = false;
+
+  $("tmp-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const err = $("form-err"); err.textContent = "";
+    const link = $("f-link").value.trim();
+    if (!selected.length && !link) return (err.textContent = "Attach your TMP files or add a share link.");
+    if (selected.length > SIGNOFF.maxFiles) return (err.textContent = `Please attach no more than ${SIGNOFF.maxFiles} files (combine them into one PDF if you can).`);
+    const big = selected.find(f => f.size > SIGNOFF.maxFileMB * 1048576);
+    if (big) return (err.textContent = `${big.name} is over ${SIGNOFF.maxFileMB} MB. Please compress it or use a share link.`);
+    if (!$("f-declare").checked) return (err.textContent = "Please tick the declaration.");
+
+    const btn = $("btn-submit"); btn.disabled = true; btn.textContent = "Uploading...";
+    const subRef = doc(collection(db, "tmp_signoff_submissions"));
+    const files = [];
+    try {
+      if (selected.length) {
+        const storage = getStorage(app);
+        const total = selected.reduce((n, f) => n + f.size, 0); let done = 0;
+        $("bar").style.display = "block";
+        for (const f of selected) {
+          const safe = f.name.replace(/[^\w.\- ]+/g, "_").slice(-120);
+          const path = `tmp-signoff/${user.uid}/${subRef.id}/${safe}`;
+          await new Promise((resolve, reject) => {
+            const task = uploadBytesResumable(ref(storage, path), f, { contentType: f.type || "application/octet-stream" });
+            task.on("state_changed", s => { $("bar").firstElementChild.style.width = Math.round(((done + s.bytesTransferred) / total) * 100) + "%"; }, reject, resolve);
+          });
+          done += f.size;
+          files.push({ name: f.name, path, size: f.size, contentType: f.type || "" });
+        }
+      }
+      btn.textContent = "Submitting...";
+      await setDoc(subRef, {
+        userId: user.uid,
+        email: (user.email || "").toLowerCase(),
+        name: user.displayName || "",
+        courseId: SIGNOFF.courseId,
+        attempt,
+        title: $("f-title").value.trim(),
+        location: $("f-location").value.trim(),
+        speed: $("f-speed").value.trim(),
+        link,
+        notes: $("f-notes").value.trim(),
+        files,
+        declaration: true,
+        status: "submitted",
+        submittedAt: new Date().toISOString(),
+      });
+      location.reload();
+    } catch (ex) {
+      console.error("[TMP-PS] submit failed", ex);
+      err.textContent = selected.length && !files.length
+        ? "Your files couldn't be uploaded. Try again, or paste a share link instead and leave the files empty."
+        : "Your submission couldn't be saved: " + (ex.message || ex);
+      btn.disabled = false; btn.textContent = "Submit for assessment";
+    }
+  });
+});
+</script>
+<script src="/js/home-button.js" defer></script>
+</body>
+</html>
