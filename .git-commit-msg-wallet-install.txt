@@ -1,0 +1,14 @@
+My Certificates app: install steps, fix certificates vanishing offline
+
+- Always show add-to-home-screen steps for the detected phone/browser
+  (iPhone Safari/Chrome, Android Chrome, Samsung Internet) until the app
+  is installed or hidden; one-tap button where the browser supports it.
+- Fix: in flight mode certificates showed briefly then disappeared.
+  Offline, Firestore getDocs returned an empty cached result and the app
+  saved it over the real copy. Now it skips the network when offline and
+  uses getDocsFromServer/getDocFromServer, so only real server data is
+  ever saved.
+- wallet-sw.js cache bumped to v3 so phones pick up the new page.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_018nnUp4YvwNXyx1SNKXHuE1

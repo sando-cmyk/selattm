@@ -1,0 +1,96 @@
+Learner IDs, Company Portal, RCA check, My Certificates phone app
+
+- Learners tab: "Add name" / "Edit name" button on every learner row and
+  in the learner profile. Saves to learner_profiles/{email} (admin-only
+  write, already allowed by firestore.rules -- no rules change).
+- Learners list now shows the admin-saved name first, then the learner's
+  own sign-up name, then the name on their latest certificate, instead
+  of "(name not entered)" when only an admin-typed name existed.
+- Certificates: "Resend email" now saves the typed name to
+  learner_profiles (it previously only stored it on that one result).
+  Both Issue and Resend now pre-fill the admin-saved name first, so a
+  corrected name is used.
+- Record of Learning PDF: "Member since" now shows October 2026 for
+  every learner already in the system (joined before 20 Nov 2026 or no
+  join date), and the month and year they joined for anyone after.
+
+Learner IDs:
+- Every learner gets an ID: SELA1000 for craig@selacivil.co.nz, then
+  SELA1001+ in the order people joined. Stored on
+  learner_profiles/{email}.learnerId; next number in counters/learnerIds
+  (no client access -- no firestore.rules change needed).
+- scripts/assign-learner-ids.js: one-off numbering of everyone already in
+  the system (preview by default, --apply to save). Safe to re-run.
+- functions: assignLearnerIdOnSignup (Auth onCreate) and
+  assignLearnerIdOnGrant (grants/{email} created) give new people the next
+  number. They do nothing until the script has created the counter.
+- Shown on: admin Learners tab (list, profile, searchable), Record of
+  Learning PDF, new certificates (next to score and date), and the
+  learner's own Your Courses page.
+
+Companies and Company Portal:
+- admin.html: new Companies tab (admin-companies.js): add/rename/delete
+  companies, add/remove each company's HR contacts (company_managers/
+  {email}) with a pre-written invite email, link to each company report.
+- Learners tab: Company picker in the learner profile (writes
+  learner_profiles/{email}.companyId); company shown in the list and
+  searchable.
+- enterprise.html rebuilt as the Company Portal: HR sees their staff's
+  completed courses only (name, learner ID, course, date, score,
+  certificate no.), per-course summary, staff with no completions,
+  date-range filter, Excel CSV and PDF summary downloads. Admins can
+  view any company.
+- functions: companyReport callable (australia-southeast1). Checks the
+  caller is a verified-email HR contact (own company only) or an admin;
+  returns completed courses only. HR never reads Firestore directly.
+- firestore.rules: companies (admin only), company_managers (admin
+  write, owner read).
+- navigation.js: "Company Portal" link for HR contacts and admins.
+  login.html: HR contacts land on the Company Portal after sign-in.
+- Privacy notice: sign-up details form and Your Courses page tell
+  learners their employer's contact can see completed courses.
+- Company logos: upload in Companies tab (resized to a small PNG and
+  stored on companies/{id}, no Storage needed). Shown on the Company
+  Portal page and its PDF summary (top right, Sela logo top left).
+- Co-branded sign-in: login.html?company=<id> shows the company's logo
+  ("Copy sign-in link" in Companies tab; HR invite email uses it).
+  Reads company_branding/{id}, a public name+logo copy kept in step by
+  admin-companies.js (firestore.rules: public read, admin write).
+
+RCA certificate check:
+- rca.html: Road Controlling Authority staff sign in (verified email),
+  request access, and once approved enter a learner ID to see ONLY the
+  person's name and Sela certificates held (course, certificate no.,
+  date issued) -- no scores, email or company. PDF download per check.
+- functions: rcaLookup callable (approved rca_users or admin; 200
+  checks/day per user; every check logged to rca_lookups) and
+  notifyOnRcaRequest (emails Joseph each new request).
+- admin.html: RCA Access tab (admin-rca.js): approve/decline requests,
+  remove access, pre-written approval email, last 100 checks.
+- firestore.rules: rca_access_requests (owner create as pending,
+  admin decide), rca_users (admin write, owner read), rca_lookups
+  (admin read, no client writes). firestore.indexes.json: rca_lookups
+  (by, at) for the daily limit.
+- login.html: ?next= (allow-listed pages) and RCA users land on
+  rca.html. navigation.js: "Certificate Check" link + footer link.
+- Learner notices: learner ID line and sign-up form say approved RCAs
+  can confirm name + certificates held using the learner ID.
+- RCA accounts must use a council / NZTA email (ending .govt.nz);
+  enforced in rca.html, firestore.rules and rcaLookup. Approving now
+  requires recording how the person was checked (method, note,
+  confirmation tick), saved as verification on rca_users and the
+  request; decline asks for an internal reason.
+
+My Certificates phone app:
+- wallet.html: installable web app (add to home screen, iPhone and
+  Android, no app store). Shows the learner's name, learner ID and
+  certificates; tap one to see what was covered, demonstrated and how
+  it was assessed (js/course-summaries.js). Completed courses awaiting
+  a certificate listed separately. Works offline from the last sync.
+- wallet-sw.js (service worker, scoped to /wallet.html only),
+  wallet.webmanifest, img/wallet-icon-*.png, img/apple-touch-icon.png.
+- Linked from Your Courses (learner.html), the certificate email
+  (admin-app.js) and login.html?next=wallet.html.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_018nnUp4YvwNXyx1SNKXHuE1

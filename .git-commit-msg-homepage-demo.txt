@@ -1,0 +1,18 @@
+Add "See Sela Skills Hub in action" demo page
+
+- demo.html (new): 75-second walkthrough video with voice-over and captions with clickable
+  chapters (jump to any scene; current chapter highlighted), six
+  screenshot cards (interactive course, knowledge check, certificate,
+  My Certificates phone app, Company Portal, RCA check) and two sample
+  PDFs.
+- index.html: "See Sela Skills Hub in action" link under the hero
+  buttons, opening demo.html in a new tab.
+- New files: video/sela-skills-hub-demo.mp4, img/demo/*.jpg,
+  samples/sela-sample-certificate.pdf,
+  samples/sela-sample-record-of-learning.pdf.
+- All screens and samples use a fictional learner (Alex Sample,
+  Example Roading Ltd). Sample PDFs are stamped SAMPLE on every page and
+  the certificate carries no signature.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_018nnUp4YvwNXyx1SNKXHuE1

@@ -1,0 +1,17 @@
+Fix PTS-01 catalog entry (wrong name, code, id and price)
+
+The PTS-01 course folder had no course-manifest.json, so build-all.js
+made up an entry from the folder name: id "ttm-portable-traffic-signals",
+title "Ttm Portable Traffic Signals", code
+"TTM-PORTABLE-TRAFFIC-SIGNALS", $250, no Stripe price.
+
+- Add public/courses/ttm-portable-traffic-signals/course-manifest.json,
+  same details as PTS-01 in courses-import.json.
+- public/data/courses.json: PTS-01 entry corrected (= build-all output).
+- course-map.js: LEGACY_IDS / canonicalId / dedupeCatalog so grants,
+  learner plans and catalog docs under the old id still count as
+  PTS-01. Used in learner.html, course-sequence.js, admin-learners.js
+  (removing a pre-paid course also removes an old-id grant).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_018nnUp4YvwNXyx1SNKXHuE1
