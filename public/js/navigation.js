@@ -108,6 +108,7 @@ function renderFooter() {
   const footer = document.getElementById("global-footer");
   if (!footer) return;
   footer.innerHTML = `<p>&copy; ${new Date().getFullYear()} Sela Civil Advisory Ltd. All rights reserved.</p>
+    <p style="font-size: 0.85rem; margin-top: 0.25rem;"><a href="rca.html" style="color: inherit;">Road Controlling Authorities: check a worker's Sela certificates</a></p>
     <p style="font-size: 0.8rem; opacity: 0.75; margin-top: 0.25rem;">This site uses Google Analytics to count visits and see which pages are useful. We don&#39;t send your name, email or course results to Google.</p>`;
 }
 
@@ -134,16 +135,21 @@ function bindAuthState() {
 
     // Company HR contacts (company_managers/{email}, set in admin.html ->
     // Companies) get a link to the Company Portal (enterprise.html).
-    let isCompanyContact = false;
+    let isCompanyContact = false, isRca = false;
     try {
-      const m = await getDoc(doc(db, "company_managers", String(user.email || "").trim().toLowerCase()));
+      const em = String(user.email || "").trim().toLowerCase();
+      const [m, r] = await Promise.all([getDoc(doc(db, "company_managers", em)), getDoc(doc(db, "rca_users", em))]);
       isCompanyContact = m.exists();
+      isRca = r.exists(); // approved Road Controlling Authority user (rca.html)
     } catch (_) {}
 
     if (dynamicLinks) {
       let links = `<a href="learner.html"${isCurrentPage("learner.html") ? ' class="active"' : ""}>Your Courses</a>`;
       if (isCompanyContact || isAdmin) {
         links += ` <a href="enterprise.html"${isCurrentPage("enterprise.html") ? ' class="active"' : ""}>Company Portal</a>`;
+      }
+      if (isRca || isAdmin) {
+        links += ` <a href="rca.html"${isCurrentPage("rca.html") ? ' class="active"' : ""}>Certificate Check</a>`;
       }
       if (isAdmin) {
         links += ` <a href="admin.html" style="color: var(--primary-color);"${isCurrentPage("admin.html") ? ' class="active"' : ""}>Admin</a>`;

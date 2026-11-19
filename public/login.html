@@ -131,11 +131,18 @@
 
     // Where to go after signing in: company HR contacts (admin.html ->
     // Companies) go to the Company Portal, everyone else to Your Courses.
+    // ?next=rca.html / enterprise.html sends them back to the page that asked
+    // them to sign in (only these pages, never an outside address). RCA
+    // users (rca_users, admin.html -> RCA Access) go to the certificate check.
+    const NEXT_ALLOWED = ["rca.html", "enterprise.html", "learner.html"];
     async function goHome(user = auth.currentUser) {
+      const next = new URLSearchParams(location.search).get("next");
+      if (NEXT_ALLOWED.includes(next)) { window.location.replace(next); return; }
+      const email = String(user?.email || "").trim().toLowerCase();
       let dest = "learner.html";
       try {
-        const m = await getDoc(doc(db, "company_managers", String(user?.email || "").trim().toLowerCase()));
-        if (m.exists()) dest = "enterprise.html";
+        if ((await getDoc(doc(db, "company_managers", email))).exists()) dest = "enterprise.html";
+        else if ((await getDoc(doc(db, "rca_users", email))).exists()) dest = "rca.html";
       } catch (_) {}
       window.location.replace(dest);
     }

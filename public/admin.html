@@ -342,6 +342,7 @@
       <button class="admin-tab" role="tab" data-tab="learners">Learners</button>
       <button class="admin-tab" role="tab" data-tab="results">Results &amp; Certificates</button>
       <button class="admin-tab" role="tab" data-tab="companies">Companies</button>
+      <button class="admin-tab" role="tab" data-tab="rca">RCA Access <span class="tab-count" id="tab-count-rca"></span></button>
       <button class="admin-tab" role="tab" data-tab="access">Course Access</button>
       <button class="admin-tab" role="tab" data-tab="inquiries">Inquiries <span class="tab-count" id="tab-count-inquiries"></span></button>
       <button class="admin-tab" role="tab" data-tab="tmpps">TMP Sign-off <span class="tab-count" id="tab-count-tmpps"></span></button>
@@ -423,6 +424,34 @@
             </tbody>
           </table>
         </div>
+      </section>
+    </div>
+    <div class="tab-panel" id="tab-rca" data-tab="rca" hidden>
+      <section class="panel-card">
+        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;">
+          <h2>RCA access requests</h2>
+          <button id="btn-refresh-rca" class="btn-action">Refresh</button>
+        </div>
+        <p class="subtitle">Road Controlling Authority staff ask for access on <a href="rca.html" target="_blank" rel="noopener" style="color:var(--accent-blue);">selattm.com/rca.html</a> (you're emailed each request). Once approved they can enter a learner ID and see only that person's name and the Sela certificates they hold (course, certificate number, date issued) &mdash; no scores, email or company.</p>
+        <div class="table-container"><table>
+          <thead><tr><th>Name</th><th>Organisation</th><th>Reason</th><th>Requested</th><th></th></tr></thead>
+          <tbody id="rca-requests-tbody"><tr><td colspan="5" style="text-align:center;color:var(--text-muted);">Loading...</td></tr></tbody>
+        </table></div>
+      </section>
+      <section class="panel-card">
+        <h2>Approved RCA users</h2>
+        <div class="table-container"><table>
+          <thead><tr><th>Name</th><th>Organisation</th><th>Approved</th><th></th></tr></thead>
+          <tbody id="rca-users-tbody"><tr><td colspan="4" style="text-align:center;color:var(--text-muted);">Loading...</td></tr></tbody>
+        </table></div>
+      </section>
+      <section class="panel-card">
+        <h2>Recent certificate checks</h2>
+        <p class="subtitle">The last 100 lookups. Each RCA user is limited to 200 checks a day.</p>
+        <div class="table-container"><table>
+          <thead><tr><th>When</th><th>Checked by</th><th>Learner ID</th><th>Result</th></tr></thead>
+          <tbody id="rca-lookups-tbody"><tr><td colspan="4" style="text-align:center;color:var(--text-muted);">Loading...</td></tr></tbody>
+        </table></div>
       </section>
     </div>
     <div class="tab-panel" id="tab-access" data-tab="access" hidden>
@@ -612,6 +641,7 @@
   <script type="module" src="./js/admin-app.js"></script>
   <script type="module" src="./js/admin-learners.js"></script>
   <script type="module" src="./js/admin-companies.js"></script>
+  <script type="module" src="./js/admin-rca.js"></script>
   <script type="module" src="./js/admin-tmp-signoff.js"></script>
 
   <!-- Ingestion Script Wiring -->

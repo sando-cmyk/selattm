@@ -89,6 +89,28 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // -- RCA certificate check (rca.html) ------------------------------
+    // Requests: doc ID = requester's lowercased, verified email. They can
+    // create/read their own (status must start as "pending"); admins
+    // approve/decline. Lookups themselves go through the rcaLookup Cloud
+    // Function, which also writes the rca_lookups audit log.
+    match /rca_access_requests/{email} {
+      allow create: if isSignedIn() && request.auth.token.email_verified == true &&
+        request.auth.token.email.lower() == email &&
+        request.resource.data.status == "pending" &&
+        request.resource.data.keys().hasOnly(["email", "name", "organisation", "role", "phone", "reason", "status", "requestedAt"]);
+      allow read: if isAdmin() || (isSignedIn() && request.auth.token.email.lower() == email);
+      allow update, delete: if isAdmin();
+    }
+    match /rca_users/{email} {
+      allow read: if isAdmin() || (isSignedIn() && request.auth.token.email.lower() == email);
+      allow write: if isAdmin();
+    }
+    match /rca_lookups/{id} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
     // Doc ID is the HR contact's lowercased email -> { companyId, companyName }.
     // They can read their own (so the site can show the Company Portal link).
     match /company_managers/{email} {

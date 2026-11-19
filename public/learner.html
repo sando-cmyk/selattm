@@ -288,7 +288,7 @@
             const el = document.createElement("p");
             el.id = "learner-id-text";
             el.style.cssText = "margin:4px 0 0;font-size:0.9rem;opacity:0.85;";
-            el.innerHTML = 'Your learner ID: <strong></strong>';
+            el.innerHTML = 'Your learner ID: <strong></strong> <span style="opacity:0.8;font-size:0.85rem;">&middot; Road Controlling Authorities approved by Sela can use it to confirm your name and the Sela certificates you hold (not your scores).</span>';
             el.querySelector("strong").textContent = id;
             welcomeText.insertAdjacentElement("afterend", el);
           })

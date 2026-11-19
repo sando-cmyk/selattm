@@ -261,3 +261,99 @@ exports.companyReport = onCall({ region: "australia-southeast1" }, async (reques
     generatedAt: new Date().toISOString(),
   };
 });
+
+// ============================================================================
+// RCA certificate check (public/rca.html)
+// Road Controlling Authority staff request access (rca_access_requests/
+// {email}); a Sela admin approves them in admin.html -> RCA Access, which
+// writes rca_users/{email}. An approved, email-verified RCA user can look up a
+// learner ID and gets ONLY the person's name and the Sela certificates they
+// hold (course, certificate number, date issued) -- no scores, email,
+// company, attempts or progress. Every lookup is logged to rca_lookups.
+// Deploy: firebase deploy --only functions:rcaLookup,functions:notifyOnRcaRequest
+// ============================================================================
+const RCA_DAILY_LIMIT = 200; // per RCA user, to make bulk harvesting of IDs obvious and slow
+
+exports.rcaLookup = onCall({ region: "australia-southeast1" }, async (request) => {
+  const a = request.auth;
+  if (!a || !a.token || !a.token.email) throw new HttpsError("unauthenticated", "Please sign in.");
+  const email = String(a.token.email).toLowerCase();
+  const isAdmin = (await db.collection("admins").doc(a.uid).get()).exists;
+  let organisation = "Sela admin";
+  if (!isAdmin) {
+    if (!a.token.email_verified) throw new HttpsError("failed-precondition", "Please verify your email address first.");
+    const u = await db.collection("rca_users").doc(email).get();
+    if (!u.exists) throw new HttpsError("permission-denied", "This account hasn't been approved for certificate checks yet.");
+    organisation = u.data().organisation || "";
+    const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+    const recent = await db.collection("rca_lookups").where("by", "==", email).where("at", ">=", since).count().get();
+    if (recent.data().count >= RCA_DAILY_LIMIT) throw new HttpsError("resource-exhausted", "Daily lookup limit reached. Please contact Sela if you need to check more people.");
+  }
+
+  const learnerId = String((request.data && request.data.learnerId) || "").trim().toUpperCase().replace(/\s+/g, "");
+  if (!/^SELA\d{4,}$/.test(learnerId)) throw new HttpsError("invalid-argument", "Learner IDs look like SELA1234.");
+
+  const log = (found, certificates) => db.collection("rca_lookups").add({
+    by: email, organisation, learnerId, found, certificates, at: new Date().toISOString(),
+  });
+
+  const prof = await db.collection("learner_profiles").where("learnerId", "==", learnerId).limit(1).get();
+  if (prof.empty) { await log(false, 0); return { found: false, learnerId }; }
+  const p = prof.docs[0];
+  const learnerEmail = p.id.toLowerCase();
+
+  let name = p.data().fullName || "";
+  const [users, subs, courses] = await Promise.all([
+    name ? null : db.collection("users").where("email", "==", learnerEmail).limit(1).get(),
+    db.collection("submissions").get(), db.collection("courses").get(),
+  ]);
+  if (!name && users && !users.empty) name = [users.docs[0].data().firstName, users.docs[0].data().lastName].filter(Boolean).join(" ");
+  const titles = new Map();
+  courses.forEach((c) => titles.set(c.id, c.data()));
+
+  const certificates = [];
+  subs.forEach((d) => {
+    const x = d.data();
+    if (String(x.email || "").toLowerCase() !== learnerEmail) return;
+    if (!x.certificateIssued || !x.certificateNumber || x.passed === false) return; // certificates held only
+    if (!name && x.certificateName) name = x.certificateName;
+    const c = titles.get(x.courseId) || {};
+    certificates.push({
+      courseTitle: x.courseTitle || c.title || x.courseId || "Course",
+      courseCode: x.courseCode || c.code || "",
+      certificateNumber: x.certificateNumber,
+      issuedAt: x.certificateIssuedAt || x.completedAt || "",
+    });
+  });
+  certificates.sort((x, y) => String(y.issuedAt).localeCompare(String(x.issuedAt)));
+  await log(true, certificates.length);
+  logger.info("RCA lookup", { by: email, learnerId, certificates: certificates.length });
+  return { found: true, learnerId, name: name || "(name not recorded)", certificates, checkedAt: new Date().toISOString() };
+});
+
+// Someone has asked for RCA access -- tell the training manager.
+exports.notifyOnRcaRequest = onDocumentCreated(
+  { document: "rca_access_requests/{email}", region: "australia-southeast1", database: "(default)" },
+  async (event) => {
+    const r = event.data && event.data.data();
+    if (!r) return;
+    const url = `${ADMIN_URL}#rca`;
+    const lines = [
+      ["Name", r.name || "--"], ["Email", r.email || event.params.email], ["Organisation", r.organisation || "--"],
+      ["Role", r.role || "--"], ["Phone", r.phone || "--"], ["Reason", r.reason || "--"],
+    ];
+    await db.collection("mail").add({
+      to: NOTIFY_TO,
+      message: {
+        subject: `RCA access request: ${r.name || r.email} (${r.organisation || "organisation not given"})`,
+        text: `Someone has asked for access to the RCA certificate check.\n\n` +
+          lines.map(([k, v]) => `${k}: ${v}`).join("\n") + `\n\nApprove or decline: ${url}`,
+        html: `<p>Someone has asked for access to the <strong>RCA certificate check</strong>.</p>` +
+          `<table cellpadding="4" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px;">` +
+          lines.map(([k, v]) => `<tr><td style="color:#666;padding-right:14px;">${esc(k)}</td><td>${esc(v)}</td></tr>`).join("") +
+          `</table><p><a href="${url}">Open Admin to approve or decline</a></p>`,
+      },
+      meta: { type: "rca-access-request", email: event.params.email, queuedAt: new Date().toISOString() },
+    });
+  }
+);

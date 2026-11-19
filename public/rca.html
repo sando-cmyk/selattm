@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RCA Certificate Check - Sela Civil Advisory Ltd</title>
+  <link rel="stylesheet" href="css/custom.css">
+  <style>
+    .rc-wrap { max-width: 820px; margin: 0 auto; }
+    .rc-note { background: rgba(26,108,122,.06); border-left: 4px solid var(--primary-color, #1a6c7a); border-radius: 6px; padding: 12px 16px; color: #334155; font-size: .92rem; line-height: 1.5; margin: 0 0 18px; }
+    .rc-card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 20px; background: #fff; margin: 0 0 18px; }
+    .rc-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+    .rc-row label, .rc-form label { font-size: .85rem; color: #475569; display: flex; flex-direction: column; gap: 4px; }
+    .rc-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rc-form .full { grid-column: 1 / -1; }
+    .rc-wrap input, .rc-wrap textarea { padding: 9px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; font-family: inherit; }
+    .rc-btn { padding: 10px 16px; border-radius: 6px; border: 1px solid #16326e; background: #16326e; color: #fff; font-weight: 600; cursor: pointer; font-size: .95rem; }
+    .rc-btn.secondary { background: #fff; color: #16326e; }
+    .rc-btn:disabled { opacity: .6; cursor: wait; }
+    .rc-table { width: 100%; border-collapse: collapse; font-size: .92rem; margin-top: 10px; }
+    .rc-table th { background: #16326e; color: #fff; text-align: left; padding: 9px 10px; }
+    .rc-table td { padding: 9px 10px; border-top: 1px solid #e2e8f0; }
+    .rc-muted { color: #64748b; }
+    .rc-ok { color: #3e8c2e; font-weight: 700; }
+    #rc-message { padding: 1.5rem 0; color: #475569; }
+    @media (max-width: 600px) { .rc-form { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <header class="site-header" id="global-header"></header>
+    <div class="main-wrapper">
+      <main class="container">
+        <div class="main-content rc-wrap">
+          <h1 class="page-title">RCA Certificate Check</h1>
+          <p class="rc-note">For Road Controlling Authorities. Enter a worker's Sela learner ID (for example SELA1234) to confirm their name and the Sela Skills Hub certificates they hold. Scores and personal contact details are not shown. Access is by approval from Sela Civil Advisory Ltd, and every check is logged.</p>
+
+          <div id="rc-message">Checking your access...</div>
+
+          <!-- Request access -->
+          <div id="rc-request" class="rc-card" style="display:none;">
+            <h2 style="font-size:1.15rem;margin:0 0 6px;">Request access</h2>
+            <p class="rc-muted" style="margin:0 0 14px;font-size:.92rem;">Tell us who you are. Sela will review your request and email you when it's approved.</p>
+            <form id="rc-request-form" class="rc-form">
+              <label>Your full name <input name="name" required maxlength="80" autocomplete="name"></label>
+              <label>Organisation (RCA) <input name="organisation" required maxlength="120" placeholder="e.g. Thames-Coromandel District Council"></label>
+              <label>Role <input name="role" required maxlength="80" placeholder="e.g. Corridor Access Engineer"></label>
+              <label>Phone <input name="phone" required maxlength="30" autocomplete="tel"></label>
+              <label class="full">Why you need to check certificates <textarea name="reason" rows="3" maxlength="500" required placeholder="e.g. Auditing TTM sites on our network"></textarea></label>
+              <div class="full"><button type="submit" class="rc-btn">Send request</button> <span id="rc-request-msg" style="margin-left:10px;font-size:.9rem;"></span></div>
+            </form>
+          </div>
+
+          <!-- Lookup -->
+          <div id="rc-lookup" style="display:none;">
+            <p id="rc-who" class="rc-muted" style="margin:0 0 10px;font-size:.9rem;"></p>
+            <form id="rc-lookup-form" class="rc-card rc-row">
+              <label style="flex:1 1 220px;">Learner ID <input id="rc-id" required placeholder="SELA1234" autocomplete="off" style="text-transform:uppercase;"></label>
+              <button type="submit" class="rc-btn">Check certificates</button>
+            </form>
+            <div id="rc-result"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <footer class="site-footer" id="global-footer"></footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script type="module" src="./js/firebase-init.js"></script>
+  <script type="module" src="./js/navigation.js"></script>
+  <script type="module">
+    // RCA certificate check. Access: rca_users/{email} (approved in
+    // admin.html -> RCA Access). Lookups go through the rcaLookup Cloud
+    // Function, which returns only name + certificates held and logs the check.
+    import { app, auth, db, doc, getDoc, setDoc, onAuthStateChanged } from "./js/firebase-init.js";
+    import { sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
+
+    const rcaLookup = httpsCallable(getFunctions(app, "australia-southeast1"), "rcaLookup");
+    const $ = id => document.getElementById(id);
+    const esc = v => String(v ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const fmt = iso => iso ? new Date(iso).toLocaleDateString("en-NZ", { day: "numeric", month: "short", year: "numeric" }) : "--";
+    const show = (id) => ["rc-message", "rc-request", "rc-lookup"].forEach(x => $(x).style.display = x === id ? "" : "none");
+    const message = html => { $("rc-message").innerHTML = html; show("rc-message"); };
+    let organisation = "";
+
+    // ------------------------------------------------------------ request form
+    $("rc-request-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const f = new FormData(e.currentTarget);
+      const tidy = k => String(f.get(k) || "").trim().replace(/\s+/g, " ");
+      const user = auth.currentUser;
+      const btn = e.currentTarget.querySelector("button");
+      btn.disabled = true;
+      try {
+        await setDoc(doc(db, "rca_access_requests", user.email.toLowerCase()), {
+          email: user.email.toLowerCase(), name: tidy("name"), organisation: tidy("organisation"), role: tidy("role"),
+          phone: tidy("phone"), reason: tidy("reason"), status: "pending", requestedAt: new Date().toISOString(),
+        });
+        message(`Thanks, your request has been sent to Sela. We'll email <strong>${esc(user.email)}</strong> once it's approved.`);
+      } catch (err) {
+        $("rc-request-msg").textContent = "Couldn't send: " + err.message;
+        $("rc-request-msg").style.color = "#b91c1c";
+        btn.disabled = false;
+      }
+    });
+
+    // ------------------------------------------------------------ lookup
+    let last = null;
+    $("rc-lookup-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = $("rc-id").value.trim().toUpperCase().replace(/\s+/g, "");
+      const btn = e.currentTarget.querySelector("button");
+      btn.disabled = true;
+      $("rc-result").innerHTML = `<p class="rc-muted">Checking ${esc(id)}...</p>`;
+      try {
+        const r = (await rcaLookup({ learnerId: id })).data;
+        last = r;
+        if (!r.found) { $("rc-result").innerHTML = `<div class="rc-card"><strong>No learner found with ID ${esc(r.learnerId)}.</strong><p class="rc-muted" style="margin:6px 0 0;">Check the ID with the worker. Learner IDs look like SELA1234.</p></div>`; return; }
+        const rows = r.certificates.map(c => `<tr><td>${esc(c.courseTitle)}${c.courseCode ? ` <span class="rc-muted">(${esc(c.courseCode)})</span>` : ""}</td><td><strong>${esc(c.certificateNumber)}</strong></td><td>${esc(fmt(c.issuedAt))}</td></tr>`).join("");
+        $("rc-result").innerHTML = `<div class="rc-card">
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start;">
+            <div><div class="rc-muted" style="font-size:.85rem;">Name</div><div style="font-size:1.3rem;font-weight:700;color:#16326e;">${esc(r.name)}</div>
+              <div class="rc-muted" style="font-size:.85rem;margin-top:4px;">Learner ID ${esc(r.learnerId)}</div></div>
+            <button type="button" class="rc-btn secondary" id="rc-pdf">Download PDF</button>
+          </div>
+          ${r.certificates.length
+            ? `<p class="rc-ok" style="margin:14px 0 0;">Holds ${r.certificates.length} Sela certificate${r.certificates.length === 1 ? "" : "s"}</p>
+               <table class="rc-table"><thead><tr><th>Course</th><th>Certificate No.</th><th>Issued</th></tr></thead><tbody>${rows}</tbody></table>`
+            : `<p style="margin:14px 0 0;"><strong>No Sela certificates held.</strong></p>`}
+          <p class="rc-muted" style="font-size:.8rem;margin:12px 0 0;">Checked ${esc(fmt(r.checkedAt))}. Sela Skills Hub online courses only; practical competence on site is assessed separately. ASHTAS status is issued by Lantra, not Sela. To confirm a certificate, contact joseph@selacivil.co.nz.</p>
+        </div>`;
+        $("rc-pdf").onclick = downloadPdf;
+      } catch (err) {
+        $("rc-result").innerHTML = `<div class="rc-card" style="color:#b91c1c;">${esc(err.message || "Check failed.")}</div>`;
+      } finally { btn.disabled = false; }
+    });
+
+    async function imageDataUrl(url) {
+      const blob = await (await fetch(url)).blob();
+      return new Promise((res, rej) => { const r = new FileReader(); r.onloadend = () => res(r.result); r.onerror = rej; r.readAsDataURL(blob); });
+    }
+    async function downloadPdf() {
+      if (!last || !window.jspdf) return;
+      const plain = t => String(t ?? "").normalize("NFD").replace(/[̀-ͯ]/g, ""); // jsPDF fonts can't print macrons
+      const pdf = new window.jspdf.jsPDF({ unit: "pt", format: "a4" });
+      const W = pdf.internal.pageSize.getWidth(), H = pdf.internal.pageSize.getHeight(), M = 50;
+      const NAVY = [22, 50, 110], GREEN = [62, 140, 46], SLATE = [40, 46, 60], GREY = [100, 106, 116];
+      let y = M;
+      const t = (s, x, size, color, style = "normal", o) => { pdf.setFont("helvetica", style); pdf.setFontSize(size); pdf.setTextColor(...color); pdf.text(plain(s), x, y, o); };
+      try { pdf.addImage(await imageDataUrl("img/sela-logo-transparent.png"), "PNG", M, y - 10, 150, 150 * 359 / 1200); } catch (_) {}
+      y += 66; t("Certificate Verification", M, 20, NAVY, "bold");
+      y += 8; pdf.setDrawColor(...GREEN); pdf.setLineWidth(1.4); pdf.line(M, y, M + 44, y);
+      y += 28; t("Name", M, 9, GREY, "bold"); t(last.name, M + 90, 12, SLATE, "bold");
+      y += 18; t("Learner ID", M, 9, GREY, "bold"); t(last.learnerId, M + 90, 11, SLATE);
+      y += 18; t("Checked", M, 9, GREY, "bold"); t(`${fmt(last.checkedAt)} by ${auth.currentUser?.email || ""}${organisation ? ` (${organisation})` : ""}`, M + 90, 10, SLATE);
+      y += 30;
+      if (!last.certificates.length) { t("No Sela certificates held.", M, 11, SLATE, "bold"); y += 20; }
+      else {
+        pdf.setFillColor(...NAVY); pdf.rect(M, y - 12, W - 2 * M, 18, "F");
+        t("Course", M + 6, 9, [255, 255, 255], "bold"); t("Certificate No.", M + 290, 9, [255, 255, 255], "bold"); t("Issued", M + 420, 9, [255, 255, 255], "bold");
+        y += 18;
+        last.certificates.forEach((c, i) => {
+          pdf.setFont("helvetica", "normal"); pdf.setFontSize(9.5);
+          const lines = pdf.splitTextToSize(plain(c.courseTitle + (c.courseCode ? ` (${c.courseCode})` : "")), 275);
+          const h = lines.length * 12 + 6;
+          if (i % 2 === 0) { pdf.setFillColor(244, 247, 250); pdf.rect(M, y - 11, W - 2 * M, h, "F"); }
+          pdf.setTextColor(...SLATE); lines.forEach((l, li) => pdf.text(l, M + 6, y + li * 12));
+          t(c.certificateNumber, M + 290, 9.5, SLATE, "bold"); t(fmt(c.issuedAt), M + 420, 9.5, SLATE);
+          y += h;
+        });
+      }
+      y += 20;
+      pdf.setFont("helvetica", "italic"); pdf.setFontSize(8.5); pdf.setTextColor(...GREY);
+      pdf.splitTextToSize("Sela Skills Hub (selattm.com) online course certificates issued by Sela Civil Advisory Ltd, as recorded on the date checked. Practical competence on site is assessed separately where a role requires it. ASHTAS status is issued by Lantra, not Sela. To confirm a certificate, contact joseph@selacivil.co.nz, 027 267 7264.", W - 2 * M)
+        .forEach(l => { pdf.text(l, M, y); y += 11; });
+      pdf.setFont("helvetica", "normal"); pdf.setFontSize(8); pdf.setTextColor(130, 130, 130);
+      pdf.text("Sela Civil Advisory Ltd  |  NZBN 9429053816207  |  selattm.com", M, H - 30);
+      pdf.save(`Sela-Certificate-Check-${last.learnerId}.pdf`);
+    }
+
+    // ------------------------------------------------------------ access
+    onAuthStateChanged(auth, async (user) => {
+      if (!user || user.isAnonymous) {
+        message(`Please <a href="login.html?next=rca.html">sign in or create an account</a> with your work email address to request access.`);
+        return;
+      }
+      let isAdmin = false;
+      try { isAdmin = (await getDoc(doc(db, "admins", user.uid))).exists(); } catch (_) {}
+      if (isAdmin) { $("rc-who").textContent = "Admin view (checks are logged)."; show("rc-lookup"); return; }
+
+      if (!user.emailVerified) {
+        message(`Please confirm your email address (${esc(user.email)}) first.<br><br>
+          <button type="button" class="rc-btn" id="rc-send-verify">Send me a confirmation email</button>
+          <button type="button" class="rc-btn secondary" id="rc-verified">I've confirmed it</button>
+          <p id="rc-verify-msg" class="rc-muted" style="margin-top:12px;"></p>`);
+        $("rc-send-verify").onclick = async () => {
+          try { await sendEmailVerification(user); $("rc-verify-msg").textContent = "Sent. Open the link in that email, then click \"I've confirmed it\"."; }
+          catch (e) { $("rc-verify-msg").textContent = e.message; }
+        };
+        $("rc-verified").onclick = async () => {
+          await user.reload();
+          if (auth.currentUser.emailVerified) { await auth.currentUser.getIdToken(true); location.reload(); }
+          else $("rc-verify-msg").textContent = "Not confirmed yet. Check your inbox (and junk folder).";
+        };
+        return;
+      }
+
+      const email = user.email.toLowerCase();
+      try {
+        const approved = await getDoc(doc(db, "rca_users", email));
+        if (approved.exists()) {
+          organisation = approved.data().organisation || "";
+          $("rc-who").textContent = `Signed in as ${user.email}${organisation ? ` (${organisation})` : ""}. Checks are logged.`;
+          show("rc-lookup");
+          return;
+        }
+        const req = await getDoc(doc(db, "rca_access_requests", email));
+        if (req.exists()) {
+          const st = req.data().status;
+          message(st === "declined" || st === "revoked"
+            ? `${st === "revoked" ? "Your access has been removed" : "Your access request wasn't approved"}. If you think this is a mistake, contact <a href="mailto:joseph@selacivil.co.nz">joseph@selacivil.co.nz</a>.`
+            : `Your request is with Sela for review. We'll email <strong>${esc(user.email)}</strong> once it's approved.`);
+          return;
+        }
+        show("rc-request");
+      } catch (err) {
+        message(esc(err.message));
+      }
+    });
+  </script>
+</body>
+</html>
