@@ -13,6 +13,11 @@
     <div class="main-wrapper">
       <main class="container">
         <div class="main-content" style="max-width: 480px; margin: 0 auto;">
+          <!-- Co-branded sign-in: login.html?company=<id> shows that company's logo -->
+          <div id="company-brand" style="display:none; text-align:center; margin:0 0 1.5rem; padding:1rem; border:1px solid #e2e8f0; border-radius:10px; background:#fff;">
+            <img id="company-brand-logo" alt="" style="display:none; max-width:240px; max-height:90px; object-fit:contain; margin:0 auto 0.6rem;">
+            <div id="company-brand-text" style="font-size:0.95rem; color:#334155;"></div>
+          </div>
           <div class="auth-tabs">
             <div class="auth-tab active" id="tab-signin">Sign In</div>
             <div class="auth-tab" id="tab-register">Create Account</div>
@@ -105,6 +110,24 @@
     const linkForgot = document.getElementById("link-forgot-password");
     const linkBack = document.getElementById("link-back-to-signin");
     const btnGoogle = document.getElementById("btn-google-signin");
+
+    // Co-branded sign-in page for a company's HR and staff
+    // (admin.html -> Companies -> "Copy sign-in link"). Purely visual: it
+    // doesn't change who can sign in or what they can see.
+    (async () => {
+      const companyId = new URLSearchParams(location.search).get("company");
+      if (!companyId) return;
+      try {
+        const b = await getDoc(doc(db, "company_branding", companyId));
+        if (!b.exists()) return;
+        const { name, logo } = b.data();
+        const img = document.getElementById("company-brand-logo");
+        if (logo) { img.src = logo; img.alt = `${name} logo`; img.style.display = "block"; }
+        document.getElementById("company-brand-text").textContent = `Sela Skills Hub training for ${name}`;
+        document.getElementById("company-brand").style.display = "";
+        document.title = `${name} - Sign in - Sela Civil Advisory Ltd`;
+      } catch (e) { console.warn("[login] company branding skipped:", e.message); }
+    })();
 
     // Where to go after signing in: company HR contacts (admin.html ->
     // Companies) go to the Company Portal, everyone else to Your Courses.

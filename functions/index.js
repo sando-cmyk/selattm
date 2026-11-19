@@ -251,7 +251,11 @@ exports.companyReport = onCall({ region: "australia-southeast1" }, async (reques
 
   logger.info("Company report", { companyId, by: email, admin: isAdmin, staff: staff.size, completions: completions.length });
   return {
-    company: { id: companyId, name: company.data().name || companyId },
+    company: {
+      id: companyId, name: company.data().name || companyId,
+      // Small PNG data URL uploaded in admin.html -> Companies (optional).
+      logo: company.data().logo || "", logoWidth: company.data().logoWidth || 0, logoHeight: company.data().logoHeight || 0,
+    },
     staff: [...staff.values()].sort((x, y) => (x.name || x.email).localeCompare(y.name || y.email)),
     completions: completions.sort((x, y) => String(y.completedAt).localeCompare(String(x.completedAt))),
     generatedAt: new Date().toISOString(),

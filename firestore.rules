@@ -81,6 +81,14 @@ service cloud.firestore {
       allow read, write: if isAdmin();
     }
 
+    // Public copy of just a company's name + logo, so the co-branded sign-in
+    // page (login.html?company=<id>) can show it before anyone signs in.
+    // Kept in step with companies/{id} by admin-companies.js.
+    match /company_branding/{companyId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // Doc ID is the HR contact's lowercased email -> { companyId, companyName }.
     // They can read their own (so the site can show the Company Portal link).
     match /company_managers/{email} {

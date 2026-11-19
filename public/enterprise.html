@@ -35,8 +35,13 @@
     <div class="main-wrapper">
       <main class="container">
         <div class="main-content cp-wrap">
-          <h1 class="page-title">Company Training Portal</h1>
-          <p id="cp-company" class="cp-muted" style="margin-bottom:1rem;"></p>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+            <div>
+              <h1 class="page-title">Company Training Portal</h1>
+              <p id="cp-company" class="cp-muted" style="margin-bottom:1rem;"></p>
+            </div>
+            <img id="cp-logo" alt="" style="display:none;max-width:220px;max-height:80px;object-fit:contain;">
+          </div>
 
           <div id="cp-message">Checking your access...</div>
 
@@ -221,10 +226,21 @@
           y += 6;
         };
 
+        // Header: Sela logo top left, the company's own logo (if uploaded in
+        // admin.html -> Companies) top right, fitted inside 160 x 54 pt.
         try { const logo = await imageDataUrl("img/sela-logo-transparent.png"); pdf.addImage(logo, "PNG", M, y - 10, 150, 150 * 359 / 1200); } catch (_) {}
-        y += 14; text("Staff Training Summary", W - M, 18, NAVY, "bold", { align: "right" });
-        y += 14; text(`Generated ${fmt(new Date().toISOString())}`, W - M, 9, GREY, "normal", { align: "right" });
-        y += 34;
+        const co = report.company;
+        if (co.logo && co.logoWidth && co.logoHeight) {
+          try {
+            const s = Math.min(160 / co.logoWidth, 54 / co.logoHeight);
+            const lw = co.logoWidth * s, lh = co.logoHeight * s;
+            pdf.addImage(co.logo, "PNG", W - M - lw, y - 10, lw, lh);
+          } catch (e) { console.warn("Company logo skipped:", e); }
+        }
+        y += 66;
+        text("Staff Training Summary", M, 18, NAVY, "bold");
+        text(`Generated ${fmt(new Date().toISOString())}`, W - M, 9, GREY, "normal", { align: "right" });
+        y += 28;
         pdf.setFillColor(244, 247, 250); pdf.roundedRect(M - 8, y - 16, maxW + 16, 58, 6, 6, "F");
         const kv = (k, val, x) => { text(k, x, 9, GREY, "bold"); text(val, x + 110, 9.5, SLATE); };
         kv("Company", report.company.name, M); kv("Course completions", String(v.completions.length), M + maxW / 2); y += 16;
@@ -278,6 +294,9 @@
         const res = await companyReport(companyId ? { companyId } : {});
         report = res.data;
         $("cp-company").textContent = report.company.name;
+        const logoEl = $("cp-logo");
+        if (report.company.logo) { logoEl.src = report.company.logo; logoEl.alt = `${report.company.name} logo`; logoEl.style.display = ""; }
+        else { logoEl.removeAttribute("src"); logoEl.style.display = "none"; }
         $("cp-message").style.display = "none";
         $("cp-content").style.display = "";
         render();
