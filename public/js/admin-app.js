@@ -956,13 +956,16 @@ async function resendCertificateEmail(btn) {
     const email = (sub.email || "").toLowerCase();
     if (!email) throw new Error("This result has no email address on it.");
 
-    let fullName = sub.certificateName || "";
-    if (!fullName) {
-      try {
-        const p = await getDoc(doc(db, "learner_profiles", email));
-        if (p.exists()) fullName = p.data().fullName || "";
-      } catch (_) {}
+    // Admin-saved name first (so a corrected name is used), then the name
+    // already printed on this certificate, then the learner's own sign-up name.
+    let fullName = "";
+    try {
+      const p = await getDoc(doc(db, "learner_profiles", email));
+      if (p.exists()) fullName = p.data().fullName || "";
+    } catch (e) {
+      console.warn("Learner profile lookup failed:", e.message);
     }
+    if (!fullName) fullName = sub.certificateName || "";
     if (!fullName && sub.userId) {
       try {
         const u = await getDoc(doc(db, "users", sub.userId));
@@ -972,6 +975,19 @@ async function resendCertificateEmail(btn) {
     }
     fullName = (prompt(`Name on the certificate for ${email}:`, fullName) || "").trim();
     if (!fullName) { btn.disabled = false; btn.textContent = originalLabel; return; }
+
+    // Remember the name for the Learners list and next time. A failed save
+    // shouldn't stop the certificate going out, so it's logged, not thrown.
+    try {
+      await setDoc(doc(db, "learner_profiles", email), {
+        email,
+        fullName,
+        lastUpdatedBy: auth.currentUser?.email || "unknown",
+        lastUpdatedAt: new Date().toISOString(),
+      }, { merge: true });
+    } catch (e) {
+      console.warn("Could not save learner name:", e.message);
+    }
 
     const courseTitle = sub.courseTitle || sub.courseId || "Training Course";
     const certificateNumber = sub.certificateNumber || buildCertificateNumber(sub.courseCode);
@@ -1017,25 +1033,24 @@ if (resultsTbodyEl) {
 
       // Pull any previously-saved name for this email so it carries
       // across courses -- only needs to be typed in once per person.
-      // Prefer the name the learner entered themselves on first sign-in
-      // (users/{uid}, see js/learner-profile.js), then any name saved here.
+      // Prefer a name an admin has saved (learner_profiles, editable from
+      // the Learners tab, so a misspelling can be corrected), then the name
+      // the learner entered themselves on first sign-in (users/{uid}).
       let defaultName = "";
       try {
-        if (sub.userId) {
+        const profileSnap = await getDoc(doc(db, "learner_profiles", email));
+        if (profileSnap.exists()) defaultName = profileSnap.data().fullName || "";
+      } catch (e) {
+        console.warn("Learner profile lookup failed:", e.message);
+      }
+      try {
+        if (!defaultName && sub.userId) {
           const userSnap = await getDoc(doc(db, "users", sub.userId));
           const u = userSnap.exists() ? userSnap.data() : {};
           if (u.firstName && u.lastName) defaultName = `${u.firstName} ${u.lastName}`;
         }
       } catch (e) {
         console.warn("Learner user-profile lookup failed:", e.message);
-      }
-      try {
-        if (!defaultName) {
-          const profileSnap = await getDoc(doc(db, "learner_profiles", email));
-          if (profileSnap.exists()) defaultName = profileSnap.data().fullName || "";
-        }
-      } catch (e) {
-        console.warn("Learner profile lookup failed:", e.message);
       }
 
       const fullName = (prompt(`Full name to print on the certificate for ${email}:`, defaultName) || "").trim();

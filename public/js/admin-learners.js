@@ -22,7 +22,7 @@ import { arrayUnion, arrayRemove, query, where } from "https://www.gstatic.com/f
 import { showModal } from "./modal.js";
 import { downloadRecordOfLearning } from "./record-of-learning.js";
 
-const state = { catalog: [], learners: [], byEmail: new Map(), grants: new Map(), plans: new Map(), attempts: [], submissions: [], progress: [] };
+const state = { catalog: [], learners: [], byEmail: new Map(), grants: new Map(), plans: new Map(), names: new Map(), attempts: [], submissions: [], progress: [] };
 
 const esc = v => String(v ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const lower = v => String(v || "").trim().toLowerCase();
@@ -79,11 +79,13 @@ async function loadAll() {
   const tbody = document.getElementById("learners-tbody");
   if (tbody) tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:20px;">Loading learners...</td></tr>`;
 
-  const [catalog, users, grants, plans, attempts, submissions, progress] = await Promise.all([
+  const [catalog, users, grants, plans, attempts, submissions, progress, profiles] = await Promise.all([
     safeGetAll("courses"), safeGetAll("users"), safeGetAll("grants"),
     safeGetAll("learner_plans"), safeGetAll("attempts"), safeGetAll("submissions"),
-    safeGetAll("course_progress"),
+    safeGetAll("course_progress"), safeGetAll("learner_profiles"),
   ]);
+  // Names an admin has typed in (Edit name here, or at certificate time).
+  state.names = new Map(profiles.filter(p => p.fullName).map(p => [lower(p._id), p.fullName]));
   // Course docs keep their id as the document name, not a field -- copy it in.
   state.catalog = catalog.map(c => ({ ...c, id: c.id || c._id })).filter(c => c.launchPath || c.status === "active").sort((a, b) => String(a.title).localeCompare(String(b.title)));
   state.grants = new Map(grants.map(g => [lower(g._id), g]));
@@ -112,9 +114,38 @@ async function loadAll() {
   renderTable();
 }
 
-function displayName(l) {
+// Admin-entered name (learner_profiles) wins, so an admin can add a missing
+// name or correct a misspelt one. Then the name the learner entered on
+// sign-up (users/{uid}), then the name printed on their latest certificate.
+function selfEnteredName(l) {
   const p = l.profile || {};
-  return [p.firstName, p.lastName].filter(Boolean).join(" ") || "";
+  return [p.firstName, p.lastName].filter(Boolean).join(" ");
+}
+function displayName(l) {
+  const certName = [...(l.submissions || [])]
+    .filter(s => s.certificateName)
+    .sort((a, b) => String(b.completedAt || "").localeCompare(String(a.completedAt || "")))[0]?.certificateName;
+  return state.names.get(l.email) || selfEnteredName(l) || certName || "";
+}
+
+async function saveLearnerName(email, current) {
+  const entered = window.prompt(`Full name for ${email} (used in the admin lists and on certificates):`, current || "");
+  if (entered === null) return false;
+  const fullName = entered.trim().replace(/\s+/g, " ");
+  if (!fullName) { showModal({ title: "Name not saved", message: "The name can't be blank.", type: "error" }); return false; }
+  try {
+    await setDoc(doc(db, "learner_profiles", email), {
+      email, fullName,
+      lastUpdatedBy: auth.currentUser?.email || "unknown",
+      lastUpdatedAt: new Date().toISOString(),
+    }, { merge: true });
+    state.names.set(email, fullName);
+    return true;
+  } catch (err) {
+    console.error("[learners] could not save name:", err);
+    showModal({ title: "Name not saved", message: err.message, type: "error" });
+    return false;
+  }
 }
 function grantedIds(l) {
   const g = state.grants.get(l.email);
@@ -168,7 +199,9 @@ function renderTable() {
       ? `<div style="font-size:0.85rem;">${esc(current.c?.title || current.p.courseTitle || current.p.courseId)}</div>${progressBar(current.p.percent)}<span style="font-size:0.8rem;">${esc(current.p.percent || 0)}%${current.p.position ? ` · ${esc(current.p.position)}` : ""}</span>`
       : `<span style="color:var(--text-muted);font-size:0.85rem;">--</span>`;
     return `<tr>
-      <td><strong>${esc(name || "(name not entered)")}</strong><div style="font-size:0.8rem;color:var(--text-muted);">${esc(l.email)}</div></td>
+      <td><strong>${esc(name || "(name not entered)")}</strong>
+        <button class="btn-action btn-edit-name" data-email="${esc(l.email)}" title="${name ? "Edit this learner's name" : "Add this learner's name"}" style="padding:2px 8px;font-size:0.72rem;margin-left:6px;">${name ? "Edit name" : "Add name"}</button>
+        <div style="font-size:0.8rem;color:var(--text-muted);">${esc(l.email)}</div></td>
       <td title="${esc(fmtDate(l.profile.lastSeenAt))}">${esc(ago(l.profile.lastSeenAt))}</td>
       <td>${grantedIds(l).length ? `${grantedIds(l).length} pre-paid` : "--"}</td>
       <td>${l.attempts.length}${fails ? ` <span style="color:#f87171;font-size:0.8rem;">(${fails} failed)</span>` : ""}</td>
@@ -266,7 +299,8 @@ function renderProfile(ctx) {
   overlay.innerHTML = `
   <div class="panel-card" style="max-width:980px;margin:0 auto;position:relative;">
     <button type="button" id="lp-close" class="btn-action" style="position:absolute;top:16px;right:16px;">Close</button>
-    <h2 style="margin-right:90px;">${esc(displayName(l) || l.email)}</h2>
+    <h2 style="margin-right:90px;">${esc(displayName(l) || l.email)}
+      <button type="button" id="lp-edit-name" class="btn-action" style="padding:4px 10px;font-size:0.8rem;margin-left:8px;vertical-align:middle;">${displayName(l) ? "Edit name" : "Add name"}</button></h2>
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0 12px;">
       <button type="button" id="lp-record" class="btn-action btn-primary-action" ${l.uid ? "" : "disabled"}>&#11015; Download Record of Learning (PDF)</button>
       ${l.uid ? "" : `<span style="font-size:0.8rem;color:var(--text-muted);">Available once the learner has signed up.</span>`}
@@ -308,6 +342,9 @@ function renderProfile(ctx) {
 
   const close = () => { overlay.remove(); document.body.style.overflow = ""; };
   overlay.querySelector("#lp-close").addEventListener("click", close);
+  overlay.querySelector("#lp-edit-name").addEventListener("click", async () => {
+    if (await saveLearnerName(l.email, displayName(l))) { renderProfile(ctx); renderTable(); }
+  });
 
   // Same Record of Learning PDF the learner downloads from Your Courses
   // (js/record-of-learning.js), built for this learner by an admin.
@@ -417,7 +454,13 @@ function renderProfile(ctx) {
 // ---------------------------------------------------------------- wiring
 document.getElementById("learners-search")?.addEventListener("input", renderTable);
 document.getElementById("btn-refresh-learners")?.addEventListener("click", loadAll);
-document.getElementById("learners-tbody")?.addEventListener("click", e => {
+document.getElementById("learners-tbody")?.addEventListener("click", async e => {
+  const nameBtn = e.target.closest(".btn-edit-name");
+  if (nameBtn) {
+    const l = state.byEmail.get(lower(nameBtn.dataset.email));
+    if (l && await saveLearnerName(l.email, displayName(l))) renderTable();
+    return;
+  }
   const b = e.target.closest(".btn-view-learner");
   if (b) openProfile(b.dataset.email);
 });
