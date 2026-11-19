@@ -642,7 +642,7 @@ async function loadImageAsDataUrl(url) {
   });
 }
 
-async function generateCertificatePdf({ fullName, courseTitle, scorePercent, completedAt, certificateNumber, download = true }) {
+async function generateCertificatePdf({ fullName, courseTitle, scorePercent, completedAt, certificateNumber, learnerId = "", download = true }) {
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF({ orientation: "landscape", unit: "pt", format: "a4" });
   const pageWidth = pdf.internal.pageSize.getWidth();   // 842
@@ -712,7 +712,7 @@ async function generateCertificatePdf({ fullName, courseTitle, scorePercent, com
   pdf.setFontSize(12);
   pdf.setTextColor(...GREY);
   const scoreText = typeof scorePercent === "number" ? `${scorePercent}%` : "--";
-  pdf.text(`Score: ${scoreText}   |   Completed: ${completedDate}`, centerX, afterTitleY + 32, { align: "center" });
+  pdf.text(`Score: ${scoreText}   |   Completed: ${completedDate}${learnerId ? `   |   Learner ID: ${learnerId}` : ""}`, centerX, afterTitleY + 32, { align: "center" });
 
   // Signature block sits on the artwork's dotted line (bottom right, ~x 466-801, y ~518).
   const sigX = 633;
@@ -959,9 +959,10 @@ async function resendCertificateEmail(btn) {
     // Admin-saved name first (so a corrected name is used), then the name
     // already printed on this certificate, then the learner's own sign-up name.
     let fullName = "";
+    let learnerId = "";
     try {
       const p = await getDoc(doc(db, "learner_profiles", email));
-      if (p.exists()) fullName = p.data().fullName || "";
+      if (p.exists()) { fullName = p.data().fullName || ""; learnerId = p.data().learnerId || ""; }
     } catch (e) {
       console.warn("Learner profile lookup failed:", e.message);
     }
@@ -993,7 +994,7 @@ async function resendCertificateEmail(btn) {
     const certificateNumber = sub.certificateNumber || buildCertificateNumber(sub.courseCode);
     const pdf = await generateCertificatePdf({
       fullName, courseTitle, scorePercent: sub.scorePercent, completedAt: sub.completedAt,
-      certificateNumber, download: false,
+      certificateNumber, learnerId, download: false,
     });
     await setDoc(doc(db, "submissions", docId), { certificateNumber, certificateName: fullName }, { merge: true });
     await sendCertificateAutomatically({ pdf, alreadyDownloaded: false, docId, email, fullName, courseTitle, certificateNumber });
@@ -1037,9 +1038,10 @@ if (resultsTbodyEl) {
       // the Learners tab, so a misspelling can be corrected), then the name
       // the learner entered themselves on first sign-in (users/{uid}).
       let defaultName = "";
+      let learnerId = "";
       try {
         const profileSnap = await getDoc(doc(db, "learner_profiles", email));
-        if (profileSnap.exists()) defaultName = profileSnap.data().fullName || "";
+        if (profileSnap.exists()) { defaultName = profileSnap.data().fullName || ""; learnerId = profileSnap.data().learnerId || ""; }
       } catch (e) {
         console.warn("Learner profile lookup failed:", e.message);
       }
@@ -1084,6 +1086,7 @@ if (resultsTbodyEl) {
         scorePercent: sub.scorePercent,
         completedAt: sub.completedAt,
         certificateNumber,
+        learnerId,
       });
 
       await loadSubmissions();

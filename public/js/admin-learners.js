@@ -22,7 +22,7 @@ import { arrayUnion, arrayRemove, query, where } from "https://www.gstatic.com/f
 import { showModal } from "./modal.js";
 import { downloadRecordOfLearning } from "./record-of-learning.js";
 
-const state = { catalog: [], learners: [], byEmail: new Map(), grants: new Map(), plans: new Map(), names: new Map(), attempts: [], submissions: [], progress: [] };
+const state = { catalog: [], learners: [], byEmail: new Map(), grants: new Map(), plans: new Map(), names: new Map(), ids: new Map(), attempts: [], submissions: [], progress: [] };
 
 const esc = v => String(v ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const lower = v => String(v || "").trim().toLowerCase();
@@ -86,6 +86,9 @@ async function loadAll() {
   ]);
   // Names an admin has typed in (Edit name here, or at certificate time).
   state.names = new Map(profiles.filter(p => p.fullName).map(p => [lower(p._id), p.fullName]));
+  // Learner IDs (SELA1000...), assigned by scripts/assign-learner-ids.js and
+  // the assignLearnerIdOn* Cloud Functions.
+  state.ids = new Map(profiles.filter(p => p.learnerId).map(p => [lower(p._id), p.learnerId]));
   // Course docs keep their id as the document name, not a field -- copy it in.
   state.catalog = catalog.map(c => ({ ...c, id: c.id || c._id })).filter(c => c.launchPath || c.status === "active").sort((a, b) => String(a.title).localeCompare(String(b.title)));
   state.grants = new Map(grants.map(g => [lower(g._id), g]));
@@ -181,7 +184,7 @@ function renderTable() {
   const tbody = document.getElementById("learners-tbody");
   if (!tbody) return;
   const q = lower(document.getElementById("learners-search")?.value);
-  const rows = state.learners.filter(l => !q || l.email.includes(q) || lower(displayName(l)).includes(q));
+  const rows = state.learners.filter(l => !q || l.email.includes(q) || lower(displayName(l)).includes(q) || lower(state.ids.get(l.email)).includes(q));
   if (!rows.length) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:20px;">${q ? "No learners match that search." : "No learners yet."}</td></tr>`;
     return;
@@ -201,7 +204,7 @@ function renderTable() {
     return `<tr>
       <td><strong>${esc(name || "(name not entered)")}</strong>
         <button class="btn-action btn-edit-name" data-email="${esc(l.email)}" title="${name ? "Edit this learner's name" : "Add this learner's name"}" style="padding:2px 8px;font-size:0.72rem;margin-left:6px;">${name ? "Edit name" : "Add name"}</button>
-        <div style="font-size:0.8rem;color:var(--text-muted);">${esc(l.email)}</div></td>
+        <div style="font-size:0.8rem;color:var(--text-muted);">${state.ids.get(l.email) ? `<strong>${esc(state.ids.get(l.email))}</strong> · ` : ""}${esc(l.email)}</div></td>
       <td title="${esc(fmtDate(l.profile.lastSeenAt))}">${esc(ago(l.profile.lastSeenAt))}</td>
       <td>${grantedIds(l).length ? `${grantedIds(l).length} pre-paid` : "--"}</td>
       <td>${l.attempts.length}${fails ? ` <span style="color:#f87171;font-size:0.8rem;">(${fails} failed)</span>` : ""}</td>
@@ -306,6 +309,7 @@ function renderProfile(ctx) {
       ${l.uid ? "" : `<span style="font-size:0.8rem;color:var(--text-muted);">Available once the learner has signed up.</span>`}
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 24px;margin:8px 0 20px;font-size:0.9rem;">
+      <div><span style="color:var(--text-muted);">Learner ID</span><br><strong>${esc(state.ids.get(l.email) || "Not assigned yet")}</strong></div>
       <div><span style="color:var(--text-muted);">Email</span><br>${esc(l.email)}</div>
       <div><span style="color:var(--text-muted);">Last active</span><br>${esc(ago(p.lastSeenAt))}<div style="font-size:0.75rem;color:var(--text-muted);">${esc(fmtDate(p.lastSeenAt))}</div></div>
       <div><span style="color:var(--text-muted);">Last sign-in</span><br>${esc(fmtDate(p.lastSignInAt))}</div>

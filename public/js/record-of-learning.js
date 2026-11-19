@@ -3,7 +3,7 @@
 // Project: Sela Skills Hub (Sela Civil Advisory Ltd)
 // One downloadable "Record of Learning" PDF covering ALL of a learner's Sela
 // Skills Hub learning:
-//   1. learner details
+//   1. learner details (name, learner ID, email, member since)
 //   2. summary table of every course (status, completed, score, certificate)
 //   3. for each completed course: what was covered / demonstrated / assessed
 //      (from js/course-summaries.js)
@@ -61,6 +61,13 @@ export async function downloadRecordOfLearning({ user, courses = [] }) {
     if (u.exists()) profile = u.data();
   } catch (_) {}
   const name = [profile.firstName, profile.lastName].filter(Boolean).join(" ") || user.displayName || user.email;
+  // Learner ID (SELA1000...) lives on learner_profiles/{email}; the learner
+  // can read their own, admins can read any.
+  let learnerId = "";
+  try {
+    const lp = await getDoc(doc(db, "learner_profiles", String(user.email || "").trim().toLowerCase()));
+    if (lp.exists()) learnerId = lp.data().learnerId || "";
+  } catch (_) {}
   const [submissions, attempts] = await Promise.all([mine("submissions", user.uid), mine("attempts", user.uid)]);
 
   // Every course the learner has, plus any course they have results for.
@@ -159,9 +166,10 @@ export async function downloadRecordOfLearning({ user, courses = [] }) {
   y += 38;
 
   // ---- Learner
-  pdf.setFillColor(244, 247, 250); pdf.roundedRect(M - 8, y - 16, maxW + 16, 74, 6, 6, "F");
+  pdf.setFillColor(244, 247, 250); pdf.roundedRect(M - 8, y - 16, maxW + 16, 90, 6, 6, "F");
   const kv = (k, v, x) => { text(k, x, 9, GREY, "bold"); pdf.setFont("helvetica", "normal"); pdf.setTextColor(...SLATE); pdf.text(String(v), x + 78, y); };
   kv("Learner", name, M); kv("Courses", `${done.length} completed of ${rows.length}`, M + maxW / 2); y += 16;
+  kv("Learner ID", learnerId || "--", M); y += 16;
   kv("Email", user.email, M); kv("Attempts", `${attempts.length} assessment attempt${attempts.length === 1 ? "" : "s"}`, M + maxW / 2); y += 16;
   kv("Member since", memberSince(user.metadata && user.metadata.creationTime ? new Date(user.metadata.creationTime).toISOString() : (profile.createdAt || profile.profileCompletedAt)), M);
   kv("Certificates", `${done.filter(r => r.best.certificateIssued).length} issued`, M + maxW / 2);

@@ -269,6 +269,20 @@
       const welcomeText = document.getElementById("learner-welcome-text");
       if (welcomeText && user) {
         welcomeText.textContent = `Welcome back, ${user.displayName || user.email || 'Learner'}. Select a module to continue.`;
+        // Learner ID (SELA1000...) from learner_profiles/{email} -- readable
+        // by the learner themselves under firestore.rules.
+        getDoc(doc(db, "learner_profiles", String(user.email || "").trim().toLowerCase()))
+          .then(snap => {
+            const id = snap.exists() ? snap.data().learnerId : "";
+            if (!id || document.getElementById("learner-id-text")) return;
+            const el = document.createElement("p");
+            el.id = "learner-id-text";
+            el.style.cssText = "margin:4px 0 0;font-size:0.9rem;opacity:0.85;";
+            el.innerHTML = 'Your learner ID: <strong></strong>';
+            el.querySelector("strong").textContent = id;
+            welcomeText.insertAdjacentElement("afterend", el);
+          })
+          .catch(e => console.warn("[Learner] learner ID lookup skipped:", e.message));
       }
 
       let catalog = null;
