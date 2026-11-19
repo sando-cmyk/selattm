@@ -292,13 +292,14 @@
          Firestore-driven catalog or the static fallback below -- prevents the
          page rendering the course list twice with two different orderings. -->
     <!-- Course Library sub-menus (also linked from the site nav dropdown as
-         store.html#barrier / #ttm / #tmp / #assurance / #other) -->
+         store.html#barrier / #ttm / #tmp / #assurance / #rca / #other) -->
     <nav class="library-tabs" id="library-tabs" aria-label="Course categories" style="display:none;">
       <a href="#all" data-group="all">All courses <span class="tab-count"></span></a>
       <a href="#barrier" data-group="barrier">Barrier Training <span class="tab-count"></span></a>
       <a href="#ttm" data-group="ttm">TTM Training <span class="tab-count"></span></a>
       <a href="#tmp" data-group="tmp">TMP Planners &amp; Designers <span class="tab-count"></span></a>
       <a href="#assurance" data-group="assurance">TTM Site Assurance <span class="tab-count"></span></a>
+      <a href="#rca" data-group="rca">RCAs &amp; TAOs <span class="tab-count"></span></a>
       <a href="#other" data-group="other">Other Training <span class="tab-count"></span></a>
     </nav>
 
@@ -516,6 +517,7 @@
       { key: "ttm", label: "TTM Training" },
       { key: "tmp", label: "TMP Planners & Designers" },
       { key: "assurance", label: "TTM Site Assurance" },
+      { key: "rca", label: "RCAs & TAOs" },
       { key: "other", label: "Other Training" },
     ];
     const PATHWAYS = {
@@ -562,6 +564,37 @@
             desc: "For clients, RCAs and principals: setting up assurance under the NZGTTM quality assurance and control guidance, who does what, choosing which sites to check by risk, reporting trends and closing out corrective actions." },
         ],
       },
+    };
+    // RCAs & TAOs pathway (added 19 Nov 2026): Road Controlling Authority staff
+    // who, as the TAO under NZGTTM, peer-review risk assessments, give regulatory
+    // approval of TMPs (not design approval), coordinate network access and
+    // assure TTM on their network.
+    PATHWAYS.rca = {
+      intro: "For Road Controlling Authority staff who, as the TAO under the NZGTTM, peer-review risk assessments, give regulatory approval of TMPs, coordinate access to the network and check TTM is working on site. Start with <strong>Roles &amp; Responsibilities</strong> and <strong>NZGTTM Essentials</strong>, then <strong>Risk Assessment</strong> and <strong>Layouts and Dimensions</strong> so you know what a good TMP looks like before you review one. Add <strong>Vulnerable Road Users</strong> and, if you audit sites, the <strong>Site Assurance Assessor</strong> course. Courses written for RCA and TAO staff are on the way &ndash; register your interest below.",
+      steps: [
+        { id: "ttm-roles-01", step: "Step 1 · Roles and the TAO" },
+        { id: "nzgttm-01", step: "Step 2 · Foundation" },
+        { id: "nzgttm-ra-01", step: "Step 3 · Risk assessment" },
+        { id: "nzgttm-tld-01", step: "Step 4 · Layouts and dimensions" },
+        { id: "nzgttm-vru-01", step: "Recommended · Vulnerable road users", optional: true },
+        { id: "nzgttm-sa-01", step: "If you audit sites", optional: true },
+      ],
+      extras: [
+        { step: "Free for RCAs", code: "SELA-RCA", title: "RCA Certificate Check",
+          desc: "Confirm a worker's name and the Sela certificates they hold from their learner ID. Free for approved Road Controlling Authority staff using a council or NZTA email address; every check is logged.",
+          price: "Free", href: "/rca.html", cta: "Request access" },
+      ],
+      // When one is built, delete it here and add it to steps instead.
+      soon: [
+        { code: "NZGTTM-RCA-01", title: "Reviewing a Risk-Based TMP for RCAs",
+          desc: "Processing a corridor access request under the NZGTTM: peer-reviewing the contractor's risk assessment, giving regulatory approval without approving the design, the common red flags, and giving feedback that improves the next TMP." },
+        { code: "NZGTTM-NAC-01", title: "Network Access Coordination",
+          desc: "Planning access to your network: capacity and peak periods, spotting clashes between works and events, setting your RCA's risk appetite, and consulting the people and services affected." },
+        { code: "NZGTTM-LEG-01", title: "The Legal Framework for RCAs",
+          desc: "What an RCA can and can't require: the Land Transport Act, the Traffic Control Devices Rule, temporary speed limits under the Setting of Speed Limits Rule 2024, utility access, and overlapping duties under HSWA." },
+        { code: "NZGTTM-APM-01", title: "Running a TTM Assurance Programme",
+          desc: "For clients, RCAs and principals: setting up assurance under the NZGTTM quality assurance and control guidance, who does what, choosing which sites to check by risk, reporting trends and closing out corrective actions." },
+      ],
     };
     // Explicit placement by course id; anything new falls back to its category.
     const GROUP_BY_ID = {
@@ -649,7 +682,9 @@
       // Tab totals include "Coming soon" courses. "All courses" counts each
       // course once (live courses plus coming soon; pathway copies of live
       // courses aren't counted twice).
-      const soonCount = pathwayCards.filter(c => c.classList.contains("coming-soon")).length;
+      // A coming-soon course listed in two pathways (e.g. NZGTTM-APM-01) counts once.
+      const soonCount = new Set(pathwayCards.filter(c => c.classList.contains("coming-soon"))
+        .map(c => c.querySelector(".course-code")?.textContent || "")).size;
       tabs.querySelectorAll("a").forEach(a => {
         const g = a.dataset.group;
         const n = g === "all" ? cards.length + soonCount : allCards.filter(c => c.dataset.group === g).length;
