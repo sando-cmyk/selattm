@@ -29,6 +29,16 @@ async function imageDataUrl(url) {
 const fmt = iso => iso ? new Date(iso).toLocaleDateString("en-NZ", { day: "numeric", month: "short", year: "numeric" }) : "--";
 const codeFor = id => (Object.values(COURSES).find(c => c.courseId === id) || {}).courseCode || "";
 
+// Everyone who was already a learner when this went in (19 Nov 2026) is shown
+// as a member since October 2026, when Sela Skills Hub started recording
+// learning. Anyone who joins later shows the month they joined.
+const EXISTING_LEARNERS_BEFORE = new Date("2026-11-20T00:00:00+13:00");
+function memberSince(iso) {
+  const d = iso ? new Date(iso) : null;
+  if (!d || isNaN(d) || d < EXISTING_LEARNERS_BEFORE) return "October 2026";
+  return d.toLocaleDateString("en-NZ", { month: "long", year: "numeric" });
+}
+
 async function mine(name, uid) {
   try {
     const snap = await getDocs(query(collection(db, name), where("userId", "==", uid)));
@@ -153,7 +163,7 @@ export async function downloadRecordOfLearning({ user, courses = [] }) {
   const kv = (k, v, x) => { text(k, x, 9, GREY, "bold"); pdf.setFont("helvetica", "normal"); pdf.setTextColor(...SLATE); pdf.text(String(v), x + 78, y); };
   kv("Learner", name, M); kv("Courses", `${done.length} completed of ${rows.length}`, M + maxW / 2); y += 16;
   kv("Email", user.email, M); kv("Attempts", `${attempts.length} assessment attempt${attempts.length === 1 ? "" : "s"}`, M + maxW / 2); y += 16;
-  kv("Member since", fmt(user.metadata && user.metadata.creationTime ? new Date(user.metadata.creationTime).toISOString() : profile.profileCompletedAt), M);
+  kv("Member since", memberSince(user.metadata && user.metadata.creationTime ? new Date(user.metadata.creationTime).toISOString() : (profile.createdAt || profile.profileCompletedAt)), M);
   kv("Certificates", `${done.filter(r => r.best.certificateIssued).length} issued`, M + maxW / 2);
   y += 30;
 
