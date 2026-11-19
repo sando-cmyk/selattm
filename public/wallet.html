@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>My Certificates - Sela Skills Hub</title>
+  <!-- Installable "My Certificates" app: learners add it to their phone's
+       home screen and show it on site. Works offline from the last sync.
+       Files: wallet.webmanifest, wallet-sw.js, img/wallet-icon-*.png -->
+  <link rel="manifest" href="/wallet.webmanifest">
+  <meta name="theme-color" content="#16326e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Sela Certs">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <style>
+    :root { --navy: #16326e; --green: #3e8c2e; --slate: #1f2937; --muted: #64748b; --line: #e2e8f0; --bg: #f1f5f9; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--slate);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+    header { background: var(--navy); color: #fff; padding: calc(14px + env(safe-area-inset-top)) 18px 22px; }
+    header .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    header .brand { background: #fff; border-radius: 8px; padding: 5px 8px; display: inline-flex; }
+    header .brand img { height: 30px; display: block; }
+    .who { margin-top: 18px; }
+    .who .name { font-size: 1.45rem; font-weight: 700; line-height: 1.2; }
+    .who .id { margin-top: 4px; font-size: .95rem; opacity: .9; letter-spacing: .02em; }
+    .who .id strong { font-size: 1.05rem; }
+    .pill { display: inline-block; font-size: .72rem; padding: 3px 8px; border-radius: 999px; background: rgba(255,255,255,.15); }
+    .pill.off { background: #f59e0b; color: #111827; }
+    main { padding: 16px 14px calc(30px + env(safe-area-inset-bottom)); max-width: 640px; margin: 0 auto; }
+    h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 18px 4px 10px; }
+    .card { display: block; width: 100%; text-align: left; border: 1px solid var(--line); background: #fff; border-radius: 14px;
+      padding: 14px 16px; margin: 0 0 10px; font: inherit; color: inherit; cursor: pointer; box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+    .card:active { transform: scale(.99); }
+    .card .t { font-weight: 700; font-size: 1.02rem; line-height: 1.3; color: var(--navy); }
+    .card .row { display: flex; justify-content: space-between; gap: 10px; margin-top: 8px; font-size: .85rem; color: var(--muted); }
+    .card .cert { color: var(--green); font-weight: 700; }
+    .card .chev { float: right; color: #94a3b8; font-size: 1.3rem; line-height: 1; margin-left: 8px; }
+    .card.pending .t { color: var(--slate); }
+    .empty, .msg { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px; color: var(--muted); line-height: 1.5; }
+    .btn { display: inline-block; padding: 11px 16px; border-radius: 10px; border: 1px solid var(--navy); background: var(--navy); color: #fff;
+      font-weight: 600; font-size: .95rem; text-decoration: none; cursor: pointer; font-family: inherit; }
+    .btn.ghost { background: #fff; color: var(--navy); }
+    .foot { margin-top: 22px; font-size: .78rem; color: var(--muted); text-align: center; line-height: 1.6; }
+    .foot button { background: none; border: none; color: var(--navy); text-decoration: underline; font: inherit; cursor: pointer; padding: 0; }
+    #install { display: none; margin: 0 0 14px; }
+    /* course detail sheet */
+    #sheet { position: fixed; inset: 0; background: var(--bg); z-index: 10; overflow-y: auto; display: none; }
+    #sheet header { padding-bottom: 18px; }
+    #sheet .back { background: none; border: none; color: #fff; font: inherit; font-size: 1rem; padding: 0; cursor: pointer; }
+    #sheet h1 { font-size: 1.3rem; margin: 14px 0 4px; line-height: 1.3; }
+    .sec { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin: 0 0 12px; }
+    .sec h3 { margin: 0 0 8px; font-size: .95rem; color: var(--navy); }
+    .sec ul { margin: 0; padding-left: 20px; line-height: 1.5; font-size: .93rem; }
+    .sec li { margin-bottom: 4px; }
+    .sec p { margin: 0; line-height: 1.5; font-size: .93rem; }
+    .kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: .92rem; }
+    .kv dt { color: var(--muted); } .kv dd { margin: 0; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top">
+      <span class="brand"><img src="/img/sela-logo-transparent.png" alt="Sela Skills Hub"></span>
+      <span id="status" class="pill"></span>
+    </div>
+    <div class="who" id="who"></div>
+  </header>
+
+  <main>
+    <div id="install">
+      <button type="button" class="btn" id="install-btn">Add to home screen</button>
+    </div>
+    <div id="ios-tip" class="msg" style="display:none;margin-bottom:14px;">To keep this on your phone: tap <strong>Share</strong> <span aria-hidden="true">&#x2191;</span> then <strong>Add to Home Screen</strong>.</div>
+    <div id="content"><div class="msg">Loading your certificates...</div></div>
+    <div class="foot" id="foot"></div>
+  </main>
+
+  <div id="sheet" role="dialog" aria-modal="true"></div>
+
+  <script type="module">
+    // Course content and names are local files (cached for offline use).
+    // Firebase is loaded later, and only if the phone is online.
+    import { COURSE_SUMMARIES } from "./js/course-summaries.js";
+    import { catalogIdFor, titleFor } from "./js/course-map.js";
+
+    const CACHE_KEY = "sela-wallet-v1";
+    const $ = id => document.getElementById(id);
+    const esc = v => String(v ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const fmt = iso => iso ? new Date(iso).toLocaleDateString("en-NZ", { day: "numeric", month: "short", year: "numeric" }) : "--";
+    const ago = iso => { if (!iso) return ""; const m = Math.round((Date.now() - new Date(iso)) / 60000); return m < 2 ? "just now" : m < 60 ? `${m} min ago` : m < 1440 ? `${Math.round(m / 60)} h ago` : fmt(iso); };
+    const readCache = () => { try { return JSON.parse(localStorage.getItem(CACHE_KEY) || "null"); } catch (_) { return null; } };
+    const writeCache = d => { try { localStorage.setItem(CACHE_KEY, JSON.stringify(d)); } catch (_) {} };
+    let data = null;
+
+    // ---------------------------------------------------------------- render
+    function render(d, { offline = false } = {}) {
+      data = d;
+      $("who").innerHTML = `<div class="name">${esc(d.name)}</div>${d.learnerId ? `<div class="id">Learner ID <strong>${esc(d.learnerId)}</strong></div>` : ""}`;
+      $("status").textContent = offline ? "Offline" : `${d.certificates.length} certificate${d.certificates.length === 1 ? "" : "s"}`;
+      $("status").className = "pill" + (offline ? " off" : "");
+      const card = (c, i, kind) => `<button type="button" class="card ${kind}" data-kind="${kind}" data-i="${i}">
+          <span class="chev">&rsaquo;</span><div class="t">${esc(c.title)}</div>
+          <div class="row"><span>${esc(c.code || "")}</span>${kind === "cert"
+            ? `<span class="cert">${esc(c.certificateNumber)}</span>`
+            : `<span>Certificate being reviewed</span>`}</div>
+          <div class="row"><span>${kind === "cert" ? "Issued" : "Completed"} ${esc(fmt(kind === "cert" ? c.issuedAt : c.completedAt))}</span><span>View what was covered</span></div>
+        </button>`;
+      $("content").innerHTML =
+        (d.certificates.length
+          ? `<h2>Certificates</h2>${d.certificates.map((c, i) => card(c, i, "cert")).join("")}`
+          : `<div class="empty">No certificates yet. When Sela issues a certificate for a course you've completed, it will appear here.</div>`) +
+        (d.pending.length ? `<h2>Completed, certificate on its way</h2>${d.pending.map((c, i) => card(c, i, "pending")).join("")}` : "");
+      $("foot").innerHTML = `Updated ${esc(ago(d.updatedAt))}${offline ? " (showing your saved copy)" : ""}<br>
+        Sela Skills Hub &middot; Sela Civil Advisory Ltd &middot; selattm.com<br>
+        <button type="button" id="signout">Sign out on this phone</button>`;
+      $("signout").onclick = signOutHere;
+    }
+
+    function openCourse(c, kind) {
+      const s = COURSE_SUMMARIES[c.courseId] || {};
+      const list = (title, items) => items && items.length ? `<div class="sec"><h3>${title}</h3><ul>${items.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>` : "";
+      $("sheet").innerHTML = `<header>
+          <button type="button" class="back" id="back">&lsaquo; My certificates</button>
+          <h1>${esc(c.title)}</h1><div style="opacity:.9;font-size:.9rem;">${esc(c.code || "")}</div>
+        </header>
+        <main>
+          <div class="sec"><dl class="kv">
+            <dt>Name</dt><dd>${esc(data.name)}</dd>
+            ${data.learnerId ? `<dt>Learner ID</dt><dd>${esc(data.learnerId)}</dd>` : ""}
+            ${kind === "cert" ? `<dt>Certificate</dt><dd style="color:var(--green);">${esc(c.certificateNumber)}</dd><dt>Issued</dt><dd>${esc(fmt(c.issuedAt))}</dd>` : `<dt>Certificate</dt><dd>Being reviewed by Sela</dd>`}
+            <dt>Completed</dt><dd>${esc(fmt(c.completedAt))}</dd>
+          </dl></div>
+          ${s.overview ? `<div class="sec"><h3>About this course</h3><p>${esc(s.overview)}</p></div>` : ""}
+          ${list("What was covered", s.covers)}
+          ${list("What the learner demonstrated", s.demonstrates)}
+          ${s.assessment ? `<div class="sec"><h3>How it was assessed</h3><p>${esc(s.assessment)}</p></div>` : ""}
+          ${s.format ? `<div class="sec"><h3>Format</h3><p>${esc(s.format)}</p></div>` : ""}
+          ${!s.covers ? `<div class="msg">Course details aren't available for this course yet.</div>` : ""}
+          <div class="foot">Online learning through Sela Skills Hub. Practical competence on site is assessed separately where a role requires it.</div>
+        </main>`;
+      $("sheet").style.display = "block";
+      $("sheet").scrollTop = 0;
+      history.pushState({ sheet: true }, "");
+      $("back").onclick = () => history.back();
+    }
+    window.addEventListener("popstate", () => { $("sheet").style.display = "none"; });
+    $("content").addEventListener("click", e => {
+      const b = e.target.closest(".card");
+      if (!b || !data) return;
+      const list = b.dataset.kind === "cert" ? data.certificates : data.pending;
+      openCourse(list[Number(b.dataset.i)], b.dataset.kind);
+    });
+
+    // ---------------------------------------------------------------- data
+    let fb = null;
+    async function loadFirebase() {
+      if (fb) return fb;
+      const init = await import("./js/firebase-init.js");
+      const fs = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+      fb = { ...init, query: fs.query, where: fs.where };
+      return fb;
+    }
+
+    async function fetchWallet(user) {
+      const { db, doc, getDoc, getDocs, collection, query, where } = fb;
+      const email = String(user.email || "").trim().toLowerCase();
+      const [subs, prof, u] = await Promise.all([
+        getDocs(query(collection(db, "submissions"), where("userId", "==", user.uid))),
+        getDoc(doc(db, "learner_profiles", email)).catch(() => null),
+        getDoc(doc(db, "users", user.uid)).catch(() => null),
+      ]);
+      const lp = prof && prof.exists() ? prof.data() : {};
+      const up = u && u.exists() ? u.data() : {};
+      const name = lp.fullName || [up.firstName, up.lastName].filter(Boolean).join(" ") || user.displayName || user.email;
+
+      // Latest result per course; a course with an issued certificate shows once.
+      const byCourse = new Map();
+      subs.forEach(d => {
+        const s = d.data();
+        if (s.passed === false) return;
+        const id = catalogIdFor(s) || s.courseId;
+        const rec = {
+          courseId: id, title: titleFor(id) !== id ? titleFor(id) : (s.courseTitle || id), code: s.courseCode || "",
+          certificateNumber: s.certificateIssued ? (s.certificateNumber || "") : "",
+          issuedAt: s.certificateIssuedAt || s.completedAt || "", completedAt: s.completedAt || "",
+        };
+        const prev = byCourse.get(id);
+        const better = !prev || (!!rec.certificateNumber && !prev.certificateNumber) ||
+          (!!rec.certificateNumber === !!prev.certificateNumber && String(rec.completedAt) > String(prev.completedAt));
+        if (better) byCourse.set(id, rec);
+      });
+      const all = [...byCourse.values()].sort((a, b) => String(b.issuedAt || b.completedAt).localeCompare(String(a.issuedAt || a.completedAt)));
+      return {
+        uid: user.uid, name, learnerId: lp.learnerId || "", updatedAt: new Date().toISOString(),
+        certificates: all.filter(c => c.certificateNumber), pending: all.filter(c => !c.certificateNumber),
+      };
+    }
+
+    async function signOutHere() {
+      if (!confirm("Sign out and remove your certificates from this phone?")) return;
+      localStorage.removeItem(CACHE_KEY);
+      try { const { auth } = await loadFirebase(); const { signOut } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"); await signOut(auth); } catch (_) {}
+      location.reload();
+    }
+
+    function needSignIn() {
+      $("who").innerHTML = `<div class="name">My Certificates</div>`;
+      $("status").textContent = "";
+      $("content").innerHTML = `<div class="msg">Sign in with the account you used for your Sela courses to see your certificates on this phone.<br><br>
+        <a class="btn" href="login.html?next=wallet.html">Sign in</a></div>`;
+      $("foot").innerHTML = "Sela Skills Hub &middot; Sela Civil Advisory Ltd &middot; selattm.com";
+    }
+
+    // ---------------------------------------------------------------- start
+    const cached = readCache();
+    if (cached) render(cached, { offline: !navigator.onLine });
+
+    (async () => {
+      try {
+        await loadFirebase();
+      } catch (_) {
+        // No signal: keep showing the saved copy.
+        if (cached) render(cached, { offline: true });
+        else $("content").innerHTML = `<div class="msg">You're offline and this phone hasn't saved your certificates yet. Open this app once with signal and they'll be kept for next time.</div>`;
+        return;
+      }
+      fb.onAuthStateChanged(fb.auth, async user => {
+        if (!user || user.isAnonymous) {
+          if (cached && !navigator.onLine) return; // offline: keep the saved copy
+          localStorage.removeItem(CACHE_KEY);
+          needSignIn();
+          return;
+        }
+        try {
+          const d = await fetchWallet(user);
+          writeCache(d);
+          render(d);
+        } catch (err) {
+          console.warn("[wallet] refresh failed:", err);
+          const c = readCache();
+          if (c && c.uid === user.uid) render(c, { offline: true });
+          else $("content").innerHTML = `<div class="msg">Couldn't load your certificates. Check your signal and try again.</div>`;
+        }
+      });
+    })();
+
+    // ---------------------------------------------------------------- install
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("/wallet-sw.js", { scope: "/wallet.html" }).catch(e => console.warn("[wallet] offline support unavailable:", e.message));
+    const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+    let deferred = null;
+    window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferred = e; $("install").style.display = "block"; });
+    $("install-btn").onclick = async () => { if (!deferred) return; deferred.prompt(); await deferred.userChoice; deferred = null; $("install").style.display = "none"; };
+    if (!standalone && /iphone|ipad|ipod/i.test(navigator.userAgent)) $("ios-tip").style.display = "block";
+    window.addEventListener("online", () => location.reload());
+  </script>
+</body>
+</html>

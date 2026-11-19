@@ -95,8 +95,10 @@ service cloud.firestore {
     // approve/decline. Lookups themselves go through the rcaLookup Cloud
     // Function, which also writes the rca_lookups audit log.
     match /rca_access_requests/{email} {
+      // Council / NZTA work addresses only (ending .govt.nz) -- no personal email.
       allow create: if isSignedIn() && request.auth.token.email_verified == true &&
         request.auth.token.email.lower() == email &&
+        email.matches('.*@([a-z0-9-]+[.])+govt[.]nz$') &&
         request.resource.data.status == "pending" &&
         request.resource.data.keys().hasOnly(["email", "name", "organisation", "role", "phone", "reason", "status", "requestedAt"]);
       allow read: if isAdmin() || (isSignedIn() && request.auth.token.email.lower() == email);

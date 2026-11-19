@@ -134,7 +134,7 @@
     // ?next=rca.html / enterprise.html sends them back to the page that asked
     // them to sign in (only these pages, never an outside address). RCA
     // users (rca_users, admin.html -> RCA Access) go to the certificate check.
-    const NEXT_ALLOWED = ["rca.html", "enterprise.html", "learner.html"];
+    const NEXT_ALLOWED = ["rca.html", "enterprise.html", "learner.html", "wallet.html"];
     async function goHome(user = auth.currentUser) {
       const next = new URLSearchParams(location.search).get("next");
       if (NEXT_ALLOWED.includes(next)) { window.location.replace(next); return; }

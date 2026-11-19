@@ -896,11 +896,13 @@ async function sendCertificateAutomatically({ pdf, alreadyDownloaded, docId, ema
         text:
           `Kia ora ${firstName},\n\n` +
           `Congratulations on completing ${courseTitle}. Your certificate (No. ${certificateNumber}) is attached.\n\n` +
+          `Keep all your Sela certificates on your phone to show on site: open https://selattm.com/wallet.html, sign in, and add it to your home screen. It works without signal.\n\n` +
           `Nga mihi,\nJoseph Rosendaal\nTraining Manager, Sela Civil Advisory Ltd\njoseph@selacivil.co.nz | 027 267 7264\nhttps://selattm.com`,
         html:
           `<p>Kia ora ${safe(firstName)},</p>` +
           `<p>Congratulations on completing <strong>${safe(courseTitle)}</strong>. ` +
           `Your certificate (No. ${safe(certificateNumber)}) is attached to this email.</p>` +
+          `<p>Keep all your Sela certificates on your phone to show on site: open <a href="https://selattm.com/wallet.html">selattm.com/wallet.html</a>, sign in, and add it to your home screen. It works without signal.</p>` +
           `<p>Ng&#257; mihi,<br>Joseph Rosendaal<br>Training Manager, Sela Civil Advisory Ltd<br>` +
           `joseph@selacivil.co.nz &nbsp;|&nbsp; 027 267 7264<br><a href="https://selattm.com">selattm.com</a></p>`,
         attachments: [{

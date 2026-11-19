@@ -272,6 +272,11 @@ exports.companyReport = onCall({ region: "australia-southeast1" }, async (reques
 // company, attempts or progress. Every lookup is logged to rca_lookups.
 // Deploy: firebase deploy --only functions:rcaLookup,functions:notifyOnRcaRequest
 // ============================================================================
+// RCA accounts must use a council / NZTA work address: anything ending in
+// .govt.nz (every council, Auckland Transport, nzta.govt.nz). Personal
+// addresses (gmail, xtra, outlook...) are refused. Same check in
+// firestore.rules (rca_access_requests) and rca.html.
+const RCA_EMAIL = /@([a-z0-9-]+\.)+govt\.nz$/;
 const RCA_DAILY_LIMIT = 200; // per RCA user, to make bulk harvesting of IDs obvious and slow
 
 exports.rcaLookup = onCall({ region: "australia-southeast1" }, async (request) => {
@@ -282,6 +287,7 @@ exports.rcaLookup = onCall({ region: "australia-southeast1" }, async (request) =
   let organisation = "Sela admin";
   if (!isAdmin) {
     if (!a.token.email_verified) throw new HttpsError("failed-precondition", "Please verify your email address first.");
+    if (!RCA_EMAIL.test(email)) throw new HttpsError("permission-denied", "Certificate checks need a council or NZTA email address (ending in .govt.nz).");
     const u = await db.collection("rca_users").doc(email).get();
     if (!u.exists) throw new HttpsError("permission-denied", "This account hasn't been approved for certificate checks yet.");
     organisation = u.data().organisation || "";

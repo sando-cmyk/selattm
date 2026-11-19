@@ -33,7 +33,7 @@
       <main class="container">
         <div class="main-content rc-wrap">
           <h1 class="page-title">RCA Certificate Check</h1>
-          <p class="rc-note">For Road Controlling Authorities. Enter a worker's Sela learner ID (for example SELA1234) to confirm their name and the Sela Skills Hub certificates they hold. Scores and personal contact details are not shown. Access is by approval from Sela Civil Advisory Ltd, and every check is logged.</p>
+          <p class="rc-note">For Road Controlling Authorities. Enter a worker's Sela learner ID (for example SELA1234) to confirm their name and the Sela Skills Hub certificates they hold. Scores and personal contact details are not shown. Access is by approval from Sela Civil Advisory Ltd, and every check is logged. You must sign in with your council or NZTA work email address (ending in <strong>.govt.nz</strong>); personal email addresses can't be approved.</p>
 
           <div id="rc-message">Checking your access...</div>
 
@@ -77,6 +77,8 @@
     import { sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
 
+    // Council / NZTA work addresses only (also enforced by firestore.rules and rcaLookup).
+    const RCA_EMAIL = /@([a-z0-9-]+\.)+govt\.nz$/;
     const rcaLookup = httpsCallable(getFunctions(app, "australia-southeast1"), "rcaLookup");
     const $ = id => document.getElementById(id);
     const esc = v => String(v ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -183,7 +185,7 @@
     // ------------------------------------------------------------ access
     onAuthStateChanged(auth, async (user) => {
       if (!user || user.isAnonymous) {
-        message(`Please <a href="login.html?next=rca.html">sign in or create an account</a> with your work email address to request access.`);
+        message(`Please <a href="login.html?next=rca.html">sign in or create an account</a> with your council or NZTA work email address (ending in .govt.nz) to request access.`);
         return;
       }
       let isAdmin = false;
@@ -208,6 +210,13 @@
       }
 
       const email = user.email.toLowerCase();
+      if (!RCA_EMAIL.test(email)) {
+        message(`You're signed in as <strong>${esc(user.email)}</strong>, which isn't a council or NZTA email address.<br><br>
+          Certificate checks are only available to Road Controlling Authority staff using their work email (ending in <strong>.govt.nz</strong>).
+          Please <a href="#" id="rc-signout">sign out</a> and sign in or create an account with your work email.`);
+        $("rc-signout").onclick = async (e) => { e.preventDefault(); const { signOut } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"); await signOut(auth); location.href = "login.html?next=rca.html"; };
+        return;
+      }
       try {
         const approved = await getDoc(doc(db, "rca_users", email));
         if (approved.exists()) {

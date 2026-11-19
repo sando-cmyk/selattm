@@ -1,0 +1,16 @@
+{
+  "name": "Sela Certificates",
+  "short_name": "Sela Certs",
+  "description": "Your Sela Skills Hub certificates and what each course covered.",
+  "start_url": "/wallet.html",
+  "scope": "/wallet.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#16326e",
+  "icons": [
+    { "src": "/img/wallet-icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/img/wallet-icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/img/wallet-icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
