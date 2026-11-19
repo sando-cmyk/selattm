@@ -22,6 +22,18 @@ export const COURSES = {
   "nzgttm-tmp-ps": { courseId: "nzgttm-tmp-ps", courseCode: "NZGTTM-TMP-PS", courseTitle: "TMP Design Practical Sign-off" },
 };
 
+// Catalog ids that were wrong in the past, mapped to the real id. PTS-01's
+// folder had no course-manifest.json, so build-all.js invented the id
+// "ttm-portable-traffic-signals" and it reached the live catalog; grants,
+// learner plans and purchases made against it must still count as PTS-01.
+export const LEGACY_IDS = { "ttm-portable-traffic-signals": "pts-01" };
+export function canonicalId(id) { return LEGACY_IDS[id] || id; }
+// Drop catalog entries under a legacy id when the real one is also listed.
+export function dedupeCatalog(list) {
+  const ids = new Set(list.map(c => c.id));
+  return list.filter(c => !(LEGACY_IDS[c.id] && ids.has(LEGACY_IDS[c.id])));
+}
+
 export function courseForPath(pathname = location.pathname) {
   const m = pathname.match(/\/courses\/([^\/]+)\//);
   const folder = m ? m[1] : "unknown";

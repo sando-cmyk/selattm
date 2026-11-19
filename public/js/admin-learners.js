@@ -20,6 +20,7 @@
 import { auth, db, doc, getDoc, setDoc, collection, getDocs, onAuthStateChanged } from "./firebase-init.js";
 import { arrayUnion, arrayRemove, deleteField, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { showModal } from "./modal.js";
+import { canonicalId, dedupeCatalog, LEGACY_IDS } from "./course-map.js";
 import { downloadRecordOfLearning } from "./record-of-learning.js";
 
 const state = { catalog: [], learners: [], byEmail: new Map(), grants: new Map(), plans: new Map(), names: new Map(), ids: new Map(), companyOf: new Map(), companies: new Map(), attempts: [], submissions: [], progress: [] };
@@ -93,7 +94,9 @@ async function loadAll() {
   state.companies = new Map(companies.map(c => [c._id, c.name || c._id]));
   state.companyOf = new Map(profiles.filter(p => p.companyId).map(p => [lower(p._id), p.companyId]));
   // Course docs keep their id as the document name, not a field -- copy it in.
-  state.catalog = catalog.map(c => ({ ...c, id: c.id || c._id })).filter(c => c.launchPath || c.status === "active").sort((a, b) => String(a.title).localeCompare(String(b.title)));
+  state.catalog = dedupeCatalog(catalog.map(c => ({ ...c, id: c.id || c._id })))
+    .map(c => ({ ...c, id: canonicalId(c.id) }))
+    .filter(c => c.launchPath || c.status === "active").sort((a, b) => String(a.title).localeCompare(String(b.title)));
   state.grants = new Map(grants.map(g => [lower(g._id), g]));
   state.plans = new Map(plans.map(p => [lower(p._id), p]));
   state.attempts = attempts;
@@ -171,7 +174,7 @@ function grantedIds(l) {
   const g = state.grants.get(l.email);
   if (!g) return [];
   if (g.allCourses) return state.catalog.map(c => c.id);
-  return Array.isArray(g.courseIds) ? g.courseIds : [];
+  return Array.isArray(g.courseIds) ? [...new Set(g.courseIds.map(canonicalId))] : [];
 }
 // Where a learner is up to in one course (course_progress, newest record).
 function progressFor(l, courseId) {
@@ -251,7 +254,8 @@ async function openProfile(email) {
   if (!l) return;
   const paid = await paidCourseIds(l);
   const granted = grantedIds(l);
-  const plan = state.plans.get(l.email) || {};
+  const rawPlan = state.plans.get(l.email) || {};
+  const plan = rawPlan.courseSequence ? { ...rawPlan, courseSequence: [...new Set(rawPlan.courseSequence.map(canonicalId))] } : rawPlan;
   const assigned = [...new Set([...(plan.courseSequence || []), ...paid, ...granted])]
     .filter(id => paid.includes(id) || granted.includes(id) || (plan.courseSequence || []).includes(id));
   // Saved order first, then anything new in catalog order.
@@ -473,9 +477,10 @@ function renderProfile(ctx) {
     const id = b.dataset.id;
     if (!window.confirm(`Remove "${courseTitle(id)}" from ${l.email}'s pre-paid courses? Their past attempts and results are kept.`)) return;
     try {
-      await setDoc(doc(db, "grants", l.email), { courseIds: arrayRemove(id), lastGrantedBy: auth.currentUser?.email || "unknown", lastGrantedAt: new Date().toISOString() }, { merge: true });
+      const oldIds = Object.keys(LEGACY_IDS).filter(k => LEGACY_IDS[k] === id); // also remove grants made under an old id
+      await setDoc(doc(db, "grants", l.email), { courseIds: arrayRemove(id, ...oldIds), lastGrantedBy: auth.currentUser?.email || "unknown", lastGrantedAt: new Date().toISOString() }, { merge: true });
       const g = state.grants.get(l.email);
-      if (g) g.courseIds = (g.courseIds || []).filter(x => x !== id);
+      if (g) g.courseIds = (g.courseIds || []).filter(x => canonicalId(x) !== id);
       ctx.granted = grantedIds(l);
       if (!ctx.paid.includes(id)) ctx.order = ctx.order.filter(x => x !== id);
       if (state.plans.get(l.email)) {

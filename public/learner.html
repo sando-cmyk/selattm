@@ -182,6 +182,7 @@
     import { ensureLearnerProfile } from "./js/learner-profile.js";
     import { loadSequence } from "./js/course-sequence.js";
     import { downloadRecordOfLearning } from "./js/record-of-learning.js";
+    import { canonicalId, dedupeCatalog } from "./js/course-map.js";
 
     const auth = getAuth();
     const db = getFirestore();
@@ -325,6 +326,8 @@
 
       // 3. Guaranteed hardcoded fallback
       if (!catalog) catalog = FALLBACK_MODULES;
+      // Old wrong catalog ids (see LEGACY_IDS in course-map.js) -> real ids.
+      catalog = dedupeCatalog(catalog).map(c => ({ ...c, id: canonicalId(c.id) }));
 
       // Only show courses this account has actually paid for, matched by
       // the real Stripe Price ID recorded on the payment (not id/code, which
@@ -431,7 +434,7 @@
           if (grantSnap.exists()) {
             const g = grantSnap.data();
             if (g.allCourses) grantedAllCourses = true;
-            if (Array.isArray(g.courseIds)) g.courseIds.forEach(id => grantedCourseIds.add(id));
+            if (Array.isArray(g.courseIds)) g.courseIds.forEach(id => grantedCourseIds.add(canonicalId(id)));
           }
         }
       } catch (e) {

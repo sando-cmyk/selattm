@@ -7,7 +7,7 @@
 // ============================================================================
 import { db, doc, getDoc, getDocs, collection } from "./firebase-init.js";
 import { query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { catalogIdFor } from "./course-map.js";
+import { catalogIdFor, canonicalId } from "./course-map.js";
 
 export async function loadSequence(user) {
   const email = String(user.email || "").trim().toLowerCase();
@@ -23,7 +23,7 @@ export async function loadSequence(user) {
     snap.forEach(d => { const r = d.data(); if (r.passed !== false) passed.add(catalogIdFor(r)); });
   } catch (e) { console.warn("[sequence] results lookup failed:", e.message); }
 
-  const order = plan && Array.isArray(plan.courseSequence) ? plan.courseSequence : [];
+  const order = plan && Array.isArray(plan.courseSequence) ? [...new Set(plan.courseSequence.map(canonicalId))] : [];
   const enforce = !!(plan && plan.enforceOrder && order.length);
 
   // Returns the id of the first earlier course not yet passed, or null.

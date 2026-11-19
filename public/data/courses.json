@@ -3,7 +3,7 @@
     "id": "40233-ttm-road-reserve",
     "code": "US-40233",
     "title": "Assist with Temporary Traffic Management within the Road Reserve",
-    "description": "Course covering NZQA unit standard 40233 — assisting with temporary traffic management within the road reserve.",
+    "description": "Course covering NZQA unit standard 40233 \u2014 assisting with temporary traffic management within the road reserve.",
     "category": "TTM Training",
     "price": 250,
     "currency": "NZD",
@@ -82,7 +82,7 @@
     "id": "nzgttm-sa-01",
     "code": "NZGTTM-SA-01",
     "title": "TTM Site Assurance Assessor",
-    "description": "Six-module online course for experienced TTM practitioners moving into independent site assurance: the NZGTTM assurance processes, what national crash data says about who gets hurt, G1–G8 and Sela priority checks, site outcomes and Stop Work Orders, and writing findings that stand up. Completing it unlocks SELA-SAT-01 Using the Sela Site Assurance Tool (the Sela site assurance app with training, $150 + GST first year). Supervised field assessments for Sela endorsement are available on request.",
+    "description": "Six-module online course for experienced TTM practitioners moving into independent site assurance: the NZGTTM assurance processes, what national crash data says about who gets hurt, G1\u2013G8 and Sela priority checks, site outcomes and Stop Work Orders, and writing findings that stand up. Completing it unlocks SELA-SAT-01 Using the Sela Site Assurance Tool (the Sela site assurance app with training, $150 + GST first year). Supervised field assessments for Sela endorsement are available on request.",
     "category": "TTM Training",
     "price": 295,
     "currency": "NZD",
@@ -185,15 +185,15 @@
     "launchPath": "/courses/ttm-fb-01/index.html"
   },
   {
-    "id": "ttm-portable-traffic-signals",
-    "code": "TTM-PORTABLE-TRAFFIC-SIGNALS",
-    "title": "Ttm Portable Traffic Signals",
-    "description": "Standard modular training program for Ttm Portable Traffic Signals.",
+    "id": "pts-01",
+    "code": "PTS-01",
+    "title": "Working with Portable Traffic Signals",
+    "description": "SELA certified training for the safe setup and operation of portable traffic signals on site.",
     "category": "TTM Training",
-    "price": 250,
+    "price": 45,
     "currency": "NZD",
     "status": "active",
-    "launchPath": "/courses/ttm-portable-traffic-signals/index.html",
-    "lastUpdated": "2026-11-18T05:59:39.038Z"
+    "stripePriceId": "price_1U92BF0flJvw3UeNDi7Ga1UG",
+    "launchPath": "/courses/ttm-portable-traffic-signals/index.html"
   }
 ]
