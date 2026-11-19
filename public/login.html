@@ -91,7 +91,8 @@
       sendPasswordResetEmail, 
       signInWithPopup, 
       googleProvider,
-      onAuthStateChanged
+      onAuthStateChanged,
+      db, doc, getDoc
     } from "./js/firebase-init.js";
     import "./js/navigation.js";
     import { showAppModal, showErrorModal } from "./js/modal.js";
@@ -105,10 +106,21 @@
     const linkBack = document.getElementById("link-back-to-signin");
     const btnGoogle = document.getElementById("btn-google-signin");
 
+    // Where to go after signing in: company HR contacts (admin.html ->
+    // Companies) go to the Company Portal, everyone else to Your Courses.
+    async function goHome(user = auth.currentUser) {
+      let dest = "learner.html";
+      try {
+        const m = await getDoc(doc(db, "company_managers", String(user?.email || "").trim().toLowerCase()));
+        if (m.exists()) dest = "enterprise.html";
+      } catch (_) {}
+      window.location.replace(dest);
+    }
+
     // Redirect if already authenticated
     onAuthStateChanged(auth, (user) => {
       if (user && !user.isAnonymous) {
-        window.location.replace("learner.html");
+        goHome(user);
       }
     });
 
@@ -150,7 +162,7 @@
 
       try {
         await signInWithEmailAndPassword(auth, email, pass);
-        window.location.replace("learner.html");
+        await goHome();
       } catch (err) {
         showErrorModal(err.message || "Invalid email or password.");
       }
@@ -170,7 +182,7 @@
 
       try {
         await createUserWithEmailAndPassword(auth, email, pass);
-        window.location.replace("learner.html");
+        await goHome();
       } catch (err) {
         showErrorModal(err.message || "Unable to create account.");
       }
@@ -180,7 +192,7 @@
     btnGoogle.addEventListener("click", async () => {
       try {
         await signInWithPopup(auth, googleProvider);
-        window.location.replace("learner.html");
+        await goHome();
       } catch (err) {
         showErrorModal(err.message || "Google sign-in failed.");
       }

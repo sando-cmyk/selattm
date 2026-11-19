@@ -341,6 +341,7 @@
     <nav class="admin-tabs" role="tablist" aria-label="Admin sections">
       <button class="admin-tab" role="tab" data-tab="learners">Learners</button>
       <button class="admin-tab" role="tab" data-tab="results">Results &amp; Certificates</button>
+      <button class="admin-tab" role="tab" data-tab="companies">Companies</button>
       <button class="admin-tab" role="tab" data-tab="access">Course Access</button>
       <button class="admin-tab" role="tab" data-tab="inquiries">Inquiries <span class="tab-count" id="tab-count-inquiries"></span></button>
       <button class="admin-tab" role="tab" data-tab="tmpps">TMP Sign-off <span class="tab-count" id="tab-count-tmpps"></span></button>
@@ -403,6 +404,26 @@
         </table>
       </div>
     </section>
+    </div>
+    <div class="tab-panel" id="tab-companies" data-tab="companies" hidden>
+      <section class="panel-card">
+        <h2>Companies</h2>
+        <p class="subtitle">Employers whose staff train with Sela. Link each learner to their company in the <strong>Learners</strong> tab (View &rarr; Company). Each company's HR contacts sign in at selattm.com with their own email and see the <strong>Company Portal</strong>: their staff's completed courses (name, learner ID, course, date, score, certificate number &mdash; never quiz attempts or progress), with a per-course summary they can download as Excel (CSV) or PDF.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
+          <input type="text" id="company-name-input" placeholder="Company name, e.g. Fulton Hogan" maxlength="100"
+            style="flex:1 1 280px;background:#0f172a;border:1px solid #334155;color:#f8fafc;border-radius:6px;padding:10px 12px;font-size:0.95rem;" />
+          <button id="btn-add-company" class="btn-action btn-primary-action">Add company</button>
+        </div>
+        <p id="company-status-msg" style="font-size:0.85rem;min-height:1.2em;margin:0 0 10px;"></p>
+        <div class="table-container">
+          <table>
+            <thead><tr><th>Company</th><th>Staff</th><th>HR contacts</th><th></th></tr></thead>
+            <tbody id="companies-tbody">
+              <tr><td colspan="4" style="text-align:center;color:var(--text-muted);">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
     <div class="tab-panel" id="tab-access" data-tab="access" hidden>
       <div class="dashboard-grid">
@@ -590,6 +611,7 @@
   <script type="module" src="./js/navigation.js"></script>
   <script type="module" src="./js/admin-app.js"></script>
   <script type="module" src="./js/admin-learners.js"></script>
+  <script type="module" src="./js/admin-companies.js"></script>
   <script type="module" src="./js/admin-tmp-signoff.js"></script>
 
   <!-- Ingestion Script Wiring -->

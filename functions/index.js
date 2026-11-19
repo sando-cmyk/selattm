@@ -15,6 +15,7 @@
 // ============================================================================
 const { onDocumentCreated } = require("firebase-functions/v2/firestore");
 const functionsV1 = require("firebase-functions/v1");
+const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { logger } = require("firebase-functions");
 const { initializeApp } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
@@ -175,3 +176,84 @@ exports.assignLearnerIdOnGrant = onDocumentCreated(
   { document: "grants/{email}", region: "australia-southeast1", database: "(default)" },
   (event) => ensureLearnerId(event.params.email, "grant")
 );
+
+// ============================================================================
+// companyReport: the Company Portal (public/enterprise.html). Returns the
+// courses a company's staff have COMPLETED -- name, learner ID, course, date,
+// score, certificate number. Never quiz attempts, fails or progress.
+//
+// Who can call it:
+//   - a company HR contact: their (verified) sign-in email must be in
+//     company_managers/{email}; they only ever get their own company.
+//   - an admin (admins/{uid}): any company, passed as data.companyId.
+// Staff = learner_profiles where companyId matches (assigned by an admin in
+// admin.html -> Learners). Done server-side so firestore.rules never has to
+// open submissions or learner_profiles to HR accounts.
+// Deploy: firebase deploy --only functions:companyReport
+// ============================================================================
+exports.companyReport = onCall({ region: "australia-southeast1" }, async (request) => {
+  const a = request.auth;
+  if (!a || !a.token || !a.token.email) throw new HttpsError("unauthenticated", "Please sign in.");
+  const email = String(a.token.email).toLowerCase();
+
+  const isAdmin = (await db.collection("admins").doc(a.uid).get()).exists;
+  let companyId = "";
+  if (isAdmin && request.data && request.data.companyId) {
+    companyId = String(request.data.companyId);
+  } else {
+    // Without this, anyone could register an unverified account using an
+    // HR person's email address and read their company's report.
+    if (!a.token.email_verified) throw new HttpsError("failed-precondition", "Please verify your email address first.");
+    const m = await db.collection("company_managers").doc(email).get();
+    if (!m.exists || !m.data().companyId) throw new HttpsError("permission-denied", "This account isn't set up as a company contact. Please contact Sela.");
+    companyId = m.data().companyId;
+  }
+
+  const company = await db.collection("companies").doc(companyId).get();
+  if (!company.exists) throw new HttpsError("not-found", "That company could not be found.");
+
+  // Staff
+  const staff = new Map();
+  (await db.collection("learner_profiles").where("companyId", "==", companyId).get())
+    .forEach((d) => {
+      const e = d.id.toLowerCase();
+      staff.set(e, { email: e, name: d.data().fullName || "", learnerId: d.data().learnerId || "" });
+    });
+
+  const completions = [];
+  if (staff.size) {
+    // Small collections today, so read once and match in memory (emails on
+    // older records aren't always lower-cased, which a where() would miss).
+    const [users, subs, courses] = await Promise.all([
+      db.collection("users").get(), db.collection("submissions").get(), db.collection("courses").get(),
+    ]);
+    users.forEach((u) => {
+      const d = u.data();
+      const s = staff.get(String(d.email || "").toLowerCase());
+      if (s && !s.name) s.name = [d.firstName, d.lastName].filter(Boolean).join(" ");
+    });
+    const titles = new Map();
+    courses.forEach((c) => titles.set(c.id, c.data()));
+    subs.forEach((d) => {
+      const x = d.data();
+      const s = staff.get(String(x.email || "").toLowerCase());
+      if (!s || x.passed === false) return; // completed courses only
+      const c = titles.get(x.courseId) || {};
+      completions.push({
+        email: s.email, name: s.name || x.certificateName || "", learnerId: s.learnerId,
+        courseId: x.courseId || "", courseCode: x.courseCode || c.code || "",
+        courseTitle: x.courseTitle || c.title || x.courseId || "Course",
+        completedAt: x.completedAt || "", scorePercent: typeof x.scorePercent === "number" ? x.scorePercent : null,
+        certificateNumber: x.certificateIssued ? (x.certificateNumber || "") : "",
+      });
+    });
+  }
+
+  logger.info("Company report", { companyId, by: email, admin: isAdmin, staff: staff.size, completions: completions.length });
+  return {
+    company: { id: companyId, name: company.data().name || companyId },
+    staff: [...staff.values()].sort((x, y) => (x.name || x.email).localeCompare(y.name || y.email)),
+    completions: completions.sort((x, y) => String(y.completedAt).localeCompare(String(x.completedAt))),
+    generatedAt: new Date().toISOString(),
+  };
+});

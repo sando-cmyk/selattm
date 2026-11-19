@@ -18,11 +18,11 @@
 // ============================================================================
 
 import { auth, db, doc, getDoc, setDoc, collection, getDocs, onAuthStateChanged } from "./firebase-init.js";
-import { arrayUnion, arrayRemove, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { arrayUnion, arrayRemove, deleteField, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { showModal } from "./modal.js";
 import { downloadRecordOfLearning } from "./record-of-learning.js";
 
-const state = { catalog: [], learners: [], byEmail: new Map(), grants: new Map(), plans: new Map(), names: new Map(), ids: new Map(), attempts: [], submissions: [], progress: [] };
+const state = { catalog: [], learners: [], byEmail: new Map(), grants: new Map(), plans: new Map(), names: new Map(), ids: new Map(), companyOf: new Map(), companies: new Map(), attempts: [], submissions: [], progress: [] };
 
 const esc = v => String(v ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const lower = v => String(v || "").trim().toLowerCase();
@@ -79,16 +79,19 @@ async function loadAll() {
   const tbody = document.getElementById("learners-tbody");
   if (tbody) tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:20px;">Loading learners...</td></tr>`;
 
-  const [catalog, users, grants, plans, attempts, submissions, progress, profiles] = await Promise.all([
+  const [catalog, users, grants, plans, attempts, submissions, progress, profiles, companies] = await Promise.all([
     safeGetAll("courses"), safeGetAll("users"), safeGetAll("grants"),
     safeGetAll("learner_plans"), safeGetAll("attempts"), safeGetAll("submissions"),
-    safeGetAll("course_progress"), safeGetAll("learner_profiles"),
+    safeGetAll("course_progress"), safeGetAll("learner_profiles"), safeGetAll("companies"),
   ]);
   // Names an admin has typed in (Edit name here, or at certificate time).
   state.names = new Map(profiles.filter(p => p.fullName).map(p => [lower(p._id), p.fullName]));
   // Learner IDs (SELA1000...), assigned by scripts/assign-learner-ids.js and
   // the assignLearnerIdOn* Cloud Functions.
   state.ids = new Map(profiles.filter(p => p.learnerId).map(p => [lower(p._id), p.learnerId]));
+  // Company each learner works for (set by an admin below; see admin-companies.js).
+  state.companies = new Map(companies.map(c => [c._id, c.name || c._id]));
+  state.companyOf = new Map(profiles.filter(p => p.companyId).map(p => [lower(p._id), p.companyId]));
   // Course docs keep their id as the document name, not a field -- copy it in.
   state.catalog = catalog.map(c => ({ ...c, id: c.id || c._id })).filter(c => c.launchPath || c.status === "active").sort((a, b) => String(a.title).localeCompare(String(b.title)));
   state.grants = new Map(grants.map(g => [lower(g._id), g]));
@@ -129,6 +132,20 @@ function displayName(l) {
     .filter(s => s.certificateName)
     .sort((a, b) => String(b.completedAt || "").localeCompare(String(a.completedAt || "")))[0]?.certificateName;
   return state.names.get(l.email) || selfEnteredName(l) || certName || "";
+}
+
+function companyName(l) {
+  const id = state.companyOf.get(l.email);
+  return id ? (state.companies.get(id) || "(deleted company)") : "";
+}
+
+async function saveLearnerCompany(email, companyId) {
+  const data = companyId
+    ? { email, companyId, companyName: state.companies.get(companyId) || "", companyUpdatedBy: auth.currentUser?.email || "unknown", companyUpdatedAt: new Date().toISOString() }
+    : { email, companyId: deleteField(), companyName: deleteField(), companyUpdatedBy: auth.currentUser?.email || "unknown", companyUpdatedAt: new Date().toISOString() };
+  await setDoc(doc(db, "learner_profiles", email), data, { merge: true });
+  if (companyId) state.companyOf.set(email, companyId); else state.companyOf.delete(email);
+  window.dispatchEvent(new CustomEvent("sela:learner-company-changed"));
 }
 
 async function saveLearnerName(email, current) {
@@ -184,7 +201,7 @@ function renderTable() {
   const tbody = document.getElementById("learners-tbody");
   if (!tbody) return;
   const q = lower(document.getElementById("learners-search")?.value);
-  const rows = state.learners.filter(l => !q || l.email.includes(q) || lower(displayName(l)).includes(q) || lower(state.ids.get(l.email)).includes(q));
+  const rows = state.learners.filter(l => !q || l.email.includes(q) || lower(displayName(l)).includes(q) || lower(state.ids.get(l.email)).includes(q) || lower(companyName(l)).includes(q));
   if (!rows.length) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:20px;">${q ? "No learners match that search." : "No learners yet."}</td></tr>`;
     return;
@@ -204,7 +221,7 @@ function renderTable() {
     return `<tr>
       <td><strong>${esc(name || "(name not entered)")}</strong>
         <button class="btn-action btn-edit-name" data-email="${esc(l.email)}" title="${name ? "Edit this learner's name" : "Add this learner's name"}" style="padding:2px 8px;font-size:0.72rem;margin-left:6px;">${name ? "Edit name" : "Add name"}</button>
-        <div style="font-size:0.8rem;color:var(--text-muted);">${state.ids.get(l.email) ? `<strong>${esc(state.ids.get(l.email))}</strong> · ` : ""}${esc(l.email)}</div></td>
+        <div style="font-size:0.8rem;color:var(--text-muted);">${state.ids.get(l.email) ? `<strong>${esc(state.ids.get(l.email))}</strong> · ` : ""}${esc(l.email)}${companyName(l) ? ` · ${esc(companyName(l))}` : ""}</div></td>
       <td title="${esc(fmtDate(l.profile.lastSeenAt))}">${esc(ago(l.profile.lastSeenAt))}</td>
       <td>${grantedIds(l).length ? `${grantedIds(l).length} pre-paid` : "--"}</td>
       <td>${l.attempts.length}${fails ? ` <span style="color:#f87171;font-size:0.8rem;">(${fails} failed)</span>` : ""}</td>
@@ -311,6 +328,12 @@ function renderProfile(ctx) {
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 24px;margin:8px 0 20px;font-size:0.9rem;">
       <div><span style="color:var(--text-muted);">Learner ID</span><br><strong>${esc(state.ids.get(l.email) || "Not assigned yet")}</strong></div>
       <div><span style="color:var(--text-muted);">Email</span><br>${esc(l.email)}</div>
+      <div><span style="color:var(--text-muted);">Company</span><br>
+        <select id="lp-company" style="margin-top:4px;padding:6px 8px;border-radius:6px;max-width:100%;">
+          <option value="">-- None --</option>
+          ${[...state.companies].sort((a, b) => String(a[1]).localeCompare(String(b[1]))).map(([id, n]) => `<option value="${esc(id)}" ${state.companyOf.get(l.email) === id ? "selected" : ""}>${esc(n)}</option>`).join("")}
+        </select>
+        <div id="lp-company-msg" style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">${state.companies.size ? "Their company's HR contact will see completed courses." : "Add companies in the Companies tab first."}</div></div>
       <div><span style="color:var(--text-muted);">Last active</span><br>${esc(ago(p.lastSeenAt))}<div style="font-size:0.75rem;color:var(--text-muted);">${esc(fmtDate(p.lastSeenAt))}</div></div>
       <div><span style="color:var(--text-muted);">Last sign-in</span><br>${esc(fmtDate(p.lastSignInAt))}</div>
       <div><span style="color:var(--text-muted);">Date of birth</span><br>${esc(p.dateOfBirth ? fmtDate(p.dateOfBirth + "T00:00:00", false) : "--")}</div>
@@ -346,6 +369,19 @@ function renderProfile(ctx) {
 
   const close = () => { overlay.remove(); document.body.style.overflow = ""; };
   overlay.querySelector("#lp-close").addEventListener("click", close);
+  overlay.querySelector("#lp-company").addEventListener("change", async (e) => {
+    const sel = e.currentTarget;
+    const msgEl = overlay.querySelector("#lp-company-msg");
+    sel.disabled = true;
+    try {
+      await saveLearnerCompany(l.email, sel.value);
+      msgEl.textContent = sel.value ? `Saved. ${state.companies.get(sel.value)}'s HR contact can now see ${displayName(l) || l.email}'s completed courses.` : "Saved. No company.";
+      msgEl.style.color = "#4ade80";
+      renderTable();
+    } catch (err) {
+      showModal({ title: "Could not save company", message: err.message, type: "error" });
+    } finally { sel.disabled = false; }
+  });
   overlay.querySelector("#lp-edit-name").addEventListener("click", async () => {
     if (await saveLearnerName(l.email, displayName(l))) { renderProfile(ctx); renderTable(); }
   });
@@ -458,6 +494,7 @@ function renderProfile(ctx) {
 // ---------------------------------------------------------------- wiring
 document.getElementById("learners-search")?.addEventListener("input", renderTable);
 document.getElementById("btn-refresh-learners")?.addEventListener("click", loadAll);
+window.addEventListener("sela:companies-changed", loadAll);
 document.getElementById("learners-tbody")?.addEventListener("click", async e => {
   const nameBtn = e.target.closest(".btn-edit-name");
   if (nameBtn) {

@@ -3,8 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enterprise Portal - Sela Civil Advisory Ltd</title>
+  <title>Company Training Portal - Sela Civil Advisory Ltd</title>
   <link rel="stylesheet" href="css/custom.css">
+  <style>
+    .cp-wrap { max-width: 1100px; margin: 0 auto; }
+    .cp-note { background: rgba(26,108,122,.06); border-left: 4px solid var(--primary-color, #1a6c7a); border-radius: 6px; padding: 12px 16px; color: #334155; font-size: .92rem; line-height: 1.5; margin: 0 0 18px; }
+    .cp-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin: 0 0 18px; }
+    .cp-bar label { font-size: .82rem; color: #475569; display: flex; flex-direction: column; gap: 4px; }
+    .cp-bar input, .cp-bar select { padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: .95rem; background: #fff; }
+    .cp-btn { padding: 9px 14px; border-radius: 6px; border: 1px solid #16326e; background: #16326e; color: #fff; font-weight: 600; cursor: pointer; font-size: .92rem; }
+    .cp-btn.secondary { background: #fff; color: #16326e; }
+    .cp-btn:disabled { opacity: .6; cursor: wait; }
+    .cp-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 0 0 22px; }
+    .cp-kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 14px; }
+    .cp-kpi .v { font-size: 1.6rem; font-weight: 700; color: #16326e; }
+    .cp-kpi .l { font-size: .8rem; color: #64748b; }
+    .cp-table-wrap { overflow-x: auto; margin: 0 0 26px; border: 1px solid #e2e8f0; border-radius: 8px; }
+    .cp-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    .cp-table th { background: #16326e; color: #fff; text-align: left; padding: 9px 10px; font-weight: 600; white-space: nowrap; }
+    .cp-table td { padding: 8px 10px; border-top: 1px solid #e2e8f0; color: #1f2937; vertical-align: top; }
+    .cp-table tr:nth-child(even) td { background: #f8fafc; }
+    .cp-muted { color: #64748b; }
+    .cp-h2 { font-size: 1.15rem; color: #16326e; margin: 0 0 10px; }
+    #cp-message { padding: 2.5rem 1rem; text-align: center; color: #475569; }
+  </style>
 </head>
 <body>
   <div class="page-container">
@@ -12,19 +34,46 @@
 
     <div class="main-wrapper">
       <main class="container">
-        <div class="main-content">
-          <h1 class="page-title">Enterprise Account Management</h1>
-          <p id="org-display" style="color: #666; margin-bottom: 1.5rem;">Verifying employer access...</p>
+        <div class="main-content cp-wrap">
+          <h1 class="page-title">Company Training Portal</h1>
+          <p id="cp-company" class="cp-muted" style="margin-bottom:1rem;"></p>
 
-          <div id="loading" style="text-align: center; padding: 3rem; color: #555;">
-            Verifying employer authorization credentials...
-          </div>
+          <div id="cp-message">Checking your access...</div>
 
-          <div id="portal-content" style="display: none;">
-            <div style="background: rgba(26, 108, 122, 0.05); padding: 1.5rem; border-left: 4px solid var(--primary-color); border-radius: 6px; margin-bottom: 2rem;">
-              <h3 style="font-family: 'Playfair Display', serif; color: var(--dark-blue); margin-bottom: 0.5rem;">Staff Authorisations & Allocations</h3>
-              <p style="color: #333;">Assign or revoke SELA certified training seats for your workforce. Approved seats unlock immediately on the employee's Your Courses page.</p>
+          <div id="cp-content" style="display:none;">
+            <p class="cp-note">This shows the Sela Skills Hub courses your staff have <strong>completed</strong>: name, learner ID, course, date, score and certificate number. Quiz attempts and course progress are not shared. If someone is missing or listed under the wrong company, contact <a href="mailto:joseph@selacivil.co.nz">joseph@selacivil.co.nz</a>.</p>
+
+            <div class="cp-bar">
+              <label id="cp-company-pick-wrap" style="display:none;">Company (admin view)
+                <select id="cp-company-pick"></select></label>
+              <label>Completed from <input type="date" id="cp-from"></label>
+              <label>to <input type="date" id="cp-to"></label>
+              <label style="flex:1 1 200px;">Search staff <input type="search" id="cp-search" placeholder="Name, learner ID or email"></label>
+              <button type="button" class="cp-btn" id="cp-csv">Download Excel (CSV)</button>
+              <button type="button" class="cp-btn secondary" id="cp-pdf">Download PDF summary</button>
             </div>
+
+            <div class="cp-kpis">
+              <div class="cp-kpi"><div class="v" id="k-staff">0</div><div class="l">Staff linked to your company</div></div>
+              <div class="cp-kpi"><div class="v" id="k-trained">0</div><div class="l">Staff with a completed course</div></div>
+              <div class="cp-kpi"><div class="v" id="k-done">0</div><div class="l">Course completions</div></div>
+              <div class="cp-kpi"><div class="v" id="k-certs">0</div><div class="l">Certificates issued</div></div>
+            </div>
+
+            <h2 class="cp-h2">Summary by course</h2>
+            <div class="cp-table-wrap"><table class="cp-table">
+              <thead><tr><th>Course</th><th>Code</th><th>Staff completed</th><th>Certificates issued</th><th>Latest completion</th></tr></thead>
+              <tbody id="cp-summary"></tbody></table></div>
+
+            <h2 class="cp-h2">Staff completions</h2>
+            <div class="cp-table-wrap"><table class="cp-table">
+              <thead><tr><th>Name</th><th>Learner ID</th><th>Course</th><th>Completed</th><th>Score</th><th>Certificate No.</th></tr></thead>
+              <tbody id="cp-detail"></tbody></table></div>
+
+            <h2 class="cp-h2">Staff with no completed courses<span id="cp-none-range" class="cp-muted" style="font-size:.85rem;font-weight:normal;"></span></h2>
+            <div class="cp-table-wrap"><table class="cp-table">
+              <thead><tr><th>Name</th><th>Learner ID</th><th>Email</th></tr></thead>
+              <tbody id="cp-none"></tbody></table></div>
           </div>
         </div>
       </main>
@@ -33,43 +82,254 @@
     <footer class="site-footer" id="global-footer"></footer>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script type="module" src="./js/firebase-init.js"></script>
-
   <script type="module" src="./js/navigation.js"></script>
 
   <script type="module">
-    import { auth, db, doc, getDoc, onAuthStateChanged } from "./js/firebase-init.js";
-    import { showUnauthorizedModal, showErrorModal } from "./js/modal.js";
+    // Company Portal: a company's HR contact (company_managers/{email}, set up
+    // by a Sela admin in admin.html -> Companies) sees their staff's completed
+    // courses. Data comes from the companyReport Cloud Function, never from
+    // Firestore directly. Admins can open any company via ?company=<id>.
+    import { app, auth, db, doc, getDoc, collection, getDocs, onAuthStateChanged } from "./js/firebase-init.js";
+    import { sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
 
-    const orgDisplay = document.getElementById("org-display");
-    const loading = document.getElementById("loading");
-    const portalContent = document.getElementById("portal-content");
+    const companyReport = httpsCallable(getFunctions(app, "australia-southeast1"), "companyReport");
+    const $ = id => document.getElementById(id);
+    const esc = v => String(v ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const fmt = iso => iso ? new Date(iso).toLocaleDateString("en-NZ", { day: "numeric", month: "short", year: "numeric" }) : "--";
+    const msg = html => { $("cp-message").innerHTML = html; $("cp-message").style.display = ""; $("cp-content").style.display = "none"; };
+
+    let report = null;
+
+    // ------------------------------------------------------------ filtering
+    function view() {
+      const from = $("cp-from").value, to = $("cp-to").value;
+      const q = $("cp-search").value.trim().toLowerCase();
+      const inRange = c => {
+        const d = String(c.completedAt || "").slice(0, 10);
+        return (!from || (d && d >= from)) && (!to || (d && d <= to));
+      };
+      const matches = p => !q || [p.name, p.learnerId, p.email].some(v => String(v || "").toLowerCase().includes(q));
+      const completions = report.completions.filter(c => inRange(c) && matches(c));
+      const staff = report.staff.filter(matches);
+      const trained = new Set(completions.map(c => c.email));
+
+      const courses = new Map();
+      completions.forEach(c => {
+        const key = c.courseId || c.courseTitle;
+        const r = courses.get(key) || { title: c.courseTitle, code: c.courseCode, staff: new Set(), certs: 0, latest: "" };
+        r.staff.add(c.email);
+        if (c.certificateNumber) r.certs++;
+        if (String(c.completedAt) > r.latest) r.latest = c.completedAt;
+        courses.set(key, r);
+      });
+      const summary = [...courses.values()].sort((a, b) => b.staff.size - a.staff.size || a.title.localeCompare(b.title));
+      return {
+        from, to, completions, staff, summary,
+        none: staff.filter(s => !trained.has(s.email)),
+        trainedCount: staff.filter(s => trained.has(s.email)).length,
+        certs: completions.filter(c => c.certificateNumber).length,
+      };
+    }
+    const periodText = v => v.from || v.to ? `${v.from ? fmt(v.from) : "start"} to ${v.to ? fmt(v.to) : "today"}` : "All dates";
+
+    function render() {
+      const v = view();
+      $("k-staff").textContent = v.staff.length;
+      $("k-trained").textContent = v.trainedCount;
+      $("k-done").textContent = v.completions.length;
+      $("k-certs").textContent = v.certs;
+      $("cp-summary").innerHTML = v.summary.map(r => `<tr><td>${esc(r.title)}</td><td>${esc(r.code || "--")}</td><td><strong>${r.staff.size}</strong></td><td>${r.certs}</td><td>${esc(fmt(r.latest))}</td></tr>`).join("")
+        || `<tr><td colspan="5" class="cp-muted" style="text-align:center;">No completed courses${v.from || v.to ? " in this period" : " yet"}.</td></tr>`;
+      $("cp-detail").innerHTML = v.completions.map(c => `<tr><td>${esc(c.name || c.email)}</td><td>${esc(c.learnerId || "--")}</td><td>${esc(c.courseTitle)}${c.courseCode ? ` <span class="cp-muted">(${esc(c.courseCode)})</span>` : ""}</td><td>${esc(fmt(c.completedAt))}</td><td>${c.scorePercent == null ? "--" : esc(c.scorePercent + "%")}</td><td>${esc(c.certificateNumber || "Pending")}</td></tr>`).join("")
+        || `<tr><td colspan="6" class="cp-muted" style="text-align:center;">Nothing to show.</td></tr>`;
+      $("cp-none-range").textContent = v.from || v.to ? ` (${periodText(v)})` : "";
+      $("cp-none").innerHTML = v.none.map(s => `<tr><td>${esc(s.name || "--")}</td><td>${esc(s.learnerId || "--")}</td><td>${esc(s.email)}</td></tr>`).join("")
+        || `<tr><td colspan="3" class="cp-muted" style="text-align:center;">Everyone has completed at least one course.</td></tr>`;
+    }
+
+    // ------------------------------------------------------------ exports
+    const safeName = () => String(report.company.name).replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const stamp = () => new Date().toISOString().slice(0, 10);
+
+    $("cp-csv").addEventListener("click", () => {
+      const v = view();
+      const cell = x => { const s = String(x ?? ""); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
+      const rows = [
+        ["Company", report.company.name], ["Report", "Staff training summary - Sela Skills Hub"],
+        ["Generated", fmt(new Date().toISOString())], ["Period", periodText(v)], [],
+        ["Staff linked", v.staff.length], ["Staff with a completed course", v.trainedCount],
+        ["Course completions", v.completions.length], ["Certificates issued", v.certs], [],
+        ["SUMMARY BY COURSE"], ["Course", "Code", "Staff completed", "Certificates issued", "Latest completion"],
+        ...v.summary.map(r => [r.title, r.code, r.staff.size, r.certs, fmt(r.latest)]), [],
+        ["STAFF COMPLETIONS"], ["Name", "Learner ID", "Email", "Course", "Code", "Completed", "Score %", "Certificate No."],
+        ...v.completions.map(c => [c.name, c.learnerId, c.email, c.courseTitle, c.courseCode, String(c.completedAt || "").slice(0, 10), c.scorePercent ?? "", c.certificateNumber || "Pending"]), [],
+        ["STAFF WITH NO COMPLETED COURSES"], ["Name", "Learner ID", "Email"],
+        ...v.none.map(s => [s.name, s.learnerId, s.email]),
+      ];
+      const csv = "﻿" + rows.map(r => r.map(cell).join(",")).join("\r\n"); // BOM so Excel reads macrons
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+      a.download = `Sela-Training-${safeName()}-${stamp()}.csv`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    });
+
+    async function imageDataUrl(url) {
+      const blob = await (await fetch(url)).blob();
+      return new Promise((res, rej) => { const r = new FileReader(); r.onloadend = () => res(r.result); r.onerror = rej; r.readAsDataURL(blob); });
+    }
+
+    $("cp-pdf").addEventListener("click", async (e) => {
+      const btn = e.currentTarget;
+      if (!window.jspdf) { alert("The PDF tool hasn't loaded yet. Please try again in a moment."); return; }
+      btn.disabled = true;
+      try {
+        const v = view();
+        const pdf = new window.jspdf.jsPDF({ unit: "pt", format: "a4" });
+        const W = pdf.internal.pageSize.getWidth(), H = pdf.internal.pageSize.getHeight(), M = 44, maxW = W - M * 2;
+        const NAVY = [22, 50, 110], GREEN = [62, 140, 46], SLATE = [40, 46, 60], GREY = [100, 106, 116];
+        let y = M;
+        // jsPDF's built-in fonts can't print macrons (ā would vanish), so
+        // print the plain vowel instead: "Ngā" -> "Nga".
+        const plain = t => String(t ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const footer = () => {
+          pdf.setDrawColor(220, 224, 230); pdf.setLineWidth(0.5); pdf.line(M, H - 40, W - M, H - 40);
+          pdf.setFont("helvetica", "normal"); pdf.setFontSize(8); pdf.setTextColor(130, 130, 130);
+          pdf.text(plain(`${report.company.name} staff training summary  |  Sela Skills Hub, Sela Civil Advisory Ltd  |  selattm.com`), M, H - 27);
+          pdf.text(`Page ${pdf.internal.getNumberOfPages()}`, W - M, H - 27, { align: "right" });
+        };
+        const ensure = h => { if (y + h > H - 58) { footer(); pdf.addPage(); y = M; return true; } return false; };
+        const text = (t, x, size, color, style = "normal", opts) => { pdf.setFont("helvetica", style); pdf.setFontSize(size); pdf.setTextColor(...color); pdf.text(plain(t), x, y, opts); };
+        const section = t => { ensure(50); y += 12; text(t, M, 13, NAVY, "bold"); y += 6; pdf.setDrawColor(...GREEN); pdf.setLineWidth(1.4); pdf.line(M, y, M + 44, y); y += 18; };
+        const table = (cols, data) => {
+          const head = () => { pdf.setFillColor(...NAVY); pdf.rect(M, y - 11, maxW, 17, "F"); let x = M + 6; cols.forEach(c => { text(c.h, x, 8.5, [255, 255, 255], "bold"); x += c.w; }); y += 14; };
+          head();
+          if (!data.length) { text("None.", M + 6, 9, GREY, "italic"); y += 16; return; }
+          data.forEach((d, i) => {
+            pdf.setFont("helvetica", "normal"); pdf.setFontSize(8.8);
+            const cells = cols.map(c => pdf.splitTextToSize(plain(c.get(d) ?? "--"), c.w - 8));
+            const h = Math.max(...cells.map(c => c.length)) * 11 + 6;
+            if (ensure(h + 4)) head();
+            if (i % 2 === 0) { pdf.setFillColor(244, 247, 250); pdf.rect(M, y - 10, maxW, h, "F"); }
+            let x = M + 6;
+            cells.forEach((lines, ci) => { pdf.setFont("helvetica", cols[ci].bold ? "bold" : "normal"); pdf.setFontSize(8.8); pdf.setTextColor(...SLATE); lines.forEach((l, li) => pdf.text(l, x, y + li * 11)); x += cols[ci].w; });
+            y += h;
+          });
+          y += 6;
+        };
+
+        try { const logo = await imageDataUrl("img/sela-logo-transparent.png"); pdf.addImage(logo, "PNG", M, y - 10, 150, 150 * 359 / 1200); } catch (_) {}
+        y += 14; text("Staff Training Summary", W - M, 18, NAVY, "bold", { align: "right" });
+        y += 14; text(`Generated ${fmt(new Date().toISOString())}`, W - M, 9, GREY, "normal", { align: "right" });
+        y += 34;
+        pdf.setFillColor(244, 247, 250); pdf.roundedRect(M - 8, y - 16, maxW + 16, 58, 6, 6, "F");
+        const kv = (k, val, x) => { text(k, x, 9, GREY, "bold"); text(val, x + 110, 9.5, SLATE); };
+        kv("Company", report.company.name, M); kv("Course completions", String(v.completions.length), M + maxW / 2); y += 16;
+        kv("Period", periodText(v), M); kv("Certificates issued", String(v.certs), M + maxW / 2); y += 16;
+        kv("Staff linked", String(v.staff.length), M); kv("Staff with a completion", String(v.trainedCount), M + maxW / 2); y += 26;
+
+        section("Summary by course");
+        table([
+          { h: "Course", w: 200, get: r => r.title },
+          { h: "Code", w: 80, get: r => r.code || "--" },
+          { h: "Staff completed", w: 80, get: r => r.staff.size, bold: true },
+          { h: "Certificates", w: 64, get: r => r.certs },
+          { h: "Latest", w: maxW - 424, get: r => fmt(r.latest) },
+        ], v.summary);
+
+        section("Staff completions");
+        table([
+          { h: "Name", w: 108, get: c => c.name || c.email },
+          { h: "Learner ID", w: 62, get: c => c.learnerId || "--" },
+          { h: "Course", w: 148, get: c => c.courseTitle + (c.courseCode ? ` (${c.courseCode})` : "") },
+          { h: "Completed", w: 64, get: c => fmt(c.completedAt) },
+          { h: "Score", w: 36, get: c => c.scorePercent == null ? "--" : `${c.scorePercent}%` },
+          { h: "Certificate", w: maxW - 418, get: c => c.certificateNumber || "Pending" },
+        ], v.completions);
+
+        section("Staff with no completed courses");
+        table([
+          { h: "Name", w: 180, get: s => s.name || "--" },
+          { h: "Learner ID", w: 90, get: s => s.learnerId || "--" },
+          { h: "Email", w: maxW - 270, get: s => s.email },
+        ], v.none);
+
+        ensure(40); y += 6;
+        pdf.setFont("helvetica", "italic"); pdf.setFontSize(8); pdf.setTextColor(...GREY);
+        pdf.splitTextToSize(plain("Completed online courses only, from Sela Skills Hub (selattm.com), operated by Sela Civil Advisory Ltd. A certificate number confirms the result has been reviewed by Sela; \"Pending\" means the course is complete and the certificate is awaiting review. Quiz attempts and course progress are not included. To verify a record, contact joseph@selacivil.co.nz."), maxW)
+          .forEach(l => { ensure(12); pdf.text(l, M, y); y += 11; });
+        footer();
+        pdf.save(`Sela-Training-Summary-${safeName()}-${stamp()}.pdf`);
+      } catch (err) {
+        console.error(err);
+        alert("Couldn't create the PDF: " + err.message);
+      } finally { btn.disabled = false; }
+    });
+
+    ["cp-from", "cp-to", "cp-search"].forEach(id => $(id).addEventListener("input", () => report && render()));
+
+    // ------------------------------------------------------------ load
+    async function load(companyId) {
+      msg("Loading your staff's training records...");
+      try {
+        const res = await companyReport(companyId ? { companyId } : {});
+        report = res.data;
+        $("cp-company").textContent = report.company.name;
+        $("cp-message").style.display = "none";
+        $("cp-content").style.display = "";
+        render();
+      } catch (err) {
+        console.error("[company portal]", err);
+        const m = err.code === "functions/permission-denied"
+          ? `This account (${esc(auth.currentUser?.email)}) isn't set up as a company contact yet. Please ask Sela to add you: <a href="mailto:joseph@selacivil.co.nz">joseph@selacivil.co.nz</a>.`
+          : esc(err.message || "Couldn't load the report.");
+        msg(m);
+      }
+    }
 
     onAuthStateChanged(auth, async (user) => {
       if (!user || user.isAnonymous) {
-        showUnauthorizedModal("Sorry, you are not authorized to view the Enterprise Portal. Please sign in with an authorized manager account.");
+        msg(`Please <a href="login.html">sign in</a> with the email address Sela set up for your company.`);
+        return;
+      }
+      let isAdmin = false;
+      try { isAdmin = (await getDoc(doc(db, "admins", user.uid))).exists(); } catch (_) {}
+
+      if (isAdmin) {
+        // Admins pick any company (Companies tab links here with ?company=<id>).
+        const snap = await getDocs(collection(db, "companies"));
+        const list = snap.docs.map(d => ({ id: d.id, name: d.data().name || d.id })).sort((a, b) => a.name.localeCompare(b.name));
+        if (!list.length) { msg(`No companies yet. Add one in <a href="admin.html#companies">Admin &rarr; Companies</a>.`); return; }
+        const pick = $("cp-company-pick");
+        pick.innerHTML = list.map(c => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+        const wanted = new URLSearchParams(location.search).get("company");
+        if (wanted && list.some(c => c.id === wanted)) pick.value = wanted;
+        $("cp-company-pick-wrap").style.display = "";
+        pick.onchange = () => load(pick.value);
+        load(pick.value);
         return;
       }
 
-      try {
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        const data = userDoc.exists() ? userDoc.data() : null;
-
-        const isAuthorised = data && (data.role === "enterprise" || data.role === "admin" || data.isAdmin === true);
-
-        if (!isAuthorised) {
-          showUnauthorizedModal("Access Restricted: You must be an authorized Enterprise Account Manager or Administrator to view this portal.");
-          return;
-        }
-
-        orgDisplay.textContent = `Organization Manager: ${user.email} (${data.companyName || "SELA Civil"})`;
-        loading.style.display = "none";
-        portalContent.style.display = "block";
-
-      } catch (err) {
-        console.error(err);
-        showErrorModal("An error occurred while verifying manager permissions.");
+      if (!user.emailVerified) {
+        msg(`For your staff's privacy, please confirm your email address (${esc(user.email)}) first.<br><br>
+          <button type="button" class="cp-btn" id="cp-send-verify">Send me a confirmation email</button>
+          <button type="button" class="cp-btn secondary" id="cp-verified">I've confirmed it</button>
+          <p id="cp-verify-msg" class="cp-muted" style="margin-top:12px;"></p>`);
+        $("cp-send-verify").onclick = async () => {
+          try { await sendEmailVerification(user); $("cp-verify-msg").textContent = "Sent. Open the link in that email, then click \"I've confirmed it\"."; }
+          catch (e) { $("cp-verify-msg").textContent = e.message; }
+        };
+        $("cp-verified").onclick = async () => {
+          await user.reload();
+          if (auth.currentUser.emailVerified) { await auth.currentUser.getIdToken(true); load(); }
+          else $("cp-verify-msg").textContent = "Not confirmed yet. Check your inbox (and junk folder) for the email from selattm.";
+        };
+        return;
       }
+      load();
     });
   </script>
 </body>

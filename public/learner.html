@@ -273,7 +273,17 @@
         // by the learner themselves under firestore.rules.
         getDoc(doc(db, "learner_profiles", String(user.email || "").trim().toLowerCase()))
           .then(snap => {
-            const id = snap.exists() ? snap.data().learnerId : "";
+            const lp = snap.exists() ? snap.data() : {};
+            // Company notice (Privacy Act 2020 transparency): their employer's
+            // HR contact can see completed courses in the Company Portal.
+            if (lp.companyName && !document.getElementById("learner-company-text")) {
+              const c = document.createElement("p");
+              c.id = "learner-company-text";
+              c.style.cssText = "margin:4px 0 0;font-size:0.85rem;opacity:0.8;";
+              c.textContent = `Company: ${lp.companyName}. ${lp.companyName}'s training contact can see the courses you complete here (course, date, score and certificate number), not your quiz attempts or progress.`;
+              welcomeText.insertAdjacentElement("afterend", c);
+            }
+            const id = lp.learnerId || "";
             if (!id || document.getElementById("learner-id-text")) return;
             const el = document.createElement("p");
             el.id = "learner-id-text";

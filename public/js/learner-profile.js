@@ -70,7 +70,9 @@ export async function ensureLearnerProfile(user, db) {
         <button type="submit" style="margin-top:10px;width:100%;padding:12px;border:none;border-radius:8px;
           background:#22c55e;color:#0f172a;font-weight:700;font-size:1rem;cursor:pointer;">Save and continue</button>
         <p style="margin:12px 0 0;color:#64748b;font-size:.75rem;line-height:1.4;">
-          Used only to identify you on training records and certificates issued by Sela Civil Advisory Ltd.</p>
+          Used only to identify you on training records and certificates issued by Sela Civil Advisory Ltd.
+          If your employer arranges your training with Sela, their nominated contact can see the courses you
+          complete (course, date, score and certificate number) &mdash; not your quiz attempts or progress.</p>
       </form>`;
     overlay.querySelectorAll("input").forEach(i => {
       i.style.cssText = "display:block;width:100%;margin-top:4px;padding:10px;border-radius:6px;" +

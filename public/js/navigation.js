@@ -132,8 +132,19 @@ function bindAuthState() {
       console.warn("[nav] admin check failed:", err.message);
     }
 
+    // Company HR contacts (company_managers/{email}, set in admin.html ->
+    // Companies) get a link to the Company Portal (enterprise.html).
+    let isCompanyContact = false;
+    try {
+      const m = await getDoc(doc(db, "company_managers", String(user.email || "").trim().toLowerCase()));
+      isCompanyContact = m.exists();
+    } catch (_) {}
+
     if (dynamicLinks) {
       let links = `<a href="learner.html"${isCurrentPage("learner.html") ? ' class="active"' : ""}>Your Courses</a>`;
+      if (isCompanyContact || isAdmin) {
+        links += ` <a href="enterprise.html"${isCurrentPage("enterprise.html") ? ' class="active"' : ""}>Company Portal</a>`;
+      }
       if (isAdmin) {
         links += ` <a href="admin.html" style="color: var(--primary-color);"${isCurrentPage("admin.html") ? ' class="active"' : ""}>Admin</a>`;
       }

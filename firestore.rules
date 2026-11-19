@@ -73,6 +73,21 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // -- companies (employers) -- admin only ----------------------------
+    // Learners are linked by learner_profiles/{email}.companyId (admin-set).
+    // Company HR contacts never read these directly: their report comes
+    // from the companyReport Cloud Function, which checks company_managers.
+    match /companies/{companyId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Doc ID is the HR contact's lowercased email -> { companyId, companyName }.
+    // They can read their own (so the site can show the Company Portal link).
+    match /company_managers/{email} {
+      allow read: if isAdmin() || (isSignedIn() && request.auth.token.email.lower() == email);
+      allow write: if isAdmin();
+    }
+
     // -- billing (Stripe extension) -- owner only --------------------
     match /customers/{uid} {
       allow read, write: if isSignedIn() && request.auth.uid == uid;
