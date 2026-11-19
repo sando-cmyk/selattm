@@ -45,7 +45,12 @@
     .btn.ghost { background: #fff; color: var(--navy); }
     .foot { margin-top: 22px; font-size: .78rem; color: var(--muted); text-align: center; line-height: 1.6; }
     .foot button { background: none; border: none; color: var(--navy); text-decoration: underline; font: inherit; cursor: pointer; padding: 0; }
-    #install { display: none; margin: 0 0 14px; }
+    #install { display: none; margin: 0 0 14px; background: #fff; border: 2px solid var(--navy); border-radius: 14px; padding: 14px 16px; }
+    #install h3 { margin: 0 0 6px; font-size: 1rem; color: var(--navy); }
+    #install ol { margin: 6px 0 0; padding-left: 22px; line-height: 1.6; font-size: .93rem; }
+    #install .actions { display: flex; gap: 10px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+    #install .hide { background: none; border: none; color: var(--muted); font: inherit; font-size: .85rem; text-decoration: underline; cursor: pointer; padding: 0; }
+    .ico { display: inline-block; border: 1px solid #cbd5e1; border-radius: 5px; padding: 0 5px; font-size: .85rem; line-height: 1.4; }
     /* course detail sheet */
     #sheet { position: fixed; inset: 0; background: var(--bg); z-index: 10; overflow-y: auto; display: none; }
     #sheet header { padding-bottom: 18px; }
@@ -70,10 +75,17 @@
   </header>
 
   <main>
+    <!-- Install help: shown until the app is on the home screen. Phones only
+         offer a one-tap button on some browsers (never on iPhone), so the
+         steps for this phone/browser are always shown as well. -->
     <div id="install">
-      <button type="button" class="btn" id="install-btn">Add to home screen</button>
+      <h3>Add this app to your home screen</h3>
+      <div id="install-steps"></div>
+      <div class="actions">
+        <button type="button" class="btn" id="install-btn" style="display:none;">Add to home screen</button>
+        <button type="button" class="hide" id="install-hide">I've done this, hide</button>
+      </div>
     </div>
-    <div id="ios-tip" class="msg" style="display:none;margin-bottom:14px;">To keep this on your phone: tap <strong>Share</strong> <span aria-hidden="true">&#x2191;</span> then <strong>Add to Home Screen</strong>.</div>
     <div id="content"><div class="msg">Loading your certificates...</div></div>
     <div class="foot" id="foot"></div>
   </main>
@@ -249,11 +261,45 @@
 
     // ---------------------------------------------------------------- install
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("/wallet-sw.js", { scope: "/wallet.html" }).catch(e => console.warn("[wallet] offline support unavailable:", e.message));
-    const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+    const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+    const HIDE_KEY = "sela-wallet-install-hidden";
+    const ua = navigator.userAgent;
+    const isIOS = /iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
+    const isAndroid = /android/i.test(ua);
+    let steps;
+    if (isIOS && /crios|fxios|edgios/i.test(ua)) {
+      steps = `<ol><li>Tap the <strong>Share</strong> button <span class="ico">&#x2191;</span> (at the top right, next to the address bar).</li>
+        <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li><li>Tap <strong>Add</strong>.</li></ol>
+        <p style="margin:8px 0 0;font-size:.85rem;color:var(--muted);">If you don't see it, open this page in <strong>Safari</strong> and do the same.</p>`;
+    } else if (isIOS) {
+      steps = `<ol><li>Tap the <strong>Share</strong> button <span class="ico">&#x2191;</span> at the bottom of Safari.</li>
+        <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li><li>Tap <strong>Add</strong>.</li></ol>`;
+    } else if (isAndroid && /samsungbrowser/i.test(ua)) {
+      steps = `<ol><li>Tap the menu <span class="ico">&#9776;</span> at the bottom right.</li>
+        <li>Tap <strong>Add page to</strong>, then <strong>Home screen</strong>.</li></ol>`;
+    } else if (isAndroid) {
+      steps = `<ol><li>Tap the menu <span class="ico">&#8942;</span> at the top right of Chrome.</li>
+        <li>Tap <strong>Add to Home screen</strong> (or <strong>Install app</strong>).</li><li>Tap <strong>Install</strong> / <strong>Add</strong>.</li></ol>`;
+    } else {
+      steps = `<p style="margin:0;font-size:.93rem;line-height:1.5;">Open <strong>selattm.com/wallet.html</strong> on your phone, sign in, and follow the steps shown there.
+        On a computer, you can install it from the install icon in your browser's address bar.</p>`;
+    }
+    $("install-steps").innerHTML = steps;
+    if (!standalone && localStorage.getItem(HIDE_KEY) !== "1") $("install").style.display = "block";
+    $("install-hide").onclick = () => { localStorage.setItem(HIDE_KEY, "1"); $("install").style.display = "none"; };
+
+    // Browsers that support it (Chrome on Android/computer) also get a one-tap button.
     let deferred = null;
-    window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferred = e; $("install").style.display = "block"; });
-    $("install-btn").onclick = async () => { if (!deferred) return; deferred.prompt(); await deferred.userChoice; deferred = null; $("install").style.display = "none"; };
-    if (!standalone && /iphone|ipad|ipod/i.test(navigator.userAgent)) $("ios-tip").style.display = "block";
+    window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferred = e; $("install-btn").style.display = ""; if (!standalone) $("install").style.display = "block"; });
+    $("install-btn").onclick = async () => {
+      if (!deferred) return;
+      deferred.prompt();
+      const choice = await deferred.userChoice;
+      deferred = null;
+      $("install-btn").style.display = "none";
+      if (choice && choice.outcome === "accepted") $("install").style.display = "none";
+    };
+    window.addEventListener("appinstalled", () => { $("install").style.display = "none"; });
     window.addEventListener("online", () => location.reload());
   </script>
 </body>
