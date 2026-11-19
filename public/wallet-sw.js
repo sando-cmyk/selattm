@@ -6,7 +6,7 @@
 // is cached by wallet.html (localStorage) from the last time it was online.
 // Bump VERSION when wallet.html or its files change.
 // ============================================================================
-const VERSION = "sela-wallet-v2";
+const VERSION = "sela-wallet-v3";
 const CORE = [
   "/wallet.html", "/wallet.webmanifest",
   "/js/course-summaries.js", "/js/course-map.js", "/js/firebase-init.js",

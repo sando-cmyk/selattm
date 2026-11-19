@@ -172,17 +172,19 @@
       if (fb) return fb;
       const init = await import("./js/firebase-init.js");
       const fs = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-      fb = { ...init, query: fs.query, where: fs.where };
+      // *FromServer: with no signal these fail instead of quietly returning an
+      // empty result, so a phone in flight mode never overwrites the saved copy.
+      fb = { ...init, query: fs.query, where: fs.where, getDocsFromServer: fs.getDocsFromServer, getDocFromServer: fs.getDocFromServer };
       return fb;
     }
 
     async function fetchWallet(user) {
-      const { db, doc, getDoc, getDocs, collection, query, where } = fb;
+      const { db, doc, collection, query, where, getDocsFromServer, getDocFromServer } = fb;
       const email = String(user.email || "").trim().toLowerCase();
       const [subs, prof, u] = await Promise.all([
-        getDocs(query(collection(db, "submissions"), where("userId", "==", user.uid))),
-        getDoc(doc(db, "learner_profiles", email)).catch(() => null),
-        getDoc(doc(db, "users", user.uid)).catch(() => null),
+        getDocsFromServer(query(collection(db, "submissions"), where("userId", "==", user.uid))),
+        getDocFromServer(doc(db, "learner_profiles", email)),
+        getDocFromServer(doc(db, "users", user.uid)).catch(() => null),
       ]);
       const lp = prof && prof.exists() ? prof.data() : {};
       const up = u && u.exists() ? u.data() : {};
@@ -231,6 +233,12 @@
     if (cached) render(cached, { offline: !navigator.onLine });
 
     (async () => {
+      // No signal: show the saved copy and don't touch the network at all.
+      if (!navigator.onLine) {
+        if (cached) render(cached, { offline: true });
+        else $("content").innerHTML = `<div class="msg">You're offline and this phone hasn't saved your certificates yet. Open this app once with signal and they'll be kept for next time.</div>`;
+        return;
+      }
       try {
         await loadFirebase();
       } catch (_) {
@@ -248,12 +256,12 @@
         }
         try {
           const d = await fetchWallet(user);
-          writeCache(d);
+          writeCache(d); // only reached with real data from the server
           render(d);
         } catch (err) {
           console.warn("[wallet] refresh failed:", err);
           const c = readCache();
-          if (c && c.uid === user.uid) render(c, { offline: true });
+          if (c) render(c, { offline: true }); // keep showing the saved copy
           else $("content").innerHTML = `<div class="msg">Couldn't load your certificates. Check your signal and try again.</div>`;
         }
       });
